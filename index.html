@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SPHERE — 포트폴리오 리스크를 3D 구체로 시각화하는 분석 도구">
+<title>SPHERE — 포트폴리오 리스크 구체 분석기</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <span>SPHERE</span>
+      <span style="color:var(--text-2); font-weight:300; letter-spacing:1px; font-size:11px; margin-left:6px;">PORTFOLIO RISK SPHERE</span>
+    </div>
+    <div class="portfolio-bar">
+      <div class="pf-dropdown" id="pfDropdown">
+        <div class="pf-current" id="pfCurrent">
+          <div class="pf-current-icon"></div>
+          <div class="pf-current-text">
+            <div class="pf-current-name" id="pfCurrentName">--</div>
+            <div class="pf-current-meta" id="pfCurrentMeta">0 ASSETS</div>
+          </div>
+          <div class="pf-current-arrow">▼</div>
+        </div>
+        <div class="pf-list" id="pfList"></div>
+      </div>
+      <button class="pf-btn" id="pfNew" title="새 포트폴리오 만들기">+ NEW</button>
+      <button class="pf-btn" id="pfRename" title="이름 변경">✎</button>
+      <button class="pf-btn danger" id="pfDelete" title="포트폴리오 삭제">🗑</button>
+    </div>
+    <div class="header-meta">
+      <div>v <b>1.2.0</b></div>
+      <div>UPDATE <b id="updateTime">--:--</b></div>
+      <div>STATUS <b style="color:var(--safe)">● LIVE</b></div>
+    </div>
+  </header>
+
+  <aside class="left">
+    <div class="panel">
+      <div class="panel-title">
+        <span>Add Asset</span>
+        <span class="badge">SEARCH</span>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="종목명·티커·ETF 검색 (예: 삼성전자, AAPL, QQQ)" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">
+        <span>Holdings</span>
+        <span class="badge" id="holdingCount">0</span>
+      </div>
+      <div class="total-value-card">
+        <div class="tvc-label">총 평가액</div>
+        <div class="tvc-value" id="totalValue">0</div>
+      </div>
+      <div id="holdingsList"></div>
+      <div class="empty-state" id="holdingsEmpty" style="display:none;">
+        보유 종목이 없습니다.<br>
+        위 검색창에서 종목을 추가해보세요.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><span>Sector Allocation</span></div>
+      <div class="sector-bars" id="sectorBars"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><span>Risk Distribution</span></div>
+      <div id="riskDist"></div>
+    </div>
+  </aside>
+
+  <main>
+    <canvas id="canvas"></canvas>
+    <div class="stage-overlay">
+      <div class="stage-corner corner-tl">
+        <div style="font-size:9px; opacity:0.6;">3D RISK SPHERE</div>
+        <div style="font-size:13px; color:var(--text-0); letter-spacing:0.5px; margin-top:2px;" id="viewMode">SPHERE VIEW</div>
+      </div>
+      <div class="stage-corner corner-tr" style="pointer-events:auto;">
+        <div style="font-size:9px; opacity:0.6;">PORTFOLIO RISK <span class="info-icon" data-info="riskScore">i</span></div>
+        <div style="font-size:22px; color:var(--text-0); font-weight:200; font-variant-numeric:tabular-nums; margin-top:2px;" id="avgRiskBig">--</div>
+        <div style="font-size:10px; color:var(--text-2); margin-top:4px;">avg score · 0–100</div>
+      </div>
+      <div class="hemisphere-label hemi-north">
+        <div class="hemi-tag">GROWTH</div>
+        <div class="hemi-sub">성장주 · 북반구</div>
+      </div>
+      <div class="hemisphere-label hemi-south">
+        <div class="hemi-tag" style="color:#FF8C42;">VALUE</div>
+        <div class="hemi-sub">가치주 · 남반구</div>
+      </div>
+
+      <div class="stage-corner corner-bl">
+        <div style="font-size:9px; opacity:0.6; margin-bottom:6px;">LEGEND · RISK</div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot" style="color:var(--safe);background:var(--safe)"></span>SAFE 0-29</div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--moderate);background:var(--moderate)"></span>MOD 30-54</div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--caution);background:var(--caution)"></span>CAUTION 55-74</div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--high);background:var(--high)"></span>HIGH 75-89</div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--extreme);background:var(--extreme)"></span>EXTREME 90+</div>
+        </div>
+      </div>
+      <div class="stage-corner corner-br" style="pointer-events:auto;">
+        <div style="font-size:9px; opacity:0.6;">SPHERICITY <span class="info-icon" data-info="sphericity">i</span></div>
+        <div style="font-size:22px; color:var(--text-0); font-weight:200; font-variant-numeric:tabular-nums; margin-top:2px;" id="sphericity">--</div>
+        <div style="font-size:10px; color:var(--text-2); margin-top:4px;">100 = perfect sphere</div>
+      </div>
+
+      <div class="alert-banner" id="alertBanner">
+        <span style="font-size:14px;">⚠</span>
+        <span id="alertText">집중 위험 감지</span>
+      </div>
+
+      <div class="controls">
+        <button class="ctrl-btn active" data-mode="sphere">SPHERE</button>
+        <button class="ctrl-btn" data-mode="cluster">CLUSTER</button>
+        <button class="ctrl-btn" data-mode="rotate">⟳ AUTO-ROTATE</button>
+        <button class="ctrl-btn" data-mode="reset">RESET</button>
+      </div>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+  </main>
+
+  <aside class="right">
+    <div class="balance-card">
+      <div class="balance-label">
+        Balance Index
+        <span class="info-icon" data-info="balance" title="산출 공식 보기">i</span>
+      </div>
+      <div class="balance-score" id="balanceScore">--</div>
+      <div class="balance-grade" id="balanceGrade">계산 중...</div>
+      <div class="balance-bar"><div class="balance-fill" id="balanceFill" style="width:0%"></div></div>
+      <div style="margin-top:14px;">
+        <div class="metric-row">
+          <span class="lbl">섹터 분산<span class="info-icon" data-info="diverse">i</span></span>
+          <span class="val" id="mDiverse">--</span>
+        </div>
+        <div class="metric-row">
+          <span class="lbl">리스크 편차<span class="info-icon" data-info="deviation">i</span></span>
+          <span class="val" id="mDeviation">--</span>
+        </div>
+        <div class="metric-row">
+          <span class="lbl">구형도<span class="info-icon" data-info="sphericity">i</span></span>
+          <span class="val" id="mSphericity">--</span>
+        </div>
+        <div class="metric-row">
+          <span class="lbl">HHI 집중도<span class="info-icon" data-info="hhi">i</span></span>
+          <span class="val" id="mHHI">--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><span>Insights</span><span class="badge">AUTO</span></div>
+      <div id="insights"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><span>Selected Asset</span></div>
+      <div class="stock-detail" id="stockDetail">
+        <div class="stock-detail-header">
+          <div class="holding-dot" id="sdDot"></div>
+          <div style="flex:1;">
+            <div class="stock-detail-name" id="sdName">-</div>
+            <div class="stock-detail-ticker" id="sdTicker">-</div>
+          </div>
+          <span class="risk-pill" id="sdPill">-</span>
+        </div>
+        <div class="metric-row"><span class="lbl">보유 수량</span><span class="val" id="sdQty">--</span></div>
+        <div class="metric-row"><span class="lbl">평가금액</span><span class="val" id="sdValue">--</span></div>
+        <div class="metric-row"><span class="lbl">비중</span><span class="val" id="sdWeight">--</span></div>
+        <div class="metric-row"><span class="lbl">섹터</span><span class="val" id="sdSector">--</span></div>
+        <div class="metric-row"><span class="lbl">현재가</span><span class="val" id="sdPrice">--</span></div>
+        <div class="metric-row"><span class="lbl">평균 매수가</span><span class="val" id="sdAvg">--</span></div>
+        <div class="metric-row"><span class="lbl">수익률</span><span class="val" id="sdReturn">--</span></div>
+        <div class="metric-row"><span class="lbl">변동성 30D</span><span class="val" id="sdVol">--</span></div>
+        <div class="metric-row"><span class="lbl">베타</span><span class="val" id="sdBeta">--</span></div>
+        <div class="metric-row"><span class="lbl">부채비율</span><span class="val" id="sdDebt">--</span></div>
+        <div class="metric-row"><span class="lbl">리스크 스코어</span><span class="val" id="sdRisk">--</span></div>
+      </div>
+      <div id="noSelect" style="font-size:12px;color:var(--text-2);text-align:center;padding:30px 10px;border:1px dashed var(--line);border-radius:10px;">
+        구체의 노드를 클릭하면<br>상세 정보가 표시됩니다
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">새 포트폴리오</h3>
+    <p id="modalDesc">포트폴리오 이름을 입력하세요. (1인당 최대 20개)</p>
+    <input type="text" class="modal-input" id="modalInput" placeholder="예: 안정형 포트폴리오" maxlength="30">
+    <div class="modal-actions">
+      <button class="pf-btn" id="modalCancel">취소</button>
+      <button class="pf-btn" id="modalOK" style="background:rgba(0,212,255,0.2);">확인</button>
+    </div>
+  </div>
+</div>
+
+<footer style="position:fixed; bottom:6px; left:50%; transform:translateX(-50%); font-size:9px; color:rgba(255,255,255,0.18); pointer-events:none; letter-spacing:0.5px; text-align:center; max-width:90vw;">
+  본 서비스는 교육·시연 목적의 포트폴리오 시각화 도구이며, 투자 자문이 아닙니다. 종목 데이터는 정적 스냅샷입니다.
+</footer>
+
+<script src="lib/three.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
