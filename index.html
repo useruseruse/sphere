@@ -3,9 +3,1526 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="SPHERE — 포트폴리오 리스크를 3D 구체로 시각화하는 분석 도구">
 <title>SPHERE — 포트폴리오 리스크 구체 분석기</title>
-<link rel="stylesheet" href="css/styles.css">
+<style>
+  :root {
+    --bg-0: #05070d;
+    --bg-1: #0a0f1c;
+    --bg-2: #111829;
+    --line: rgba(255,255,255,0.08);
+    --text-0: #e8ecf5;
+    --text-1: #9aa4bc;
+    --text-2: #5d6783;
+    --safe: #00E5A0;
+    --moderate: #00D4FF;
+    --caution: #FF8C42;
+    --high: #FF4560;
+    --extreme: #7B61FF;
+    --accent: #00D4FF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: radial-gradient(ellipse at top, #0c1426 0%, var(--bg-0) 70%);
+    color: var(--text-0);
+    font-family: 'Inter', -apple-system, 'SF Pro Display', 'Pretendard', sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  #app {
+    display: grid;
+    grid-template-columns: 320px 1fr 360px;
+    grid-template-rows: 56px 1fr auto;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* LEGAL BANNER (그리드 row 3, 전체 폭) */
+  .legal-banner {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(8,12,22,0.95), rgba(5,7,13,0.98));
+    border-top: 1px solid rgba(255,140,66,0.18);
+    backdrop-filter: blur(12px);
+    font-size: 11px;
+    color: var(--text-1);
+    line-height: 1.5;
+    z-index: 10;
+    transition: max-height 0.25s ease, opacity 0.25s, padding 0.25s, border-color 0.25s;
+    max-height: 100px;
+    overflow: hidden;
+  }
+  .legal-banner.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-color: transparent;
+  }
+  .legal-banner-icon {
+    color: #FF8C42;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .legal-banner-title {
+    color: var(--text-0);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+  }
+  .legal-banner-text {
+    color: var(--text-2);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .legal-banner-link {
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.25);
+    color: var(--accent);
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .legal-banner-link:hover {
+    background: rgba(0,212,255,0.18);
+    border-color: rgba(0,212,255,0.4);
+  }
+  .legal-banner-close {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    color: var(--text-1);
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .legal-banner-close:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--text-0);
+    border-color: rgba(255,255,255,0.15);
+  }
+  header {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 24px;
+    gap: 24px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(5,7,13,0.6);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+  }
+  header > .header-meta { justify-self: end; }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-size: 16px;
+  }
+  .logo-mark {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--safe), var(--moderate), var(--caution), var(--high), var(--extreme), var(--safe));
+    box-shadow: 0 0 20px rgba(0,212,255,0.5);
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 11px;
+    color: var(--text-2);
+    letter-spacing: 1px;
+  }
+  .header-meta b { color: var(--text-1); font-weight: 500; }
+
+  /* LEFT PANEL */
+  aside.left {
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 18px;
+    background: rgba(10,15,28,0.4);
+  }
+  aside.right {
+    border-left: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 18px;
+    background: rgba(10,15,28,0.4);
+  }
+  /* Custom Scrollbars — 모든 스크롤 영역 일관된 미니멀 스타일 */
+  aside::-webkit-scrollbar,
+  .search-results::-webkit-scrollbar,
+  .pf-list::-webkit-scrollbar,
+  .legal-content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  aside::-webkit-scrollbar-track,
+  .search-results::-webkit-scrollbar-track,
+  .pf-list::-webkit-scrollbar-track,
+  .legal-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  aside::-webkit-scrollbar-thumb,
+  .search-results::-webkit-scrollbar-thumb,
+  .pf-list::-webkit-scrollbar-thumb,
+  .legal-content::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    transition: background 0.15s;
+  }
+  aside::-webkit-scrollbar-thumb:hover,
+  .search-results::-webkit-scrollbar-thumb:hover,
+  .pf-list::-webkit-scrollbar-thumb:hover,
+  .legal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,212,255,0.4);
+  }
+  aside::-webkit-scrollbar-corner,
+  .search-results::-webkit-scrollbar-corner { background: transparent; }
+  /* Firefox */
+  aside, .search-results, .pf-list, .legal-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+  /* 검색 결과 내부 패딩 살짝 */
+  .search-results { padding: 4px; }
+  .search-results .search-result { border-radius: 6px; border-bottom: none; margin-bottom: 1px; }
+  .search-results .search-result:hover { background: rgba(0,212,255,0.1); }
+
+  .panel {
+    margin-bottom: 22px;
+  }
+  .panel-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-2);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .panel-title .badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(0,212,255,0.12);
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  /* HOLDINGS LIST */
+  .holding {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border: 1px solid transparent;
+  }
+  .holding:hover { background: rgba(255,255,255,0.04); }
+  .holding.active {
+    background: rgba(0,212,255,0.08);
+    border-color: rgba(0,212,255,0.25);
+  }
+  .holding-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px currentColor;
+  }
+  .holding-info { flex: 1; min-width: 0; }
+  .holding-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-0);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .holding-sub {
+    font-size: 11px;
+    color: var(--text-2);
+    margin-top: 2px;
+    display: flex;
+    gap: 6px;
+  }
+  .holding-weight {
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-1);
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .holding-return {
+    font-size: 10px;
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pos { color: var(--safe); }
+  .neg { color: var(--high); }
+
+  /* CENTER STAGE — 캔버스(상단 가변) + 컨트롤바(하단 고정) */
+  main {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+  }
+  .stage {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+  }
+  #canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+  }
+  #canvas:active { cursor: grabbing; }
+  .controls-bar {
+    flex-shrink: 0;
+    height: 56px;
+    background: rgba(5,7,13,0.5);
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+  .stage-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .stage-corner {
+    position: absolute;
+    padding: 14px 18px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-2);
+    text-transform: uppercase;
+  }
+  .stage-corner b { color: var(--text-0); font-weight: 500; }
+  .corner-tl { top: 0; left: 0; }
+  .corner-tr { top: 0; right: 0; text-align: right; }
+  .corner-bl { bottom: 0; left: 0; }
+  .corner-br { bottom: 0; right: 0; text-align: right; }
+
+  .hemisphere-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .hemisphere-label:hover { opacity: 0.9; }
+  .hemi-north { top: 70px; }
+  .hemi-south { bottom: 70px; }
+  .hemi-tag {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    font-weight: 600;
+    text-shadow: 0 0 12px currentColor;
+  }
+  .hemi-sub {
+    font-size: 9px;
+    color: var(--text-2);
+    margin-top: 4px;
+    letter-spacing: 1.5px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--text-1);
+    letter-spacing: 0.5px;
+    text-transform: none;
+  }
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+  }
+
+  .alert-banner {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,69,96,0.12);
+    border: 1px solid rgba(255,69,96,0.4);
+    color: #ffb3c0;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    pointer-events: auto;
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 30px rgba(255,69,96,0.2);
+    animation: pulse-alert 2s ease-in-out infinite;
+  }
+  @keyframes pulse-alert {
+    0%, 100% { box-shadow: 0 4px 30px rgba(255,69,96,0.2); }
+    50% { box-shadow: 0 4px 50px rgba(255,69,96,0.5); }
+  }
+  .alert-banner.show { display: flex; }
+
+  .controls {
+    display: flex;
+    gap: 8px;
+    pointer-events: auto;
+  }
+  .ctrl-btn {
+    background: rgba(15,22,38,0.8);
+    border: 1px solid var(--line);
+    color: var(--text-1);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+    backdrop-filter: blur(10px);
+    text-transform: uppercase;
+  }
+  .ctrl-btn:hover { color: var(--text-0); border-color: rgba(0,212,255,0.4); }
+  .ctrl-btn.active { color: var(--accent); border-color: rgba(0,212,255,0.5); background: rgba(0,212,255,0.08); }
+
+  /* TOOLTIP */
+  .tooltip {
+    position: absolute;
+    background: rgba(10,15,28,0.95);
+    border: 1px solid rgba(0,212,255,0.3);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    pointer-events: none;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    z-index: 100;
+    display: none;
+    min-width: 180px;
+  }
+  .tooltip-name { font-weight: 600; margin-bottom: 4px; }
+  .tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-1);
+    font-size: 11px;
+    margin-top: 3px;
+  }
+  .tooltip-row b { color: var(--text-0); font-variant-numeric: tabular-nums; }
+
+  /* RIGHT PANEL */
+  .balance-card {
+    background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(123,97,255,0.04));
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 18px;
+  }
+  .balance-score {
+    font-size: 42px;
+    font-weight: 200;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -2px;
+    background: linear-gradient(90deg, var(--safe), var(--moderate));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .balance-label {
+    font-size: 11px;
+    color: var(--text-2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .balance-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+  .balance-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--safe), var(--moderate));
+    border-radius: 2px;
+    transition: width 1s ease-out;
+  }
+  .balance-grade {
+    font-size: 12px;
+    margin-top: 8px;
+    color: var(--text-1);
+  }
+
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+  }
+  .metric-row:last-child { border: none; }
+  .metric-row .lbl { color: var(--text-2); font-size: 11px; letter-spacing: 0.5px; }
+  .metric-row .val { color: var(--text-0); font-variant-numeric: tabular-nums; }
+
+  .insight {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-1);
+    margin-bottom: 8px;
+  }
+  .insight.warn { border-left-color: var(--high); }
+  .insight.alert { border-left-color: var(--extreme); }
+  .insight.ok { border-left-color: var(--safe); }
+  .insight-title {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-0);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .stock-detail {
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.18);
+    border-radius: 12px;
+    padding: 14px;
+    display: none;
+  }
+  .stock-detail.show { display: block; }
+  .stock-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .stock-detail-name {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .stock-detail-ticker {
+    font-size: 11px;
+    color: var(--text-2);
+  }
+  .risk-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* Sector chips */
+  .sector-bars { margin-top: 6px; }
+  .sector-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 11px;
+  }
+  .sector-bar .sb-name { width: 70px; color: var(--text-1); }
+  .sector-bar .sb-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .sector-bar .sb-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+  .sector-bar .sb-pct {
+    width: 38px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-1);
+  }
+
+  /* PORTFOLIO SELECTOR (header) */
+  .portfolio-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pf-dropdown {
+    position: relative;
+    min-width: 220px;
+  }
+  .pf-current {
+    background: linear-gradient(135deg, rgba(15,22,38,0.95), rgba(20,30,50,0.95));
+    border: 1px solid rgba(0,212,255,0.18);
+    color: var(--text-0);
+    padding: 8px 12px;
+    border-radius: 9px;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 12px rgba(0,212,255,0.05);
+  }
+  .pf-current:hover {
+    border-color: rgba(0,212,255,0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 16px rgba(0,212,255,0.12);
+  }
+  .pf-current.open {
+    border-color: rgba(0,212,255,0.5);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .pf-current-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--safe), var(--moderate), var(--caution), var(--high), var(--extreme), var(--safe));
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0,212,255,0.4);
+  }
+  .pf-current-text { flex: 1; min-width: 0; overflow: hidden; }
+  .pf-current-name {
+    color: var(--text-0);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pf-current-meta {
+    font-size: 10px;
+    color: var(--text-2);
+    margin-top: 1px;
+    letter-spacing: 1px;
+  }
+  .pf-current-arrow {
+    color: var(--text-2);
+    font-size: 9px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .pf-current.open .pf-current-arrow { transform: rotate(180deg); color: var(--accent); }
+
+  .pf-list {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    background: rgba(10,15,28,0.98);
+    border: 1px solid rgba(0,212,255,0.5);
+    border-top: 1px solid rgba(0,212,255,0.18);
+    border-radius: 0 0 9px 9px;
+    max-height: 360px;
+    overflow-y: auto;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    display: none;
+    padding: 4px;
+  }
+  .pf-list.show { display: block; }
+  .pf-item {
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.12s;
+    font-size: 12px;
+    margin-bottom: 1px;
+  }
+  .pf-item:hover { background: rgba(0,212,255,0.08); }
+  .pf-item.active { background: rgba(0,212,255,0.12); }
+  .pf-item-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    opacity: 0;
+  }
+  .pf-item.active .pf-item-dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+  .pf-item-info { flex: 1; min-width: 0; }
+  .pf-item-name {
+    color: var(--text-0);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pf-item-meta {
+    font-size: 10px;
+    color: var(--text-2);
+    margin-top: 2px;
+    display: flex;
+    gap: 8px;
+  }
+  .pf-item-count {
+    color: var(--text-2);
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.04);
+  }
+  .pf-item.active .pf-item-count { background: rgba(0,212,255,0.15); color: var(--accent); }
+  .pf-list-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 4px 0;
+  }
+  .pf-list-footer {
+    padding: 8px 10px;
+    font-size: 10px;
+    color: var(--text-2);
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .pf-btn {
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    color: var(--accent);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .pf-btn:hover { background: rgba(0,212,255,0.18); }
+  .pf-btn.danger {
+    background: rgba(255,69,96,0.08);
+    border-color: rgba(255,69,96,0.3);
+    color: #ff8c9a;
+  }
+  .pf-btn.danger:hover { background: rgba(255,69,96,0.18); }
+  .pf-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* SEARCH */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .search-input {
+    width: 100%;
+    background: rgba(15,22,38,0.7);
+    border: 1px solid var(--line);
+    color: var(--text-0);
+    padding: 9px 12px 9px 32px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  .search-input:focus { outline: none; border-color: rgba(0,212,255,0.5); }
+  .search-input::placeholder { color: var(--text-2); }
+  .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-2);
+    pointer-events: none;
+    font-size: 13px;
+  }
+  .search-results {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: rgba(10,15,28,0.98);
+    border: 1px solid rgba(0,212,255,0.25);
+    border-radius: 8px;
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    display: none;
+  }
+  .search-results.show { display: block; }
+  .search-result {
+    padding: 9px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.1s;
+  }
+  .search-result:last-child { border: none; }
+  .search-result:hover { background: rgba(0,212,255,0.08); }
+  .search-result.added { opacity: 0.4; cursor: not-allowed; }
+  .sr-info { flex: 1; min-width: 0; }
+  .sr-name {
+    font-size: 12px;
+    color: var(--text-0);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sr-meta {
+    font-size: 10px;
+    color: var(--text-2);
+    margin-top: 2px;
+    display: flex;
+    gap: 6px;
+  }
+  .sr-tag {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
+  .sr-tag.etf { background: rgba(123,97,255,0.15); color: #a98fff; }
+  .sr-tag.sector { background: rgba(0,212,255,0.1); color: var(--accent); }
+  .sr-empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-2);
+    font-size: 11px;
+  }
+
+  /* HOLDING DELETE — 호버 시 우측 모서리에 등장, 행 텍스트 우측 패딩 확보 */
+  .holding { position: relative; transition: padding-right 0.15s; }
+  .holding:hover { padding-right: 30px; }
+  .holding-del {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%) scale(0.7);
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgba(255,69,96,0.2);
+    border: 1px solid rgba(255,69,96,0.35);
+    color: #ff8c9a;
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s, transform 0.15s, background 0.15s;
+    z-index: 2;
+  }
+  .holding:hover .holding-del {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) scale(1);
+  }
+  .holding-del:hover {
+    background: rgba(255,69,96,0.5);
+    color: #fff;
+  }
+
+  /* QUANTITY EDIT — 평소 텍스트, 호버/포커스 시 인풋 */
+  .qty-edit {
+    width: 64px;
+    min-width: 64px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-1);
+    text-align: right;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    font-family: inherit;
+    border-radius: 4px;
+    padding: 1px 4px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    -moz-appearance: textfield;
+  }
+  .qty-edit::-webkit-outer-spin-button,
+  .qty-edit::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .qty-edit:hover {
+    background: rgba(0,212,255,0.08);
+    border-color: rgba(0,212,255,0.22);
+    color: var(--text-0);
+    cursor: text;
+  }
+  .qty-edit:focus {
+    outline: none;
+    background: rgba(0,212,255,0.14);
+    border-color: rgba(0,212,255,0.5);
+    color: var(--text-0);
+    box-shadow: 0 0 0 2px rgba(0,212,255,0.1);
+    cursor: text;
+  }
+  /* 행 호버 시 입력칸 살짝 힌트 */
+  .holding:hover .qty-edit:not(:focus) {
+    border-color: rgba(255,255,255,0.06);
+  }
+  /* Holding right column */
+  .holding-right {
+    text-align: right;
+    flex-shrink: 0;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .holding-qty-line {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1px;
+    margin-bottom: 3px;
+  }
+  .qty-suffix {
+    color: var(--text-2);
+    font-size: 10px;
+    margin-left: 1px;
+  }
+  .holding-value {
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-0);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .holding-meta {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    font-size: 10px;
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .weight-pct { color: var(--text-1); }
+
+  /* TOTAL VALUE CARD */
+  .total-value-card {
+    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,229,160,0.04));
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tvc-label {
+    font-size: 10px;
+    color: var(--text-2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .tvc-value {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-0);
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(90deg, var(--safe), var(--moderate));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,7,13,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+    min-width: 360px;
+    max-width: 480px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .modal h3 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    color: var(--text-0);
+  }
+  .modal p {
+    font-size: 12px;
+    color: var(--text-1);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .modal-input {
+    width: 100%;
+    background: rgba(15,22,38,0.7);
+    border: 1px solid var(--line);
+    color: var(--text-0);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    margin-bottom: 16px;
+  }
+  .modal-input:focus { outline: none; border-color: rgba(0,212,255,0.5); }
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--text-2);
+    font-size: 12px;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    line-height: 1.6;
+  }
+
+  /* LEGAL DISCLAIMER */
+  .disclaimer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 14px;
+    background: linear-gradient(180deg, transparent, rgba(5,7,13,0.92));
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,140,66,0.12);
+    font-size: 9.5px;
+    color: var(--text-2);
+    line-height: 1.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    pointer-events: auto;
+    z-index: 5;
+    height: 28px;
+  }
+  .disclaimer-bar .dc-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .disclaimer-bar .dc-icon { color: #FF8C42; font-size: 11px; flex-shrink: 0; }
+  .disclaimer-bar .dc-text strong { color: var(--text-1); font-weight: 500; }
+  .disclaimer-bar .dc-link {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-1);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    transition: all 0.15s;
+  }
+  .disclaimer-bar .dc-link:hover {
+    color: var(--accent);
+    border-color: rgba(0,212,255,0.3);
+    background: rgba(0,212,255,0.05);
+  }
+
+  .about-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    color: var(--text-2);
+    font-size: 9px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  /* LANGUAGE TOGGLE */
+  .lang-switch {
+    display: inline-flex;
+    margin-left: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2px;
+    gap: 1px;
+  }
+  .lang-switch button {
+    background: transparent;
+    border: none;
+    color: var(--text-2);
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 3px 0;
+    width: 64px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .lang-switch button:hover { color: var(--text-0); }
+  .lang-switch button.active {
+    background: rgba(0,212,255,0.15);
+    color: var(--accent);
+  }
+  .about-icon:hover {
+    background: rgba(0,212,255,0.15);
+    color: var(--accent);
+    border-color: rgba(0,212,255,0.3);
+  }
+
+  /* DISCLAIMER MODAL — long text, scrollable */
+  .modal.modal-wide {
+    min-width: 480px;
+    max-width: 580px;
+  }
+  .legal-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin: -4px -4px 16px;
+    padding: 4px 14px 4px 4px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text-1);
+  }
+  .legal-content::-webkit-scrollbar { width: 6px; }
+  .legal-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius:3px; }
+  .legal-content h4 {
+    color: var(--text-0);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin: 14px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legal-content h4::before {
+    content: '';
+    width: 3px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .legal-content p { margin-bottom: 6px; }
+  .legal-content .legal-warning {
+    background: rgba(255,69,96,0.06);
+    border-left: 3px solid var(--high);
+    padding: 10px 12px;
+    border-radius: 0 6px 6px 0;
+    color: var(--text-0);
+    margin-bottom: 14px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .legal-content .legal-meta {
+    color: var(--text-2);
+    font-size: 10.5px;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    margin-top: 14px;
+  }
+
+  /* REBALANCE SIMULATOR */
+  .ctrl-btn.rebalance-active {
+    background: rgba(123,97,255,0.15);
+    border-color: rgba(123,97,255,0.5);
+    color: #B8A3FF;
+  }
+  .rebalance-mode-indicator {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(123,97,255,0.15), rgba(0,212,255,0.1));
+    border: 1px solid rgba(123,97,255,0.4);
+    color: #c4b1ff;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(123,97,255,0.2);
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+  .rebalance-mode-indicator.show { display: flex; }
+  .rebalance-mode-indicator::before {
+    content: '⚖';
+    font-size: 13px;
+  }
+
+  #rebalancePanel { display: none; }
+  #rebalancePanel.show { display: block; }
+  body.rebalance-mode #normalPanel { display: none; }
+
+  .rb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, rgba(123,97,255,0.1), rgba(0,212,255,0.05));
+    border: 1px solid rgba(123,97,255,0.25);
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+  .rb-header-title {
+    color: var(--text-0);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rb-header-title::before {
+    content: '⚖';
+    font-size: 16px;
+    color: #B8A3FF;
+  }
+  .rb-close {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--line);
+    color: var(--text-1);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    font-family: inherit;
+  }
+  .rb-close:hover { background: rgba(255,255,255,0.12); color: var(--text-0); }
+
+  .rb-compare {
+    display: grid;
+    grid-template-columns: 1fr 30px 1fr;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .rb-side {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .rb-side.target {
+    background: linear-gradient(135deg, rgba(123,97,255,0.08), rgba(0,212,255,0.04));
+    border-color: rgba(123,97,255,0.35);
+  }
+  .rb-side-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-2);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .rb-side-score {
+    font-size: 36px;
+    font-weight: 200;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    background: linear-gradient(90deg, var(--safe), var(--moderate));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .rb-side-grade {
+    font-size: 10px;
+    color: var(--text-2);
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+  .rb-arrow {
+    text-align: center;
+    color: var(--accent);
+    font-size: 16px;
+  }
+
+  .rb-delta {
+    text-align: center;
+    margin-bottom: 14px;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .rb-delta b {
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .rb-delta-up { color: var(--safe); }
+  .rb-delta-down { color: var(--high); }
+  .rb-delta-zero { color: var(--text-2); }
+
+  .rb-metrics {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .rb-metric {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 8px;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 11px;
+    border-bottom: 1px solid var(--line);
+  }
+  .rb-metric:last-child { border: none; }
+  .rb-metric-name { color: var(--text-2); }
+  .rb-metric-from { color: var(--text-1); font-variant-numeric: tabular-nums; }
+  .rb-metric-arrow { color: var(--text-2); }
+  .rb-metric-to {
+    color: var(--text-0);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    text-align: right;
+    min-width: 50px;
+  }
+  .rb-metric-to.up { color: var(--safe); }
+  .rb-metric-to.down { color: var(--high); }
+
+  .rb-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .rb-btn {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .rb-btn.apply {
+    background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(123,97,255,0.15));
+    border: 1px solid rgba(0,212,255,0.5);
+    color: #fff;
+    grid-column: 1 / -1;
+  }
+  .rb-btn.apply:hover {
+    background: linear-gradient(135deg, rgba(0,212,255,0.3), rgba(123,97,255,0.25));
+    box-shadow: 0 4px 16px rgba(0,212,255,0.25);
+  }
+  .rb-btn.reset {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    color: var(--text-1);
+  }
+  .rb-btn.cancel {
+    background: rgba(255,69,96,0.08);
+    border: 1px solid rgba(255,69,96,0.25);
+    color: #ff8c9a;
+  }
+  .rb-btn.reset:hover { background: rgba(255,255,255,0.08); }
+  .rb-btn.cancel:hover { background: rgba(255,69,96,0.18); }
+
+  /* 보유 종목 행이 리밸런싱 모드일 때 표시 */
+  .holding.rb-mode {
+    border-left: 3px solid rgba(123,97,255,0.4);
+  }
+  .holding-current-hint {
+    font-size: 9px;
+    color: var(--text-2);
+    margin-top: 1px;
+    letter-spacing: 0.3px;
+  }
+
+  /* INFO ICON & TOOLTIP */
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-2);
+    font-size: 9px;
+    font-weight: 600;
+    cursor: help;
+    margin-left: 5px;
+    transition: all 0.15s;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .info-icon:hover {
+    background: rgba(0,212,255,0.2);
+    color: var(--accent);
+    border-color: rgba(0,212,255,0.4);
+  }
+  .info-tooltip {
+    position: fixed;
+    background: rgba(8,12,22,0.98);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--text-1);
+    max-width: 340px;
+    min-width: 240px;
+    z-index: 9500;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,212,255,0.05);
+    display: none;
+    pointer-events: none;
+  }
+  .info-tooltip.show { display: block; }
+  .info-title {
+    color: var(--text-0);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .info-title::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+  }
+  .info-body {
+    color: var(--text-1);
+    font-size: 11px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .info-body strong { color: var(--text-0); font-weight: 500; }
+  .info-formula {
+    background: rgba(0,212,255,0.04);
+    border-left: 2px solid var(--accent);
+    padding: 8px 10px;
+    margin: 8px 0;
+    font-family: 'SF Mono', 'Menlo', monospace;
+    font-size: 10.5px;
+    color: var(--text-0);
+    line-height: 1.7;
+    border-radius: 0 4px 4px 0;
+  }
+  .info-calc {
+    margin-top: 8px;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .info-calc > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+  }
+  .info-calc > div span:first-child { color: var(--text-2); }
+  .info-calc > div span:last-child { color: var(--text-0); }
+  .info-calc b { color: var(--accent); }
+  .info-total {
+    border-top: 1px solid var(--line);
+    margin-top: 6px !important;
+    padding-top: 6px !important;
+    font-weight: 500;
+  }
+  .info-total b { color: var(--text-0) !important; font-size: 13px; }
+  .info-thresholds {
+    margin-top: 8px;
+    font-size: 10.5px;
+  }
+  .info-thresholds > div {
+    padding: 2px 0;
+    color: var(--text-1);
+  }
+  .info-meta {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    font-size: 9.5px;
+    line-height: 1.55;
+    color: var(--text-2);
+    font-style: italic;
+  }
+</style>
 </head>
 <body>
 <div id="app">
@@ -13,7 +1530,12 @@
     <div class="logo">
       <div class="logo-mark"></div>
       <span>SPHERE</span>
-      <span style="color:var(--text-2); font-weight:300; letter-spacing:1px; font-size:11px; margin-left:6px;">PORTFOLIO RISK SPHERE</span>
+      <span class="logo-sub" data-i18n="logoSub" style="color:var(--text-2); font-weight:300; letter-spacing:1px; font-size:11px; margin-left:6px;">PORTFOLIO RISK SPHERE</span>
+      <span class="about-icon" id="aboutIcon" data-i18n-title="aboutTitle" title="이용 약관 / 면책 고지">ⓘ</span>
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="ko">한국어</button>
+        <button data-lang="en">English</button>
+      </div>
     </div>
     <div class="portfolio-bar">
       <div class="pf-dropdown" id="pfDropdown">
@@ -27,92 +1549,92 @@
         </div>
         <div class="pf-list" id="pfList"></div>
       </div>
-      <button class="pf-btn" id="pfNew" title="새 포트폴리오 만들기">+ NEW</button>
-      <button class="pf-btn" id="pfRename" title="이름 변경">✎</button>
-      <button class="pf-btn danger" id="pfDelete" title="포트폴리오 삭제">🗑</button>
+      <button class="pf-btn" id="pfNew" data-i18n="pfNew" data-i18n-title="pfNewTitle" title="새 포트폴리오 만들기">+ NEW</button>
+      <button class="pf-btn" id="pfRename" data-i18n-title="pfRenameTitle" title="이름 변경">✎</button>
+      <button class="pf-btn danger" id="pfDelete" data-i18n-title="pfDeleteTitle" title="포트폴리오 삭제">🗑</button>
     </div>
     <div class="header-meta">
-      <div>v <b>1.2.0</b></div>
-      <div>UPDATE <b id="updateTime">--:--</b></div>
-      <div>STATUS <b style="color:var(--safe)">● LIVE</b></div>
+      <div>v <b>1.3.0</b></div>
+      <div><span data-i18n="update">UPDATE</span> <b id="updateTime">--:--</b></div>
+      <div><span data-i18n="status">STATUS</span> <b style="color:var(--safe)">● LIVE</b></div>
     </div>
   </header>
 
   <aside class="left">
     <div class="panel">
       <div class="panel-title">
-        <span>Add Asset</span>
-        <span class="badge">SEARCH</span>
+        <span data-i18n="addAsset">Add Asset</span>
+        <span class="badge" data-i18n="searchBadge">SEARCH</span>
       </div>
       <div class="search-wrap">
         <span class="search-icon">⌕</span>
-        <input type="text" class="search-input" id="searchInput" placeholder="종목명·티커·ETF 검색 (예: 삼성전자, AAPL, QQQ)" autocomplete="off">
+        <input type="text" class="search-input" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="종목명·티커·ETF 검색 (예: 삼성전자, AAPL, QQQ)" autocomplete="off">
         <div class="search-results" id="searchResults"></div>
       </div>
     </div>
 
     <div class="panel">
       <div class="panel-title">
-        <span>Holdings</span>
+        <span data-i18n="holdings">Holdings</span>
         <span class="badge" id="holdingCount">0</span>
       </div>
       <div class="total-value-card">
-        <div class="tvc-label">총 평가액</div>
+        <div class="tvc-label" data-i18n="totalValue">총 평가액</div>
         <div class="tvc-value" id="totalValue">0</div>
       </div>
       <div id="holdingsList"></div>
-      <div class="empty-state" id="holdingsEmpty" style="display:none;">
-        보유 종목이 없습니다.<br>
-        위 검색창에서 종목을 추가해보세요.
+      <div class="empty-state" id="holdingsEmpty" data-i18n="emptyHoldings" style="display:none;">
+        보유 종목이 없습니다.<br>위 검색창에서 종목을 추가해보세요.
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-title"><span>Sector Allocation</span></div>
+      <div class="panel-title"><span data-i18n="sectorAllocation">Sector Allocation</span></div>
       <div class="sector-bars" id="sectorBars"></div>
     </div>
 
     <div class="panel">
-      <div class="panel-title"><span>Risk Distribution</span></div>
+      <div class="panel-title"><span data-i18n="riskDistribution">Risk Distribution</span></div>
       <div id="riskDist"></div>
     </div>
   </aside>
 
   <main>
+    <div class="stage">
     <canvas id="canvas"></canvas>
     <div class="stage-overlay">
       <div class="stage-corner corner-tl">
-        <div style="font-size:9px; opacity:0.6;">3D RISK SPHERE</div>
-        <div style="font-size:13px; color:var(--text-0); letter-spacing:0.5px; margin-top:2px;" id="viewMode">SPHERE VIEW</div>
+        <div style="font-size:9px; opacity:0.6;" data-i18n="sphere3D">3D RISK SPHERE</div>
+        <div style="font-size:13px; color:var(--text-0); letter-spacing:0.5px; margin-top:2px;" id="viewMode" data-i18n="sphereView">SPHERE VIEW</div>
       </div>
       <div class="stage-corner corner-tr" style="pointer-events:auto;">
-        <div style="font-size:9px; opacity:0.6;">PORTFOLIO RISK <span class="info-icon" data-info="riskScore">i</span></div>
+        <div style="font-size:9px; opacity:0.6;"><span data-i18n="portfolioRisk">PORTFOLIO RISK</span> <span class="info-icon" data-info="riskScore">i</span></div>
         <div style="font-size:22px; color:var(--text-0); font-weight:200; font-variant-numeric:tabular-nums; margin-top:2px;" id="avgRiskBig">--</div>
-        <div style="font-size:10px; color:var(--text-2); margin-top:4px;">avg score · 0–100</div>
+        <div style="font-size:10px; color:var(--text-2); margin-top:4px;" data-i18n="avgScore">avg score · 0–100</div>
       </div>
       <div class="hemisphere-label hemi-north">
-        <div class="hemi-tag">GROWTH</div>
-        <div class="hemi-sub">성장주 · 북반구</div>
+        <div class="hemi-tag" data-i18n="growth">GROWTH</div>
+        <div class="hemi-sub" data-i18n="growthSub">성장주 · 북반구</div>
       </div>
       <div class="hemisphere-label hemi-south">
-        <div class="hemi-tag" style="color:#FF8C42;">VALUE</div>
-        <div class="hemi-sub">가치주 · 남반구</div>
+        <div class="hemi-tag" style="color:#FF8C42;" data-i18n="value">VALUE</div>
+        <div class="hemi-sub" data-i18n="valueSub">가치주 · 남반구</div>
       </div>
 
       <div class="stage-corner corner-bl">
-        <div style="font-size:9px; opacity:0.6; margin-bottom:6px;">LEGEND · RISK</div>
+        <div style="font-size:9px; opacity:0.6; margin-bottom:6px;" data-i18n="legendRisk">LEGEND · RISK</div>
         <div class="legend">
-          <div class="legend-item"><span class="legend-dot" style="color:var(--safe);background:var(--safe)"></span>SAFE 0-29</div>
-          <div class="legend-item"><span class="legend-dot" style="color:var(--moderate);background:var(--moderate)"></span>MOD 30-54</div>
-          <div class="legend-item"><span class="legend-dot" style="color:var(--caution);background:var(--caution)"></span>CAUTION 55-74</div>
-          <div class="legend-item"><span class="legend-dot" style="color:var(--high);background:var(--high)"></span>HIGH 75-89</div>
-          <div class="legend-item"><span class="legend-dot" style="color:var(--extreme);background:var(--extreme)"></span>EXTREME 90+</div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--safe);background:var(--safe)"></span><span data-i18n="legendSafe">SAFE 0-29</span></div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--moderate);background:var(--moderate)"></span><span data-i18n="legendMod">MOD 30-54</span></div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--caution);background:var(--caution)"></span><span data-i18n="legendCaution">CAUTION 55-74</span></div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--high);background:var(--high)"></span><span data-i18n="legendHigh">HIGH 75-89</span></div>
+          <div class="legend-item"><span class="legend-dot" style="color:var(--extreme);background:var(--extreme)"></span><span data-i18n="legendExtreme">EXTREME 90+</span></div>
         </div>
       </div>
       <div class="stage-corner corner-br" style="pointer-events:auto;">
-        <div style="font-size:9px; opacity:0.6;">SPHERICITY <span class="info-icon" data-info="sphericity">i</span></div>
+        <div style="font-size:9px; opacity:0.6;"><span data-i18n="sphericity">SPHERICITY</span> <span class="info-icon" data-info="sphericity">i</span></div>
         <div style="font-size:22px; color:var(--text-0); font-weight:200; font-variant-numeric:tabular-nums; margin-top:2px;" id="sphericity">--</div>
-        <div style="font-size:10px; color:var(--text-2); margin-top:4px;">100 = perfect sphere</div>
+        <div style="font-size:10px; color:var(--text-2); margin-top:4px;" data-i18n="perfectSphere">100 = perfect sphere</div>
       </div>
 
       <div class="alert-banner" id="alertBanner">
@@ -120,52 +1642,59 @@
         <span id="alertText">집중 위험 감지</span>
       </div>
 
-      <div class="controls">
-        <button class="ctrl-btn active" data-mode="sphere">SPHERE</button>
-        <button class="ctrl-btn" data-mode="cluster">CLUSTER</button>
-        <button class="ctrl-btn" data-mode="rotate">⟳ AUTO-ROTATE</button>
-        <button class="ctrl-btn" data-mode="reset">RESET</button>
-      </div>
+      <div class="rebalance-mode-indicator" id="rbIndicator" data-i18n="rbIndicator">REBALANCE SIMULATION</div>
+
     </div>
     <div class="tooltip" id="tooltip"></div>
+    </div>
+    <div class="controls-bar">
+      <div class="controls">
+        <button class="ctrl-btn active" data-mode="sphere" data-i18n="btnSphere">SPHERE</button>
+        <button class="ctrl-btn" data-mode="cluster" data-i18n="btnCluster">CLUSTER</button>
+        <button class="ctrl-btn" data-mode="rotate" data-i18n="btnRotate">⟳ AUTO-ROTATE</button>
+        <button class="ctrl-btn" data-mode="rebalance" id="btnRebalance" data-i18n="btnRebalance">⚖ REBALANCE</button>
+        <button class="ctrl-btn" data-mode="reset" data-i18n="btnReset">RESET</button>
+      </div>
+    </div>
   </main>
 
   <aside class="right">
+    <div id="normalPanel">
     <div class="balance-card">
       <div class="balance-label">
-        Balance Index
-        <span class="info-icon" data-info="balance" title="산출 공식 보기">i</span>
+        <span data-i18n="balanceIndex">Balance Index</span>
+        <span class="info-icon" data-info="balance" data-i18n-title="balanceFormulaTitle" title="산출 공식 보기">i</span>
       </div>
       <div class="balance-score" id="balanceScore">--</div>
-      <div class="balance-grade" id="balanceGrade">계산 중...</div>
+      <div class="balance-grade" id="balanceGrade" data-i18n="calculating">계산 중...</div>
       <div class="balance-bar"><div class="balance-fill" id="balanceFill" style="width:0%"></div></div>
       <div style="margin-top:14px;">
         <div class="metric-row">
-          <span class="lbl">섹터 분산<span class="info-icon" data-info="diverse">i</span></span>
+          <span class="lbl"><span data-i18n="metricDiverse">섹터 분산</span><span class="info-icon" data-info="diverse">i</span></span>
           <span class="val" id="mDiverse">--</span>
         </div>
         <div class="metric-row">
-          <span class="lbl">리스크 편차<span class="info-icon" data-info="deviation">i</span></span>
+          <span class="lbl"><span data-i18n="metricDeviation">리스크 편차</span><span class="info-icon" data-info="deviation">i</span></span>
           <span class="val" id="mDeviation">--</span>
         </div>
         <div class="metric-row">
-          <span class="lbl">구형도<span class="info-icon" data-info="sphericity">i</span></span>
+          <span class="lbl"><span data-i18n="metricSphericity">구형도</span><span class="info-icon" data-info="sphericity">i</span></span>
           <span class="val" id="mSphericity">--</span>
         </div>
         <div class="metric-row">
-          <span class="lbl">HHI 집중도<span class="info-icon" data-info="hhi">i</span></span>
+          <span class="lbl"><span data-i18n="metricHHI">HHI 집중도</span><span class="info-icon" data-info="hhi">i</span></span>
           <span class="val" id="mHHI">--</span>
         </div>
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-title"><span>Insights</span><span class="badge">AUTO</span></div>
+      <div class="panel-title"><span data-i18n="insights">Insights</span><span class="badge" data-i18n="auto">AUTO</span></div>
       <div id="insights"></div>
     </div>
 
     <div class="panel">
-      <div class="panel-title"><span>Selected Asset</span></div>
+      <div class="panel-title"><span data-i18n="selectedAsset">Selected Asset</span></div>
       <div class="stock-detail" id="stockDetail">
         <div class="stock-detail-header">
           <div class="holding-dot" id="sdDot"></div>
@@ -175,23 +1704,63 @@
           </div>
           <span class="risk-pill" id="sdPill">-</span>
         </div>
-        <div class="metric-row"><span class="lbl">보유 수량</span><span class="val" id="sdQty">--</span></div>
-        <div class="metric-row"><span class="lbl">평가금액</span><span class="val" id="sdValue">--</span></div>
-        <div class="metric-row"><span class="lbl">비중</span><span class="val" id="sdWeight">--</span></div>
-        <div class="metric-row"><span class="lbl">섹터</span><span class="val" id="sdSector">--</span></div>
-        <div class="metric-row"><span class="lbl">현재가</span><span class="val" id="sdPrice">--</span></div>
-        <div class="metric-row"><span class="lbl">평균 매수가</span><span class="val" id="sdAvg">--</span></div>
-        <div class="metric-row"><span class="lbl">수익률</span><span class="val" id="sdReturn">--</span></div>
-        <div class="metric-row"><span class="lbl">변동성 30D</span><span class="val" id="sdVol">--</span></div>
-        <div class="metric-row"><span class="lbl">베타</span><span class="val" id="sdBeta">--</span></div>
-        <div class="metric-row"><span class="lbl">부채비율</span><span class="val" id="sdDebt">--</span></div>
-        <div class="metric-row"><span class="lbl">리스크 스코어</span><span class="val" id="sdRisk">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdQty">보유 수량</span><span class="val" id="sdQty">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdValue">평가금액</span><span class="val" id="sdValue">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdWeight">비중</span><span class="val" id="sdWeight">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdSector">섹터</span><span class="val" id="sdSector">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdPrice">현재가</span><span class="val" id="sdPrice">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdAvg">평균 매수가</span><span class="val" id="sdAvg">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdReturn">수익률</span><span class="val" id="sdReturn">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdVol">변동성 30D</span><span class="val" id="sdVol">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdBeta">베타</span><span class="val" id="sdBeta">--</span></div>
+        <div class="metric-row"><span class="lbl" data-i18n="sdDebt">부채비율</span><span class="val" id="sdDebt">--</span></div>
+        <div class="metric-row"><span class="lbl"><span data-i18n="sdRisk">리스크 스코어</span><span class="info-icon" data-info="assetRisk" title="이 종목의 리스크 산출 분해">i</span></span><span class="val" id="sdRisk">--</span></div>
       </div>
-      <div id="noSelect" style="font-size:12px;color:var(--text-2);text-align:center;padding:30px 10px;border:1px dashed var(--line);border-radius:10px;">
+      <div id="noSelect" data-i18n="selectHint" style="font-size:12px;color:var(--text-2);text-align:center;padding:30px 10px;border:1px dashed var(--line);border-radius:10px;">
         구체의 노드를 클릭하면<br>상세 정보가 표시됩니다
       </div>
     </div>
+    </div><!-- /normalPanel -->
+
+    <div id="rebalancePanel">
+      <div class="rb-header">
+        <div class="rb-header-title" data-i18n="rbTitle">REBALANCE SIMULATOR</div>
+        <button class="rb-close" id="rbClose" data-i18n-title="rbCancel" title="취소하고 닫기">×</button>
+      </div>
+      <div class="rb-compare">
+        <div class="rb-side">
+          <div class="rb-side-label" data-i18n="rbCurrent">CURRENT</div>
+          <div class="rb-side-score" id="rbCurrentScore">--</div>
+          <div class="rb-side-grade" id="rbCurrentGrade">--</div>
+        </div>
+        <div class="rb-arrow">→</div>
+        <div class="rb-side target">
+          <div class="rb-side-label" data-i18n="rbTarget">TARGET</div>
+          <div class="rb-side-score" id="rbTargetScore">--</div>
+          <div class="rb-side-grade" id="rbTargetGrade">--</div>
+        </div>
+      </div>
+      <div class="rb-delta" id="rbDelta"></div>
+      <div class="rb-metrics" id="rbMetrics"></div>
+      <div class="panel">
+        <div class="panel-title"><span data-i18n="rbInsightsTitle">목표 인사이트</span><span class="badge" data-i18n="rbInsightsBadge">SIM</span></div>
+        <div id="rbInsights"></div>
+      </div>
+      <div class="rb-actions">
+        <button class="rb-btn apply" id="rbApply" data-i18n="rbApply">APPLY · 변경사항 적용</button>
+        <button class="rb-btn reset" id="rbReset" data-i18n="rbResetBtn">초기화</button>
+        <button class="rb-btn cancel" id="rbCancel" data-i18n="rbCancelBtn">취소</button>
+      </div>
+    </div>
   </aside>
+
+  <div class="legal-banner" id="legalBanner">
+    <span class="legal-banner-icon">⚠</span>
+    <span class="legal-banner-title" data-i18n="legalBannerTitle">SPHERE — 이용 약관 및 면책 고지</span>
+    <span class="legal-banner-text" data-i18n="legalBannerText">본 서비스는 교육·시연 목적의 시각화 도구이며, 투자 자문이 아닙니다. 종목 데이터는 정적 스냅샷입니다.</span>
+    <button class="legal-banner-link" id="legalBannerView" data-i18n="legalBannerView">전체보기</button>
+    <button class="legal-banner-close" id="legalBannerClose" data-i18n-title="legalBannerClose" title="배너 닫기">×</button>
+  </div>
 </div>
 
 <div class="modal-overlay" id="modal">
@@ -206,11 +1775,2158 @@
   </div>
 </div>
 
-<footer style="position:fixed; bottom:6px; left:50%; transform:translateX(-50%); font-size:9px; color:rgba(255,255,255,0.18); pointer-events:none; letter-spacing:0.5px; text-align:center; max-width:90vw;">
-  본 서비스는 교육·시연 목적의 포트폴리오 시각화 도구이며, 투자 자문이 아닙니다. 종목 데이터는 정적 스냅샷입니다.
-</footer>
+<!-- 면책고지 모달 -->
+<div class="modal-overlay" id="aboutModal">
+  <div class="modal modal-wide">
+    <h3>SPHERE — 이용 약관 및 면책 고지</h3>
+    <div class="legal-content">
+      <div class="legal-warning">
+        ⚠ <strong>본 서비스는 자본시장법상 투자 자문업이 아니며, 어떠한 종목의 매수·매도·보유도 권유하지 않습니다.</strong>
+      </div>
 
-<script src="lib/three.min.js"></script>
-<script type="module" src="js/main.js"></script>
+      <h4>1. 서비스 목적</h4>
+      <p>SPHERE는 투자 포트폴리오의 리스크 구조를 시각적으로 학습하고 분석하는 <strong>교육·시연 목적의 도구</strong>입니다. 실제 투자 의사결정의 근거로 사용해서는 안 됩니다.</p>
+
+      <h4>2. 데이터 정확성 및 제한</h4>
+      <p>본 서비스에 표시되는 종목 정보(현재가, 변동성, 베타값, 부채비율, 거래량 등)는 <strong>정적 스냅샷</strong>이며, 실시간 시세가 아닙니다. 실제 시장 가격과 상당한 차이가 있을 수 있습니다. 사용자는 실제 거래 시 반드시 본인의 증권사 시스템 등 공식 출처를 통해 최신 정보를 확인해야 합니다.</p>
+
+      <h4>3. 분석 결과의 한계</h4>
+      <p>리스크 스코어, 밸런스 지수, 자동 인사이트 등 본 서비스의 모든 분석 결과는 알고리즘이 도출한 <strong>참고용 지표</strong>이며, 미래 수익을 보장하지 않습니다. 분석에 사용되는 변동성·베타·부채비율 등은 과거 데이터 기반이며, 향후 시장 변화를 반영하지 못할 수 있습니다.</p>
+
+      <h4>4. 사용자 책임</h4>
+      <p>모든 투자 결정 및 그에 따른 <strong>손익은 전적으로 사용자 본인의 책임</strong>입니다. SPHERE 운영자는 본 서비스의 사용 또는 사용 불가로 인해 발생한 어떠한 직접적·간접적 손실, 일실 이익, 데이터 손상, 명예 훼손에 대해서도 책임지지 않습니다.</p>
+
+      <h4>5. 개인정보 처리</h4>
+      <p>본 서비스는 사용자 개인정보를 수집·저장·전송하지 않습니다. 사용자가 입력한 포트폴리오 정보(보유 종목·수량 등)는 사용자 브라우저의 localStorage에만 저장되며, 외부 서버로 전송되지 않습니다.</p>
+
+      <h4>6. 저작권 및 상표</h4>
+      <p>본 서비스에 표시되는 종목명·티커·ETF명은 각 발행회사 및 운용사의 등록상표이며, 분석 목적의 <strong>명목적 사용(nominative use)</strong>입니다. 본 서비스는 해당 회사·기관과 어떠한 제휴·후원·인증 관계가 없습니다.</p>
+
+      <h4>7. 외부 라이브러리</h4>
+      <p>본 서비스는 Three.js (MIT License) 그래픽 라이브러리를 사용하여 3D 시각화를 구현합니다. Three.js의 저작권은 Three.js Authors에 있습니다.</p>
+
+      <h4>8. 약관 변경</h4>
+      <p>본 약관은 사전 통지 없이 변경될 수 있으며, 변경 사항은 본 페이지에 즉시 반영됩니다. 사용자는 본 서비스를 계속 이용함으로써 변경된 약관에 동의한 것으로 간주됩니다.</p>
+
+      <div class="legal-meta">
+        본 서비스를 사용함으로써 위 사항에 모두 동의한 것으로 간주됩니다.<br>
+        SPHERE Project · DACON 월간 해커톤 출품작 · 마지막 갱신 2026-04-29
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="pf-btn" id="aboutClose" style="background:rgba(0,212,255,0.2);">확인했습니다</button>
+    </div>
+  </div>
+</div>
+
+<script src="three.min.js"></script>
+<script>
+window.addEventListener('error', e => console.error('[SPHERE]', e.message, e.filename, e.lineno));
+function bootWhenReady(fn){
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+  else fn();
+}
+bootWhenReady(function(){
+  if (typeof THREE === 'undefined'){
+    document.body.insertAdjacentHTML('afterbegin',
+      '<div style="position:fixed;inset:0;background:#05070d;color:#FF8C42;display:flex;align-items:center;justify-content:center;font-family:monospace;padding:40px;z-index:9999;text-align:center;">' +
+      '<div><div style="color:#e8ecf5;font-size:18px;letter-spacing:4px;margin-bottom:14px;">SPHERE</div>' +
+      '<div>three.min.js를 찾을 수 없습니다.</div>' +
+      '<div style="color:#9aa4bc;font-size:11px;margin-top:10px;line-height:1.6;">sphere.html과 같은 폴더에 three.min.js 파일이 함께 있어야 합니다.</div></div></div>');
+    return;
+  }
+  try { initSphere(); } catch(e){ console.error(e); alert('SPHERE init error: ' + e.message); }
+});
+
+function initSphere(){
+/* =========================================================
+   SPHERE — Skills.md v1.0.0 구현
+   Layer 1: 표준화  Layer 2: 리스크  Layer 3: 좌표
+   Layer 4: 밸런스  Layer 5: 시각화
+   ========================================================= */
+
+// =========================================================
+// I18N — 한국어 (기본) / English
+// =========================================================
+const I18N = {
+  ko: {
+    logoSub:'PORTFOLIO RISK SPHERE', aboutTitle:'이용 약관 / 면책 고지',
+    update:'UPDATE', status:'STATUS',
+    pfNew:'+ NEW', pfNewTitle:'새 포트폴리오 만들기', pfRenameTitle:'이름 변경', pfDeleteTitle:'포트폴리오 삭제',
+    addAsset:'Add Asset', searchBadge:'SEARCH',
+    searchPlaceholder:'종목명·티커·ETF 검색 (예: 삼성전자, AAPL, QQQ)',
+    holdings:'Holdings', totalValue:'총 평가액',
+    emptyHoldings:'보유 종목이 없습니다.<br>위 검색창에서 종목을 추가해보세요.',
+    sectorAllocation:'Sector Allocation', riskDistribution:'Risk Distribution',
+    sphere3D:'3D RISK SPHERE', sphereView:'SPHERE VIEW', clusterView:'CLUSTER VIEW',
+    portfolioRisk:'PORTFOLIO RISK', avgScore:'avg score · 0–100',
+    growth:'GROWTH', growthSub:'성장주 · 북반구', value:'VALUE', valueSub:'가치주 · 남반구',
+    legendRisk:'LEGEND · RISK',
+    legendSafe:'SAFE 0-29', legendMod:'MOD 30-54', legendCaution:'CAUTION 55-74', legendHigh:'HIGH 75-89', legendExtreme:'EXTREME 90+',
+    sphericity:'SPHERICITY', perfectSphere:'100 = perfect sphere',
+    btnSphere:'SPHERE', btnCluster:'CLUSTER', btnRotate:'⟳ AUTO-ROTATE', btnReset:'RESET',
+    balanceIndex:'Balance Index', balanceFormulaTitle:'산출 공식 보기',
+    calculating:'계산 중...',
+    metricDiverse:'섹터 분산', metricDeviation:'리스크 편차', metricSphericity:'구형도', metricHHI:'HHI 집중도',
+    insights:'Insights', auto:'AUTO',
+    selectedAsset:'Selected Asset',
+    sdQty:'보유 수량', sdValue:'평가금액', sdWeight:'비중', sdSector:'섹터',
+    sdPrice:'현재가', sdAvg:'평균 매수가', sdReturn:'수익률', sdVol:'변동성 30D',
+    sdBeta:'베타', sdDebt:'부채비율', sdRisk:'리스크 스코어',
+    selectHint:'구체의 노드를 클릭하면<br>상세 정보가 표시됩니다',
+    sharesUnit:'주', etfTag:'ETF', addedTag:'✓ 추가됨', noSearchResults:'검색 결과가 없습니다',
+    confirmDelete:(n)=>`"${n}" 포트폴리오를 삭제할까요?\n이 작업은 되돌릴 수 없습니다.`,
+    alertMaxPortfolios:(n)=>`포트폴리오는 최대 ${n}개까지 만들 수 있습니다.`,
+    alertLastPortfolio:'마지막 포트폴리오는 삭제할 수 없습니다.',
+    portfolioCount:(n)=>`${n}종목`, updatedAt:(d)=>`업데이트 ${d}`,
+    modalNewPfTitle:'새 포트폴리오',
+    modalNewPfDesc:(curr,max)=>`포트폴리오 이름을 입력하세요. (${curr}/${max})`,
+    modalNewPfPh:'예: 안정형 포트폴리오',
+    modalNewPfDefault:(n)=>`포트폴리오 ${n}`,
+    modalRenameTitle:'이름 변경', modalRenameDesc:'포트폴리오 이름을 수정합니다.', modalRenamePh:'포트폴리오 이름',
+    modalCancel:'취소', modalOK:'확인',
+    portfoliosFooter:(c,m)=>`${c} / ${m} portfolios`,
+    assetsCount:(c,m)=>`${c} ASSETS · ${m}/${20}`,
+    insightConcentrationTitle:'⚠ 집중 투자 경고',
+    insightConcentrationBody:(n,p,b1,b2)=>`${n}의 비중이 ${p}%로 전체 포트폴리오 리스크를 좌우합니다. 비중을 30% 이하로 조정하면 밸런스가 ${b1} → ${b2}점으로 개선됩니다.`,
+    insightRebalanceTitle:'⚠ 리밸런싱 필요',
+    insightRebalanceBody:(s,d)=>`현재 구형도 ${s}점, 섹터 분산 ${d}점. 저비중 섹터(소비재·금융 등) 편입을 통해 균형 회복이 필요합니다.`,
+    insightHighRiskTitle:'⚠ 고위험 포트폴리오',
+    insightHighRiskBody:(avg,n,sc)=>`평균 리스크 스코어 ${avg}점. 특히 ${n} (score ${sc})의 변동성이 섹터 평균 대비 높습니다.`,
+    insightSectorTitle:'⚠ 섹터 편중 경고',
+    insightSectorBody:(s,p,h)=>`${s} 섹터가 ${p}%를 차지합니다. HHI ${h}로 분산도가 낮습니다.`,
+    insightExtremeRiskTitle:(n)=>`⚠ ${n} 리스크 매우 높음`,
+    insightExtremeRiskBody:(sc,v,b)=>`리스크 스코어 ${sc}점. 변동성 ${v}%, 베타 ${b}로 시장 평균 대비 민감도가 큽니다.`,
+    insightBalancedTitle:'✓ 균형잡힌 포트폴리오',
+    insightBalancedBody:(s)=>`밸런스 지수 ${s}점. 모든 핵심 지표가 양호한 범위에 있습니다. 지속적인 모니터링을 권장합니다.`,
+    insightEmptyTitle:'포트폴리오가 비어있음',
+    insightEmptyBody:'좌측 검색창에서 종목을 추가해주세요.',
+    balanceGradeOptimal:'✅ 최적 분산 — 리밸런싱 불필요',
+    balanceGradeGood:'🔵 양호 — 소폭 조정 고려',
+    balanceGradeWarn:'🟡 편중 주의 — 리밸런싱 권장',
+    balanceGradeRisk:'🔴 편중 위험 — 리밸런싱 필요',
+    balanceGradeSevere:'🟣 심각한 쏠림 — 즉각 리밸런싱',
+    riskSafe:'SAFE', riskModerate:'MODERATE', riskCaution:'CAUTION', riskHigh:'HIGH', riskExtreme:'EXTREME',
+    tooltipQtyWeight:(q,w)=>`${q.toLocaleString()}주 · ${w}%`,
+    tooltipValue:'평가금액', tooltipRisk:'리스크', tooltipReturn:'수익률', tooltipSector:'섹터',
+    qtyEditTitle:'보유 수량 (클릭하여 수정 · Enter로 저장)',
+    delTitle:'포트폴리오에서 제거', valueTooltipTitle:'평가금액 (수량 × 현재가)',
+    legalBannerTitle:'SPHERE — 이용 약관 및 면책 고지',
+    legalBannerText:'본 서비스는 교육·시연 목적의 시각화 도구이며, 투자 자문이 아닙니다. 종목 데이터는 정적 스냅샷입니다. 모든 투자 결정과 손익은 사용자 본인의 책임입니다.',
+    legalBannerView:'전체보기', legalBannerClose:'배너 닫기',
+    btnRebalance:'⚖ REBALANCE',
+    rbIndicator:'리밸런싱 시뮬레이션 중',
+    rbTitle:'리밸런싱 시뮬레이터',
+    rbCancel:'취소하고 닫기',
+    rbCurrent:'현재', rbTarget:'목표',
+    rbInsightsTitle:'목표 인사이트', rbInsightsBadge:'SIM',
+    rbApply:'APPLY · 변경사항 적용', rbResetBtn:'초기화', rbCancelBtn:'취소',
+    rbMetricBalance:'밸런스 지수', rbMetricDiverse:'섹터 분산', rbMetricDeviation:'리스크 편차',
+    rbMetricSphericity:'구형도', rbMetricHHI:'HHI 집중도', rbMetricRisk:'평균 리스크',
+    rbApplyConfirm:(b1,b2)=>`현재 포트폴리오를 시뮬레이션 결과로 변경하시겠어요?\n\n밸런스 지수: ${b1} → ${b2}\n좌측 보유 종목의 수량이 시뮬레이션한 값으로 갱신됩니다.`,
+    rbResetConfirm:'타겟을 현재 포트폴리오로 되돌립니다. 시뮬레이션 변경사항이 모두 사라져요. 계속할까요?',
+    rbInsightUnchanged:'변경사항이 없습니다.',
+    rbDeltaImproved:(d)=>`개선 ${d}점`, rbDeltaWorsened:(d)=>`악화 ${d}점`, rbDeltaSame:'변화 없음'
+  },
+  en: {
+    logoSub:'PORTFOLIO RISK SPHERE', aboutTitle:'Terms / Disclaimer',
+    update:'UPDATE', status:'STATUS',
+    pfNew:'+ NEW', pfNewTitle:'Create new portfolio', pfRenameTitle:'Rename', pfDeleteTitle:'Delete portfolio',
+    addAsset:'Add Asset', searchBadge:'SEARCH',
+    searchPlaceholder:'Search ticker, name, ETF (e.g., AAPL, Samsung, QQQ)',
+    holdings:'Holdings', totalValue:'Total Value',
+    emptyHoldings:'No holdings yet.<br>Add assets via the search box above.',
+    sectorAllocation:'Sector Allocation', riskDistribution:'Risk Distribution',
+    sphere3D:'3D RISK SPHERE', sphereView:'SPHERE VIEW', clusterView:'CLUSTER VIEW',
+    portfolioRisk:'PORTFOLIO RISK', avgScore:'avg score · 0–100',
+    growth:'GROWTH', growthSub:'Growth · Northern', value:'VALUE', valueSub:'Value · Southern',
+    legendRisk:'LEGEND · RISK',
+    legendSafe:'SAFE 0-29', legendMod:'MOD 30-54', legendCaution:'CAUTION 55-74', legendHigh:'HIGH 75-89', legendExtreme:'EXTREME 90+',
+    sphericity:'SPHERICITY', perfectSphere:'100 = perfect sphere',
+    btnSphere:'SPHERE', btnCluster:'CLUSTER', btnRotate:'⟳ AUTO-ROTATE', btnReset:'RESET',
+    balanceIndex:'Balance Index', balanceFormulaTitle:'View formula',
+    calculating:'Calculating...',
+    metricDiverse:'Sector Diversity', metricDeviation:'Risk Deviation', metricSphericity:'Sphericity', metricHHI:'HHI Concentration',
+    insights:'Insights', auto:'AUTO',
+    selectedAsset:'Selected Asset',
+    sdQty:'Quantity', sdValue:'Market Value', sdWeight:'Weight', sdSector:'Sector',
+    sdPrice:'Current Price', sdAvg:'Avg Buy Price', sdReturn:'Return', sdVol:'Volatility 30D',
+    sdBeta:'Beta', sdDebt:'Debt Ratio', sdRisk:'Risk Score',
+    selectHint:'Click a node on the sphere<br>to see asset details',
+    sharesUnit:'sh', etfTag:'ETF', addedTag:'✓ Added', noSearchResults:'No results',
+    confirmDelete:(n)=>`Delete portfolio "${n}"?\nThis cannot be undone.`,
+    alertMaxPortfolios:(n)=>`You can create up to ${n} portfolios.`,
+    alertLastPortfolio:'Cannot delete the last remaining portfolio.',
+    portfolioCount:(n)=>`${n} assets`, updatedAt:(d)=>`Updated ${d}`,
+    modalNewPfTitle:'New Portfolio',
+    modalNewPfDesc:(curr,max)=>`Enter portfolio name. (${curr}/${max})`,
+    modalNewPfPh:'e.g., Conservative Portfolio',
+    modalNewPfDefault:(n)=>`Portfolio ${n}`,
+    modalRenameTitle:'Rename', modalRenameDesc:'Edit portfolio name.', modalRenamePh:'Portfolio name',
+    modalCancel:'Cancel', modalOK:'Confirm',
+    portfoliosFooter:(c,m)=>`${c} / ${m} portfolios`,
+    assetsCount:(c,m)=>`${c} ASSETS · ${m}/20`,
+    insightConcentrationTitle:'⚠ Concentration Warning',
+    insightConcentrationBody:(n,p,b1,b2)=>`${n} accounts for ${p}% of weight, dominating overall risk. Reducing to under 30% would improve balance from ${b1} → ${b2}.`,
+    insightRebalanceTitle:'⚠ Rebalance Needed',
+    insightRebalanceBody:(s,d)=>`Sphericity ${s}, sector diversity ${d}. Adding low-weight sectors (consumer, financial) would restore balance.`,
+    insightHighRiskTitle:'⚠ High-Risk Portfolio',
+    insightHighRiskBody:(avg,n,sc)=>`Average risk score ${avg}. Especially ${n} (score ${sc}) shows high volatility relative to its sector.`,
+    insightSectorTitle:'⚠ Sector Concentration',
+    insightSectorBody:(s,p,h)=>`${s} sector accounts for ${p}%. HHI ${h} indicates low diversity.`,
+    insightExtremeRiskTitle:(n)=>`⚠ ${n} extremely risky`,
+    insightExtremeRiskBody:(sc,v,b)=>`Risk score ${sc}. Volatility ${v}%, beta ${b} — much higher than market average.`,
+    insightBalancedTitle:'✓ Balanced Portfolio',
+    insightBalancedBody:(s)=>`Balance index ${s}. All key metrics are within healthy ranges. Continue monitoring.`,
+    insightEmptyTitle:'Portfolio is empty',
+    insightEmptyBody:'Add assets from the search panel on the left.',
+    balanceGradeOptimal:'✅ Optimal — no rebalancing needed',
+    balanceGradeGood:'🔵 Good — minor adjustments',
+    balanceGradeWarn:'🟡 Concentration risk — rebalance recommended',
+    balanceGradeRisk:'🔴 Imbalanced — rebalance required',
+    balanceGradeSevere:'🟣 Severely concentrated — rebalance immediately',
+    riskSafe:'SAFE', riskModerate:'MODERATE', riskCaution:'CAUTION', riskHigh:'HIGH', riskExtreme:'EXTREME',
+    tooltipQtyWeight:(q,w)=>`${q.toLocaleString()} sh · ${w}%`,
+    tooltipValue:'Value', tooltipRisk:'Risk', tooltipReturn:'Return', tooltipSector:'Sector',
+    qtyEditTitle:'Quantity (click to edit · Enter to save)',
+    delTitle:'Remove from portfolio', valueTooltipTitle:'Market value (qty × price)',
+    legalBannerTitle:'SPHERE — Terms & Disclaimer',
+    legalBannerText:'This is an educational visualization tool, not investment advice. Asset data is a static snapshot. All investment decisions and outcomes are the user\'s sole responsibility.',
+    legalBannerView:'View full', legalBannerClose:'Dismiss banner',
+    btnRebalance:'⚖ REBALANCE',
+    rbIndicator:'REBALANCE SIMULATION',
+    rbTitle:'REBALANCE SIMULATOR',
+    rbCancel:'Cancel and close',
+    rbCurrent:'CURRENT', rbTarget:'TARGET',
+    rbInsightsTitle:'Target Insights', rbInsightsBadge:'SIM',
+    rbApply:'APPLY changes', rbResetBtn:'Reset', rbCancelBtn:'Cancel',
+    rbMetricBalance:'Balance Index', rbMetricDiverse:'Sector Diversity', rbMetricDeviation:'Risk Deviation',
+    rbMetricSphericity:'Sphericity', rbMetricHHI:'HHI Concentration', rbMetricRisk:'Avg Risk',
+    rbApplyConfirm:(b1,b2)=>`Apply simulation result to your active portfolio?\n\nBalance Index: ${b1} → ${b2}\nThe holdings quantities will be updated to your simulated values.`,
+    rbResetConfirm:'Reset target to current portfolio. All simulation edits will be lost. Continue?',
+    rbInsightUnchanged:'No changes yet.',
+    rbDeltaImproved:(d)=>`Improved by ${d}`, rbDeltaWorsened:(d)=>`Worsened by ${d}`, rbDeltaSame:'No change'
+  }
+};
+
+let CURRENT_LANG = localStorage.getItem('sphere_lang') || 'ko';
+function t(key, ...args){
+  const v = (I18N[CURRENT_LANG]&&I18N[CURRENT_LANG][key]) ?? I18N.ko[key] ?? key;
+  return typeof v === 'function' ? v(...args) : v;
+}
+function applyI18n(){
+  document.documentElement.lang = CURRENT_LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{ el.title = t(el.dataset.i18nTitle); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{ el.placeholder = t(el.dataset.i18nPlaceholder); });
+  document.querySelectorAll('#langSwitch button').forEach(b=> b.classList.toggle('active', b.dataset.lang===CURRENT_LANG));
+}
+function setLang(lang){
+  CURRENT_LANG = lang;
+  localStorage.setItem('sphere_lang', lang);
+  applyI18n();
+  if (typeof rebuildAll === 'function') rebuildAll();
+}
+// 종목명 언어 헬퍼 (영문 토글 시 name_en 우선)
+function getName(asset){
+  if (CURRENT_LANG === 'en' && asset.name_en) return asset.name_en;
+  return asset.name;
+}
+
+// ---------- 종목/ETF 마스터 DB ----------
+// 검색 가능한 자산 데이터. 실제 시세 API 차단 환경 대비 정적 스냅샷.
+const ASSET_DB = [
+  // === 한국 IT ===
+  { ticker:'005930.KS', name:'삼성전자',         name_en:'Samsung Electronics',   sector:'IT',         current_price:71200,  market_cap:425e12, volatility_30d:0.24, beta:1.05, debt_ratio:0.32, liquidity_volume:18500000, is_etf:false, alias:'samsung electronics' },
+  { ticker:'000660.KS', name:'SK하이닉스',       name_en:'SK Hynix',              sector:'IT',         current_price:182000, market_cap:132e12, volatility_30d:0.36, beta:1.32, debt_ratio:0.45, liquidity_volume:5400000,  is_etf:false, alias:'sk hynix' },
+  { ticker:'035420.KS', name:'NAVER',            name_en:'NAVER',                 sector:'IT',         current_price:212000, market_cap:34e12,  volatility_30d:0.30, beta:1.20, debt_ratio:0.22, liquidity_volume:680000,   is_etf:false, alias:'naver' },
+  { ticker:'035720.KS', name:'카카오',           name_en:'Kakao',                 sector:'IT',         current_price:48500,  market_cap:21e12,  volatility_30d:0.34, beta:1.28, debt_ratio:0.41, liquidity_volume:2100000,  is_etf:false, alias:'kakao' },
+  { ticker:'377300.KS', name:'카카오페이',       name_en:'KakaoPay',              sector:'IT',         current_price:32000,  market_cap:4.2e12, volatility_30d:0.45, beta:1.45, debt_ratio:0.18, liquidity_volume:920000,   is_etf:false, alias:'kakaopay' },
+  { ticker:'251270.KS', name:'넷마블',           name_en:'Netmarble',             sector:'IT',         current_price:55800,  market_cap:4.8e12, volatility_30d:0.38, beta:1.22, debt_ratio:0.35, liquidity_volume:340000,   is_etf:false, alias:'netmarble' },
+  // === 한국 BIO ===
+  { ticker:'207940.KS', name:'삼성바이오로직스', name_en:'Samsung Biologics',     sector:'BIO',        current_price:835000, market_cap:59e12,  volatility_30d:0.28, beta:0.92, debt_ratio:0.20, liquidity_volume:140000,   is_etf:false, alias:'samsung biologics' },
+  { ticker:'068270.KS', name:'셀트리온',         name_en:'Celltrion',             sector:'BIO',        current_price:185000, market_cap:38e12,  volatility_30d:0.42, beta:1.18, debt_ratio:0.28, liquidity_volume:1200000,  is_etf:false, alias:'celltrion' },
+  { ticker:'196170.KS', name:'알테오젠',         name_en:'Alteogen',              sector:'BIO',        current_price:312000, market_cap:16e12,  volatility_30d:0.55, beta:1.55, debt_ratio:0.15, liquidity_volume:580000,   is_etf:false, alias:'alteogen' },
+  { ticker:'128940.KS', name:'한미약품',         name_en:'Hanmi Pharmaceutical',  sector:'BIO',        current_price:328000, market_cap:4.1e12, volatility_30d:0.38, beta:1.05, debt_ratio:0.42, liquidity_volume:78000,    is_etf:false, alias:'hanmi pharm' },
+  // === 한국 FIN ===
+  { ticker:'105560.KS', name:'KB금융',           name_en:'KB Financial',          sector:'FIN',        current_price:78400,  market_cap:31e12,  volatility_30d:0.18, beta:0.85, debt_ratio:0.78, liquidity_volume:1800000,  is_etf:false, alias:'kb financial' },
+  { ticker:'055550.KS', name:'신한지주',         name_en:'Shinhan Financial',     sector:'FIN',        current_price:52800,  market_cap:27e12,  volatility_30d:0.17, beta:0.82, debt_ratio:0.81, liquidity_volume:1900000,  is_etf:false, alias:'shinhan' },
+  { ticker:'086790.KS', name:'하나금융지주',     name_en:'Hana Financial',        sector:'FIN',        current_price:62100,  market_cap:18e12,  volatility_30d:0.19, beta:0.88, debt_ratio:0.82, liquidity_volume:1100000,  is_etf:false, alias:'hana financial' },
+  { ticker:'316140.KS', name:'우리금융지주',     name_en:'Woori Financial',       sector:'FIN',        current_price:14850,  market_cap:11e12,  volatility_30d:0.18, beta:0.84, debt_ratio:0.83, liquidity_volume:3200000,  is_etf:false, alias:'woori' },
+  { ticker:'138930.KS', name:'BNK금융지주',      name_en:'BNK Financial',         sector:'FIN',        current_price:8420,   market_cap:2.7e12, volatility_30d:0.21, beta:0.92, debt_ratio:0.84, liquidity_volume:1400000,  is_etf:false, alias:'bnk' },
+  // === 한국 AUTO ===
+  { ticker:'005380.KS', name:'현대차',           name_en:'Hyundai Motor',         sector:'AUTO',       current_price:248000, market_cap:52e12,  volatility_30d:0.26, beta:1.08, debt_ratio:0.62, liquidity_volume:850000,   is_etf:false, alias:'hyundai motor' },
+  { ticker:'000270.KS', name:'기아',             name_en:'Kia',                   sector:'AUTO',       current_price:108000, market_cap:43e12,  volatility_30d:0.27, beta:1.10, debt_ratio:0.55, liquidity_volume:1600000,  is_etf:false, alias:'kia' },
+  { ticker:'012330.KS', name:'현대모비스',       name_en:'Hyundai Mobis',         sector:'AUTO',       current_price:235000, market_cap:22e12,  volatility_30d:0.24, beta:1.02, debt_ratio:0.45, liquidity_volume:280000,   is_etf:false, alias:'mobis' },
+  // === 한국 INDUSTRIAL ===
+  { ticker:'006400.KS', name:'삼성SDI',          name_en:'Samsung SDI',           sector:'INDUSTRIAL', current_price:325000, market_cap:22e12,  volatility_30d:0.36, beta:1.40, debt_ratio:0.48, liquidity_volume:380000,   is_etf:false, alias:'samsung sdi' },
+  { ticker:'051910.KS', name:'LG화학',           name_en:'LG Chem',               sector:'INDUSTRIAL', current_price:368000, market_cap:26e12,  volatility_30d:0.38, beta:1.42, debt_ratio:0.51, liquidity_volume:340000,   is_etf:false, alias:'lg chem' },
+  { ticker:'373220.KS', name:'LG에너지솔루션',   name_en:'LG Energy Solution',    sector:'INDUSTRIAL', current_price:392000, market_cap:92e12,  volatility_30d:0.40, beta:1.48, debt_ratio:0.52, liquidity_volume:520000,   is_etf:false, alias:'lg energy solution' },
+  { ticker:'010130.KS', name:'고려아연',         name_en:'Korea Zinc',            sector:'INDUSTRIAL', current_price:858000, market_cap:18e12,  volatility_30d:0.34, beta:1.18, debt_ratio:0.32, liquidity_volume:48000,    is_etf:false, alias:'korea zinc' },
+  { ticker:'009540.KS', name:'HD한국조선해양',   name_en:'HD Hyundai Shipbuilding',sector:'INDUSTRIAL', current_price:188000, market_cap:13e12,  volatility_30d:0.42, beta:1.55, debt_ratio:0.65, liquidity_volume:380000,   is_etf:false, alias:'hd shipbuilding' },
+  // === 한국 ENERGY ===
+  { ticker:'015760.KS', name:'한국전력',         name_en:'KEPCO',                 sector:'ENERGY',     current_price:23800,  market_cap:15e12,  volatility_30d:0.22, beta:0.62, debt_ratio:0.88, liquidity_volume:6800000,  is_etf:false, alias:'kepco' },
+  { ticker:'034730.KS', name:'SK',               name_en:'SK Holdings',           sector:'ENERGY',     current_price:142000, market_cap:11e12,  volatility_30d:0.28, beta:0.95, debt_ratio:0.55, liquidity_volume:120000,   is_etf:false, alias:'sk holdings' },
+  { ticker:'096770.KS', name:'SK이노베이션',     name_en:'SK Innovation',         sector:'ENERGY',     current_price:118000, market_cap:11e12,  volatility_30d:0.34, beta:1.25, debt_ratio:0.62, liquidity_volume:480000,   is_etf:false, alias:'sk innovation' },
+  // === 한국 CONSUMER ===
+  { ticker:'097950.KS', name:'CJ제일제당',       name_en:'CJ CheilJedang',        sector:'CONSUMER',   current_price:295000, market_cap:4.4e12, volatility_30d:0.16, beta:0.72, debt_ratio:0.58, liquidity_volume:62000,    is_etf:false, alias:'cj cheiljedang' },
+  { ticker:'271560.KS', name:'오리온',           name_en:'Orion',                 sector:'CONSUMER',   current_price:128000, market_cap:5.1e12, volatility_30d:0.18, beta:0.65, debt_ratio:0.32, liquidity_volume:140000,   is_etf:false, alias:'orion' },
+  { ticker:'139480.KS', name:'이마트',           name_en:'E-Mart',                sector:'CONSUMER',   current_price:62800,  market_cap:1.7e12, volatility_30d:0.22, beta:0.78, debt_ratio:0.62, liquidity_volume:280000,   is_etf:false, alias:'emart' },
+  { ticker:'282330.KS', name:'BGF리테일',        name_en:'BGF Retail',            sector:'CONSUMER',   current_price:118000, market_cap:2.0e12, volatility_30d:0.20, beta:0.68, debt_ratio:0.45, liquidity_volume:78000,    is_etf:false, alias:'bgf retail cu' },
+  // === 한국 INDUSTRIAL/etc ===
+  { ticker:'028260.KS', name:'삼성물산',         name_en:'Samsung C&T',           sector:'INDUSTRIAL', current_price:158000, market_cap:30e12,  volatility_30d:0.20, beta:0.95, debt_ratio:0.42, liquidity_volume:380000,   is_etf:false, alias:'samsung c&t' },
+  { ticker:'003550.KS', name:'LG',               name_en:'LG Holdings',           sector:'IT',         current_price:81200,  market_cap:13e12,  volatility_30d:0.22, beta:1.05, debt_ratio:0.38, liquidity_volume:340000,   is_etf:false, alias:'lg holdings' },
+
+  // === 한국 통신 (Telecom) ===
+  { ticker:'030200.KS', name:'KT',               name_en:'KT Corporation',        sector:'IT',         current_price:42850,  market_cap:11e12,  volatility_30d:0.16, beta:0.55, debt_ratio:0.62, liquidity_volume:680000,   is_etf:false, alias:'kt 케이티 통신' },
+  { ticker:'017670.KS', name:'SK텔레콤',         name_en:'SK Telecom',            sector:'IT',         current_price:55400,  market_cap:12e12,  volatility_30d:0.14, beta:0.48, debt_ratio:0.65, liquidity_volume:520000,   is_etf:false, alias:'sk telecom skt 통신' },
+  { ticker:'032640.KS', name:'LG유플러스',       name_en:'LG U+',                 sector:'IT',         current_price:9820,   market_cap:4.3e12, volatility_30d:0.16, beta:0.58, debt_ratio:0.68, liquidity_volume:1100000,  is_etf:false, alias:'lg uplus lgu 통신' },
+  // === 한국 게임 (Game) ===
+  { ticker:'036570.KS', name:'엔씨소프트',       name_en:'NCsoft',                sector:'IT',         current_price:215000, market_cap:4.7e12, volatility_30d:0.34, beta:1.15, debt_ratio:0.18, liquidity_volume:120000,   is_etf:false, alias:'ncsoft 엔씨' },
+  { ticker:'259960.KS', name:'크래프톤',         name_en:'Krafton',               sector:'IT',         current_price:298000, market_cap:14.5e12,volatility_30d:0.40, beta:1.32, debt_ratio:0.12, liquidity_volume:280000,   is_etf:false, alias:'krafton 배그 pubg' },
+  { ticker:'112040.KS', name:'위메이드',         name_en:'Wemade',                sector:'IT',         current_price:38500,  market_cap:1.3e12, volatility_30d:0.55, beta:1.55, debt_ratio:0.35, liquidity_volume:480000,   is_etf:false, alias:'wemade 위메이드' },
+  // === 한국 철강 (Steel) ===
+  { ticker:'005490.KS', name:'POSCO홀딩스',      name_en:'POSCO Holdings',        sector:'INDUSTRIAL', current_price:298000, market_cap:25e12,  volatility_30d:0.32, beta:1.28, debt_ratio:0.42, liquidity_volume:280000,   is_etf:false, alias:'posco 포스코 철강' },
+  { ticker:'003670.KS', name:'포스코퓨처엠',     name_en:'POSCO Future M',        sector:'INDUSTRIAL', current_price:185000, market_cap:14e12,  volatility_30d:0.46, beta:1.62, debt_ratio:0.55, liquidity_volume:380000,   is_etf:false, alias:'posco future m 양극재' },
+  // === 한국 2차전지 ===
+  { ticker:'086520.KS', name:'에코프로',         name_en:'EcoPro',                sector:'INDUSTRIAL', current_price:62800,  market_cap:8.4e12, volatility_30d:0.62, beta:1.85, debt_ratio:0.42, liquidity_volume:1200000,  is_etf:false, alias:'ecopro 에코프로 2차전지' },
+  { ticker:'247540.KS', name:'에코프로비엠',     name_en:'EcoPro BM',             sector:'INDUSTRIAL', current_price:158000, market_cap:15.5e12,volatility_30d:0.58, beta:1.78, debt_ratio:0.48, liquidity_volume:680000,   is_etf:false, alias:'ecopro bm 양극재' },
+  // === 한국 해운/항공 ===
+  { ticker:'011200.KS', name:'HMM',              name_en:'HMM',                   sector:'INDUSTRIAL', current_price:18800,  market_cap:11e12,  volatility_30d:0.42, beta:1.22, debt_ratio:0.38, liquidity_volume:3800000,  is_etf:false, alias:'hmm 현대상선 해운' },
+  { ticker:'003490.KS', name:'대한항공',         name_en:'Korean Air',            sector:'INDUSTRIAL', current_price:23150,  market_cap:8.5e12, volatility_30d:0.36, beta:1.18, debt_ratio:0.72, liquidity_volume:680000,   is_etf:false, alias:'korean air 대한항공' },
+  // === 한국 기타 대형주 ===
+  { ticker:'010140.KS', name:'삼성중공업',       name_en:'Samsung Heavy',         sector:'INDUSTRIAL', current_price:9820,   market_cap:8.5e12, volatility_30d:0.42, beta:1.55, debt_ratio:0.78, liquidity_volume:5200000,  is_etf:false, alias:'samsung heavy 조선' },
+  { ticker:'161390.KS', name:'한국타이어앤테크놀로지', name_en:'Hankook Tire',     sector:'AUTO',       current_price:48800,  market_cap:6.0e12, volatility_30d:0.28, beta:1.12, debt_ratio:0.42, liquidity_volume:380000,   is_etf:false, alias:'hankook tire 타이어' },
+  { ticker:'035250.KS', name:'강원랜드',         name_en:'Kangwon Land',          sector:'CONSUMER',   current_price:14850,  market_cap:3.2e12, volatility_30d:0.24, beta:0.88, debt_ratio:0.32, liquidity_volume:480000,   is_etf:false, alias:'kangwon land 강원랜드 카지노' },
+
+  // === 미국 IT (BIG TECH) ===
+  { ticker:'AAPL',  name:'Apple',           sector:'IT',         current_price:228,    market_cap:3500e9, volatility_30d:0.22, beta:1.18, debt_ratio:0.40, liquidity_volume:55000000, is_etf:false, alias:'apple aapl' },
+  { ticker:'MSFT',  name:'Microsoft',       sector:'IT',         current_price:432,    market_cap:3200e9, volatility_30d:0.20, beta:0.95, debt_ratio:0.32, liquidity_volume:24000000, is_etf:false, alias:'microsoft msft' },
+  { ticker:'GOOGL', name:'Alphabet',        sector:'IT',         current_price:175,    market_cap:2200e9, volatility_30d:0.24, beta:1.05, debt_ratio:0.12, liquidity_volume:32000000, is_etf:false, alias:'alphabet google googl' },
+  { ticker:'AMZN',  name:'Amazon',          sector:'IT',         current_price:185,    market_cap:1900e9, volatility_30d:0.30, beta:1.22, debt_ratio:0.46, liquidity_volume:45000000, is_etf:false, alias:'amazon amzn' },
+  { ticker:'META',  name:'Meta Platforms',  sector:'IT',         current_price:548,    market_cap:1380e9, volatility_30d:0.32, beta:1.30, debt_ratio:0.18, liquidity_volume:18000000, is_etf:false, alias:'meta facebook fb' },
+  { ticker:'NVDA',  name:'NVIDIA',          sector:'IT',         current_price:138,    market_cap:3400e9, volatility_30d:0.48, beta:1.65, debt_ratio:0.20, liquidity_volume:285000000,is_etf:false, alias:'nvidia nvda' },
+  { ticker:'NFLX',  name:'Netflix',         sector:'IT',         current_price:712,    market_cap:305e9,  volatility_30d:0.30, beta:1.18, debt_ratio:0.42, liquidity_volume:4200000,  is_etf:false, alias:'netflix nflx' },
+  { ticker:'AMD',   name:'AMD',             sector:'IT',         current_price:165,    market_cap:268e9,  volatility_30d:0.45, beta:1.72, debt_ratio:0.22, liquidity_volume:48000000, is_etf:false, alias:'amd advanced micro' },
+  { ticker:'CRM',   name:'Salesforce',      sector:'IT',         current_price:285,    market_cap:275e9,  volatility_30d:0.30, beta:1.25, debt_ratio:0.28, liquidity_volume:5800000,  is_etf:false, alias:'salesforce crm' },
+  { ticker:'ORCL',  name:'Oracle',          sector:'IT',         current_price:148,    market_cap:412e9,  volatility_30d:0.24, beta:1.05, debt_ratio:0.65, liquidity_volume:8200000,  is_etf:false, alias:'oracle orcl' },
+  // === 미국 AUTO ===
+  { ticker:'TSLA',  name:'Tesla',           sector:'AUTO',       current_price:218,    market_cap:695e9,  volatility_30d:0.55, beta:1.85, debt_ratio:0.18, liquidity_volume:95000000, is_etf:false, alias:'tesla tsla' },
+  { ticker:'F',     name:'Ford',            sector:'AUTO',       current_price:11.2,   market_cap:44e9,   volatility_30d:0.28, beta:1.42, debt_ratio:0.78, liquidity_volume:62000000, is_etf:false, alias:'ford' },
+  { ticker:'GM',    name:'General Motors',  sector:'AUTO',       current_price:48.5,   market_cap:54e9,   volatility_30d:0.30, beta:1.45, debt_ratio:0.72, liquidity_volume:18000000, is_etf:false, alias:'gm general motors' },
+  // === 미국 FIN ===
+  { ticker:'JPM',   name:'JPMorgan Chase',  sector:'FIN',        current_price:218,    market_cap:625e9,  volatility_30d:0.18, beta:1.05, debt_ratio:0.85, liquidity_volume:9200000,  is_etf:false, alias:'jpmorgan chase jpm' },
+  { ticker:'BAC',   name:'Bank of America', sector:'FIN',        current_price:42.8,   market_cap:330e9,  volatility_30d:0.22, beta:1.32, debt_ratio:0.86, liquidity_volume:38000000, is_etf:false, alias:'bank of america bac' },
+  { ticker:'V',     name:'Visa',            sector:'FIN',        current_price:282,    market_cap:545e9,  volatility_30d:0.18, beta:0.95, debt_ratio:0.32, liquidity_volume:5600000,  is_etf:false, alias:'visa v' },
+  { ticker:'MA',    name:'Mastercard',      sector:'FIN',        current_price:498,    market_cap:462e9,  volatility_30d:0.20, beta:1.08, debt_ratio:0.42, liquidity_volume:2900000,  is_etf:false, alias:'mastercard ma' },
+  { ticker:'GS',    name:'Goldman Sachs',   sector:'FIN',        current_price:495,    market_cap:160e9,  volatility_30d:0.24, beta:1.40, debt_ratio:0.88, liquidity_volume:1800000,  is_etf:false, alias:'goldman sachs gs' },
+  // === 미국 BIO ===
+  { ticker:'JNJ',   name:'Johnson & Johnson',sector:'BIO',       current_price:158,    market_cap:380e9,  volatility_30d:0.14, beta:0.55, debt_ratio:0.52, liquidity_volume:7800000,  is_etf:false, alias:'johnson jnj' },
+  { ticker:'PFE',   name:'Pfizer',          sector:'BIO',        current_price:28.2,   market_cap:160e9,  volatility_30d:0.22, beta:0.68, debt_ratio:0.62, liquidity_volume:38000000, is_etf:false, alias:'pfizer pfe' },
+  { ticker:'LLY',   name:'Eli Lilly',       sector:'BIO',        current_price:792,    market_cap:752e9,  volatility_30d:0.28, beta:0.55, debt_ratio:0.48, liquidity_volume:3200000,  is_etf:false, alias:'eli lilly lly' },
+  { ticker:'MRNA',  name:'Moderna',         sector:'BIO',        current_price:38.5,   market_cap:14.7e9, volatility_30d:0.62, beta:1.45, debt_ratio:0.18, liquidity_volume:6800000,  is_etf:false, alias:'moderna mrna' },
+  // === 미국 ENERGY ===
+  { ticker:'XOM',   name:'ExxonMobil',      sector:'ENERGY',     current_price:118,    market_cap:520e9,  volatility_30d:0.22, beta:0.85, debt_ratio:0.45, liquidity_volume:15000000, is_etf:false, alias:'exxon mobil xom' },
+  { ticker:'CVX',   name:'Chevron',         sector:'ENERGY',     current_price:158,    market_cap:295e9,  volatility_30d:0.24, beta:1.10, debt_ratio:0.42, liquidity_volume:7800000,  is_etf:false, alias:'chevron cvx' },
+  // === 미국 CONSUMER ===
+  { ticker:'WMT',   name:'Walmart',         sector:'CONSUMER',   current_price:84.5,   market_cap:680e9,  volatility_30d:0.16, beta:0.55, debt_ratio:0.62, liquidity_volume:18000000, is_etf:false, alias:'walmart wmt' },
+  { ticker:'KO',    name:'Coca-Cola',       sector:'CONSUMER',   current_price:71.5,   market_cap:308e9,  volatility_30d:0.14, beta:0.55, debt_ratio:0.65, liquidity_volume:14000000, is_etf:false, alias:'coca cola ko' },
+  { ticker:'PG',    name:'Procter & Gamble',sector:'CONSUMER',   current_price:172,    market_cap:405e9,  volatility_30d:0.14, beta:0.42, debt_ratio:0.58, liquidity_volume:6500000,  is_etf:false, alias:'procter gamble pg' },
+  { ticker:'HD',    name:'Home Depot',      sector:'CONSUMER',   current_price:402,    market_cap:398e9,  volatility_30d:0.20, beta:1.05, debt_ratio:0.68, liquidity_volume:3800000,  is_etf:false, alias:'home depot hd' },
+  { ticker:'DIS',   name:'Disney',          sector:'CONSUMER',   current_price:96.5,   market_cap:175e9,  volatility_30d:0.26, beta:1.18, debt_ratio:0.45, liquidity_volume:8800000,  is_etf:false, alias:'disney dis' },
+  { ticker:'MCD',   name:"McDonald's",      sector:'CONSUMER',   current_price:295,    market_cap:212e9,  volatility_30d:0.16, beta:0.62, debt_ratio:0.78, liquidity_volume:2400000,  is_etf:false, alias:'mcdonalds mcd' },
+  { ticker:'SBUX',  name:'Starbucks',       sector:'CONSUMER',   current_price:96.5,   market_cap:110e9,  volatility_30d:0.22, beta:1.08, debt_ratio:0.72, liquidity_volume:5800000,  is_etf:false, alias:'starbucks sbux' },
+  // === 미국 REALESTATE ===
+  { ticker:'O',     name:'Realty Income',   sector:'REALESTATE', current_price:58.4,   market_cap:51e9,   volatility_30d:0.18, beta:0.78, debt_ratio:0.55, liquidity_volume:5200000,  is_etf:false, alias:'realty income reit' },
+  { ticker:'AMT',   name:'American Tower',  sector:'REALESTATE', current_price:218,    market_cap:101e9,  volatility_30d:0.22, beta:0.85, debt_ratio:0.78, liquidity_volume:1800000,  is_etf:false, alias:'american tower amt reit' },
+
+  // === ETF — 미국 광역지수 ===
+  { ticker:'SPY',  name:'SPDR S&P500',                  sector:'GLOBAL_ETF', current_price:558,  market_cap:1500e9, volatility_30d:0.14, beta:1.00, debt_ratio:0.00, liquidity_volume:75000000, is_etf:true, alias:'spy s&p 500 sp500' },
+  { ticker:'VOO',  name:'Vanguard S&P500',              sector:'GLOBAL_ETF', current_price:512,  market_cap:1200e9, volatility_30d:0.14, beta:1.00, debt_ratio:0.00, liquidity_volume:5200000,  is_etf:true, alias:'voo vanguard sp500' },
+  { ticker:'VTI',  name:'Vanguard Total Stock Market',  sector:'GLOBAL_ETF', current_price:282,  market_cap:1700e9, volatility_30d:0.15, beta:1.02, debt_ratio:0.00, liquidity_volume:3800000,  is_etf:true, alias:'vti vanguard total stock' },
+  { ticker:'QQQ',  name:'Invesco QQQ Trust',            sector:'GLOBAL_ETF', current_price:485,  market_cap:312e9,  volatility_30d:0.20, beta:1.18, debt_ratio:0.00, liquidity_volume:38000000, is_etf:true, alias:'qqq nasdaq 100 invesco' },
+  { ticker:'DIA',  name:'SPDR Dow Jones',               sector:'GLOBAL_ETF', current_price:425,  market_cap:35e9,   volatility_30d:0.13, beta:0.95, debt_ratio:0.00, liquidity_volume:3200000,  is_etf:true, alias:'dia dow jones djia' },
+  { ticker:'IWM',  name:'iShares Russell 2000',         sector:'GLOBAL_ETF', current_price:218,  market_cap:62e9,   volatility_30d:0.22, beta:1.18, debt_ratio:0.00, liquidity_volume:42000000, is_etf:true, alias:'iwm russell 2000 small cap' },
+  // === ETF — 섹터/테마 ===
+  { ticker:'ARKK', name:'ARK Innovation ETF',           sector:'GLOBAL_ETF', current_price:48,   market_cap:5.8e9,  volatility_30d:0.42, beta:1.65, debt_ratio:0.00, liquidity_volume:18000000, is_etf:true, alias:'arkk ark innovation cathie wood' },
+  { ticker:'XLK',  name:'Tech Select Sector SPDR',      sector:'IT',         current_price:218,  market_cap:72e9,   volatility_30d:0.22, beta:1.20, debt_ratio:0.00, liquidity_volume:5800000,  is_etf:true, alias:'xlk tech etf' },
+  { ticker:'XLF',  name:'Financial Select Sector SPDR', sector:'FIN',        current_price:46,   market_cap:48e9,   volatility_30d:0.18, beta:1.10, debt_ratio:0.00, liquidity_volume:38000000, is_etf:true, alias:'xlf financial etf' },
+  { ticker:'XLE',  name:'Energy Select Sector SPDR',    sector:'ENERGY',     current_price:92,   market_cap:38e9,   volatility_30d:0.26, beta:1.18, debt_ratio:0.00, liquidity_volume:18000000, is_etf:true, alias:'xle energy etf' },
+  { ticker:'XLV',  name:'Health Care Select Sector',    sector:'BIO',        current_price:152,  market_cap:42e9,   volatility_30d:0.16, beta:0.72, debt_ratio:0.00, liquidity_volume:8200000,  is_etf:true, alias:'xlv health bio etf' },
+  // === ETF — 글로벌/채권 ===
+  { ticker:'VEA',  name:'Vanguard FTSE Developed',      sector:'GLOBAL_ETF', current_price:52,   market_cap:120e9,  volatility_30d:0.16, beta:0.82, debt_ratio:0.00, liquidity_volume:8200000,  is_etf:true, alias:'vea vanguard developed international' },
+  { ticker:'VWO',  name:'Vanguard FTSE Emerging',       sector:'GLOBAL_ETF', current_price:48,   market_cap:78e9,   volatility_30d:0.20, beta:0.92, debt_ratio:0.00, liquidity_volume:11000000, is_etf:true, alias:'vwo emerging markets' },
+  { ticker:'BND',  name:'Vanguard Total Bond',          sector:'GLOBAL_ETF', current_price:73,   market_cap:115e9,  volatility_30d:0.06, beta:0.10, debt_ratio:0.00, liquidity_volume:6800000,  is_etf:true, alias:'bnd bond vanguard 채권 본드 종합채권' },
+  { ticker:'TLT',  name:'iShares 20+ Year Treasury',    sector:'GLOBAL_ETF', current_price:92,   market_cap:62e9,   volatility_30d:0.14, beta:0.05, debt_ratio:0.00, liquidity_volume:42000000, is_etf:true, alias:'tlt treasury bond long 채권 미국채 국채 장기채' },
+  { ticker:'IEF',  name:'iShares 7-10 Year Treasury',   sector:'GLOBAL_ETF', current_price:96,   market_cap:32e9,   volatility_30d:0.08, beta:0.04, debt_ratio:0.00, liquidity_volume:8200000,  is_etf:true, alias:'ief 채권 중기채 미국채' },
+  { ticker:'LQD',  name:'iShares Investment Grade Bond',sector:'GLOBAL_ETF', current_price:108,  market_cap:32e9,   volatility_30d:0.10, beta:0.20, debt_ratio:0.00, liquidity_volume:14000000, is_etf:true, alias:'lqd 회사채 채권 corporate bond' },
+  { ticker:'HYG',  name:'iShares High Yield Corporate', sector:'GLOBAL_ETF', current_price:78,   market_cap:18e9,   volatility_30d:0.14, beta:0.45, debt_ratio:0.00, liquidity_volume:32000000, is_etf:true, alias:'hyg 하이일드 채권 정크본드 high yield' },
+  { ticker:'GLD',  name:'SPDR Gold Trust',              sector:'GLOBAL_ETF', current_price:248,  market_cap:78e9,   volatility_30d:0.14, beta:0.05, debt_ratio:0.00, liquidity_volume:9500000,  is_etf:true, alias:'gld gold 금 원자재 골드' },
+  { ticker:'SLV',  name:'iShares Silver Trust',         sector:'GLOBAL_ETF', current_price:30,   market_cap:13e9,   volatility_30d:0.28, beta:0.30, debt_ratio:0.00, liquidity_volume:18000000, is_etf:true, alias:'slv silver 은 원자재' },
+  { ticker:'USO',  name:'United States Oil Fund',       sector:'ENERGY',     current_price:78,   market_cap:1.4e9,  volatility_30d:0.32, beta:1.05, debt_ratio:0.00, liquidity_volume:3200000,  is_etf:true, alias:'uso oil 원유 원자재 crude' },
+  { ticker:'DBC',  name:'Invesco DB Commodity Index',   sector:'GLOBAL_ETF', current_price:24,   market_cap:1.6e9,  volatility_30d:0.18, beta:0.55, debt_ratio:0.00, liquidity_volume:2200000,  is_etf:true, alias:'dbc commodity 원자재 종합원자재' },
+  { ticker:'DBA',  name:'Invesco DB Agriculture',       sector:'GLOBAL_ETF', current_price:25,   market_cap:0.7e9,  volatility_30d:0.16, beta:0.42, debt_ratio:0.00, liquidity_volume:1800000,  is_etf:true, alias:'dba agriculture 농산물 원자재' },
+  // === ETF — 한국 ===
+  { ticker:'069500.KS', name:'KODEX 200',           name_en:'KODEX 200 (KOSPI200)',  sector:'GLOBAL_ETF', current_price:38500, market_cap:7.2e12, volatility_30d:0.18, beta:1.00, debt_ratio:0.00, liquidity_volume:8200000,  is_etf:true, alias:'kodex 200 kospi' },
+  { ticker:'102110.KS', name:'TIGER 200',           name_en:'TIGER 200 (KOSPI200)',  sector:'GLOBAL_ETF', current_price:38400, market_cap:2.8e12, volatility_30d:0.18, beta:1.00, debt_ratio:0.00, liquidity_volume:1800000,  is_etf:true, alias:'tiger 200 kospi' },
+  { ticker:'305720.KS', name:'KODEX 2차전지산업',   name_en:'KODEX Battery Industry',sector:'INDUSTRIAL', current_price:18200, market_cap:0.9e12, volatility_30d:0.42, beta:1.55, debt_ratio:0.00, liquidity_volume:3200000,  is_etf:true, alias:'kodex 2차전지 battery' },
+  { ticker:'360750.KS', name:'TIGER 미국S&P500',    name_en:'TIGER US S&P500',       sector:'GLOBAL_ETF', current_price:21800, market_cap:5.1e12, volatility_30d:0.14, beta:1.00, debt_ratio:0.00, liquidity_volume:4200000,  is_etf:true, alias:'tiger 미국 s&p500' },
+  { ticker:'379800.KS', name:'KODEX 미국S&P500TR',  name_en:'KODEX US S&P500 TR',    sector:'GLOBAL_ETF', current_price:18900, market_cap:2.2e12, volatility_30d:0.14, beta:1.00, debt_ratio:0.00, liquidity_volume:1800000,  is_etf:true, alias:'kodex 미국 s&p500 tr' },
+  { ticker:'381180.KS', name:'TIGER 미국필라델피아반도체나스닥', name_en:'TIGER US Philadelphia Semiconductor', sector:'IT', current_price:14200, market_cap:1.8e12, volatility_30d:0.34, beta:1.45, debt_ratio:0.00, liquidity_volume:2800000, is_etf:true, alias:'tiger 미국 반도체 nasdaq' }
+];
+
+const ASSET_BY_TICKER = {};
+ASSET_DB.forEach(a => ASSET_BY_TICKER[a.ticker] = a);
+
+// ---------- 기본 샘플 포트폴리오 (수량 기반) ----------
+const SAMPLE_HOLDINGS = [
+  { ticker:'005930.KS', quantity:120, avg_price:65000 },   // 삼성전자
+  { ticker:'000660.KS', quantity:30,  avg_price:140000 },  // SK하이닉스
+  { ticker:'068270.KS', quantity:20,  avg_price:200000 },  // 셀트리온
+  { ticker:'105560.KS', quantity:40,  avg_price:72000 },   // KB금융
+  { ticker:'015760.KS', quantity:100, avg_price:21500 },   // 한국전력
+  { ticker:'051910.KS', quantity:6,   avg_price:520000 },  // LG화학
+  { ticker:'005380.KS', quantity:8,   avg_price:185000 },  // 현대차
+  { ticker:'097950.KS', quantity:5,   avg_price:312000 },  // CJ제일제당
+  { ticker:'069500.KS', quantity:40,  avg_price:35000 }    // KODEX 200
+];
+
+// 구버전 holdings(weight 기반) → 수량 기반 자동 변환
+function migrateHoldings(holdings){
+  return holdings.map(h=>{
+    if (h.quantity != null) return h; // 이미 신버전
+    const a = ASSET_BY_TICKER[h.ticker];
+    if (!a) return { ticker:h.ticker, quantity:1, avg_price: h.avg_price ?? 0 };
+    // 가격 자릿수로 KRW/USD 추정
+    const totalRef = a.current_price > 1000 ? 10_000_000 : 10_000;
+    const value = (h.weight || 0) * totalRef;
+    return {
+      ticker: h.ticker,
+      quantity: Math.max(1, Math.round(value / a.current_price)),
+      avg_price: h.avg_price ?? a.current_price
+    };
+  });
+}
+
+// ---------- 포트폴리오 상태 (localStorage) ----------
+const STORAGE_KEY = 'sphere_portfolios_v1';
+const MAX_PORTFOLIOS = 20;
+let STATE = loadState();
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw){
+      const parsed = JSON.parse(raw);
+      if (parsed.portfolios && parsed.portfolios.length){
+        // 구버전 데이터 자동 마이그레이션
+        parsed.portfolios.forEach(p => { p.holdings = migrateHoldings(p.holdings || []); });
+        return parsed;
+      }
+    }
+  } catch(e){ console.warn('localStorage read failed', e); }
+  // 첫 실행: 기본 포트폴리오 생성
+  const defaultPf = {
+    id: 'pf_' + Date.now(),
+    name: '포트폴리오 1',
+    holdings: SAMPLE_HOLDINGS.slice(),
+    createdAt: Date.now(),
+    updatedAt: Date.now()
+  };
+  return { portfolios:[defaultPf], activeId: defaultPf.id };
+}
+
+// 수량 → 평가금액 → 비중 자동 계산
+function computeWeights(holdings){
+  const enriched = holdings.map(h=>{
+    const a = ASSET_BY_TICKER[h.ticker];
+    const value = (h.quantity || 0) * (a ? a.current_price : 0);
+    return { ...h, market_value: value };
+  });
+  const total = enriched.reduce((s,h)=> s + h.market_value, 0);
+  return { items: enriched.map(h => ({ ...h, weight: total>0 ? h.market_value/total : 0 })), totalValue: total };
+}
+function saveState(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE)); }
+  catch(e){ console.warn('localStorage write failed', e); }
+}
+function activePortfolio(){
+  return STATE.portfolios.find(p => p.id === STATE.activeId) || STATE.portfolios[0];
+}
+
+// 포트폴리오 → ITEMS 변환 (마스터 DB 조회 + 수량→비중 자동 계산)
+let TOTAL_PORTFOLIO_VALUE = 0;
+function portfolioToRaw(pf){
+  const { items, totalValue } = computeWeights(pf.holdings);
+  TOTAL_PORTFOLIO_VALUE = totalValue;
+  return items.map(h => {
+    const a = ASSET_BY_TICKER[h.ticker];
+    if (!a) return null;
+    return {
+      ticker: a.ticker,
+      name: a.name,
+      name_en: a.name_en,
+      sector: a.sector,
+      weight: h.weight,
+      quantity: h.quantity,
+      market_value: h.market_value,
+      current_price: a.current_price,
+      avg_price: h.avg_price ?? a.current_price,
+      market_cap: a.market_cap,
+      volatility_30d: a.volatility_30d,
+      beta: a.beta,
+      debt_ratio: a.debt_ratio,
+      liquidity_volume: a.liquidity_volume
+    };
+  }).filter(Boolean);
+}
+
+// ---------- Layer 1: 섹터 정의 ----------
+const SECTOR_DEF = {
+  IT:        { base_risk:0.75, lat_min:60,  lat_max:80,  vol_avg:0.30, beta_avg:1.20, color:'#00D4FF' },
+  BIO:       { base_risk:0.85, lat_min:40,  lat_max:60,  vol_avg:0.42, beta_avg:1.15, color:'#7B61FF' },
+  AUTO:      { base_risk:0.60, lat_min:20,  lat_max:40,  vol_avg:0.28, beta_avg:1.10, color:'#FF8C42' },
+  GLOBAL_ETF:{ base_risk:0.40, lat_min:10,  lat_max:20,  vol_avg:0.16, beta_avg:1.00, color:'#9B6EFF' },
+  INDUSTRIAL:{ base_risk:0.55, lat_min:-10, lat_max:10,  vol_avg:0.32, beta_avg:1.25, color:'#F4D35E' },
+  ETC:       { base_risk:0.55, lat_min:0,   lat_max:0,   vol_avg:0.30, beta_avg:1.00, color:'#9aa4bc' },
+  FIN:       { base_risk:0.50, lat_min:-40, lat_max:-20, vol_avg:0.20, beta_avg:0.90, color:'#00E5A0' },
+  ENERGY:    { base_risk:0.65, lat_min:-55, lat_max:-40, vol_avg:0.25, beta_avg:0.75, color:'#FF4560' },
+  CONSUMER:  { base_risk:0.35, lat_min:-70, lat_max:-55, vol_avg:0.18, beta_avg:0.70, color:'#A8E5C2' },
+  REALESTATE:{ base_risk:0.45, lat_min:-80, lat_max:-70, vol_avg:0.22, beta_avg:0.85, color:'#FFA8B6' }
+};
+
+// ---------- Layer 1: 표준화 + 결측값 처리 ----------
+function standardize(raw){
+  // weight 합계 1.0으로 정규화
+  const sumW = raw.reduce((s,r)=>s+(r.weight||0),0);
+  const items = raw.map(r=>{
+    const sec = SECTOR_DEF[r.sector] ? r.sector : 'ETC';
+    const def = SECTOR_DEF[sec];
+    return {
+      ticker: r.ticker,
+      name: r.name,
+      name_en: r.name_en,
+      sector: sec,
+      weight: (r.weight||0)/sumW,
+      quantity: r.quantity,           // ← 통과
+      market_value: r.market_value,   // ← 통과
+      current_price: r.current_price ?? 0,
+      avg_price: r.avg_price ?? r.current_price ?? 0,
+      return_pct: r.avg_price ? (r.current_price - r.avg_price) / r.avg_price : 0,
+      market_cap: r.market_cap ?? 0,
+      volatility_30d: r.volatility_30d ?? def.vol_avg,
+      beta: r.beta ?? def.beta_avg,
+      debt_ratio: Math.min(1, r.debt_ratio ?? 0.5),
+      liquidity_volume: r.liquidity_volume ?? null,
+      risk_score: null,
+      sphere_coord: null
+    };
+  });
+  return items;
+}
+
+// ---------- Layer 2: 리스크 스코어 산출 ----------
+function computeRiskScores(items){
+  const vols = items.map(i=>i.liquidity_volume).filter(v=>v!=null).sort((a,b)=>a-b);
+  const liqMedian = vols.length ? vols[Math.floor(vols.length/2)] : 1;
+
+  items.forEach(i=>{
+    // 변동성 정규화 0.05~0.80 -> 0~1
+    const volN = Math.max(0, Math.min(1, (i.volatility_30d - 0.05)/(0.80 - 0.05)));
+    // 베타 정규화 0~2.5 -> 0~1
+    const betaN = Math.max(0, Math.min(1, i.beta / 2.5));
+    // 부채비율 그대로
+    const debtN = Math.max(0, Math.min(1, i.debt_ratio));
+    // 유동성 역수
+    let liqN = 0;
+    if (i.liquidity_volume!=null && liqMedian>0){
+      const inv = 1 / (i.liquidity_volume / liqMedian);
+      liqN = Math.max(0, Math.min(1, inv));
+    }
+    // 섹터 기본 리스크
+    const secR = SECTOR_DEF[i.sector].base_risk;
+
+    // 가중치
+    const W = { vol:0.35, beta:0.25, debt:0.20, liq:0.10, sec:0.10 };
+    let score;
+    if (i.liquidity_volume==null){
+      // 유동성 없을 시 가중치 재분배
+      const total = W.vol + W.beta + W.debt + W.sec;
+      score = (volN*W.vol + betaN*W.beta + debtN*W.debt + secR*W.sec) / total;
+    } else {
+      score = volN*W.vol + betaN*W.beta + debtN*W.debt + liqN*W.liq + secR*W.sec;
+    }
+    i.risk_score = Math.round(Math.max(0, Math.min(1, score)) * 100);
+  });
+  return items;
+}
+
+function riskColor(score){
+  if (score < 30) return '#00E5A0';
+  if (score < 55) return '#00D4FF';
+  if (score < 75) return '#FF8C42';
+  if (score < 90) return '#FF4560';
+  return '#7B61FF';
+}
+function riskLabel(score){
+  if (score < 30) return t('riskSafe');
+  if (score < 55) return t('riskModerate');
+  if (score < 75) return t('riskCaution');
+  if (score < 90) return t('riskHigh');
+  return t('riskExtreme');
+}
+
+// ---------- Layer 3: 3D 구체 좌표 ----------
+function mapSphereCoords(items){
+  // 섹터별로 그룹화, 비중 큰 순서로 경도 분산
+  const bySector = {};
+  items.forEach(i=>{
+    if (!bySector[i.sector]) bySector[i.sector] = [];
+    bySector[i.sector].push(i);
+  });
+  // 섹터마다 위도 범위 내 균등 분포, 경도는 비중 순
+  let lngOffset = 0;
+  Object.keys(bySector).forEach((sec,si)=>{
+    const arr = bySector[sec].sort((a,b)=>b.weight-a.weight);
+    const def = SECTOR_DEF[sec];
+    const latMin = def.lat_min, latMax = def.lat_max;
+    arr.forEach((it,k)=>{
+      const t = arr.length===1 ? 0.5 : k/(arr.length-1);
+      const lat = latMin + t*(latMax - latMin);
+      // 경도: 섹터당 영역 분리 + 비중 비례
+      const lng = (lngOffset + k * (360/Math.max(arr.length,1)) * 0.4) % 360;
+      const r = 1.0 + (it.risk_score/100)*0.5;
+      it.sphere_coord = { lat, lng, r };
+    });
+    lngOffset += 360 / Object.keys(bySector).length;
+  });
+  return items;
+}
+
+function latLngToVec3(lat, lng, r){
+  const phi = (90-lat) * Math.PI/180;
+  const theta = lng * Math.PI/180;
+  return new THREE.Vector3(
+    r * Math.sin(phi) * Math.cos(theta),
+    r * Math.cos(phi),
+    r * Math.sin(phi) * Math.sin(theta)
+  );
+}
+
+// ---------- Layer 4: 밸런스 지수 ----------
+function computeBalance(items){
+  // 섹터 HHI
+  const secW = {};
+  items.forEach(i=> secW[i.sector] = (secW[i.sector]||0) + i.weight);
+  const hhi = Object.values(secW).reduce((s,w)=>s+w*w,0);
+  const nSec = Object.keys(secW).length;
+  const minHHI = 1/Math.max(nSec,1);
+  const diverseScore = nSec>1 ? Math.max(0, Math.min(100, ((1 - hhi)/(1 - minHHI))*100)) : 0;
+
+  // 리스크 편차
+  const scores = items.map(i=>i.risk_score);
+  const mean = scores.reduce((s,v)=>s+v,0)/scores.length;
+  const variance = scores.reduce((s,v)=>s+(v-mean)**2,0)/scores.length;
+  const std = Math.sqrt(variance);
+  const devScore = Math.max(0, Math.min(100, (1 - std/50)*100));
+
+  // 구형도
+  const rs = items.map(i=>i.sphere_coord.r);
+  const rMean = rs.reduce((s,v)=>s+v,0)/rs.length;
+  const rStd = Math.sqrt(rs.reduce((s,v)=>s+(v-rMean)**2,0)/rs.length);
+  const sphericityRaw = Math.max(0, Math.min(1, 1 - rStd/0.5));
+  const sphericity = sphericityRaw * 100;
+
+  const balance = diverseScore*0.4 + devScore*0.35 + sphericity*0.25;
+
+  return {
+    balance: Math.round(balance),
+    diverse: Math.round(diverseScore),
+    deviation: Math.round(devScore),
+    sphericity: Math.round(sphericity),
+    hhi: hhi.toFixed(3),
+    avgRisk: Math.round(mean),
+    sectorWeights: secW
+  };
+}
+
+function balanceGrade(score){
+  if (score >= 90) return { txt:t('balanceGradeOptimal'), color:'var(--safe)' };
+  if (score >= 70) return { txt:t('balanceGradeGood'),    color:'var(--moderate)' };
+  if (score >= 50) return { txt:t('balanceGradeWarn'),    color:'var(--caution)' };
+  if (score >= 30) return { txt:t('balanceGradeRisk'),    color:'var(--high)' };
+  return { txt:t('balanceGradeSevere'), color:'var(--extreme)' };
+}
+
+// ---------- Layer 5 + 인사이트 생성 ----------
+function generateInsights(items, balance){
+  const insights = [];
+  if (items.length === 0) return insights;
+
+  const top = [...items].sort((a,b)=>b.weight-a.weight)[0];
+  if (top.weight > 0.40){
+    insights.push({ level:'alert', title:t('insightConcentrationTitle'),
+      body:t('insightConcentrationBody', top.name, (top.weight*100).toFixed(1), balance.balance, Math.min(100, balance.balance+15))
+    });
+  }
+  if (balance.balance < 40){
+    insights.push({ level:'alert', title:t('insightRebalanceTitle'),
+      body:t('insightRebalanceBody', balance.sphericity, balance.diverse) });
+  }
+  if (balance.avgRisk > 70){
+    const hi = [...items].sort((a,b)=>b.risk_score-a.risk_score)[0];
+    insights.push({ level:'warn', title:t('insightHighRiskTitle'),
+      body:t('insightHighRiskBody', balance.avgRisk, hi.name, hi.risk_score) });
+  }
+  if (parseFloat(balance.hhi) > 0.45){
+    const topSec = Object.entries(balance.sectorWeights).sort((a,b)=>b[1]-a[1])[0];
+    insights.push({ level:'warn', title:t('insightSectorTitle'),
+      body:t('insightSectorBody', topSec[0], (topSec[1]*100).toFixed(1), balance.hhi) });
+  }
+  const xtreme = items.filter(i=>i.risk_score>85);
+  xtreme.forEach(i=>{
+    insights.push({ level:'warn', title:t('insightExtremeRiskTitle', i.name),
+      body:t('insightExtremeRiskBody', i.risk_score, (i.volatility_30d*100).toFixed(0), i.beta.toFixed(2)) });
+  });
+  if (insights.length === 0){
+    insights.push({ level:'ok', title:t('insightBalancedTitle'), body:t('insightBalancedBody', balance.balance) });
+  }
+  return insights;
+}
+
+/* =========================================================
+   파이프라인 실행 (포트폴리오 변경 시 다시 호출됨)
+   ========================================================= */
+let ITEMS = [], BALANCE = {}, INSIGHTS = [];
+
+function runPipeline(){
+  const pf = activePortfolio();
+  const raw = portfolioToRaw(pf);
+  if (raw.length === 0){
+    ITEMS = [];
+    BALANCE = { balance:0, diverse:0, deviation:0, sphericity:0, hhi:'0.000', avgRisk:0, sectorWeights:{} };
+    INSIGHTS = [{ level:'ok', title:'포트폴리오가 비어있음', body:'좌측 검색창에서 종목을 추가해주세요.' }];
+    return;
+  }
+  ITEMS = mapSphereCoords(computeRiskScores(standardize(raw)));
+  BALANCE = computeBalance(ITEMS);
+  INSIGHTS = generateInsights(ITEMS, BALANCE);
+}
+runPipeline();
+
+/* =========================================================
+   THREE.JS 3D 렌더링
+   ========================================================= */
+const canvas = document.getElementById('canvas');
+const main = canvas.parentElement;
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x05070d, 0.06);
+
+const camera = new THREE.PerspectiveCamera(50, main.clientWidth/main.clientHeight, 0.1, 100);
+camera.position.set(0, 0.6, 4.2);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(main.clientWidth, main.clientHeight);
+
+// 조명
+scene.add(new THREE.AmbientLight(0x6080a0, 0.4));
+const keyLight = new THREE.DirectionalLight(0x00d4ff, 0.8);
+keyLight.position.set(3,4,5); scene.add(keyLight);
+const rimLight = new THREE.DirectionalLight(0x7b61ff, 0.5);
+rimLight.position.set(-4,-2,-3); scene.add(rimLight);
+
+// 별 배경
+function makeStarfield(){
+  const g = new THREE.BufferGeometry();
+  const pos = [];
+  for (let i=0;i<800;i++){
+    const r = 30 + Math.random()*15;
+    const t = Math.random()*Math.PI*2;
+    const p = Math.acos(2*Math.random()-1);
+    pos.push(r*Math.sin(p)*Math.cos(t), r*Math.cos(p), r*Math.sin(p)*Math.sin(t));
+  }
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  const m = new THREE.PointsMaterial({ color:0x4a6080, size:0.04, transparent:true, opacity:0.5 });
+  return new THREE.Points(g, m);
+}
+scene.add(makeStarfield());
+
+// 와이어프레임 베이스 구
+const sphereGroup = new THREE.Group();
+scene.add(sphereGroup);
+
+const baseGeo = new THREE.SphereGeometry(1, 36, 24);
+const baseMat = new THREE.MeshBasicMaterial({ color:0x1a2540, wireframe:true, transparent:true, opacity:0.18 });
+const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+sphereGroup.add(baseMesh);
+
+// 반구별 색상 (북=성장주 쿨톤 / 남=가치주 웜톤)
+// SphereGeometry(radius, widthSeg, heightSeg, phiStart, phiLength, thetaStart, thetaLength)
+const northGeo = new THREE.SphereGeometry(0.998, 64, 32, 0, Math.PI*2, 0, Math.PI/2);
+const northMat = new THREE.MeshPhongMaterial({
+  color: 0x0a1f3a,
+  emissive: 0x051a30,
+  transparent: true,
+  opacity: 0.42,
+  shininess: 90,
+  side: THREE.DoubleSide
+});
+sphereGroup.add(new THREE.Mesh(northGeo, northMat));
+
+const southGeo = new THREE.SphereGeometry(0.998, 64, 32, 0, Math.PI*2, Math.PI/2, Math.PI/2);
+const southMat = new THREE.MeshPhongMaterial({
+  color: 0x2a1a08,
+  emissive: 0x2a1500,
+  transparent: true,
+  opacity: 0.42,
+  shininess: 90,
+  side: THREE.DoubleSide
+});
+sphereGroup.add(new THREE.Mesh(southGeo, southMat));
+
+// 적도 강조 라인
+const equatorGeo = new THREE.RingGeometry(1.001, 1.005, 128);
+const equatorMat = new THREE.MeshBasicMaterial({
+  color: 0x00d4ff, transparent:true, opacity:0.5, side:THREE.DoubleSide
+});
+const equatorRing = new THREE.Mesh(equatorGeo, equatorMat);
+equatorRing.rotation.x = Math.PI/2;
+sphereGroup.add(equatorRing);
+
+// 위도 적도선
+function makeLatLine(lat, color, opacity){
+  const pts = [];
+  const r = 1.0;
+  for (let lng=0; lng<=360; lng+=2){
+    pts.push(latLngToVec3(lat, lng, r));
+  }
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  return new THREE.Line(g, new THREE.LineBasicMaterial({ color, transparent:true, opacity }));
+}
+sphereGroup.add(makeLatLine(0, 0x00d4ff, 0.4));
+[60, 30, -30, -60].forEach(l=> sphereGroup.add(makeLatLine(l, 0x335577, 0.15)));
+
+// 노드 + 돌출 라인 (rebuild 가능)
+let nodeMeshes = [];
+const dynamicGroup = new THREE.Group();
+sphereGroup.add(dynamicGroup);
+
+function disposeDynamic(){
+  // 기존 노드/라인/헤일로 제거
+  while (dynamicGroup.children.length){
+    const c = dynamicGroup.children[0];
+    dynamicGroup.remove(c);
+    if (c.geometry) c.geometry.dispose();
+    if (c.material) c.material.dispose();
+  }
+  nodeMeshes = [];
+}
+
+function rebuildNodes(){
+  disposeDynamic();
+  ITEMS.forEach(it=>{
+    const pos = latLngToVec3(it.sphere_coord.lat, it.sphere_coord.lng, it.sphere_coord.r);
+    const surfPos = latLngToVec3(it.sphere_coord.lat, it.sphere_coord.lng, 1.0);
+
+    // 돌출 라인
+    const lineGeo = new THREE.BufferGeometry().setFromPoints([surfPos, pos]);
+    const lineMat = new THREE.LineBasicMaterial({ color: riskColor(it.risk_score), transparent:true, opacity:0.4 });
+    dynamicGroup.add(new THREE.Line(lineGeo, lineMat));
+
+    // 노드 본체
+    const radius = it.weight * 0.5 + 0.02;
+    const sphereGeo = new THREE.SphereGeometry(radius, 24, 18);
+    const color = new THREE.Color(riskColor(it.risk_score));
+    const mat = new THREE.MeshPhongMaterial({
+      color, emissive:color, emissiveIntensity:0.6, shininess:120, transparent:true, opacity:0.85
+    });
+    const mesh = new THREE.Mesh(sphereGeo, mat);
+    mesh.position.copy(pos);
+    mesh.userData.item = it;
+    dynamicGroup.add(mesh);
+
+    // 글로 헤일로
+    const haloGeo = new THREE.SphereGeometry(radius*1.6, 16, 12);
+    const haloMat = new THREE.MeshBasicMaterial({ color, transparent:true, opacity:0.18 });
+    const halo = new THREE.Mesh(haloGeo, haloMat);
+    halo.position.copy(pos);
+    dynamicGroup.add(halo);
+
+    nodeMeshes.push({ mesh, halo, item: it, baseColor: color, baseRadius: radius });
+  });
+}
+rebuildNodes();
+
+// 인터랙션
+let autoRotate = true;
+let viewMode = 'sphere';
+let selectedTicker = null;
+let cameraTarget = new THREE.Vector3(0,0,4.2);
+
+const raycaster = new THREE.Raycaster();
+const mouseV = new THREE.Vector2();
+
+function onResize(){
+  let w = main.clientWidth, h = main.clientHeight;
+  if (!w || !h){
+    w = window.innerWidth - 320 - 360;
+    h = window.innerHeight - 56;
+  }
+  if (w < 100) w = 100;
+  if (h < 100) h = 100;
+  renderer.setSize(w, h, true);
+  camera.aspect = w/h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', onResize);
+
+// 마우스 회전
+let isDragging = false;
+let prevMouse = { x:0, y:0 };
+let rotation = { x: 0.2, y: 0 };
+canvas.addEventListener('mousedown', e=>{ isDragging=true; prevMouse={x:e.clientX,y:e.clientY}; autoRotate=false; setActive('rotate', false); });
+window.addEventListener('mouseup', ()=> isDragging=false );
+window.addEventListener('mousemove', e=>{
+  if (isDragging){
+    const dx = e.clientX-prevMouse.x, dy = e.clientY-prevMouse.y;
+    rotation.y += dx*0.005;
+    rotation.x = Math.max(-Math.PI/2.2, Math.min(Math.PI/2.2, rotation.x + dy*0.005));
+    prevMouse = { x:e.clientX, y:e.clientY };
+  }
+});
+canvas.addEventListener('wheel', e=>{
+  e.preventDefault();
+  cameraTarget.z = Math.max(2.5, Math.min(8, cameraTarget.z + e.deltaY*0.002));
+}, { passive:false });
+
+// 호버 툴팁
+const tooltip = document.getElementById('tooltip');
+canvas.addEventListener('mousemove', e=>{
+  const rect = canvas.getBoundingClientRect();
+  mouseV.x = ((e.clientX-rect.left)/rect.width)*2 - 1;
+  mouseV.y = -((e.clientY-rect.top)/rect.height)*2 + 1;
+  raycaster.setFromCamera(mouseV, camera);
+  const hits = raycaster.intersectObjects(nodeMeshes.map(n=>n.mesh));
+  if (hits.length){
+    const it = hits[0].object.userData.item;
+    tooltip.style.display = 'block';
+    tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
+    tooltip.style.top = (e.clientY - rect.top + 12) + 'px';
+    tooltip.innerHTML = `
+      <div class="tooltip-name" style="color:${riskColor(it.risk_score)}">${getName(it)}</div>
+      <div class="tooltip-row"><span>${it.ticker}</span><b>${t('tooltipQtyWeight', (it.quantity ?? 1), (it.weight*100).toFixed(1))}</b></div>
+      <div class="tooltip-row"><span>${t('tooltipValue')}</span><b>${Math.round(it.market_value || 0).toLocaleString()}</b></div>
+      <div class="tooltip-row"><span>${t('tooltipRisk')}</span><b style="color:${riskColor(it.risk_score)}">${it.risk_score} · ${riskLabel(it.risk_score)}</b></div>
+      <div class="tooltip-row"><span>${t('tooltipReturn')}</span><b class="${it.return_pct>=0?'pos':'neg'}">${(it.return_pct*100).toFixed(2)}%</b></div>
+      <div class="tooltip-row"><span>${t('tooltipSector')}</span><b>${it.sector}</b></div>
+    `;
+    canvas.style.cursor = 'pointer';
+  } else {
+    tooltip.style.display = 'none';
+    canvas.style.cursor = 'grab';
+  }
+});
+
+// 클릭 선택
+canvas.addEventListener('click', e=>{
+  if (isDragging) return;
+  const rect = canvas.getBoundingClientRect();
+  mouseV.x = ((e.clientX-rect.left)/rect.width)*2 - 1;
+  mouseV.y = -((e.clientY-rect.top)/rect.height)*2 + 1;
+  raycaster.setFromCamera(mouseV, camera);
+  const hits = raycaster.intersectObjects(nodeMeshes.map(n=>n.mesh));
+  if (hits.length){
+    selectAsset(hits[0].object.userData.item.ticker);
+  }
+});
+
+function selectAsset(ticker){
+  selectedTicker = ticker;
+  document.querySelectorAll('.holding').forEach(el=>{
+    el.classList.toggle('active', el.dataset.ticker === ticker);
+  });
+  // 노드 강조
+  nodeMeshes.forEach(n=>{
+    const isSel = n.item.ticker === ticker;
+    n.mesh.material.opacity = selectedTicker ? (isSel ? 1.0 : 0.3) : 0.85;
+    n.halo.material.opacity = selectedTicker ? (isSel ? 0.4 : 0.06) : 0.18;
+    n.mesh.material.emissiveIntensity = isSel ? 1.2 : 0.6;
+  });
+  renderStockDetail(ITEMS.find(i=>i.ticker === ticker));
+}
+
+// 컨트롤 버튼
+document.querySelectorAll('.ctrl-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const m = btn.dataset.mode;
+    if (m === 'rotate'){ autoRotate = !autoRotate; btn.classList.toggle('active', autoRotate); return; }
+    if (m === 'rebalance'){
+      if (rebalanceMode) exitRebalance(false);
+      else enterRebalance();
+      return;
+    }
+    if (m === 'reset'){
+      rotation = { x:0.2, y:0 }; cameraTarget.z = 4.2; autoRotate=true;
+      document.querySelector('[data-mode=rotate]').classList.add('active');
+      selectedTicker = null;
+      nodeMeshes.forEach(n=>{ n.mesh.material.opacity=0.85; n.halo.material.opacity=0.18; n.mesh.material.emissiveIntensity=0.6; });
+      document.querySelectorAll('.holding').forEach(el=> el.classList.remove('active'));
+      document.getElementById('stockDetail').classList.remove('show');
+      document.getElementById('noSelect').style.display = 'block';
+      viewMode = 'sphere';
+      document.querySelectorAll('[data-mode=sphere],[data-mode=cluster]').forEach(b=> b.classList.toggle('active', b.dataset.mode==='sphere'));
+      document.getElementById('viewMode').textContent = 'SPHERE VIEW';
+      return;
+    }
+    if (m === 'sphere' || m === 'cluster'){
+      viewMode = m;
+      document.querySelectorAll('[data-mode=sphere],[data-mode=cluster]').forEach(b=> b.classList.toggle('active', b.dataset.mode===m));
+      document.getElementById('viewMode').textContent = m === 'sphere' ? t('sphereView') : t('clusterView');
+      animateView(m);
+    }
+  });
+});
+
+function setActive(name, on){
+  const btn = document.querySelector(`[data-mode=${name}]`);
+  if (btn) btn.classList.toggle('active', on);
+}
+
+function animateView(mode){
+  // Cluster mode: 섹터별로 노드를 분리해 각각 작은 클러스터 형태로
+  if (mode === 'cluster'){
+    const sectors = [...new Set(ITEMS.map(i=>i.sector))];
+    const ringR = 2.0;
+    sectors.forEach((sec, si)=>{
+      const ang = (si/sectors.length)*Math.PI*2;
+      const center = new THREE.Vector3(Math.cos(ang)*ringR, Math.sin(ang)*ringR*0.4, 0);
+      const items = ITEMS.filter(i=>i.sector===sec);
+      items.forEach((it,k)=>{
+        const t = (k/Math.max(items.length-1,1)) * Math.PI*2;
+        const lr = 0.35;
+        const target = center.clone().add(new THREE.Vector3(Math.cos(t)*lr, Math.sin(t)*lr, 0));
+        const node = nodeMeshes.find(n=>n.item.ticker===it.ticker);
+        animateMeshTo(node.mesh, target);
+        animateMeshTo(node.halo, target);
+      });
+    });
+  } else {
+    nodeMeshes.forEach(n=>{
+      const target = latLngToVec3(n.item.sphere_coord.lat, n.item.sphere_coord.lng, n.item.sphere_coord.r);
+      animateMeshTo(n.mesh, target);
+      animateMeshTo(n.halo, target);
+    });
+  }
+}
+
+function animateMeshTo(mesh, target){
+  const start = mesh.position.clone();
+  const dur = 800;
+  const t0 = performance.now();
+  function step(){
+    const t = Math.min(1, (performance.now()-t0)/dur);
+    const e = 1 - Math.pow(1-t, 3);
+    mesh.position.lerpVectors(start, target, e);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  step();
+}
+
+// 애니메이션 루프
+function animate(){
+  requestAnimationFrame(animate);
+  if (autoRotate && !isDragging) rotation.y += 0.0028;
+  sphereGroup.rotation.x = rotation.x;
+  sphereGroup.rotation.y = rotation.y;
+
+  // 펄스: 고위험 노드
+  const t = performance.now()*0.003;
+  nodeMeshes.forEach(n=>{
+    if (n.item.risk_score > 85){
+      const s = 1 + Math.sin(t)*0.15;
+      n.halo.scale.setScalar(s);
+    }
+    if (n.item.weight > 0.4){
+      const s = 1 + Math.sin(t*1.5)*0.2;
+      n.halo.scale.setScalar(s);
+    }
+  });
+
+  // 카메라 줌 보간
+  camera.position.z += (cameraTarget.z - camera.position.z) * 0.08;
+  renderer.render(scene, camera);
+}
+animate();
+onResize();
+
+/* =========================================================
+   UI 렌더링
+   ========================================================= */
+function renderHoldings(){
+  const el = document.getElementById('holdingsList');
+  const empty = document.getElementById('holdingsEmpty');
+  el.innerHTML = '';
+  // 리밸런싱 모드면 TARGET_ITEMS, 아니면 ITEMS 사용
+  const sourceItems = rebalanceMode && TARGET_ITEMS.length ? TARGET_ITEMS : ITEMS;
+  const sorted = [...sourceItems].sort((a,b)=>b.weight-a.weight);
+  empty.style.display = sorted.length === 0 ? 'block' : 'none';
+
+  // 총 평가액 표시 (모드별)
+  const totalEl = document.getElementById('totalValue');
+  if (totalEl){
+    let total = TOTAL_PORTFOLIO_VALUE;
+    if (rebalanceMode && TARGET_ITEMS.length){
+      total = TARGET_ITEMS.reduce((s,it)=> s + (it.market_value || 0), 0);
+    }
+    totalEl.textContent = Math.round(total).toLocaleString();
+  }
+
+  sorted.forEach(it=>{
+    const d = document.createElement('div');
+    d.className = 'holding' + (rebalanceMode ? ' rb-mode' : '');
+    d.dataset.ticker = it.ticker;
+    // 리밸런싱 모드에서 현재 보유량 힌트
+    let currentHint = '';
+    if (rebalanceMode){
+      const original = activePortfolio().holdings.find(h => h.ticker === it.ticker);
+      if (original && original.quantity !== it.quantity){
+        const diff = it.quantity - original.quantity;
+        const sign = diff > 0 ? '+' : '';
+        const color = diff > 0 ? 'var(--safe)' : 'var(--high)';
+        currentHint = `<div class="holding-current-hint">현재 ${original.quantity}주 <span style="color:${color}">(${sign}${diff})</span></div>`;
+      }
+    }
+    d.innerHTML = `
+      <div class="holding-dot" style="background:${riskColor(it.risk_score)};color:${riskColor(it.risk_score)}"></div>
+      <div class="holding-info">
+        <div class="holding-name">${getName(it)}</div>
+        <div class="holding-sub">
+          <span>${it.ticker}</span>
+          <span style="color:var(--text-2);">·</span>
+          <span>${it.sector}</span>
+        </div>
+        ${currentHint}
+      </div>
+      <div class="holding-right">
+        <div class="holding-qty-line">
+          <input type="number" class="qty-edit" value="${it.quantity}" min="1" step="1" data-ticker="${it.ticker}" title="${t('qtyEditTitle')}">
+          <span class="qty-suffix">${t('sharesUnit')}</span>
+        </div>
+        <div class="holding-value" title="${t('valueTooltipTitle')}">${Math.round(it.market_value).toLocaleString()}</div>
+        <div class="holding-meta">
+          <span class="weight-pct">${(it.weight*100).toFixed(1)}%</span>
+          <span class="${it.return_pct>=0?'pos':'neg'}">${it.return_pct>=0?'+':''}${(it.return_pct*100).toFixed(2)}%</span>
+        </div>
+      </div>
+      <button class="holding-del" data-ticker="${it.ticker}" title="${t('delTitle')}">×</button>
+    `;
+    d.addEventListener('click', e=>{
+      if (e.target.classList.contains('holding-del') || e.target.classList.contains('qty-edit')) return;
+      selectAsset(it.ticker);
+    });
+    d.querySelector('.holding-del').addEventListener('click', e=>{
+      e.stopPropagation();
+      removeHolding(it.ticker);
+    });
+    const qInput = d.querySelector('.qty-edit');
+    qInput.addEventListener('click', e=> e.stopPropagation());
+    qInput.addEventListener('keydown', e=>{
+      if (e.key === 'Enter'){ qInput.blur(); }
+      else if (e.key === 'Escape'){ qInput.value = it.quantity; qInput.blur(); }
+    });
+    qInput.addEventListener('blur', ()=>{
+      const v = parseInt(qInput.value, 10);
+      if (!isNaN(v) && v > 0){
+        if (v !== it.quantity) updateHoldingQuantity(it.ticker, v);
+      } else {
+        qInput.value = it.quantity;
+      }
+    });
+    el.appendChild(d);
+  });
+  document.getElementById('holdingCount').textContent = ITEMS.length;
+}
+
+function renderSectorBars(){
+  const totals = {};
+  ITEMS.forEach(i=> totals[i.sector] = (totals[i.sector]||0) + i.weight);
+  const arr = Object.entries(totals).sort((a,b)=>b[1]-a[1]);
+  const el = document.getElementById('sectorBars');
+  el.innerHTML = '';
+  arr.forEach(([sec, w])=>{
+    const c = SECTOR_DEF[sec].color;
+    el.innerHTML += `
+      <div class="sector-bar">
+        <div class="sb-name">${sec}</div>
+        <div class="sb-track"><div class="sb-fill" style="width:${(w*100).toFixed(0)}%; background:${c}; box-shadow:0 0 8px ${c}"></div></div>
+        <div class="sb-pct">${(w*100).toFixed(1)}%</div>
+      </div>
+    `;
+  });
+}
+
+function renderRiskDist(){
+  const buckets = [
+    { lbl:'SAFE',     min:0,  max:30, c:'var(--safe)' },
+    { lbl:'MODERATE', min:30, max:55, c:'var(--moderate)' },
+    { lbl:'CAUTION',  min:55, max:75, c:'var(--caution)' },
+    { lbl:'HIGH',     min:75, max:90, c:'var(--high)' },
+    { lbl:'EXTREME',  min:90, max:101, c:'var(--extreme)' }
+  ];
+  const total = ITEMS.length;
+  const el = document.getElementById('riskDist');
+  el.innerHTML = '';
+  buckets.forEach(b=>{
+    const cnt = ITEMS.filter(i=>i.risk_score>=b.min && i.risk_score<b.max).length;
+    const w = (cnt/total)*100;
+    el.innerHTML += `
+      <div class="sector-bar">
+        <div class="sb-name" style="color:${b.c}">${b.lbl}</div>
+        <div class="sb-track"><div class="sb-fill" style="width:${w}%; background:${b.c}"></div></div>
+        <div class="sb-pct">${cnt}</div>
+      </div>
+    `;
+  });
+}
+
+function renderBalance(){
+  document.getElementById('balanceScore').textContent = BALANCE.balance;
+  document.getElementById('balanceFill').style.width = BALANCE.balance + '%';
+  const g = balanceGrade(BALANCE.balance);
+  const grade = document.getElementById('balanceGrade');
+  grade.textContent = g.txt;
+  grade.style.color = g.color;
+  document.getElementById('mDiverse').textContent = BALANCE.diverse + ' / 100';
+  document.getElementById('mDeviation').textContent = BALANCE.deviation + ' / 100';
+  document.getElementById('mSphericity').textContent = BALANCE.sphericity + ' / 100';
+  document.getElementById('mHHI').textContent = BALANCE.hhi;
+  document.getElementById('avgRiskBig').textContent = BALANCE.avgRisk;
+  document.getElementById('sphericity').textContent = BALANCE.sphericity;
+
+  // 밸런스 색상
+  const fill = document.getElementById('balanceFill');
+  if (BALANCE.balance < 40) fill.style.background = 'linear-gradient(90deg, var(--high), var(--extreme))';
+  else if (BALANCE.balance < 70) fill.style.background = 'linear-gradient(90deg, var(--caution), var(--moderate))';
+  else fill.style.background = 'linear-gradient(90deg, var(--safe), var(--moderate))';
+
+  // 큰 숫자 색
+  const score = document.getElementById('balanceScore');
+  if (BALANCE.balance < 40) score.style.background = 'linear-gradient(90deg, var(--high), var(--extreme))';
+  else if (BALANCE.balance < 70) score.style.background = 'linear-gradient(90deg, var(--caution), var(--moderate))';
+  else score.style.background = 'linear-gradient(90deg, var(--safe), var(--moderate))';
+  score.style.webkitBackgroundClip = 'text';
+  score.style.webkitTextFillColor = 'transparent';
+}
+
+function renderInsights(){
+  const el = document.getElementById('insights');
+  el.innerHTML = '';
+  INSIGHTS.forEach(ins=>{
+    el.innerHTML += `
+      <div class="insight ${ins.level}">
+        <div class="insight-title">${ins.title}</div>
+        <div>${ins.body}</div>
+      </div>
+    `;
+  });
+  // 알림 배너 (가장 심각한 인사이트)
+  const top = INSIGHTS.find(i=>i.level==='alert') || INSIGHTS.find(i=>i.level==='warn');
+  if (top){
+    document.getElementById('alertBanner').classList.add('show');
+    document.getElementById('alertText').textContent = top.title.replace(/[⚠✓]/g,'').trim();
+  }
+}
+
+function renderStockDetail(it){
+  if (!it) return;
+  document.getElementById('noSelect').style.display = 'none';
+  const card = document.getElementById('stockDetail');
+  card.classList.add('show');
+  const c = riskColor(it.risk_score);
+  document.getElementById('sdDot').style.background = c;
+  document.getElementById('sdDot').style.color = c;
+  document.getElementById('sdName').textContent = getName(it);
+  document.getElementById('sdTicker').textContent = it.ticker;
+  const pill = document.getElementById('sdPill');
+  pill.textContent = riskLabel(it.risk_score);
+  pill.style.background = c+'25';
+  pill.style.color = c;
+  document.getElementById('sdQty').textContent = (it.quantity ?? 1).toLocaleString() + '주';
+  document.getElementById('sdValue').textContent = Math.round(it.market_value || 0).toLocaleString();
+  document.getElementById('sdWeight').textContent = (it.weight*100).toFixed(2) + '%';
+  document.getElementById('sdSector').textContent = it.sector;
+  document.getElementById('sdPrice').textContent = it.current_price.toLocaleString();
+  document.getElementById('sdAvg').textContent = Math.round(it.avg_price).toLocaleString();
+  const rt = document.getElementById('sdReturn');
+  rt.textContent = (it.return_pct>=0?'+':'') + (it.return_pct*100).toFixed(2) + '%';
+  rt.style.color = it.return_pct>=0 ? 'var(--safe)' : 'var(--high)';
+  document.getElementById('sdVol').textContent = (it.volatility_30d*100).toFixed(1) + '%';
+  document.getElementById('sdBeta').textContent = it.beta.toFixed(2);
+  document.getElementById('sdDebt').textContent = (it.debt_ratio*100).toFixed(0) + '%';
+  const r = document.getElementById('sdRisk');
+  r.textContent = it.risk_score + ' / 100';
+  r.style.color = c;
+}
+
+function updateClock(){
+  const d = new Date();
+  document.getElementById('updateTime').textContent =
+    d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function renderAllUI(){
+  renderHoldings();
+  renderSectorBars();
+  renderRiskDist();
+  renderBalance();
+  renderInsights();
+}
+
+// 알림 배너 초기화 (포트폴리오 변경 시 사라지게)
+function clearAlert(){ document.getElementById('alertBanner').classList.remove('show'); }
+
+/* =========================================================
+   리밸런싱 시뮬레이터
+   ========================================================= */
+let rebalanceMode = false;
+let TARGET_HOLDINGS = null;
+let TARGET_ITEMS = [], TARGET_BALANCE = {}, TARGET_INSIGHTS = [];
+
+function targetPortfolioToRaw(holdings){
+  const { items, totalValue } = computeWeights(holdings);
+  return items.map(h => {
+    const a = ASSET_BY_TICKER[h.ticker];
+    if (!a) return null;
+    return {
+      ticker:a.ticker, name:a.name, name_en:a.name_en, sector:a.sector,
+      weight:h.weight, quantity:h.quantity, market_value:h.market_value,
+      current_price:a.current_price, avg_price:h.avg_price ?? a.current_price,
+      market_cap:a.market_cap, volatility_30d:a.volatility_30d,
+      beta:a.beta, debt_ratio:a.debt_ratio, liquidity_volume:a.liquidity_volume
+    };
+  }).filter(Boolean);
+}
+
+function recomputeTarget(){
+  if (!TARGET_HOLDINGS) return;
+  const raw = targetPortfolioToRaw(TARGET_HOLDINGS);
+  if (raw.length === 0){
+    TARGET_ITEMS = [];
+    TARGET_BALANCE = { balance:0, diverse:0, deviation:0, sphericity:0, hhi:'0.000', avgRisk:0, sectorWeights:{} };
+    TARGET_INSIGHTS = [];
+    return;
+  }
+  TARGET_ITEMS = mapSphereCoords(computeRiskScores(standardize(raw)));
+  TARGET_BALANCE = computeBalance(TARGET_ITEMS);
+  TARGET_INSIGHTS = generateInsights(TARGET_ITEMS, TARGET_BALANCE);
+}
+
+function enterRebalance(){
+  if (rebalanceMode) return;
+  if (!ITEMS || ITEMS.length === 0){
+    alert(t('emptyHoldings').replace(/<br>/g,' '));
+    return;
+  }
+  rebalanceMode = true;
+  TARGET_HOLDINGS = JSON.parse(JSON.stringify(activePortfolio().holdings));
+  recomputeTarget();
+  document.body.classList.add('rebalance-mode');
+  document.getElementById('rebalancePanel').classList.add('show');
+  document.getElementById('rbIndicator').classList.add('show');
+  document.getElementById('btnRebalance').classList.add('rebalance-active');
+  // 알림 배너·선택 해제
+  clearAlert();
+  selectedTicker = null;
+  document.getElementById('stockDetail').classList.remove('show');
+  document.getElementById('noSelect').style.display = 'block';
+  // 3D · 좌측 패널 갱신
+  rebuildNodesForCurrentMode();
+  renderHoldings();
+  renderRebalancePanel();
+}
+
+function exitRebalance(apply = false){
+  if (!rebalanceMode) return;
+  if (apply && TARGET_HOLDINGS){
+    activePortfolio().holdings = TARGET_HOLDINGS;
+    activePortfolio().updatedAt = Date.now();
+    saveState();
+  }
+  rebalanceMode = false;
+  TARGET_HOLDINGS = null;
+  TARGET_ITEMS = [];
+  TARGET_BALANCE = {};
+  TARGET_INSIGHTS = [];
+  document.body.classList.remove('rebalance-mode');
+  document.getElementById('rebalancePanel').classList.remove('show');
+  document.getElementById('rbIndicator').classList.remove('show');
+  document.getElementById('btnRebalance').classList.remove('rebalance-active');
+  rebuildAll();
+}
+
+function resetTarget(){
+  if (!rebalanceMode || !confirm(t('rbResetConfirm'))) return;
+  TARGET_HOLDINGS = JSON.parse(JSON.stringify(activePortfolio().holdings));
+  recomputeTarget();
+  rebuildNodesForCurrentMode();
+  renderHoldings();
+  renderRebalancePanel();
+}
+
+function applyTargetToActive(){
+  if (!rebalanceMode || !TARGET_HOLDINGS) return;
+  if (!confirm(t('rbApplyConfirm', BALANCE.balance, TARGET_BALANCE.balance))) return;
+  exitRebalance(true);
+}
+
+// rebalance 모드일 때는 TARGET_HOLDINGS 수량을 편집
+function updateTargetQuantity(ticker, newQty){
+  if (!TARGET_HOLDINGS) return;
+  const target = TARGET_HOLDINGS.find(h => h.ticker === ticker);
+  if (!target) return;
+  target.quantity = Math.max(1, Math.floor(newQty));
+  recomputeTarget();
+  rebuildNodesForCurrentMode();
+  renderRebalancePanel();
+  renderHoldings();
+}
+
+// 모드에 따라 ITEMS 또는 TARGET_ITEMS 사용
+function rebuildNodesForCurrentMode(){
+  const items = rebalanceMode ? TARGET_ITEMS : ITEMS;
+  // 기존 disposeDynamic + 노드 재생성 로직 재사용
+  disposeDynamic();
+  items.forEach(it=>{
+    const pos = latLngToVec3(it.sphere_coord.lat, it.sphere_coord.lng, it.sphere_coord.r);
+    const surfPos = latLngToVec3(it.sphere_coord.lat, it.sphere_coord.lng, 1.0);
+    const lineGeo = new THREE.BufferGeometry().setFromPoints([surfPos, pos]);
+    const lineMat = new THREE.LineBasicMaterial({ color: riskColor(it.risk_score), transparent:true, opacity:0.4 });
+    dynamicGroup.add(new THREE.Line(lineGeo, lineMat));
+    const radius = it.weight * 0.5 + 0.02;
+    const sphereGeo = new THREE.SphereGeometry(radius, 24, 18);
+    const color = new THREE.Color(riskColor(it.risk_score));
+    const mat = new THREE.MeshPhongMaterial({ color, emissive:color, emissiveIntensity:0.6, shininess:120, transparent:true, opacity:0.85 });
+    const mesh = new THREE.Mesh(sphereGeo, mat);
+    mesh.position.copy(pos);
+    mesh.userData.item = it;
+    dynamicGroup.add(mesh);
+    const haloGeo = new THREE.SphereGeometry(radius*1.6, 16, 12);
+    const haloMat = new THREE.MeshBasicMaterial({ color, transparent:true, opacity:0.18 });
+    const halo = new THREE.Mesh(haloGeo, haloMat);
+    halo.position.copy(pos);
+    dynamicGroup.add(halo);
+    nodeMeshes.push({ mesh, halo, item: it, baseColor: color, baseRadius: radius });
+  });
+}
+
+function renderRebalancePanel(){
+  if (!rebalanceMode) return;
+  const C = BALANCE, T = TARGET_BALANCE;
+  document.getElementById('rbCurrentScore').textContent = C.balance ?? '--';
+  document.getElementById('rbTargetScore').textContent = T.balance ?? '--';
+  document.getElementById('rbCurrentGrade').textContent = balanceGrade(C.balance ?? 0).txt;
+  document.getElementById('rbTargetGrade').textContent = balanceGrade(T.balance ?? 0).txt;
+
+  // 타겟 점수 색상 (개선=녹색, 악화=빨강)
+  const targetEl = document.getElementById('rbTargetScore');
+  const delta = (T.balance ?? 0) - (C.balance ?? 0);
+  const grad = delta > 0 ? 'linear-gradient(90deg, var(--safe), var(--moderate))'
+             : delta < 0 ? 'linear-gradient(90deg, var(--high), var(--extreme))'
+             : 'linear-gradient(90deg, var(--text-1), var(--text-2))';
+  targetEl.style.background = grad;
+  targetEl.style.webkitBackgroundClip = 'text';
+  targetEl.style.webkitTextFillColor = 'transparent';
+
+  // 델타 표시
+  const deltaEl = document.getElementById('rbDelta');
+  if (delta > 0) deltaEl.innerHTML = `<span class="rb-delta-up">▲ ${t('rbDeltaImproved', delta)}</span>`;
+  else if (delta < 0) deltaEl.innerHTML = `<span class="rb-delta-down">▼ ${t('rbDeltaWorsened', Math.abs(delta))}</span>`;
+  else deltaEl.innerHTML = `<span class="rb-delta-zero">${t('rbDeltaSame')}</span>`;
+
+  // 메트릭 비교 테이블
+  // [name, current, target, betterIsHigher, decimals, suffix]
+  const metrics = [
+    [t('rbMetricBalance'),     C.balance,    T.balance,    true,  0, ''],
+    [t('rbMetricDiverse'),     C.diverse,    T.diverse,    true,  0, ''],
+    [t('rbMetricDeviation'),   C.deviation,  T.deviation,  true,  0, ''],
+    [t('rbMetricSphericity'),  C.sphericity, T.sphericity, true,  0, ''],
+    [t('rbMetricHHI'),         parseFloat(C.hhi||0), parseFloat(T.hhi||0), false, 3, ''],
+    [t('rbMetricRisk'),        C.avgRisk,    T.avgRisk,    false, 0, '']
+  ];
+  document.getElementById('rbMetrics').innerHTML = metrics.map(([name, c, ta, betterUp, dec, suf])=>{
+    const d = ta - c;
+    const isBetter = betterUp ? d > 0 : d < 0;
+    const isWorse  = betterUp ? d < 0 : d > 0;
+    const cls = isBetter ? 'up' : (isWorse ? 'down' : '');
+    const fmt = v => Number(v).toFixed(dec) + suf;
+    return `
+      <div class="rb-metric">
+        <span class="rb-metric-name">${name}</span>
+        <span class="rb-metric-from">${fmt(c)}</span>
+        <span class="rb-metric-arrow">→</span>
+        <span class="rb-metric-to ${cls}">${fmt(ta)}</span>
+      </div>`;
+  }).join('');
+
+  // 타겟 인사이트
+  const ins = document.getElementById('rbInsights');
+  if (TARGET_INSIGHTS.length === 0){
+    ins.innerHTML = `<div class="empty-state" style="padding:14px;">${t('rbInsightUnchanged')}</div>`;
+  } else {
+    ins.innerHTML = TARGET_INSIGHTS.map(i=>`
+      <div class="insight ${i.level}">
+        <div class="insight-title">${i.title}</div>
+        <div>${i.body}</div>
+      </div>
+    `).join('');
+  }
+}
+
+// 전체 리빌드 (포트폴리오 변경/추가/삭제/비중수정 시 호출)
+function rebuildAll(){
+  clearAlert();
+  selectedTicker = null;
+  document.getElementById('stockDetail').classList.remove('show');
+  document.getElementById('noSelect').style.display = 'block';
+  runPipeline();
+  rebuildNodes();
+  renderAllUI();
+}
+
+/* =========================================================
+   포트폴리오 CRUD
+   ========================================================= */
+function renderPortfolioSelect(){
+  const active = activePortfolio();
+  document.getElementById('pfCurrentName').textContent = active.name;
+  document.getElementById('pfCurrentMeta').textContent =
+    t('assetsCount', active.holdings.length, STATE.portfolios.length);
+
+  const list = document.getElementById('pfList');
+  list.innerHTML = '';
+  STATE.portfolios.forEach(p=>{
+    const item = document.createElement('div');
+    item.className = 'pf-item' + (p.id === STATE.activeId ? ' active' : '');
+    const date = new Date(p.updatedAt);
+    const dateStr = `${date.getMonth()+1}/${date.getDate()}`;
+    item.innerHTML = `
+      <div class="pf-item-dot"></div>
+      <div class="pf-item-info">
+        <div class="pf-item-name">${escapeHtml(p.name)}</div>
+        <div class="pf-item-meta">
+          <span>${t('portfolioCount', p.holdings.length)}</span>
+          <span>·</span>
+          <span>${t('updatedAt', dateStr)}</span>
+        </div>
+      </div>
+      <span class="pf-item-count">${p.holdings.length}</span>
+    `;
+    item.addEventListener('click', ()=>{
+      STATE.activeId = p.id;
+      saveState();
+      closeDropdown();
+      rebuildAll();
+    });
+    list.appendChild(item);
+  });
+
+  // 푸터 (생성 한도 안내)
+  const div = document.createElement('div');
+  div.className = 'pf-list-divider';
+  list.appendChild(div);
+  const footer = document.createElement('div');
+  footer.className = 'pf-list-footer';
+  footer.textContent = `${STATE.portfolios.length} / ${MAX_PORTFOLIOS} portfolios`;
+  list.appendChild(footer);
+
+  document.getElementById('pfDelete').disabled = STATE.portfolios.length <= 1;
+  const newBtn = document.getElementById('pfNew');
+  newBtn.disabled = STATE.portfolios.length >= MAX_PORTFOLIOS;
+  newBtn.title = newBtn.disabled
+    ? `최대 ${MAX_PORTFOLIOS}개까지 만들 수 있습니다`
+    : '새 포트폴리오 만들기';
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function openDropdown(){
+  document.getElementById('pfCurrent').classList.add('open');
+  document.getElementById('pfList').classList.add('show');
+}
+function closeDropdown(){
+  document.getElementById('pfCurrent').classList.remove('open');
+  document.getElementById('pfList').classList.remove('show');
+}
+document.getElementById('pfCurrent').addEventListener('click', e=>{
+  e.stopPropagation();
+  const isOpen = document.getElementById('pfList').classList.contains('show');
+  if (isOpen) closeDropdown(); else openDropdown();
+});
+document.addEventListener('click', e=>{
+  if (!e.target.closest('#pfDropdown')) closeDropdown();
+});
+
+document.getElementById('pfNew').addEventListener('click', ()=>{
+  if (STATE.portfolios.length >= MAX_PORTFOLIOS){
+    alert(t('alertMaxPortfolios', MAX_PORTFOLIOS));
+    return;
+  }
+  openModal({
+    title: t('modalNewPfTitle'),
+    desc: t('modalNewPfDesc', STATE.portfolios.length+1, MAX_PORTFOLIOS),
+    placeholder: t('modalNewPfPh'),
+    initial: t('modalNewPfDefault', STATE.portfolios.length + 1),
+    onOK: name => {
+      const pf = { id:'pf_'+Date.now(), name:name||'Untitled', holdings:[], createdAt:Date.now(), updatedAt:Date.now() };
+      STATE.portfolios.push(pf);
+      STATE.activeId = pf.id;
+      saveState();
+      renderPortfolioSelect();
+      rebuildAll();
+    }
+  });
+});
+
+document.getElementById('pfRename').addEventListener('click', ()=>{
+  const pf = activePortfolio();
+  openModal({
+    title: t('modalRenameTitle'),
+    desc: t('modalRenameDesc'),
+    placeholder: t('modalRenamePh'),
+    initial: pf.name,
+    onOK: name => {
+      if (name && name.trim()){
+        pf.name = name.trim();
+        pf.updatedAt = Date.now();
+        saveState();
+        renderPortfolioSelect();
+      }
+    }
+  });
+});
+
+document.getElementById('pfDelete').addEventListener('click', ()=>{
+  if (STATE.portfolios.length <= 1){
+    alert(t('alertLastPortfolio'));
+    return;
+  }
+  const pf = activePortfolio();
+  if (!confirm(t('confirmDelete', pf.name))) return;
+  STATE.portfolios = STATE.portfolios.filter(p=> p.id !== pf.id);
+  STATE.activeId = STATE.portfolios[0].id;
+  saveState();
+  renderPortfolioSelect();
+  rebuildAll();
+});
+
+/* =========================================================
+   종목 추가/삭제/비중수정
+   ========================================================= */
+function addHolding(ticker){
+  const pf = activePortfolio();
+  if (pf.holdings.some(h => h.ticker === ticker)) return;
+  const a = ASSET_BY_TICKER[ticker];
+  if (!a) return;
+  // 1주로 즉시 추가 — 수량은 보유 목록에서 인라인 편집 가능
+  pf.holdings.push({ ticker, quantity: 1, avg_price: a.current_price });
+  pf.updatedAt = Date.now();
+  saveState();
+  renderPortfolioSelect();
+  rebuildAll();
+  // 검색창 초기화
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').classList.remove('show');
+  // 추가된 종목으로 살짝 스크롤 + 수량 칸 강조
+  setTimeout(()=>{
+    const row = document.querySelector(`.holding[data-ticker="${ticker}"]`);
+    if (row){
+      row.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      const qty = row.querySelector('.qty-edit');
+      if (qty){ qty.focus(); qty.select(); }
+    }
+  }, 100);
+}
+
+function removeHolding(ticker){
+  const pf = activePortfolio();
+  pf.holdings = pf.holdings.filter(h => h.ticker !== ticker);
+  pf.updatedAt = Date.now();
+  saveState();
+  renderPortfolioSelect();
+  rebuildAll();
+}
+
+function updateHoldingQuantity(ticker, newQty){
+  // 리밸런싱 모드일 땐 TARGET_HOLDINGS만 수정 (실제 상태는 보존)
+  if (rebalanceMode){
+    updateTargetQuantity(ticker, newQty);
+    return;
+  }
+  const pf = activePortfolio();
+  const target = pf.holdings.find(h => h.ticker === ticker);
+  if (!target) return;
+  newQty = Math.max(1, Math.floor(newQty));
+  target.quantity = newQty;
+  pf.updatedAt = Date.now();
+  saveState();
+  rebuildAll();
+}
+
+function updateHoldingAvgPrice(ticker, newPrice){
+  const pf = activePortfolio();
+  const target = pf.holdings.find(h => h.ticker === ticker);
+  if (!target) return;
+  if (newPrice > 0){
+    target.avg_price = newPrice;
+    pf.updatedAt = Date.now();
+    saveState();
+    rebuildAll();
+  }
+}
+
+/* =========================================================
+   검색 (자산 DB 자동완성)
+   ========================================================= */
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+function normalize(s){ return (s||'').toLowerCase().replace(/\s+/g,''); }
+
+function searchAssets(q){
+  const nq = normalize(q);
+  if (!nq) return [];
+  const pf = activePortfolio();
+  const owned = new Set(pf.holdings.map(h=>h.ticker));
+  return ASSET_DB.filter(a => {
+    const hay = normalize(a.name) + ' ' + normalize(a.ticker) + ' ' + normalize(a.alias);
+    return hay.includes(nq);
+  })
+  .map(a => ({ ...a, _owned: owned.has(a.ticker) }))
+  .sort((a,b) => {
+    // ticker 일치 우선, 그 다음 이름 일치
+    const aT = normalize(a.ticker).startsWith(nq) ? 0 : 1;
+    const bT = normalize(b.ticker).startsWith(nq) ? 0 : 1;
+    if (aT !== bT) return aT - bT;
+    return a.name.localeCompare(b.name);
+  })
+  .slice(0, 30);
+}
+
+function renderSearchResults(q){
+  const results = searchAssets(q);
+  if (!q){
+    searchResults.classList.remove('show');
+    return;
+  }
+  if (results.length === 0){
+    searchResults.innerHTML = `<div class="sr-empty">${t('noSearchResults')}</div>`;
+    searchResults.classList.add('show');
+    return;
+  }
+  searchResults.innerHTML = results.map(a => `
+    <div class="search-result ${a._owned?'added':''}" data-ticker="${a.ticker}">
+      <div class="sr-info">
+        <div class="sr-name">${getName(a)}</div>
+        <div class="sr-meta">
+          <span>${a.ticker}</span>
+          <span class="sr-tag sector">${a.sector}</span>
+          ${a.is_etf ? `<span class="sr-tag etf">${t('etfTag')}</span>` : ''}
+          ${a._owned ? `<span style="color:var(--safe)">${t('addedTag')}</span>` : ''}
+        </div>
+      </div>
+      <div style="font-size:11px; color:var(--text-2); font-variant-numeric:tabular-nums;">
+        ${a.current_price.toLocaleString()}
+      </div>
+    </div>
+  `).join('');
+  searchResults.classList.add('show');
+  searchResults.querySelectorAll('.search-result').forEach(el=>{
+    if (el.classList.contains('added')) return;
+    el.addEventListener('click', ()=> addHolding(el.dataset.ticker));
+  });
+}
+
+searchInput.addEventListener('input', e => renderSearchResults(e.target.value));
+searchInput.addEventListener('focus', e => { if (e.target.value) renderSearchResults(e.target.value); });
+document.addEventListener('click', e=>{
+  if (!e.target.closest('.search-wrap')) searchResults.classList.remove('show');
+});
+
+/* =========================================================
+   모달 다이얼로그
+   ========================================================= */
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalInput = document.getElementById('modalInput');
+let modalOnOK = null;
+
+function openModal(opts){
+  modalTitle.textContent = opts.title || '';
+  modalDesc.textContent = opts.desc || '';
+  modalDesc.style.whiteSpace = 'pre-line';
+  modalInput.placeholder = opts.placeholder || '';
+  modalInput.value = opts.initial || '';
+  modalInput.type = opts.type || 'text';
+  modalInput.min = opts.type === 'number' ? '1' : '';
+  modalOnOK = opts.onOK;
+  modal.classList.add('show');
+  setTimeout(()=>{ modalInput.focus(); modalInput.select(); }, 50);
+}
+function closeModal(){ modal.classList.remove('show'); modalOnOK = null; }
+
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+// ----- 면책고지 모달 + 하단 배너 -----
+const aboutModal = document.getElementById('aboutModal');
+function openAbout(){ aboutModal.classList.add('show'); }
+function closeAbout(){ aboutModal.classList.remove('show'); }
+document.getElementById('aboutIcon')?.addEventListener('click', openAbout);
+document.getElementById('aboutClose')?.addEventListener('click', closeAbout);
+aboutModal?.addEventListener('click', e => { if (e.target === aboutModal) closeAbout(); });
+document.addEventListener('keydown', e => { if (e.key==='Escape' && aboutModal.classList.contains('show')) closeAbout(); });
+
+// 하단 면책 배너 — X로 닫으면 localStorage에 저장되어 다음 방문에도 안 뜸
+const legalBanner = document.getElementById('legalBanner');
+if (localStorage.getItem('sphere_legal_dismissed') === '1') {
+  legalBanner.classList.add('hidden');
+}
+document.getElementById('legalBannerClose')?.addEventListener('click', () => {
+  legalBanner.classList.add('hidden');
+  localStorage.setItem('sphere_legal_dismissed', '1');
+});
+document.getElementById('legalBannerView')?.addEventListener('click', openAbout);
+
+document.getElementById('modalOK').addEventListener('click', ()=>{
+  const v = modalInput.value.trim();
+  if (modalOnOK) modalOnOK(v);
+  closeModal();
+});
+modalInput.addEventListener('keydown', e=>{
+  if (e.key === 'Enter'){ document.getElementById('modalOK').click(); }
+  else if (e.key === 'Escape'){ closeModal(); }
+});
+modal.addEventListener('click', e=>{ if (e.target === modal) closeModal(); });
+
+/* =========================================================
+   인포 툴팁 (각 지표의 산출 공식·의미 설명)
+   ========================================================= */
+// 학술 출처: Markowitz(1952) MPT, Sharpe(1964) CAPM, Herfindahl(1950)/Hirschman(1945) HHI
+const INFO_TXT = {
+  ko: {
+    balance:{ title:'밸런스 지수 산출 공식',
+      desc:'포트폴리오 전체의 균형 상태를 0~100점으로 표현. <strong>100점 = 완벽한 구형(최적 분산), 0점 = 극단적 쏠림</strong>입니다.',
+      formula:'밸런스 = 섹터분산 × 0.40<br>　　　　 + 리스크편차 × 0.35<br>　　　　 + 구형도 × 0.25',
+      ref:'기반: Markowitz Modern Portfolio Theory (1952) — 분산투자가 위험을 줄인다는 기본 원리',
+      sumLabel:'합계 (현재)' },
+    diverse:{ title:'섹터 분산도',
+      desc:'HHI(Herfindahl-Hirschman Index) 기반 섹터 집중도 점수. <strong>100점 = 모든 섹터 균등 분포 / 0점 = 한 섹터 100% 집중</strong>.',
+      formula:'HHI = Σ(섹터 비중²)<br>분산도 = (1 − HHI) / (1 − 1/섹터수) × 100',
+      ref:'기반: Herfindahl (1950) · Hirschman (1945) — 미국 법무부 반독점법(Antitrust) 시장집중도 평가 지표',
+      labels:['현재 HHI','섹터 수','분산도 점수'], unit:'개' },
+    deviation:{ title:'리스크 편차 점수',
+      desc:'포트폴리오 내 종목들의 리스크 스코어 표준편차 기반. <strong>100점 = 모든 종목 비슷한 리스크 / 0점 = 극단적 편차</strong>. 편차가 클수록 일부 종목이 전체 리스크를 좌우합니다.',
+      formula:'편차 점수 = (1 − σ/50) × 100<br>σ = 종목별 리스크 스코어의 표준편차',
+      ref:'기반: 통계적 분산도(σ) — Modern Portfolio Theory의 핵심 위험 측정치',
+      label:'편차 점수' },
+    sphericity:{ title:'구형도 (Sphericity)',
+      desc:'모든 종목의 리스크 돌출(r값) 분포의 균일성. <strong>100점 = 모든 노드가 같은 거리로 돌출 / 0점 = 특정 종목만 심하게 돌출</strong>.',
+      formula:'구형도 = (1 − σ_r / 0.5) × 100<br>r = 1.0 + (risk_score / 100) × 0.5',
+      ref:'SPHERE 자체 정의 지표 — 위험 분포의 시각적 균일성을 정량화',
+      label:'구형도 점수' },
+    hhi:{ title:'HHI 집중도',
+      desc:'Herfindahl-Hirschman Index. 섹터별 비중을 제곱해서 모두 합한 값. <strong>0에 가까울수록 분산, 1에 가까울수록 집중</strong>.',
+      formula:'HHI = Σ(섹터 비중²)',
+      ref:'출처: U.S. DOJ Horizontal Merger Guidelines (2010) — HHI 임계값 0.15/0.25 인수합병 심사 기준',
+      thresholds:[['< 0.15','분산 양호','safe'],['0.15 – 0.25','보통','moderate'],['0.25 – 0.45','집중 주의','caution'],['> 0.45','심각한 편중','high']],
+      label:'현재 HHI' },
+    riskScore:{ title:'평균 리스크 스코어',
+      desc:'포트폴리오 내 모든 종목의 평균 리스크 점수 (0~100). 각 종목의 리스크는 5개 요소의 가중합으로 산출됩니다.',
+      formula:'리스크 = 변동성 × 0.35<br>　　　　+ 베타 × 0.25<br>　　　　+ 부채비율 × 0.20<br>　　　　+ 유동성 역수 × 0.10<br>　　　　+ 섹터 기본값 × 0.10',
+      ref:'기반: Sharpe (1964) CAPM — 베타로 시스템적 위험 측정 / Engle (1982) ARCH — 변동성 모형 / Altman (1968) Z-score — 부채 비율 신용 위험',
+      thresholds:[['0–29','🟢 SAFE','safe'],['30–54','🔵 MODERATE','moderate'],['55–74','🟡 CAUTION','caution'],['75–89','🔴 HIGH','high'],['90–100','🟣 EXTREME','extreme']],
+      label:'현재 평균' },
+    assetRisk:{ title:'개별 종목 리스크 산출',
+      desc:'선택한 종목의 리스크 스코어가 어떻게 계산되었는지 5개 요소별 기여도를 분해해서 보여줍니다.',
+      noSelect:'먼저 보유 종목을 선택해주세요. (좌측 목록 또는 구체의 노드 클릭)',
+      cols:['요소','정규화값 × 가중치 = 기여도'],
+      labels:['변동성 30D','베타','부채비율','유동성 역수','섹터 기본값'],
+      sumLabel:'합계 → 리스크 스코어',
+      summary:(top)=>`이 종목은 <b>${top}</b> 요소가 리스크에 가장 크게 기여하고 있습니다.`,
+      ref:'각 요소 정규화 방법: 변동성(0.05~0.80 범위 클리핑), 베타(0~2.5 클리핑), 부채비율(그대로), 유동성(거래량 ÷ 전체 중간값의 역수), 섹터 기본값(BIO 0.85 / IT 0.75 / FIN 0.50 등)' }
+  },
+  en: {
+    balance:{ title:'Balance Index Formula',
+      desc:'Overall portfolio balance score (0–100). <strong>100 = perfect sphere (optimal diversification), 0 = extreme concentration</strong>.',
+      formula:'Balance = SectorDiversity × 0.40<br>　　　　 + RiskDeviation × 0.35<br>　　　　 + Sphericity × 0.25',
+      ref:'Based on: Markowitz Modern Portfolio Theory (1952) — diversification reduces risk',
+      sumLabel:'Current total' },
+    diverse:{ title:'Sector Diversity',
+      desc:'Sector concentration score based on HHI (Herfindahl-Hirschman Index). <strong>100 = perfectly even sectors / 0 = single-sector concentration</strong>.',
+      formula:'HHI = Σ(sector weight²)<br>Diversity = (1 − HHI) / (1 − 1/n) × 100',
+      ref:'Based on: Herfindahl (1950) · Hirschman (1945) — adopted by US DOJ for antitrust market concentration analysis',
+      labels:['Current HHI','Sector count','Diversity score'], unit:'sectors' },
+    deviation:{ title:'Risk Deviation',
+      desc:'Standard deviation of risk scores across holdings. <strong>100 = all holdings similar risk / 0 = extreme deviation</strong>. High deviation means a few holdings dominate overall risk.',
+      formula:'Deviation = (1 − σ/50) × 100<br>σ = std. dev. of risk scores',
+      ref:'Based on: statistical variance (σ) — core risk metric in Modern Portfolio Theory',
+      label:'Deviation score' },
+    sphericity:{ title:'Sphericity',
+      desc:'Uniformity of risk protrusion (r-values) across all nodes. <strong>100 = all nodes equidistant / 0 = some nodes protrude severely</strong>.',
+      formula:'Sphericity = (1 − σ_r / 0.5) × 100<br>r = 1.0 + (risk_score / 100) × 0.5',
+      ref:'SPHERE-defined metric — quantifies visual uniformity of risk distribution',
+      label:'Sphericity score' },
+    hhi:{ title:'HHI Concentration',
+      desc:'Herfindahl-Hirschman Index. Sum of squared sector weights. <strong>Closer to 0 = diversified, closer to 1 = concentrated</strong>.',
+      formula:'HHI = Σ(sector weight²)',
+      ref:'Source: U.S. DOJ Horizontal Merger Guidelines (2010) — HHI thresholds 0.15/0.25 for merger review',
+      thresholds:[['< 0.15','Well diversified','safe'],['0.15 – 0.25','Moderate','moderate'],['0.25 – 0.45','Concentrated','caution'],['> 0.45','Severely concentrated','high']],
+      label:'Current HHI' },
+    riskScore:{ title:'Average Risk Score',
+      desc:'Average risk score across all holdings (0–100). Each holding\'s risk is a weighted sum of 5 components.',
+      formula:'Risk = Volatility × 0.35<br>　　　+ Beta × 0.25<br>　　　+ DebtRatio × 0.20<br>　　　+ LiquidityInverse × 0.10<br>　　　+ SectorBase × 0.10',
+      ref:'Based on: Sharpe (1964) CAPM — beta for systematic risk / Engle (1982) ARCH — volatility modeling / Altman (1968) Z-score — debt ratio credit risk',
+      thresholds:[['0–29','🟢 SAFE','safe'],['30–54','🔵 MODERATE','moderate'],['55–74','🟡 CAUTION','caution'],['75–89','🔴 HIGH','high'],['90–100','🟣 EXTREME','extreme']],
+      label:'Current average' },
+    assetRisk:{ title:'Individual Risk Breakdown',
+      desc:'How the selected asset\'s risk score was calculated, broken down into 5 weighted components.',
+      noSelect:'Select a holding first (click a row on the left or a node on the sphere).',
+      cols:['Component','Normalized × Weight = Contribution'],
+      labels:['Volatility 30D','Beta','Debt Ratio','Liquidity Inverse','Sector Base'],
+      sumLabel:'Total → Risk Score',
+      summary:(top)=>`<b>${top}</b> contributes the most to this asset\'s risk.`,
+      ref:'Normalization: Volatility (clipped 0.05–0.80), Beta (clipped 0–2.5), Debt ratio (raw 0–1), Liquidity (inverse of volume / median), Sector base (BIO 0.85 / IT 0.75 / FIN 0.50, etc.)' }
+  }
+};
+
+function infoT(){ return INFO_TXT[CURRENT_LANG] || INFO_TXT.ko; }
+
+const INFO = {
+  balance: {
+    get title(){ return infoT().balance.title; },
+    bodyFn: () => {
+      const T = infoT().balance;
+      const B = BALANCE;
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>${infoT().diverse.title}</span><span>${B.diverse} × 0.40 = <b>${(B.diverse*0.40).toFixed(1)}</b></span></div>
+          <div><span>${infoT().deviation.title}</span><span>${B.deviation} × 0.35 = <b>${(B.deviation*0.35).toFixed(1)}</b></span></div>
+          <div><span>${infoT().sphericity.title}</span><span>${B.sphericity} × 0.25 = <b>${(B.sphericity*0.25).toFixed(1)}</b></span></div>
+          <div class="info-total"><span>${T.sumLabel}</span><span><b>${B.balance}</b> / 100</span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  diverse: {
+    get title(){ return infoT().diverse.title; },
+    bodyFn: () => {
+      const T = infoT().diverse;
+      const nSec = Object.keys(BALANCE.sectorWeights || {}).length;
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>${T.labels[0]}</span><span><b>${BALANCE.hhi}</b></span></div>
+          <div><span>${T.labels[1]}</span><span><b>${nSec} ${T.unit}</b></span></div>
+          <div class="info-total"><span>${T.labels[2]}</span><span><b>${BALANCE.diverse}</b> / 100</span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  deviation: {
+    get title(){ return infoT().deviation.title; },
+    bodyFn: () => {
+      const T = infoT().deviation;
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div class="info-total"><span>${T.label}</span><span><b>${BALANCE.deviation}</b> / 100</span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  sphericity: {
+    get title(){ return infoT().sphericity.title; },
+    bodyFn: () => {
+      const T = infoT().sphericity;
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div class="info-total"><span>${T.label}</span><span><b>${BALANCE.sphericity}</b> / 100</span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  hhi: {
+    get title(){ return infoT().hhi.title; },
+    bodyFn: () => {
+      const T = infoT().hhi;
+      const thr = T.thresholds.map(r=>`<div><span style="color:var(--${r[2]});">${r[0]}</span> ${r[1]}</div>`).join('');
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-thresholds">${thr}</div>
+        <div class="info-calc">
+          <div class="info-total"><span>${T.label}</span><span><b>${BALANCE.hhi}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  riskScore: {
+    get title(){ return infoT().riskScore.title; },
+    bodyFn: () => {
+      const T = infoT().riskScore;
+      const thr = T.thresholds.map(r=>`<div><span style="color:var(--${r[2]});">${r[0]}</span> ${r[1]}</div>`).join('');
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-thresholds">${thr}</div>
+        <div class="info-calc">
+          <div class="info-total"><span>${T.label}</span><span><b>${BALANCE.avgRisk}</b> / 100</span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  assetRisk: {
+    get title(){ return infoT().assetRisk.title; },
+    bodyFn: () => {
+      const T = infoT().assetRisk;
+      // 선택된 종목 가져오기
+      const it = selectedTicker ? ITEMS.find(i => i.ticker === selectedTicker) : null;
+      if (!it) return `<div class="info-body" style="color:var(--text-2)">${T.noSelect}</div>`;
+
+      // 컴포넌트 정규화 (computeRiskScores와 동일 로직)
+      const vols = ITEMS.map(i=>i.liquidity_volume).filter(v=>v!=null).sort((a,b)=>a-b);
+      const liqMedian = vols.length ? vols[Math.floor(vols.length/2)] : 1;
+
+      const volN = Math.max(0, Math.min(1, (it.volatility_30d - 0.05)/(0.80 - 0.05)));
+      const betaN = Math.max(0, Math.min(1, it.beta / 2.5));
+      const debtN = Math.max(0, Math.min(1, it.debt_ratio));
+      const liqN = (it.liquidity_volume!=null && liqMedian>0)
+        ? Math.max(0, Math.min(1, 1 / (it.liquidity_volume / liqMedian)))
+        : null;
+      const secR = SECTOR_DEF[it.sector].base_risk;
+
+      // 가중치
+      const W = { vol:0.35, beta:0.25, debt:0.20, liq:0.10, sec:0.10 };
+      const hasLiq = liqN !== null;
+      const totalW = hasLiq ? 1.0 : (W.vol+W.beta+W.debt+W.sec);
+      const components = [
+        { lbl:T.labels[0], raw:`${(it.volatility_30d*100).toFixed(1)}%`,        n:volN,  w:W.vol  },
+        { lbl:T.labels[1], raw:it.beta.toFixed(2),                              n:betaN, w:W.beta },
+        { lbl:T.labels[2], raw:`${(it.debt_ratio*100).toFixed(0)}%`,            n:debtN, w:W.debt },
+        { lbl:T.labels[3], raw:hasLiq ? (it.liquidity_volume.toLocaleString()) : '—', n:liqN, w:W.liq },
+        { lbl:T.labels[4], raw:`${it.sector} (${(secR*100).toFixed(0)})`,       n:secR,  w:W.sec  }
+      ];
+      // 기여도 계산
+      let totalScore = 0;
+      const rows = components.map(c=>{
+        if (c.n === null) return `<div style="opacity:0.4"><span>${c.lbl}</span><span>${c.raw} · —</span></div>`;
+        const contrib = (c.n * c.w) / totalW * 100;
+        totalScore += contrib;
+        const bar = Math.round(contrib);
+        return `
+          <div>
+            <span>${c.lbl} <span style="color:var(--text-2);font-size:10px;">(${c.raw})</span></span>
+            <span>${c.n.toFixed(2)} × ${c.w} = <b>${contrib.toFixed(1)}</b></span>
+          </div>
+        `;
+      }).join('');
+
+      // 가장 큰 기여 요소
+      const valid = components.filter(c=>c.n!==null);
+      const top = valid.reduce((a,b)=> ((b.n*b.w) > (a.n*a.w) ? b : a));
+
+      return `
+        <div class="info-body" style="margin-bottom:6px;">
+          <strong style="color:${riskColor(it.risk_score)}">${getName(it)}</strong> · ${it.ticker}
+        </div>
+        <div class="info-body">${T.desc}</div>
+        <div class="info-calc">
+          ${rows}
+          <div class="info-total"><span>${T.sumLabel}</span><span><b style="color:${riskColor(it.risk_score)};font-size:14px;">${it.risk_score}</b> / 100</span></div>
+        </div>
+        <div class="info-body" style="margin-top:8px;">${T.summary(top.lbl)}</div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  }
+};
+
+const infoTooltipEl = document.createElement('div');
+infoTooltipEl.className = 'info-tooltip';
+document.body.appendChild(infoTooltipEl);
+
+function showInfo(targetEl, key){
+  const cfg = INFO[key];
+  if (!cfg) return;
+  infoTooltipEl.innerHTML = `<div class="info-title">${cfg.title}</div>${cfg.bodyFn()}`;
+  infoTooltipEl.classList.add('show');
+  // 위치 측정 후 화면 밖이면 보정
+  const rect = targetEl.getBoundingClientRect();
+  infoTooltipEl.style.left = '0px';
+  infoTooltipEl.style.top = '0px';
+  const tipRect = infoTooltipEl.getBoundingClientRect();
+  let left = rect.left;
+  let top = rect.bottom + 8;
+  if (left + tipRect.width > window.innerWidth - 12){
+    left = window.innerWidth - tipRect.width - 12;
+  }
+  if (left < 12) left = 12;
+  if (top + tipRect.height > window.innerHeight - 12){
+    top = rect.top - tipRect.height - 8;
+  }
+  infoTooltipEl.style.left = left + 'px';
+  infoTooltipEl.style.top = top + 'px';
+}
+function hideInfo(){ infoTooltipEl.classList.remove('show'); }
+
+// 이벤트 위임 — 동적으로 추가되는 info-icon 모두 자동 처리
+document.body.addEventListener('mouseover', e=>{
+  const t = e.target.closest && e.target.closest('.info-icon');
+  if (t) showInfo(t, t.dataset.info);
+});
+document.body.addEventListener('mouseout', e=>{
+  const t = e.target.closest && e.target.closest('.info-icon');
+  if (t){
+    const into = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.info-icon');
+    if (into !== t) hideInfo();
+  }
+});
+
+/* =========================================================
+   초기 렌더
+   ========================================================= */
+// 언어 토글 이벤트 바인딩 + 초기 적용
+document.querySelectorAll('#langSwitch button').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+applyI18n();
+
+renderPortfolioSelect();
+renderAllUI();
+updateClock();
+setInterval(updateClock, 30000);
+
+// 레이아웃 변화 감지하여 캔버스 크기 갱신
+if (window.ResizeObserver){
+  new ResizeObserver(onResize).observe(main);
+}
+// 첫 렌더 직후 한 번 더 사이즈 보정
+setTimeout(onResize, 50);
+setTimeout(onResize, 300);
+
+} // end initSphere
+</script>
 </body>
 </html>
