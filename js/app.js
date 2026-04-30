@@ -136,6 +136,7 @@ const I18N = {
     metricDR:'분산효과 (위험감소)', metricPortVol:'포트폴리오 변동성', metricDividend:'예상 연배당',
     stressTest:'스트레스 테스트', stressTestBadge:'시나리오', stressTestEmpty:'좌측에서 시나리오를 선택하세요',
     stressTestExpected:'예상 손익', stressTestSummary:(p,v)=>`${(p*100).toFixed(1)}% (${v})`,
+    navSphere:'구체', navSearch:'검색', navHoldings:'보유', navMetrics:'지표', navInsights:'인사이트',
     insights:'Insights', auto:'AUTO',
     selectedAsset:'Selected Asset',
     sdQty:'보유 수량', sdValue:'평가금액', sdWeight:'비중', sdSector:'섹터',
@@ -249,6 +250,7 @@ const I18N = {
     metricDR:'Diversification', metricPortVol:'Portfolio Vol', metricDividend:'Annual Dividend',
     stressTest:'Stress Test', stressTestBadge:'SCENARIO', stressTestEmpty:'Select a scenario',
     stressTestExpected:'Expected P&L', stressTestSummary:(p,v)=>`${(p*100).toFixed(1)}% (${v})`,
+    navSphere:'SPHERE', navSearch:'SEARCH', navHoldings:'HOLDINGS', navMetrics:'METRICS', navInsights:'INSIGHTS',
     insights:'Insights', auto:'AUTO',
     selectedAsset:'Selected Asset',
     sdQty:'Quantity', sdValue:'Market Value', sdWeight:'Weight', sdSector:'Sector',
@@ -1360,8 +1362,14 @@ const mouseV = new THREE.Vector2();
 function onResize(){
   let w = main.clientWidth, h = main.clientHeight;
   if (!w || !h){
-    w = window.innerWidth - 320 - 360;
-    h = window.innerHeight - 56;
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile){
+      w = window.innerWidth;
+      h = Math.round(window.innerHeight * 0.5);
+    } else {
+      w = window.innerWidth - 320 - 360;
+      h = window.innerHeight - 56;
+    }
   }
   if (w < 100) w = 100;
   if (h < 100) h = 100;
@@ -1370,6 +1378,7 @@ function onResize(){
   camera.updateProjectionMatrix();
 }
 window.addEventListener('resize', onResize);
+window.addEventListener('orientationchange', () => setTimeout(onResize, 200));
 
 // 마우스 회전
 let isDragging = false;
@@ -1389,6 +1398,44 @@ canvas.addEventListener('wheel', e=>{
   e.preventDefault();
   cameraTarget.z = Math.max(2.5, Math.min(8, cameraTarget.z + e.deltaY*0.002));
 }, { passive:false });
+
+// 모바일 터치 지원 — 1손가락 회전, 2손가락 핀치줌
+let _touchPrev = null;
+let _pinchPrev = null;
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 1){
+    _touchPrev = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    autoRotate = false;
+    setActive('rotate', false);
+  } else if (e.touches.length === 2){
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    _pinchPrev = Math.sqrt(dx*dx + dy*dy);
+  }
+}, { passive: true });
+canvas.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && _touchPrev){
+    e.preventDefault();
+    const x = e.touches[0].clientX, y = e.touches[0].clientY;
+    rotation.y += (x - _touchPrev.x) * 0.006;
+    rotation.x = Math.max(-Math.PI/2.2, Math.min(Math.PI/2.2, rotation.x + (y - _touchPrev.y) * 0.006));
+    _touchPrev = { x, y };
+  } else if (e.touches.length === 2 && _pinchPrev != null){
+    e.preventDefault();
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const delta = (_pinchPrev - dist) * 0.012;
+    cameraTarget.z = Math.max(2.5, Math.min(8, cameraTarget.z + delta));
+    _pinchPrev = dist;
+  }
+}, { passive: false });
+canvas.addEventListener('touchend', () => {
+  _touchPrev = null;
+  _pinchPrev = null;
+}, { passive: true });
+// 캔버스 자체에서는 페이지 스크롤 차단 (밖에선 정상 스크롤)
+canvas.style.touchAction = 'none';
 
 // 호버 툴팁
 const tooltip = document.getElementById('tooltip');
@@ -3720,6 +3767,82 @@ document.body.addEventListener('mouseout', e=>{
   // 그 외에는 짧은 딜레이 후 닫기 (커서가 갭을 건널 시간)
   scheduleHideInfo(180);
 });
+
+// 모바일/터치 — info-icon 탭으로 툴팁 토글
+let _tipPinned = null;
+document.body.addEventListener('click', e => {
+  const ic = e.target.closest && e.target.closest('.info-icon');
+  if (ic){
+    e.preventDefault();
+    e.stopPropagation();
+    cancelHideInfo();
+    if (_tipPinned === ic){
+      hideInfo();
+      _tipPinned = null;
+    } else {
+      showInfo(ic, ic.dataset.info);
+      _tipPinned = ic;
+    }
+    return;
+  }
+  // 툴팁 외부 탭 → 닫기
+  if (_tipPinned && !(e.target.closest && e.target.closest('.info-tooltip'))){
+    hideInfo();
+    _tipPinned = null;
+  }
+});
+
+// =========================================================
+// 모바일 바텀 네비 — Smooth scroll quick-jump
+// =========================================================
+(function setupBottomNav(){
+  const nav = document.getElementById('bottomNav');
+  if (!nav) return;
+  // 데스크탑이면 비활성 (CSS에서 display:none 처리됨)
+  const items = nav.querySelectorAll('.bottom-nav-item');
+
+  function targetEl(key){
+    if (key === 'top') return document.querySelector('header');
+    if (key === 'rightTop'){
+      // 우측 사이드의 첫 패널(밸런스/메트릭)
+      const right = document.querySelector('aside.right .panel');
+      return right;
+    }
+    return document.getElementById(key);
+  }
+
+  items.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.target;
+      const el = targetEl(key);
+      if (!el) return;
+      // 헤더 sticky 높이 보정
+      const headerH = (document.querySelector('header')?.offsetHeight || 56);
+      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 6;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      items.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // 스크롤에 따라 active 갱신 — IntersectionObserver
+  const obsMap = new Map();
+  items.forEach(btn => obsMap.set(btn.dataset.target, btn));
+  const allTargets = ['searchPanel', 'holdingsList', 'insights'];
+  allTargets.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting && en.intersectionRatio > 0.3){
+          items.forEach(b => b.classList.remove('active'));
+          obsMap.get(id)?.classList.add('active');
+        }
+      });
+    }, { threshold: [0.3] });
+    io.observe(el);
+  });
+})();
 
 /* =========================================================
    초기 렌더

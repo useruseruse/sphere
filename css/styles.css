@@ -2217,3 +2217,233 @@
     font-size: 12px;
     line-height: 1.6;
   }
+
+  /* =========================================================
+     MOBILE — 768px 이하: 단일 컬럼 + 바텀 네비
+     ========================================================= */
+  @media (max-width: 768px) {
+    /* 1. 전체 레이아웃 — flex column 으로 전환 */
+    body { overflow: auto; -webkit-overflow-scrolling: touch; }
+    #app {
+      display: flex !important;
+      flex-direction: column;
+      height: auto;
+      min-height: 100vh;
+      width: 100vw;
+    }
+    header { order: 1; }
+    aside.right { order: 2; }   /* 메트릭 패널을 구체 바로 위에 — 한눈 정보 우선 */
+    main { order: 3; }
+    aside.left { order: 4; }
+    .legal-banner { order: 5; }
+
+    /* 2. 헤더 컴팩트 — 56px 유지하되 컨텐츠 압축 */
+    header {
+      grid-template-columns: auto 1fr auto;
+      padding: 0 12px;
+      gap: 8px;
+      position: sticky;
+      top: 0;
+    }
+    .logo { font-size: 14px; letter-spacing: 2px; gap: 6px; }
+    .logo-mark { width: 18px; height: 18px; }
+    .logo .logo-sub { display: none; }
+    .lang-switch { display: none; }     /* 언어 토글 숨김 — 햄버거 메뉴로 이동(추후) */
+    .about-icon { font-size: 14px; }
+    .header-meta { display: none; }     /* v1.3.0 / UPDATE / STATUS 숨김 */
+    .portfolio-bar { gap: 4px; min-width: 0; }
+    .pf-current { padding: 6px 10px; min-width: 0; }
+    .pf-current-name { font-size: 13px; max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pf-current-meta { display: none; }
+    .pf-btn { padding: 6px 8px; font-size: 11px; }
+    .pf-btn[id="pfDelete"], .pf-btn[id="pfRename"] { display: none; }  /* 삭제/이름변경은 dropdown 안에서만 */
+
+    /* 3. 사이드 패널 토글 버튼 숨김 (모바일은 스크롤로 접근) */
+    .panel-toggle { display: none; }
+
+    /* 4. 사이드를 풀폭 블록으로 */
+    aside.left, aside.right {
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 12px 80px;   /* 하단 padding — 바텀 네비 공간 */
+      overflow: visible;
+      background: rgba(10,15,28,0.4);
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+    aside.right { padding-bottom: 14px; }   /* 위쪽 right는 padding 적게 */
+    .panel { margin-bottom: 14px; }
+
+    /* 5. 메인 (구체) — 50vh 고정 */
+    main {
+      min-height: 50vh;
+      max-height: 70vh;
+    }
+    .stage { min-height: 50vh; }
+    .controls-bar { height: 48px; padding: 0 8px; }
+
+    /* 6. 스테이지 오버레이 — 구체 위 라벨 컴팩트 */
+    .stage-corner.corner-tl { display: none; }   /* "3D RISK SPHERE" 라벨 숨김 */
+    .stage-corner { padding: 10px 12px; }
+    .stage-corner.corner-tr div:first-child { font-size: 9px; }
+    .stage-corner.corner-tr div:nth-child(2) { font-size: 18px !important; }
+    .stage-corner.corner-tr div:last-child { font-size: 10px !important; }
+    .hemisphere-label { font-size: 9px; padding: 3px 8px; }
+    .hemi-tag { font-size: 9px !important; }
+    .hemi-sub { display: none; }
+    .stage-corner.corner-bl, .stage-corner.corner-br { padding: 8px 10px; font-size: 9px; }
+
+    /* 7. 컨트롤 버튼 — 터치 친화 (44x44 hit area) */
+    .ctrl-btn {
+      min-height: 44px;
+      padding: 10px 12px;
+      font-size: 11px;
+    }
+
+    /* 8. 검색 결과 — 모바일 최적화 */
+    .search-input { padding: 14px 14px 14px 38px; font-size: 14px; }
+    .search-results { max-height: 50vh; }
+    .search-result { padding: 12px 14px; min-height: 44px; }
+    .sr-name { font-size: 14px; }
+
+    /* 9. 보유 종목 카드 — 터치 영역 확대 */
+    .holding-row {
+      padding: 12px 10px;
+      min-height: 56px;
+    }
+    .holding-name { font-size: 14px; }
+    .holding-sub { font-size: 11px; }
+    .qty-btn { width: 30px; height: 30px; font-size: 14px; }
+    .qty-input { font-size: 13px; padding: 6px 4px; }
+
+    /* 10. 메트릭 행 — 적정 간격 */
+    .metric-row { padding: 10px 0; font-size: 13px; }
+    .metric-row .lbl { font-size: 12px; }
+    .metric-row .val { font-size: 13px; }
+
+    /* 11. 패널 타이틀 — 가독성 */
+    .panel-title { font-size: 11px; padding: 12px 0 10px; }
+
+    /* 12. info-icon — 터치 사이즈 */
+    .info-icon {
+      width: 18px; height: 18px;
+      font-size: 11px;
+      line-height: 18px;
+      margin-left: 5px;
+    }
+
+    /* 13. info-tooltip — 모바일 풀폭 */
+    .info-tooltip {
+      position: fixed !important;
+      left: 12px !important;
+      right: 12px !important;
+      top: auto !important;
+      bottom: 80px !important;       /* 바텀 네비 위 */
+      max-width: none !important;
+      min-width: 0 !important;
+      width: auto;
+      max-height: 60vh;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+
+    /* 14. 밸런스 카드 강조 */
+    .balance-score { font-size: 48px !important; }
+
+    /* 15. Stress 시나리오 그리드 — 2x2 유지 (이미 OK) */
+    .stress-btn { min-height: 56px; padding: 10px 12px; }
+    .stress-btn-year { font-size: 11px; }
+    .stress-headline-loss { font-size: 26px; }
+
+    /* 16. 인사이트 카드 */
+    .insight { padding: 12px; font-size: 13px; }
+
+    /* 17. legal banner — 모바일 압축 */
+    .legal-banner {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px 70px;   /* 바텀 네비 공간 */
+      font-size: 11px;
+    }
+    .legal-banner-text {
+      white-space: normal;
+      width: 100%;
+      order: 3;
+    }
+
+    /* 18. 바텀 네비 — 모바일 전용 */
+    .bottom-nav {
+      display: flex !important;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: rgba(5,7,13,0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--line);
+      z-index: 100;
+      justify-content: space-around;
+      align-items: stretch;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    .bottom-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      color: var(--text-2);
+      font-family: inherit;
+      font-size: 9.5px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      transition: color 0.15s;
+      min-height: 44px;
+      -webkit-tap-highlight-color: rgba(0,212,255,0.2);
+    }
+    .bottom-nav-item:active { background: rgba(0,212,255,0.05); }
+    .bottom-nav-item.active { color: var(--accent); }
+    .bottom-nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* 페이지 하단에 바텀 네비 만큼 여유 공간 */
+    .legal-banner { margin-bottom: 60px; }
+
+    /* 19. 모달 — 모바일 풀스크린 */
+    .modal-content {
+      max-width: calc(100vw - 24px) !important;
+      max-height: calc(100vh - 80px) !important;
+      width: calc(100vw - 24px);
+    }
+    .modal-overlay { padding: 12px; }
+
+    /* 20. 리밸런싱 추천 카드 — 컴팩트 */
+    .rec-card { padding: 12px; font-size: 13px; }
+    .rec-card-title { font-size: 13px; }
+    .rec-card-meta { font-size: 11.5px; flex-wrap: wrap; }
+
+    /* 21. 섹터 바·리스크 분포 — 모바일 적정 */
+    .sector-bar { font-size: 11px; padding: 6px 0; }
+    .sb-bar-track { height: 6px; }
+
+    /* 22. 종목 상세 카드 */
+    .stock-detail-name { font-size: 16px; }
+    .stock-detail-ticker { font-size: 11px; }
+  }
+
+  /* 더 작은 화면 (≤ 380px) — 갤럭시 폴드 등 */
+  @media (max-width: 380px) {
+    .pf-current-name { max-width: 70px; }
+    .stress-scenarios { grid-template-columns: 1fr; }
+    .balance-score { font-size: 40px !important; }
+    .stage-corner.corner-tr div:nth-child(2) { font-size: 16px !important; }
+  }
+
+  /* 데스크탑에선 바텀 네비 숨김 */
+  .bottom-nav { display: none; }
