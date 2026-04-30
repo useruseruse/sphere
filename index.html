@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPHERE — 포트폴리오 리스크 구체 분석기</title>
-<link rel="stylesheet" href="css/styles.css"></head>
+<link rel="stylesheet" href="css/styles.css?v=1.2.0"></head>
 <body>
 <button class="panel-toggle left" id="leftPanelToggle" data-i18n-title="leftToggleTitle" title="좌측 패널 접기/펼치기" aria-label="좌측 패널 토글"></button>
 <button class="panel-toggle right" id="rightPanelToggle" data-i18n-title="rightToggleTitle" title="우측 패널 접기/펼치기" aria-label="우측 패널 토글"></button>
@@ -180,6 +180,50 @@
     </div>
 
     <div class="panel">
+      <div class="panel-title">
+        <span data-i18n="riskMetrics">Risk Metrics</span>
+        <span class="badge" data-i18n="riskMetricsBadge">QUANT</span>
+      </div>
+      <div class="metric-row">
+        <span class="lbl"><span data-i18n="metricVaR">VaR 95% (1일)</span><span class="info-icon" data-info="var">i</span></span>
+        <span class="val" id="mVaR">--</span>
+      </div>
+      <div class="metric-row">
+        <span class="lbl"><span data-i18n="metricCVaR">CVaR 95%</span><span class="info-icon" data-info="cvar">i</span></span>
+        <span class="val" id="mCVaR">--</span>
+      </div>
+      <div class="metric-row">
+        <span class="lbl"><span data-i18n="metricSharpe">Sharpe</span><span class="info-icon" data-info="sharpe">i</span></span>
+        <span class="val" id="mSharpe">--</span>
+      </div>
+      <div class="metric-row">
+        <span class="lbl"><span data-i18n="metricSortino">Sortino</span><span class="info-icon" data-info="sortino">i</span></span>
+        <span class="val" id="mSortino">--</span>
+      </div>
+      <div class="metric-row">
+        <span class="lbl"><span data-i18n="metricDR">분산효과</span><span class="info-icon" data-info="dr">i</span></span>
+        <span class="val" id="mDR">--</span>
+      </div>
+      <div class="metric-row">
+        <span class="lbl"><span data-i18n="metricPortVol">포트폴리오 변동성</span><span class="info-icon" data-info="portVol">i</span></span>
+        <span class="val" id="mPortVol">--</span>
+      </div>
+      <div class="metric-row" id="dividendRow" style="display:none;">
+        <span class="lbl"><span data-i18n="metricDividend">예상 연배당</span><span class="info-icon" data-info="dividend">i</span></span>
+        <span class="val" id="mDividend">--</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">
+        <span data-i18n="stressTest">Stress Test</span>
+        <span class="badge" data-i18n="stressTestBadge">SCENARIO</span>
+      </div>
+      <div class="stress-scenarios" id="stressScenarios"></div>
+      <div class="stress-result" id="stressResult"></div>
+    </div>
+
+    <div class="panel">
       <div class="panel-title"><span data-i18n="insights">Insights</span><span class="badge" data-i18n="auto">AUTO</span></div>
       <div id="insights"></div>
     </div>
@@ -345,5 +389,5 @@
 </div>
 
 <script src="lib/three.min.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js?v=1.2.0"></script>
 </body></html>

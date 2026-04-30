@@ -77,6 +77,7 @@ async function applyDailyPrices(){
         if (info.volatility_30d != null) a.volatility_30d = info.volatility_30d;
         if (info.beta != null) a.beta = info.beta;
         if (info.volume != null) a.liquidity_volume = info.volume;
+        if (info.dividend_yield != null) a.dividend_yield = info.dividend_yield;
         updated++;
       }
     });
@@ -130,6 +131,11 @@ const I18N = {
     balanceIndex:'Balance Index', balanceFormulaTitle:'산출 공식 보기',
     calculating:'계산 중...',
     metricDiverse:'섹터 분산', metricDeviation:'리스크 편차', metricSphericity:'구형도', metricHHI:'HHI 집중도',
+    riskMetrics:'Risk Metrics', riskMetricsBadge:'QUANT',
+    metricVaR:'VaR 95% (1일)', metricCVaR:'CVaR 95% (1일)', metricSharpe:'Sharpe 비율', metricSortino:'Sortino 비율',
+    metricDR:'분산효과 (위험감소)', metricPortVol:'포트폴리오 변동성', metricDividend:'예상 연배당',
+    stressTest:'스트레스 테스트', stressTestBadge:'시나리오', stressTestEmpty:'좌측에서 시나리오를 선택하세요',
+    stressTestExpected:'예상 손익', stressTestSummary:(p,v)=>`${(p*100).toFixed(1)}% (${v})`,
     insights:'Insights', auto:'AUTO',
     selectedAsset:'Selected Asset',
     sdQty:'보유 수량', sdValue:'평가금액', sdWeight:'비중', sdSector:'섹터',
@@ -238,6 +244,11 @@ const I18N = {
     balanceIndex:'Balance Index', balanceFormulaTitle:'View formula',
     calculating:'Calculating...',
     metricDiverse:'Sector Diversity', metricDeviation:'Risk Deviation', metricSphericity:'Sphericity', metricHHI:'HHI Concentration',
+    riskMetrics:'Risk Metrics', riskMetricsBadge:'QUANT',
+    metricVaR:'VaR 95% (1d)', metricCVaR:'CVaR 95% (1d)', metricSharpe:'Sharpe', metricSortino:'Sortino',
+    metricDR:'Diversification', metricPortVol:'Portfolio Vol', metricDividend:'Annual Dividend',
+    stressTest:'Stress Test', stressTestBadge:'SCENARIO', stressTestEmpty:'Select a scenario',
+    stressTestExpected:'Expected P&L', stressTestSummary:(p,v)=>`${(p*100).toFixed(1)}% (${v})`,
     insights:'Insights', auto:'AUTO',
     selectedAsset:'Selected Asset',
     sdQty:'Quantity', sdValue:'Market Value', sdWeight:'Weight', sdSector:'Sector',
@@ -777,7 +788,9 @@ function portfolioToRaw(pf){
       volatility_30d: a.volatility_30d,
       beta: a.beta,
       debt_ratio: a.debt_ratio,
-      liquidity_volume: a.liquidity_volume
+      liquidity_volume: a.liquidity_volume,
+      is_etf: a.is_etf,
+      dividend_yield: a.dividend_yield ?? 0
     };
   }).filter(Boolean);
 }
@@ -819,6 +832,8 @@ function standardize(raw){
       beta: r.beta ?? def.beta_avg,
       debt_ratio: Math.min(1, r.debt_ratio ?? 0.5),
       liquidity_volume: r.liquidity_volume ?? null,
+      is_etf: !!r.is_etf,
+      dividend_yield: r.dividend_yield ?? 0,
       risk_score: null,
       sphere_coord: null
     };
@@ -965,6 +980,170 @@ function balanceGrade(score){
   return { txt:t('balanceGradeSevere'), color:'var(--extreme)' };
 }
 
+// =========================================================
+// Advanced Metrics — VaR, CVaR, Sharpe, Sortino, 분산효과(DR)
+// =========================================================
+// 무위험수익률·시장프리미엄·환산상수
+const RISK_FREE_ANNUAL = 0.035;       // 3.5% (한국+미국 가중 근사)
+const MARKET_PREMIUM   = 0.060;       // 연 6% — Damodaran 2024 기준 중간값
+const TRADING_DAYS     = 252;
+const Z95              = 1.6449;      // 95% 정규분위
+const Z99              = 2.3263;      // 99%
+const ES95_ADJ         = 2.0627;      // E[Z | Z<-1.6449] ≈ -2.0627 (CVaR 95%)
+
+// 자산쌍 상관계수 — 동일 섹터/지역에 따라 휴리스틱
+function pairwiseCorr(a, b){
+  if (a.ticker === b.ticker) return 1.0;
+  const sameSector = a.sector === b.sector;
+  const aKR = /\.(KS|KQ)$/.test(a.ticker), bKR = /\.(KS|KQ)$/.test(b.ticker);
+  const sameRegion = (aKR === bKR);
+  const aETF = !!a.is_etf || a.sector === 'GLOBAL_ETF';
+  const bETF = !!b.is_etf || b.sector === 'GLOBAL_ETF';
+  // ETF는 시장 전체와 0.85 정도 상관
+  if (aETF && bETF) return 0.85;
+  if (aETF || bETF) return 0.55;
+  if (sameSector && sameRegion) return 0.68;
+  if (sameSector) return 0.50;
+  if (sameRegion) return 0.32;
+  return 0.18;
+}
+
+// 포트폴리오 변동성 — Markowitz: σ_p² = ΣΣ w_i w_j σ_i σ_j ρ_ij
+function portfolioVol(items){
+  let s2 = 0;
+  for (let i=0;i<items.length;i++){
+    for (let j=0;j<items.length;j++){
+      const a = items[i], b = items[j];
+      const rho = (i===j) ? 1.0 : pairwiseCorr(a, b);
+      s2 += a.weight * b.weight * a.volatility_30d * b.volatility_30d * rho;
+    }
+  }
+  return Math.sqrt(Math.max(0, s2));
+}
+
+// 포트폴리오 기대수익률 — CAPM 가중합
+function portfolioBeta(items){
+  return items.reduce((s, it) => s + it.weight * it.beta, 0);
+}
+function portfolioExpectedReturn(items){
+  const beta = portfolioBeta(items);
+  return RISK_FREE_ANNUAL + beta * MARKET_PREMIUM;
+}
+
+// VaR/CVaR — 패러메트릭 정규성 가정 (1일 95%/99%)
+function computeAdvancedMetrics(items, balance){
+  if (!items || items.length === 0){
+    return {
+      portVol:0, portReturn:0, portBeta:0,
+      sharpe:0, sortino:0, var95:0, cvar95:0, var99:0,
+      dr:1, riskReduction:0,
+      totalValue:0
+    };
+  }
+  const totalValue = items.reduce((s,i)=> s + (i.market_value||0), 0);
+  const sigmaA = portfolioVol(items);                                     // 연환산
+  const sigmaD = sigmaA / Math.sqrt(TRADING_DAYS);                        // 일환산
+  const expRet = portfolioExpectedReturn(items);                          // 연환산
+  const beta   = portfolioBeta(items);
+
+  // VaR/CVaR — 평균 수익률 무시(보수적), 손실 = z * σ_D * V
+  const var95  = Z95     * sigmaD * totalValue;
+  const var99  = Z99     * sigmaD * totalValue;
+  const cvar95 = ES95_ADJ * sigmaD * totalValue;
+
+  // Sharpe = (μ − rf) / σ
+  const sharpe  = sigmaA > 0 ? (expRet - RISK_FREE_ANNUAL) / sigmaA : 0;
+  // Sortino — 하방변동성 ≈ σ × 0.71 (Sortino/Sharpe 경험적 비율)
+  // 동일 분자, 분모만 하방 σ 로 교체
+  const downside = sigmaA * 0.71;
+  const sortino = downside > 0 ? (expRet - RISK_FREE_ANNUAL) / downside : 0;
+
+  // Diversification Ratio = Σ(w_i × σ_i) / σ_p
+  const weightedVolSum = items.reduce((s,i)=> s + i.weight * i.volatility_30d, 0);
+  const dr = sigmaA > 0 ? weightedVolSum / sigmaA : 1;
+  const riskReduction = weightedVolSum > 0 ? (1 - sigmaA / weightedVolSum) : 0;
+
+  // 연간 배당 추정 = Σ(market_value × dividend_yield)
+  const annualDividend = items.reduce((s,i)=> s + (i.market_value||0) * (i.dividend_yield||0), 0);
+  const dividendYieldPort = totalValue > 0 ? annualDividend / totalValue : 0;
+
+  return {
+    totalValue,
+    portBeta: beta,
+    portVol: sigmaA,            // 연환산 표준편차
+    portVolDaily: sigmaD,
+    portReturn: expRet,         // 연환산 기대수익률
+    sharpe, sortino,
+    var95, var99, cvar95,
+    dr, riskReduction,
+    annualDividend, dividendYieldPort
+  };
+}
+
+// =========================================================
+// 스트레스 테스트 시나리오 — 섹터별 충격 배수
+// =========================================================
+const STRESS_SCENARIOS = {
+  'gfc2008': {
+    label_ko: '2008 글로벌 금융위기',
+    label_en: '2008 Global Financial Crisis',
+    desc_ko: 'Lehman 파산 후 6개월간의 누적 하락. 금융·부동산이 진앙.',
+    desc_en: 'Cumulative drop in 6 months post-Lehman. Financials & RE epicenter.',
+    shocks: { IT:-0.42, BIO:-0.28, AUTO:-0.55, FIN:-0.55, ENERGY:-0.45,
+              CONSUMER:-0.32, REALESTATE:-0.62, INDUSTRIAL:-0.48,
+              GLOBAL_ETF:-0.40, ETC:-0.35 }
+  },
+  'covid2020': {
+    label_ko: '2020 코로나 셧다운',
+    label_en: '2020 COVID Shutdown',
+    desc_ko: '2020.02~03 한 달간의 패닉 매도. 에너지·항공·소비재 직격, IT/바이오 회복.',
+    desc_en: 'Mar 2020 panic. Energy/airline/consumer hit hardest, IT/Bio rebounded.',
+    shocks: { IT:-0.18, BIO:-0.08, AUTO:-0.42, FIN:-0.36, ENERGY:-0.58,
+              CONSUMER:-0.30, REALESTATE:-0.34, INDUSTRIAL:-0.32,
+              GLOBAL_ETF:-0.32, ETC:-0.25 }
+  },
+  'inflation2022': {
+    label_ko: '2022 인플레이션·금리쇼크',
+    label_en: '2022 Inflation/Rate Shock',
+    desc_ko: 'Fed 급격 금리인상. 성장주·장기채 큰 손실, 에너지는 수혜.',
+    desc_en: 'Fed aggressive hikes. Growth & long bonds hit, energy benefited.',
+    shocks: { IT:-0.34, BIO:-0.22, AUTO:-0.40, FIN:-0.18, ENERGY:+0.32,
+              CONSUMER:-0.24, REALESTATE:-0.26, INDUSTRIAL:-0.16,
+              GLOBAL_ETF:-0.20, ETC:-0.18 }
+  },
+  'dotcom2000': {
+    label_ko: '2000 닷컴 버블 붕괴',
+    label_en: '2000 Dotcom Bubble Burst',
+    desc_ko: '2000.03~2002.10. 나스닥 -78%, IT 직격, 가치주는 상대적 선방.',
+    desc_en: 'Mar 2000–Oct 2002. Nasdaq −78%, IT crushed, value held up.',
+    shocks: { IT:-0.78, BIO:-0.55, AUTO:-0.35, FIN:-0.25, ENERGY:+0.05,
+              CONSUMER:-0.18, REALESTATE:-0.10, INDUSTRIAL:-0.30,
+              GLOBAL_ETF:-0.45, ETC:-0.25 }
+  }
+};
+
+// 시나리오 적용 — 종목별 손익과 포트폴리오 합계 반환
+function computeStressTest(items, scenarioKey){
+  const scn = STRESS_SCENARIOS[scenarioKey];
+  if (!scn || !items.length) return null;
+  let portLoss = 0;
+  const breakdown = items.map(it => {
+    const shock = scn.shocks[it.sector] ?? scn.shocks.ETC ?? -0.30;
+    const value = it.market_value || 0;
+    const loss  = value * shock;       // 음수면 손실, 양수면 이익
+    portLoss += loss;
+    return { ticker: it.ticker, name: it.name, sector: it.sector,
+             value, shock, loss };
+  });
+  const totalValue = items.reduce((s,i)=> s + (i.market_value||0), 0);
+  return {
+    key: scenarioKey, scenario: scn,
+    totalValue, portLoss,
+    portLossPct: totalValue > 0 ? portLoss / totalValue : 0,
+    breakdown
+  };
+}
+
 // ---------- Layer 5 + 인사이트 생성 ----------
 function generateInsights(items, balance){
   const insights = [];
@@ -1004,7 +1183,7 @@ function generateInsights(items, balance){
 /* =========================================================
    파이프라인 실행 (포트폴리오 변경 시 다시 호출됨)
    ========================================================= */
-let ITEMS = [], BALANCE = {}, INSIGHTS = [];
+let ITEMS = [], BALANCE = {}, INSIGHTS = [], ADVANCED = {};
 
 function runPipeline(){
   const pf = activePortfolio();
@@ -1013,11 +1192,13 @@ function runPipeline(){
     ITEMS = [];
     BALANCE = { balance:0, diverse:0, deviation:0, sphericity:0, hhi:'0.000', avgRisk:0, sectorWeights:{} };
     INSIGHTS = [{ level:'ok', title:'포트폴리오가 비어있음', body:'좌측 검색창에서 종목을 추가해주세요.' }];
+    ADVANCED = computeAdvancedMetrics([], BALANCE);
     return;
   }
   ITEMS = mapSphereCoords(computeRiskScores(standardize(raw)));
   BALANCE = computeBalance(ITEMS);
   INSIGHTS = generateInsights(ITEMS, BALANCE);
+  ADVANCED = computeAdvancedMetrics(ITEMS, BALANCE);
 }
 runPipeline();
 
@@ -1162,6 +1343,8 @@ function rebuildNodes(){
 
     nodeMeshes.push({ mesh, halo, item: it, baseColor: color, baseRadius: radius });
   });
+  // 스트레스 시나리오 활성 상태면 재적용
+  if (CURRENT_STRESS) applyStressVisuals();
 }
 rebuildNodes();
 
@@ -1531,6 +1714,164 @@ function renderBalance(){
   score.style.webkitTextFillColor = 'transparent';
 }
 
+function fmtSignedNum(v, digits=2){
+  const sign = v >= 0 ? '+' : '';
+  return sign + v.toFixed(digits);
+}
+function fmtMoneySigned(v){
+  const sign = v < 0 ? '-' : (v > 0 ? '+' : '');
+  return sign + Math.round(Math.abs(v)).toLocaleString();
+}
+function fmtMoneyKR(v){
+  return CURRENT_LANG === 'ko' ? formatKRWUnit(Math.abs(v)) : '';
+}
+
+function renderAdvanced(){
+  const A = ADVANCED || {};
+  const empty = !ITEMS.length;
+  const dash = '--';
+
+  const setVal = (id, val, color) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = empty ? dash : val;
+    if (color) el.style.color = color;
+    else el.style.color = '';
+  };
+
+  // VaR/CVaR — 손실은 항상 음수로 표시
+  const varText  = !empty && A.var95  ? '-' + Math.round(A.var95).toLocaleString()  : dash;
+  const cvarText = !empty && A.cvar95 ? '-' + Math.round(A.cvar95).toLocaleString() : dash;
+  setVal('mVaR',  varText,  empty ? '' : 'var(--high)');
+  setVal('mCVaR', cvarText, empty ? '' : 'var(--high)');
+
+  // Sharpe — > 1 좋음, 0 ~ 1 보통, < 0 나쁨
+  const sharpe = A.sharpe || 0;
+  const sharpeColor = empty ? '' : (sharpe > 1 ? 'var(--safe)' : sharpe > 0.5 ? 'var(--moderate)' : sharpe > 0 ? 'var(--caution)' : 'var(--high)');
+  setVal('mSharpe', empty ? dash : fmtSignedNum(sharpe), sharpeColor);
+
+  // Sortino — > 1 좋음, > 2 매우 좋음
+  const sortino = A.sortino || 0;
+  const sortinoColor = empty ? '' : (sortino > 2 ? 'var(--safe)' : sortino > 1 ? 'var(--moderate)' : sortino > 0 ? 'var(--caution)' : 'var(--high)');
+  setVal('mSortino', empty ? dash : fmtSignedNum(sortino), sortinoColor);
+
+  // DR — 1.0 = 분산효과 없음, > 1.3 좋음
+  const drVal = A.dr || 1;
+  const reduction = (A.riskReduction || 0) * 100;
+  const drText = empty ? dash : `${reduction.toFixed(1)}% ↓ (DR ${drVal.toFixed(2)})`;
+  const drColor = empty ? '' : (reduction > 25 ? 'var(--safe)' : reduction > 12 ? 'var(--moderate)' : 'var(--text-1)');
+  setVal('mDR', drText, drColor);
+
+  // 포트폴리오 변동성 — 연환산
+  const volPct = (A.portVol || 0) * 100;
+  setVal('mPortVol', empty ? dash : `${volPct.toFixed(1)}% (연)`,
+    empty ? '' : (volPct < 15 ? 'var(--safe)' : volPct < 25 ? 'var(--moderate)' : volPct < 35 ? 'var(--caution)' : 'var(--high)'));
+
+  // 배당 — 0 이면 행 자체 숨김
+  const divRow = document.getElementById('dividendRow');
+  if (divRow){
+    if (!empty && A.annualDividend > 0){
+      divRow.style.display = '';
+      const yieldPct = (A.dividendYieldPort || 0) * 100;
+      const annualText = Math.round(A.annualDividend).toLocaleString();
+      const krSuffix = CURRENT_LANG === 'ko' && A.annualDividend >= 10000 ? ` (${formatKRWUnit(A.annualDividend)})` : '';
+      setVal('mDividend', `${annualText}${krSuffix} · ${yieldPct.toFixed(2)}%`, 'var(--safe)');
+    } else {
+      divRow.style.display = 'none';
+    }
+  }
+}
+
+let CURRENT_STRESS = null;
+function applyStressVisuals(){
+  if (typeof nodeMeshes === 'undefined' || !nodeMeshes) return;
+  if (!CURRENT_STRESS){
+    // 원래 색상 복원
+    nodeMeshes.forEach(n => {
+      n.mesh.material.color.copy(n.baseColor);
+      n.mesh.material.emissive.copy(n.baseColor);
+      n.halo.material.color.copy(n.baseColor);
+    });
+    return;
+  }
+  const scn = STRESS_SCENARIOS[CURRENT_STRESS];
+  if (!scn) return;
+  // 손실 강도에 따라 색상 매핑: 큰 손실=빨강, 이익=초록
+  nodeMeshes.forEach(n => {
+    const shock = scn.shocks[n.item.sector] ?? scn.shocks.ETC ?? -0.30;
+    let hex;
+    if (shock > 0.05) hex = '#00E5A0';            // 이익
+    else if (shock > -0.15) hex = '#FFD66B';      // 약한 손실
+    else if (shock > -0.30) hex = '#FF8C42';      // 중간 손실
+    else if (shock > -0.50) hex = '#FF4560';      // 큰 손실
+    else hex = '#7B61FF';                          // 극단 손실
+    const c = new THREE.Color(hex);
+    n.mesh.material.color.copy(c);
+    n.mesh.material.emissive.copy(c);
+    n.halo.material.color.copy(c);
+  });
+}
+
+function renderStress(){
+  const cont = document.getElementById('stressScenarios');
+  const result = document.getElementById('stressResult');
+  if (!cont || !result) return;
+
+  const labelKey = CURRENT_LANG === 'en' ? 'label_en' : 'label_ko';
+  const descKey  = CURRENT_LANG === 'en' ? 'desc_en'  : 'desc_ko';
+  const yearMap  = { gfc2008:'2008', covid2020:'2020', inflation2022:'2022', dotcom2000:'2000' };
+
+  cont.innerHTML = Object.entries(STRESS_SCENARIOS).map(([k, scn]) => `
+    <button class="stress-btn ${CURRENT_STRESS===k?'active':''}" data-key="${k}">
+      <div class="stress-btn-year">${yearMap[k] || ''}</div>
+      <div>${scn[labelKey].replace(/^\d{4}\s*/, '')}</div>
+    </button>
+  `).join('');
+  cont.querySelectorAll('.stress-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      CURRENT_STRESS = (CURRENT_STRESS === b.dataset.key) ? null : b.dataset.key;
+      renderStress();
+      applyStressVisuals();
+    });
+  });
+
+  if (!CURRENT_STRESS || !ITEMS.length){
+    result.innerHTML = `<div class="stress-empty">${ITEMS.length ? t('stressTestEmpty') : (CURRENT_LANG==='en'?'Add holdings to run scenarios':'종목을 추가하면 시나리오를 실행할 수 있습니다')}</div>`;
+    return;
+  }
+  const r = computeStressTest(ITEMS, CURRENT_STRESS);
+  if (!r){ result.innerHTML = ''; return; }
+
+  const isGain = r.portLoss >= 0;
+  const sign = isGain ? '+' : '-';
+  const lossAbs = Math.round(Math.abs(r.portLoss));
+  const krSuffix = CURRENT_LANG === 'ko' && lossAbs >= 10000 ? `<div class="stress-headline-pct">${formatKRWUnit(lossAbs)}</div>` : '';
+
+  // 종목별 손익 — 손실 큰 순으로 정렬
+  const rows = [...r.breakdown].sort((a,b)=>a.loss-b.loss).slice(0,10);
+
+  result.innerHTML = `
+    <div class="stress-headline">
+      <div class="stress-headline-loss ${isGain?'gain':''}">${sign}${lossAbs.toLocaleString()}</div>
+      <div class="stress-headline-pct">${(r.portLossPct * 100).toFixed(1)}%</div>
+      ${krSuffix}
+      <div class="stress-headline-desc">${r.scenario[descKey]}</div>
+    </div>
+    <div class="stress-rows">
+      ${rows.map(b => {
+        const up = b.shock > 0;
+        return `
+          <div class="stress-row">
+            <span class="stress-row-name" title="${b.name}">${b.name}</span>
+            <span class="stress-row-shock ${up?'up':'down'}">${(b.shock*100).toFixed(0)}%</span>
+            <span class="stress-row-loss ${up?'up':'down'}">${b.loss>=0?'+':'-'}${Math.round(Math.abs(b.loss)).toLocaleString()}</span>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
 function renderInsights(){
   const el = document.getElementById('insights');
   el.innerHTML = '';
@@ -1592,6 +1933,8 @@ function renderAllUI(){
   renderSectorBars();
   renderRiskDist();
   renderBalance();
+  renderAdvanced();
+  renderStress();
   renderInsights();
   // REBALANCE 버튼 — 보유 종목 0이면 disabled + 툴팁
   const btnReb = document.getElementById('btnRebalance');
@@ -2914,7 +3257,35 @@ const INFO_TXT = {
       labels:['변동성 30D','베타','부채비율','유동성 역수','섹터 기본값'],
       sumLabel:'합계 → 리스크 스코어',
       summary:(top)=>`이 종목은 <b>${top}</b> 요소가 리스크에 가장 크게 기여하고 있습니다.`,
-      ref:'각 요소 정규화 방법: 변동성(0.05~0.80 범위 클리핑), 베타(0~2.5 클리핑), 부채비율(그대로), 유동성(거래량 ÷ 전체 중간값의 역수), 섹터 기본값(BIO 0.85 / IT 0.75 / FIN 0.50 등)' }
+      ref:'각 요소 정규화 방법: 변동성(0.05~0.80 범위 클리핑), 베타(0~2.5 클리핑), 부채비율(그대로), 유동성(거래량 ÷ 전체 중간값의 역수), 섹터 기본값(BIO 0.85 / IT 0.75 / FIN 0.50 등)' },
+    var:{ title:'VaR 95% (1일 손실 한도)',
+      desc:'<strong>Value at Risk</strong>. 95% 확률로 하루 손실이 이 금액을 넘지 않을 것으로 추정되는 한도. 정규분포 가정 패러메트릭 VaR.',
+      formula:'VaR<sub>95%</sub> = z<sub>0.95</sub> × σ<sub>1일</sub> × V<br>z<sub>0.95</sub> = 1.6449<br>σ<sub>1일</sub> = σ<sub>연</sub> / √252',
+      ref:'기반: J.P. Morgan RiskMetrics (1996). 정규성 가정의 한계 — 실제 꼬리는 더 두꺼움(Fat-tail), 극단 사건은 VaR 초과 가능' },
+    cvar:{ title:'CVaR 95% (조건부 기대 손실)',
+      desc:'<strong>Conditional VaR / Expected Shortfall</strong>. VaR를 초과하는 손실이 발생했다고 가정했을 때의 기대 손실. VaR보다 보수적·꼬리위험 반영.',
+      formula:'CVaR<sub>95%</sub> = E[L | L > VaR<sub>95%</sub>]<br>≈ 2.0627 × σ<sub>1일</sub> × V',
+      ref:'기반: Rockafellar & Uryasev (2000). Basel III 자본요건의 표준 위험지표로 채택' },
+    sharpe:{ title:'Sharpe Ratio (위험조정 수익률)',
+      desc:'위험 1단위당 초과수익. <strong>1 이상 우수, 2 이상 매우 우수, 음수면 무위험금리 미달</strong>. 변동성 전체를 위험으로 간주.',
+      formula:'Sharpe = (μ<sub>p</sub> − r<sub>f</sub>) / σ<sub>p</sub><br>μ<sub>p</sub> = r<sub>f</sub> + β<sub>p</sub> × ERP (CAPM 추정)<br>r<sub>f</sub> = 3.5%, ERP = 6.0%',
+      ref:'기반: Sharpe (1966). 1990년 노벨경제학상 수상자의 핵심 지표' },
+    sortino:{ title:'Sortino Ratio (하방 위험 조정)',
+      desc:'Sharpe와 동일하지만 분모가 <strong>하방 변동성만</strong> 사용 — 상승 변동성에 페널티를 주지 않음. 비대칭 수익 분포에 적합.',
+      formula:'Sortino = (μ<sub>p</sub> − r<sub>f</sub>) / σ<sub>D</sub><br>σ<sub>D</sub> ≈ σ × 0.71 (Sortino/Sharpe 경험비)',
+      ref:'기반: Sortino & Price (1994). 헤지펀드·연금펀드에서 Sharpe 대신 선호' },
+    dr:{ title:'분산효과 (Diversification Ratio)',
+      desc:'분산투자가 위험을 얼마나 깎았는지의 지표. <strong>DR > 1.0이면 분산효과 발생</strong>, 1.3 이상이면 우수. 옆에 표시된 % = 단순 합산 위험 대비 감소율.',
+      formula:'DR = Σ(w<sub>i</sub> × σ<sub>i</sub>) / σ<sub>p</sub><br>σ<sub>p</sub> = √(ΣΣ w<sub>i</sub>w<sub>j</sub>σ<sub>i</sub>σ<sub>j</sub>ρ<sub>ij</sub>)<br>위험감소 = 1 − σ<sub>p</sub> / Σ(w<sub>i</sub>σ<sub>i</sub>)',
+      ref:'기반: Choueifaty & Coignard (2008) "Most Diversified Portfolio". 상관계수 ρ는 동일섹터+동일지역 0.68, 동일섹터 0.50, 동일지역 0.32, 그 외 0.18로 휴리스틱 추정' },
+    portVol:{ title:'포트폴리오 변동성 (연환산)',
+      desc:'전체 포트폴리오의 1년 표준편차. <strong>15% 미만 안정, 25% 이상 공격적</strong>. 종목별 변동성을 상관계수로 가중합해 계산.',
+      formula:'σ<sub>p</sub><sup>2</sup> = ΣΣ w<sub>i</sub>w<sub>j</sub>σ<sub>i</sub>σ<sub>j</sub>ρ<sub>ij</sub><br>(공분산 행렬 휴리스틱 — pairwiseCorr)',
+      ref:'기반: Markowitz (1952) Modern Portfolio Theory의 핵심 — 위험은 단순 가중합이 아닌 공분산으로 결정됨' },
+    dividend:{ title:'예상 연배당 수익',
+      desc:'각 종목의 배당수익률(yield)에 평가금액을 곱한 합계. <strong>실제 배당 = 회사 정책에 따라 변동</strong>. 과거 배당이 미래를 보장하지 않음.',
+      formula:'연배당 = Σ(평가금액<sub>i</sub> × 배당수익률<sub>i</sub>)<br>포트폴리오 yield = 연배당 / 총 평가금액',
+      ref:'데이터 출처: yfinance dividendYield (TTM 기준)' }
   },
   en: {
     balance:{ title:'Balance Index Formula',
@@ -2956,7 +3327,35 @@ const INFO_TXT = {
       labels:['Volatility 30D','Beta','Debt Ratio','Liquidity Inverse','Sector Base'],
       sumLabel:'Total → Risk Score',
       summary:(top)=>`<b>${top}</b> contributes the most to this asset\'s risk.`,
-      ref:'Normalization: Volatility (clipped 0.05–0.80), Beta (clipped 0–2.5), Debt ratio (raw 0–1), Liquidity (inverse of volume / median), Sector base (BIO 0.85 / IT 0.75 / FIN 0.50, etc.)' }
+      ref:'Normalization: Volatility (clipped 0.05–0.80), Beta (clipped 0–2.5), Debt ratio (raw 0–1), Liquidity (inverse of volume / median), Sector base (BIO 0.85 / IT 0.75 / FIN 0.50, etc.)' },
+    var:{ title:'VaR 95% (1-day loss limit)',
+      desc:'<strong>Value at Risk</strong>. With 95% confidence, the daily loss should not exceed this amount. Parametric VaR assuming normal distribution.',
+      formula:'VaR<sub>95%</sub> = z<sub>0.95</sub> × σ<sub>1d</sub> × V<br>z<sub>0.95</sub> = 1.6449<br>σ<sub>1d</sub> = σ<sub>annual</sub> / √252',
+      ref:'Based on: J.P. Morgan RiskMetrics (1996). Caveat: normality understates fat tails — extreme events can exceed VaR' },
+    cvar:{ title:'CVaR 95% (Expected Shortfall)',
+      desc:'<strong>Conditional VaR / Expected Shortfall</strong>. Average loss given the loss exceeds VaR. More conservative; captures tail risk.',
+      formula:'CVaR<sub>95%</sub> = E[L | L > VaR<sub>95%</sub>]<br>≈ 2.0627 × σ<sub>1d</sub> × V',
+      ref:'Based on: Rockafellar & Uryasev (2000). Adopted as standard risk metric in Basel III capital requirements' },
+    sharpe:{ title:'Sharpe Ratio (risk-adjusted return)',
+      desc:'Excess return per unit of risk. <strong>>1 is good, >2 excellent, <0 underperforms risk-free</strong>. Treats total volatility as risk.',
+      formula:'Sharpe = (μ<sub>p</sub> − r<sub>f</sub>) / σ<sub>p</sub><br>μ<sub>p</sub> = r<sub>f</sub> + β<sub>p</sub> × ERP (CAPM estimate)<br>r<sub>f</sub> = 3.5%, ERP = 6.0%',
+      ref:'Based on: Sharpe (1966). Core metric of Nobel laureate W.F. Sharpe' },
+    sortino:{ title:'Sortino Ratio (downside-adjusted)',
+      desc:'Same as Sharpe, but uses <strong>downside volatility only</strong> — does not penalize upside swings. Better fits asymmetric returns.',
+      formula:'Sortino = (μ<sub>p</sub> − r<sub>f</sub>) / σ<sub>D</sub><br>σ<sub>D</sub> ≈ σ × 0.71 (empirical ratio)',
+      ref:'Based on: Sortino & Price (1994). Preferred over Sharpe in hedge funds and pension fund analysis' },
+    dr:{ title:'Diversification Ratio',
+      desc:'How much diversification reduced portfolio risk. <strong>DR > 1.0 means benefit, ≥1.3 is excellent</strong>. The % shown is reduction vs. simple weighted-vol sum.',
+      formula:'DR = Σ(w<sub>i</sub> × σ<sub>i</sub>) / σ<sub>p</sub><br>σ<sub>p</sub> = √(ΣΣ w<sub>i</sub>w<sub>j</sub>σ<sub>i</sub>σ<sub>j</sub>ρ<sub>ij</sub>)<br>Reduction = 1 − σ<sub>p</sub> / Σ(w<sub>i</sub>σ<sub>i</sub>)',
+      ref:'Based on: Choueifaty & Coignard (2008) "Toward Maximum Diversification". Correlations ρ heuristic: same sector+region 0.68, same sector 0.50, same region 0.32, otherwise 0.18' },
+    portVol:{ title:'Portfolio Volatility (annualized)',
+      desc:'1-year std. dev. of portfolio returns. <strong><15% conservative, >25% aggressive</strong>. Computed via covariance matrix, not simple weighted sum.',
+      formula:'σ<sub>p</sub><sup>2</sup> = ΣΣ w<sub>i</sub>w<sub>j</sub>σ<sub>i</sub>σ<sub>j</sub>ρ<sub>ij</sub>',
+      ref:'Based on: Markowitz (1952) Modern Portfolio Theory — portfolio risk depends on covariances, not just individual variances' },
+    dividend:{ title:'Estimated Annual Dividend',
+      desc:'Sum of (market value × yield) per holding. <strong>Actual dividends vary with company policy</strong>. Past does not guarantee future.',
+      formula:'Annual = Σ(value<sub>i</sub> × yield<sub>i</sub>)<br>Portfolio yield = Annual / Total value',
+      ref:'Source: yfinance dividendYield (TTM)' }
   }
 };
 
@@ -3121,6 +3520,135 @@ const INFO = {
         <div class="info-meta">${T.ref}</div>
       `;
     }
+  },
+  // ── Phase 1·2·3·4 metric tooltips ──
+  var: {
+    get title(){ return infoT().var.title; },
+    bodyFn: () => {
+      const T = infoT().var;
+      const A = ADVANCED || {};
+      const tv = A.totalValue || 0;
+      const sd = A.portVolDaily || 0;
+      const var95 = A.var95 || 0;
+      const fmt = v => Math.round(v).toLocaleString();
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>총 평가금액 V</span><span><b>${fmt(tv)}</b></span></div>
+          <div><span>일변동성 σ<sub>1d</sub></span><span><b>${(sd*100).toFixed(2)}%</b></span></div>
+          <div class="info-total"><span>VaR 95% (1일)</span><span><b style="color:var(--high)">−${fmt(var95)}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  cvar: {
+    get title(){ return infoT().cvar.title; },
+    bodyFn: () => {
+      const T = infoT().cvar;
+      const A = ADVANCED || {};
+      const fmt = v => Math.round(v).toLocaleString();
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>VaR 95%</span><span><b>−${fmt(A.var95||0)}</b></span></div>
+          <div class="info-total"><span>CVaR 95%</span><span><b style="color:var(--high)">−${fmt(A.cvar95||0)}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  sharpe: {
+    get title(){ return infoT().sharpe.title; },
+    bodyFn: () => {
+      const T = infoT().sharpe;
+      const A = ADVANCED || {};
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>포트폴리오 β</span><span><b>${(A.portBeta||0).toFixed(2)}</b></span></div>
+          <div><span>기대수익률 μ<sub>p</sub></span><span><b>${((A.portReturn||0)*100).toFixed(2)}%</b></span></div>
+          <div><span>변동성 σ<sub>p</sub></span><span><b>${((A.portVol||0)*100).toFixed(2)}%</b></span></div>
+          <div class="info-total"><span>Sharpe</span><span><b>${(A.sharpe||0).toFixed(3)}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  sortino: {
+    get title(){ return infoT().sortino.title; },
+    bodyFn: () => {
+      const T = infoT().sortino;
+      const A = ADVANCED || {};
+      const downside = (A.portVol||0) * 0.71;
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>기대수익률 μ<sub>p</sub></span><span><b>${((A.portReturn||0)*100).toFixed(2)}%</b></span></div>
+          <div><span>하방변동성 σ<sub>D</sub></span><span><b>${(downside*100).toFixed(2)}%</b></span></div>
+          <div class="info-total"><span>Sortino</span><span><b>${(A.sortino||0).toFixed(3)}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  dr: {
+    get title(){ return infoT().dr.title; },
+    bodyFn: () => {
+      const T = infoT().dr;
+      const A = ADVANCED || {};
+      const wsum = ITEMS.reduce((s,i)=> s + i.weight * i.volatility_30d, 0);
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>Σ(w<sub>i</sub>σ<sub>i</sub>) — 단순합</span><span><b>${(wsum*100).toFixed(2)}%</b></span></div>
+          <div><span>σ<sub>p</sub> — 공분산</span><span><b>${((A.portVol||0)*100).toFixed(2)}%</b></span></div>
+          <div><span>DR</span><span><b>${(A.dr||1).toFixed(3)}</b></span></div>
+          <div class="info-total"><span>위험 감소</span><span><b style="color:var(--safe)">${((A.riskReduction||0)*100).toFixed(1)}%</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  portVol: {
+    get title(){ return infoT().portVol.title; },
+    bodyFn: () => {
+      const T = infoT().portVol;
+      const A = ADVANCED || {};
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>연환산 σ<sub>p</sub></span><span><b>${((A.portVol||0)*100).toFixed(2)}%</b></span></div>
+          <div><span>일환산 σ<sub>1d</sub></span><span><b>${((A.portVolDaily||0)*100).toFixed(2)}%</b></span></div>
+          <div class="info-total"><span>포트폴리오 β</span><span><b>${(A.portBeta||0).toFixed(2)}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
+  },
+  dividend: {
+    get title(){ return infoT().dividend.title; },
+    bodyFn: () => {
+      const T = infoT().dividend;
+      const A = ADVANCED || {};
+      const fmt = v => Math.round(v).toLocaleString();
+      return `
+        <div class="info-body">${T.desc}</div>
+        <div class="info-formula">${T.formula}</div>
+        <div class="info-calc">
+          <div><span>총 평가금액</span><span><b>${fmt(A.totalValue||0)}</b></span></div>
+          <div><span>포트폴리오 yield</span><span><b>${((A.dividendYieldPort||0)*100).toFixed(2)}%</b></span></div>
+          <div class="info-total"><span>예상 연배당</span><span><b style="color:var(--safe)">+${fmt(A.annualDividend||0)}</b></span></div>
+        </div>
+        <div class="info-meta">${T.ref}</div>
+      `;
+    }
   }
 };
 
@@ -3152,17 +3680,45 @@ function showInfo(targetEl, key){
 }
 function hideInfo(){ infoTooltipEl.classList.remove('show'); }
 
+// 툴팁 본문에 호버 가능 — 텍스트 선택/복사를 위해 잠깐 머물러도 안 사라지게
+let _infoHideTimer = null;
+function scheduleHideInfo(delay){
+  clearTimeout(_infoHideTimer);
+  _infoHideTimer = setTimeout(hideInfo, delay);
+}
+function cancelHideInfo(){
+  clearTimeout(_infoHideTimer);
+  _infoHideTimer = null;
+}
+
 // 이벤트 위임 — 동적으로 추가되는 info-icon 모두 자동 처리
 document.body.addEventListener('mouseover', e=>{
   const t = e.target.closest && e.target.closest('.info-icon');
-  if (t) showInfo(t, t.dataset.info);
+  if (t){
+    cancelHideInfo();
+    showInfo(t, t.dataset.info);
+    return;
+  }
+  // 툴팁 본문 위로 들어오면 hide 예약 취소
+  if (e.target.closest && e.target.closest('.info-tooltip')){
+    cancelHideInfo();
+  }
 });
 document.body.addEventListener('mouseout', e=>{
-  const t = e.target.closest && e.target.closest('.info-icon');
-  if (t){
-    const into = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.info-icon');
-    if (into !== t) hideInfo();
+  const fromIcon = e.target.closest && e.target.closest('.info-icon');
+  const fromTip  = e.target.closest && e.target.closest('.info-tooltip');
+  if (!fromIcon && !fromTip) return;
+
+  const intoIcon = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.info-icon');
+  const intoTip  = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.info-tooltip');
+
+  // 아이콘 → 툴팁 또는 다른 아이콘 → 유지
+  if (intoIcon || intoTip){
+    cancelHideInfo();
+    return;
   }
+  // 그 외에는 짧은 딜레이 후 닫기 (커서가 갭을 건널 시간)
+  scheduleHideInfo(180);
 });
 
 /* =========================================================

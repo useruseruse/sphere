@@ -2041,9 +2041,13 @@
     backdrop-filter: blur(16px);
     box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,212,255,0.05);
     display: none;
-    pointer-events: none;
+    pointer-events: auto;
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
   }
   .info-tooltip.show { display: block; }
+  .info-tooltip ::selection { background: rgba(0,212,255,0.35); color: var(--text-0); }
   .info-title {
     color: var(--text-0);
     font-weight: 600;
@@ -2118,4 +2122,98 @@
     line-height: 1.55;
     color: var(--text-2);
     font-style: italic;
+  }
+
+  /* ===== Stress Test panel ===== */
+  .stress-scenarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .stress-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 11px;
+    color: var(--text-1);
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: left;
+    line-height: 1.35;
+    font-family: inherit;
+  }
+  .stress-btn:hover {
+    border-color: rgba(0,212,255,0.4);
+    color: var(--text-0);
+    background: rgba(0,212,255,0.05);
+  }
+  .stress-btn.active {
+    border-color: var(--accent);
+    background: rgba(0,212,255,0.10);
+    color: var(--text-0);
+  }
+  .stress-btn-year {
+    font-size: 10px;
+    color: var(--text-2);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 2px;
+  }
+  .stress-result {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .stress-headline {
+    text-align: center;
+    padding: 12px 8px 10px;
+    border-radius: 8px;
+    background: rgba(255,69,96,0.06);
+    border: 1px solid rgba(255,69,96,0.2);
+    margin-bottom: 10px;
+  }
+  .stress-headline-loss {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--high);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+  }
+  .stress-headline-loss.gain { color: var(--safe); }
+  .stress-headline-pct {
+    font-size: 12px;
+    color: var(--text-2);
+    margin-top: 3px;
+  }
+  .stress-headline-desc {
+    font-size: 10.5px;
+    color: var(--text-2);
+    margin-top: 8px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .stress-rows { margin-top: 6px; }
+  .stress-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 11.5px;
+    align-items: center;
+  }
+  .stress-row:last-child { border-bottom: none; }
+  .stress-row-name { color: var(--text-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .stress-row-shock { color: var(--text-2); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+  .stress-row-shock.up { color: var(--safe); }
+  .stress-row-shock.down { color: var(--high); }
+  .stress-row-loss { color: var(--text-0); font-variant-numeric: tabular-nums; min-width: 90px; text-align: right; }
+  .stress-row-loss.up { color: var(--safe); }
+  .stress-row-loss.down { color: var(--high); }
+  .stress-empty {
+    padding: 16px 12px;
+    text-align: center;
+    color: var(--text-2);
+    font-size: 12px;
+    line-height: 1.6;
   }

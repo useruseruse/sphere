@@ -119,11 +119,28 @@ def compute_metrics(ticker: str, market_returns):
         # 30일 평균 거래량
         avg_volume = int(hist["Volume"].iloc[-30:].mean())
 
+        # 배당수익률 (TTM)
+        dividend_yield = 0.0
+        try:
+            info = tk.fast_info if hasattr(tk, "fast_info") else None
+            if info:
+                # fast_info 에 dividendYield가 없으면 .info 폴백
+                dy = getattr(info, "dividend_yield", None) or getattr(info, "dividendYield", None)
+                if dy is None:
+                    dy = tk.info.get("dividendYield") or tk.info.get("trailingAnnualDividendYield") or 0
+                dividend_yield = float(dy or 0)
+                # yfinance 일부 버전이 % 로 반환 → 0.05 이상이면 그대로, 5 이상이면 /100
+                if dividend_yield > 1:
+                    dividend_yield = dividend_yield / 100
+        except Exception:
+            dividend_yield = 0.0
+
         return {
             "price": round(latest_price, 2),
             "volatility_30d": round(volatility_30d, 4),
             "beta": round(beta, 3),
             "volume": avg_volume,
+            "dividend_yield": round(dividend_yield, 4),
         }
     except Exception as exc:
         print(f"  ! {ticker}: {exc}")
