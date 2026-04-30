@@ -131,18 +131,36 @@ const I18N = {
     balanceIndex:'Balance Index', balanceFormulaTitle:'산출 공식 보기',
     calculating:'계산 중...',
     metricDiverse:'섹터 분산', metricDeviation:'리스크 편차', metricSphericity:'구형도', metricHHI:'HHI 집중도',
-    riskMetrics:'Risk Metrics', riskMetricsBadge:'QUANT',
-    metricVaR:'VaR 95% (1일)', metricCVaR:'CVaR 95% (1일)', metricSharpe:'Sharpe 비율', metricSortino:'Sortino 비율',
-    metricDR:'분산효과 (위험감소)', metricPortVol:'포트폴리오 변동성', metricDividend:'예상 연배당',
+    riskMetrics:'위험 분석', riskMetricsBadge:'리스크',
+    metricVaR:'내일 최대 손실', metricCVaR:'최악의 날 평균 손실', metricSharpe:'위험 대비 수익 효율', metricSortino:'하락 위험 대비 효율',
+    metricDR:'분산투자 효과', metricPortVol:'주가 흔들림 (연)', metricDividend:'예상 연배당',
     stressTest:'스트레스 테스트', stressTestBadge:'시나리오', stressTestEmpty:'좌측에서 시나리오를 선택하세요',
     stressTestExpected:'예상 손익', stressTestSummary:(p,v)=>`${(p*100).toFixed(1)}% (${v})`,
     navSphere:'구체', navSearch:'검색', navHoldings:'보유', navMetrics:'지표', navInsights:'인사이트',
+    tabInsights:'인사이트', tabRisk:'위험분석', tabStress:'스트레스', tabDetail:'종목상세',
+    restartTour:'투어 다시 보기',
+    csvImportShort:'불러오기', csvExportShort:'내보내기',
+    csvExportTitle:'CSV로 내보내기', csvImportTitle:'CSV에서 불러오기',
+    csvExportEmpty:'내보낼 종목이 없습니다',
+    csvExportOk:(n)=>`✓ ${n}개 종목을 CSV로 저장했습니다`,
+    csvImportFailRead:'파일 읽기 실패',
+    csvImportFailFormat:'CSV 형식 오류 — ticker / quantity 컬럼이 필요합니다',
+    csvImportEmpty:'빈 CSV 파일입니다',
+    csvImportNoneValid:(t)=>`인식된 종목이 없습니다 (예: ${t})`,
+    csvImportNoRows:'유효한 데이터 행이 없습니다',
+    csvImportPromptDesc:(n,sk)=>sk>0
+      ? `${n}개 종목이 발견되었습니다 (${sk}개 미인식 스킵).\n새 포트폴리오 이름을 입력하세요.`
+      : `${n}개 종목이 발견되었습니다.\n새 포트폴리오 이름을 입력하세요.`,
+    csvImportOk:(n,sk)=>sk>0
+      ? `✓ ${n}개 종목 추가됨 (${sk}개 미인식 스킵)`
+      : `✓ ${n}개 종목으로 새 포트폴리오 생성됨`,
+    pfMaxReached:'포트폴리오 한도(20개) 초과',
     insights:'Insights', auto:'AUTO',
     selectedAsset:'Selected Asset',
     sdQty:'보유 수량', sdValue:'평가금액', sdWeight:'비중', sdSector:'섹터',
     sdPrice:'현재가', sdAvg:'평균 매수가', sdReturn:'수익률', sdVol:'변동성 30D',
     sdBeta:'베타', sdDebt:'부채비율', sdRisk:'리스크 스코어',
-    selectHint:'구체의 노드를 클릭하면<br>상세 정보가 표시됩니다',
+    selectHint:'구체의 동그라미를 탭하면<br>해당 종목의 상세 정보가 표시됩니다',
     sharesUnit:'주', etfTag:'ETF', addedTag:'✓ 추가됨', noSearchResults:'검색 결과가 없습니다',
     confirmDelete:(n)=>`"${n}" 포트폴리오를 삭제할까요?\n이 작업은 되돌릴 수 없습니다.`,
     alertMaxPortfolios:(n)=>`포트폴리오는 최대 ${n}개까지 만들 수 있습니다.`,
@@ -245,18 +263,36 @@ const I18N = {
     balanceIndex:'Balance Index', balanceFormulaTitle:'View formula',
     calculating:'Calculating...',
     metricDiverse:'Sector Diversity', metricDeviation:'Risk Deviation', metricSphericity:'Sphericity', metricHHI:'HHI Concentration',
-    riskMetrics:'Risk Metrics', riskMetricsBadge:'QUANT',
-    metricVaR:'VaR 95% (1d)', metricCVaR:'CVaR 95% (1d)', metricSharpe:'Sharpe', metricSortino:'Sortino',
-    metricDR:'Diversification', metricPortVol:'Portfolio Vol', metricDividend:'Annual Dividend',
+    riskMetrics:'Risk Analysis', riskMetricsBadge:'RISK',
+    metricVaR:'Tomorrow\'s max loss (95%)', metricCVaR:'Worst 5% avg loss', metricSharpe:'Return per unit risk', metricSortino:'Return per downside risk',
+    metricDR:'Diversification benefit', metricPortVol:'Price swings (annual)', metricDividend:'Estimated annual dividend',
     stressTest:'Stress Test', stressTestBadge:'SCENARIO', stressTestEmpty:'Select a scenario',
     stressTestExpected:'Expected P&L', stressTestSummary:(p,v)=>`${(p*100).toFixed(1)}% (${v})`,
     navSphere:'SPHERE', navSearch:'SEARCH', navHoldings:'HOLDINGS', navMetrics:'METRICS', navInsights:'INSIGHTS',
+    tabInsights:'Insights', tabRisk:'Risk', tabStress:'Stress', tabDetail:'Detail',
+    restartTour:'Restart tour',
+    csvImportShort:'Import', csvExportShort:'Export',
+    csvExportTitle:'Export CSV', csvImportTitle:'Import CSV',
+    csvExportEmpty:'No holdings to export',
+    csvExportOk:(n)=>`✓ Exported ${n} holdings to CSV`,
+    csvImportFailRead:'Failed to read file',
+    csvImportFailFormat:'CSV format error — needs ticker / quantity columns',
+    csvImportEmpty:'CSV file is empty',
+    csvImportNoneValid:(t)=>`No recognized tickers (e.g. ${t})`,
+    csvImportNoRows:'No valid data rows',
+    csvImportPromptDesc:(n,sk)=>sk>0
+      ? `Found ${n} holdings (${sk} unrecognized skipped).\nName the new portfolio.`
+      : `Found ${n} holdings.\nName the new portfolio.`,
+    csvImportOk:(n,sk)=>sk>0
+      ? `✓ Imported ${n} holdings (${sk} skipped)`
+      : `✓ Created new portfolio with ${n} holdings`,
+    pfMaxReached:'Portfolio limit (20) reached',
     insights:'Insights', auto:'AUTO',
     selectedAsset:'Selected Asset',
     sdQty:'Quantity', sdValue:'Market Value', sdWeight:'Weight', sdSector:'Sector',
     sdPrice:'Current Price', sdAvg:'Avg Buy Price', sdReturn:'Return', sdVol:'Volatility 30D',
     sdBeta:'Beta', sdDebt:'Debt Ratio', sdRisk:'Risk Score',
-    selectHint:'Click a node on the sphere<br>to see asset details',
+    selectHint:'Tap a dot on the sphere<br>to see asset details',
     sharesUnit:'sh', etfTag:'ETF', addedTag:'✓ Added', noSearchResults:'No results',
     confirmDelete:(n)=>`Delete portfolio "${n}"?\nThis cannot be undone.`,
     alertMaxPortfolios:(n)=>`You can create up to ${n} portfolios.`,
@@ -1089,53 +1125,222 @@ const STRESS_SCENARIOS = {
   'gfc2008': {
     label_ko: '2008 글로벌 금융위기',
     label_en: '2008 Global Financial Crisis',
-    desc_ko: 'Lehman 파산 후 6개월간의 누적 하락. 금융·부동산이 진앙.',
-    desc_en: 'Cumulative drop in 6 months post-Lehman. Financials & RE epicenter.',
-    shocks: { IT:-0.42, BIO:-0.28, AUTO:-0.55, FIN:-0.55, ENERGY:-0.45,
-              CONSUMER:-0.32, REALESTATE:-0.62, INDUSTRIAL:-0.48,
-              GLOBAL_ETF:-0.40, ETC:-0.35 }
+    period: '2008-09-15 ~ 2009-03-09 (약 6개월)',
+    benchmark: 'S&P 500 −56%',
+    desc_ko: 'Lehman 파산 후 6개월. 미국 섹터 ETF (XLF·XLRE 전신·XLE·XLK 등) 누적 수익률 기반.',
+    desc_en: 'Lehman to S&P trough (6 mo). Sector returns from XLF/XLE/XLK etc.',
+    source: 'Yahoo Finance · SPDR Sector ETFs',
+    shocks: { IT:-0.52, BIO:-0.34, AUTO:-0.55, FIN:-0.82, ENERGY:-0.46,
+              CONSUMER:-0.35, REALESTATE:-0.71, INDUSTRIAL:-0.57,
+              GLOBAL_ETF:-0.50, ETC:-0.40 }
   },
   'covid2020': {
     label_ko: '2020 코로나 셧다운',
     label_en: '2020 COVID Shutdown',
-    desc_ko: '2020.02~03 한 달간의 패닉 매도. 에너지·항공·소비재 직격, IT/바이오 회복.',
-    desc_en: 'Mar 2020 panic. Energy/airline/consumer hit hardest, IT/Bio rebounded.',
-    shocks: { IT:-0.18, BIO:-0.08, AUTO:-0.42, FIN:-0.36, ENERGY:-0.58,
-              CONSUMER:-0.30, REALESTATE:-0.34, INDUSTRIAL:-0.32,
-              GLOBAL_ETF:-0.32, ETC:-0.25 }
+    period: '2020-02-19 ~ 2020-03-23 (35일)',
+    benchmark: 'S&P 500 −34%',
+    desc_ko: '2020.2~3 패닉 35일. WHO 팬데믹 선언 전후. 에너지·여행 직격, 헬스케어/IT 회복.',
+    desc_en: 'Feb–Mar 2020 panic (35 days). Energy/travel hit, healthcare/IT rebounded.',
+    source: 'Yahoo Finance · SPDR Sector ETFs',
+    shocks: { IT:-0.22, BIO:-0.19, AUTO:-0.45, FIN:-0.41, ENERGY:-0.56,
+              CONSUMER:-0.28, REALESTATE:-0.42, INDUSTRIAL:-0.35,
+              GLOBAL_ETF:-0.34, ETC:-0.30 }
   },
   'inflation2022': {
     label_ko: '2022 인플레이션·금리쇼크',
     label_en: '2022 Inflation/Rate Shock',
-    desc_ko: 'Fed 급격 금리인상. 성장주·장기채 큰 손실, 에너지는 수혜.',
-    desc_en: 'Fed aggressive hikes. Growth & long bonds hit, energy benefited.',
-    shocks: { IT:-0.34, BIO:-0.22, AUTO:-0.40, FIN:-0.18, ENERGY:+0.32,
-              CONSUMER:-0.24, REALESTATE:-0.26, INDUSTRIAL:-0.16,
-              GLOBAL_ETF:-0.20, ETC:-0.18 }
+    period: '2022-01-03 ~ 2022-10-12 (약 9개월)',
+    benchmark: 'S&P 500 −25% / NASDAQ −36%',
+    desc_ko: 'Fed 425bp 인상. 성장주·REIT·암호자산 큰 손실, 에너지 +52% 수혜.',
+    desc_en: 'Fed +425bp hikes. Growth/REIT/crypto down, Energy +52% benefited.',
+    source: 'Yahoo Finance · SPDR Sector ETFs · 2022 YTD',
+    shocks: { IT:-0.32, BIO:-0.18, AUTO:-0.39, FIN:-0.19, ENERGY:+0.52,
+              CONSUMER:-0.34, REALESTATE:-0.33, INDUSTRIAL:-0.18,
+              GLOBAL_ETF:-0.25, ETC:-0.20 }
   },
   'dotcom2000': {
     label_ko: '2000 닷컴 버블 붕괴',
     label_en: '2000 Dotcom Bubble Burst',
-    desc_ko: '2000.03~2002.10. 나스닥 -78%, IT 직격, 가치주는 상대적 선방.',
-    desc_en: 'Mar 2000–Oct 2002. Nasdaq −78%, IT crushed, value held up.',
-    shocks: { IT:-0.78, BIO:-0.55, AUTO:-0.35, FIN:-0.25, ENERGY:+0.05,
-              CONSUMER:-0.18, REALESTATE:-0.10, INDUSTRIAL:-0.30,
-              GLOBAL_ETF:-0.45, ETC:-0.25 }
+    period: '2000-03-10 ~ 2002-10-09 (약 31개월)',
+    benchmark: 'NASDAQ −78% / S&P 500 −49%',
+    desc_ko: '2000.3~2002.10 베어마켓. IT 폭락, 에너지·소비재는 상대적 선방.',
+    desc_en: 'Mar 2000 – Oct 2002 bear. Tech crushed, defensives held up.',
+    source: 'Yahoo Finance · S&P/NASDAQ historical',
+    shocks: { IT:-0.78, BIO:-0.50, AUTO:-0.30, FIN:-0.25, ENERGY:+0.05,
+              CONSUMER:+0.05, REALESTATE:-0.10, INDUSTRIAL:-0.30,
+              GLOBAL_ETF:-0.49, ETC:-0.25 }
   }
 };
 
+// =========================================================
+// 매크로 팩터 — 거시 인자 단위 섹터 영향 행렬 (학술/실무 컨센서스 근사)
+// 사용자가 여러 매크로를 조합하면 합산해서 커스텀 시나리오 생성
+// =========================================================
+const MACRO_FACTORS = {
+  rateHike: {
+    label_ko: '금리 인상 (+200bp)', label_en: 'Rate Hike (+200bp)',
+    desc_ko: 'Fed/BOK 200bp 인상. 성장주·REIT·장기채 압박, 은행주 마진 개선.',
+    desc_en: 'Fed/BOK +200bp hike. Hits growth/REIT/long bonds, helps bank margins.',
+    impact: { IT:-0.12, BIO:-0.08, AUTO:-0.10, FIN:+0.05, ENERGY:-0.02,
+              CONSUMER:-0.06, REALESTATE:-0.18, INDUSTRIAL:-0.05, GLOBAL_ETF:-0.07, ETC:-0.05 }
+  },
+  rateCut: {
+    label_ko: '금리 인하 (-200bp)', label_en: 'Rate Cut (-200bp)',
+    desc_ko: '경기부양형 인하. 성장주·REIT 호재, 은행 NIM 압박.',
+    desc_en: 'Easing cycle. Boosts growth/REIT, pressures bank NIM.',
+    impact: { IT:+0.12, BIO:+0.08, AUTO:+0.08, FIN:-0.05, ENERGY:+0.02,
+              CONSUMER:+0.05, REALESTATE:+0.16, INDUSTRIAL:+0.05, GLOBAL_ETF:+0.07, ETC:+0.04 }
+  },
+  inflation: {
+    label_ko: '인플레이션 ↑', label_en: 'Inflation Surge',
+    desc_ko: 'CPI 6%+ 진입. 명목자산 가치 하락, 실물·에너지·금 수혜.',
+    desc_en: 'CPI 6%+. Nominal assets pressured, energy/commodities benefit.',
+    impact: { IT:-0.08, BIO:-0.04, AUTO:-0.06, FIN:-0.03, ENERGY:+0.18,
+              CONSUMER:-0.06, REALESTATE:-0.04, INDUSTRIAL:+0.04, GLOBAL_ETF:-0.05, ETC:-0.02 }
+  },
+  recession: {
+    label_ko: '경기 침체', label_en: 'Recession',
+    desc_ko: '명목 GDP -2%, 실업 ↑. 경기민감주 하락, 방어주(생필품·헬스) 선방.',
+    desc_en: 'GDP −2%, unemployment up. Cyclicals down, defensives (staples/health) hold.',
+    impact: { IT:-0.18, BIO:-0.05, AUTO:-0.32, FIN:-0.22, ENERGY:-0.20,
+              CONSUMER:-0.15, REALESTATE:-0.18, INDUSTRIAL:-0.25, GLOBAL_ETF:-0.18, ETC:-0.15 }
+  },
+  oilSurge: {
+    label_ko: '유가 급등 (+50%)', label_en: 'Oil Surge (+50%)',
+    desc_ko: 'WTI $50→$75. 에너지 직접 수혜, 항공/소비 직격.',
+    desc_en: 'WTI $50→$75. Energy benefits, airlines/consumers hit.',
+    impact: { IT:-0.04, BIO:-0.02, AUTO:-0.10, FIN:-0.02, ENERGY:+0.35,
+              CONSUMER:-0.10, REALESTATE:-0.04, INDUSTRIAL:-0.06, GLOBAL_ETF:0, ETC:-0.04 }
+  },
+  oilCrash: {
+    label_ko: '유가 급락 (-50%)', label_en: 'Oil Crash (-50%)',
+    desc_ko: '에너지 손실, 소비재·항공 수혜.',
+    desc_en: 'Energy loses, consumers/airlines benefit.',
+    impact: { IT:+0.04, BIO:+0.02, AUTO:+0.08, FIN:+0.02, ENERGY:-0.35,
+              CONSUMER:+0.08, REALESTATE:+0.04, INDUSTRIAL:+0.06, GLOBAL_ETF:0, ETC:+0.02 }
+  },
+  usdStrong: {
+    label_ko: 'USD 강세 (+10%)', label_en: 'USD Strength (+10%)',
+    desc_ko: '달러 인덱스 ↑. 미국 수출주·이머징 부담, 한국 수출주 환차익.',
+    desc_en: 'DXY up. Hits US exporters/EM, KR exporters get FX gain.',
+    impact: { IT:-0.06, BIO:-0.03, AUTO:+0.04, FIN:+0.02, ENERGY:-0.05,
+              CONSUMER:-0.04, REALESTATE:-0.02, INDUSTRIAL:-0.03, GLOBAL_ETF:-0.04, ETC:-0.02 }
+  },
+  usdWeak: {
+    label_ko: 'USD 약세 (-10%)', label_en: 'USD Weakness (-10%)',
+    desc_ko: '달러 약세. 이머징·원자재 수혜, 한국 수출주 환차손.',
+    desc_en: 'Dollar weakens. EM/commodities benefit, KR exporters lose FX.',
+    impact: { IT:+0.06, BIO:+0.03, AUTO:-0.04, FIN:-0.02, ENERGY:+0.05,
+              CONSUMER:+0.04, REALESTATE:+0.02, INDUSTRIAL:+0.03, GLOBAL_ETF:+0.04, ETC:+0.02 }
+  },
+  riskOff: {
+    label_ko: '위험 회피', label_en: 'Risk-Off',
+    desc_ko: 'VIX 35+, 금/채권 선호. 모든 주식 동반 하락, 베타 큰 종목 더 큰 하락.',
+    desc_en: 'VIX 35+, flight to safety. All stocks down, high-beta hurt more.',
+    impact: { IT:-0.15, BIO:-0.10, AUTO:-0.18, FIN:-0.12, ENERGY:-0.10,
+              CONSUMER:-0.06, REALESTATE:-0.08, INDUSTRIAL:-0.12, GLOBAL_ETF:-0.12, ETC:-0.08 }
+  },
+  riskOn: {
+    label_ko: '위험 선호', label_en: 'Risk-On',
+    desc_ko: '경기 회복 기대. 성장주·고베타 강세.',
+    desc_en: 'Recovery optimism. Growth/high-beta rally.',
+    impact: { IT:+0.15, BIO:+0.10, AUTO:+0.18, FIN:+0.10, ENERGY:+0.08,
+              CONSUMER:+0.06, REALESTATE:+0.06, INDUSTRIAL:+0.12, GLOBAL_ETF:+0.10, ETC:+0.06 }
+  }
+};
+
+// 매크로 인자를 "축(axis)" 단위로 그룹화 — 같은 축 안에선 mutually exclusive
+const MACRO_AXES = [
+  { id:'rate', label_ko:'금리 정책', label_en:'Monetary Policy',
+    options:['rateHike','rateCut'] },
+  { id:'infl', label_ko:'물가',     label_en:'Inflation',
+    options:['inflation'] },
+  { id:'oil',  label_ko:'유가',     label_en:'Oil',
+    options:['oilSurge','oilCrash'] },
+  { id:'usd',  label_ko:'환율 (USD)', label_en:'USD',
+    options:['usdStrong','usdWeak'] },
+  { id:'mood', label_ko:'시장 분위기', label_en:'Sentiment',
+    options:['riskOff','riskOn'] },
+  { id:'cycle', label_ko:'경기 사이클', label_en:'Business Cycle',
+    options:['recession'] }
+];
+
+// 사용자가 선택한 매크로 인자들 — 한 축당 최대 1개
+let SELECTED_MACROS = new Set();
+function toggleMacro(key){
+  // 같은 축 안에서는 한 번에 하나만
+  const axis = MACRO_AXES.find(a => a.options.includes(key));
+  if (axis){
+    axis.options.forEach(other => {
+      if (other !== key) SELECTED_MACROS.delete(other);
+    });
+  }
+  if (SELECTED_MACROS.has(key)) SELECTED_MACROS.delete(key);
+  else SELECTED_MACROS.add(key);
+}
+// 동적으로 합산된 커스텀 시나리오
+let CUSTOM_SCENARIO = null;
+function rebuildCustomScenario(){
+  if (SELECTED_MACROS.size === 0){ CUSTOM_SCENARIO = null; return; }
+  const sectors = ['IT','BIO','AUTO','FIN','ENERGY','CONSUMER','REALESTATE','INDUSTRIAL','GLOBAL_ETF','ETC'];
+  const shocks = {};
+  sectors.forEach(s => shocks[s] = 0);
+  const labels_ko = [], labels_en = [];
+  SELECTED_MACROS.forEach(key => {
+    const f = MACRO_FACTORS[key];
+    if (!f) return;
+    sectors.forEach(s => shocks[s] += (f.impact[s] || 0));
+    labels_ko.push(f.label_ko);
+    labels_en.push(f.label_en);
+  });
+  // 합산 클립 — ±90% 범위
+  sectors.forEach(s => shocks[s] = Math.max(-0.90, Math.min(0.90, shocks[s])));
+  CUSTOM_SCENARIO = {
+    label_ko: '커스텀 시나리오',
+    label_en: 'Custom Scenario',
+    period: labels_ko.join(' + '),
+    benchmark: SELECTED_MACROS.size + (CURRENT_LANG==='en' ? ' factors' : '개 인자 조합'),
+    desc_ko: labels_ko.join(' + '),
+    desc_en: labels_en.join(' + '),
+    source: CURRENT_LANG==='en' ? 'Macro factor matrix (heuristic)' : '매크로 영향 행렬 (휴리스틱)',
+    shocks
+  };
+}
+
+// 종목 베타로 섹터 충격을 차등 — 고베타는 더 크게, 저베타는 덜
+// stock_shock = sector_shock × clamp(beta, 0.5, 1.6) [downside만]
+// 단, sector_shock이 양수(이익)면 베타가 클수록 더 큰 이익 반영
+function adjustShockByBeta(sectorShock, beta){
+  if (sectorShock >= 0){
+    // 상승장 — 고베타는 더 큰 상승, 저베타는 덜
+    const m = Math.max(0.6, Math.min(1.5, beta));
+    return sectorShock * m;
+  } else {
+    // 하락장 — 고베타는 더 큰 하락, 저베타·방어주는 덜
+    // 하지만 너무 극단적이지 않도록 [0.55, 1.55] 범위 클립
+    const m = Math.max(0.55, Math.min(1.55, beta));
+    return sectorShock * m;
+  }
+}
+
 // 시나리오 적용 — 종목별 손익과 포트폴리오 합계 반환
 function computeStressTest(items, scenarioKey){
-  const scn = STRESS_SCENARIOS[scenarioKey];
+  let scn;
+  if (scenarioKey === 'custom'){
+    scn = CUSTOM_SCENARIO;
+  } else {
+    scn = STRESS_SCENARIOS[scenarioKey];
+  }
   if (!scn || !items.length) return null;
   let portLoss = 0;
   const breakdown = items.map(it => {
-    const shock = scn.shocks[it.sector] ?? scn.shocks.ETC ?? -0.30;
+    const baseSec = scn.shocks[it.sector] ?? scn.shocks.ETC ?? -0.30;
+    const shock = adjustShockByBeta(baseSec, it.beta);
     const value = it.market_value || 0;
-    const loss  = value * shock;       // 음수면 손실, 양수면 이익
+    const loss  = value * shock;
     portLoss += loss;
     return { ticker: it.ticker, name: it.name, sector: it.sector,
-             value, shock, loss };
+             value, shock, loss, sectorShock: baseSec, beta: it.beta };
   });
   const totalValue = items.reduce((s,i)=> s + (i.market_value||0), 0);
   return {
@@ -1186,6 +1391,7 @@ function generateInsights(items, balance){
    파이프라인 실행 (포트폴리오 변경 시 다시 호출됨)
    ========================================================= */
 let ITEMS = [], BALANCE = {}, INSIGHTS = [], ADVANCED = {};
+let CURRENT_STRESS = null;   // 스트레스 시나리오 (rebuildNodes에서 참조됨)
 
 function runPipeline(){
   const pf = activePortfolio();
@@ -1213,7 +1419,8 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x05070d, 0.06);
 
 const camera = new THREE.PerspectiveCamera(50, main.clientWidth/main.clientHeight, 0.1, 100);
-camera.position.set(0, 0.6, 4.2);
+camera.position.set(0, 0, 4.2);   // 정중앙 — y=0 (이전엔 0.6 으로 약간 위에서 내려다봄)
+camera.lookAt(0, 0, 0);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -1491,11 +1698,27 @@ function selectAsset(ticker){
     n.mesh.material.emissiveIntensity = isSel ? 1.2 : 0.6;
   });
   renderStockDetail(ITEMS.find(i=>i.ticker === ticker));
+  // 데스크탑: 종목상세 탭으로 전환
+  if (window.innerWidth > 768 && typeof window.openDetailTab === 'function') window.openDetailTab();
+  // 모바일: 인사이트 섹션(종목상세 포함)으로 전환 + 부드럽게 스크롤
+  else if (window.innerWidth <= 768 && typeof setMobileSection === 'function'){
+    setMobileSection('insights');
+    setTimeout(() => {
+      const detail = document.getElementById('stockDetail');
+      if (detail){
+        const headerH = (document.querySelector('header')?.offsetHeight || 56);
+        const top = detail.getBoundingClientRect().top + window.scrollY - headerH - 16;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }
+    }, 100);
+  }
 }
 
-// 컨트롤 버튼
-document.querySelectorAll('.ctrl-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
+// 컨트롤 버튼 — 이벤트 위임 (canvas-toggle, balance-cta 도 함께 처리)
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-mode]');
+  if (!btn) return;
+  (function(){
     const m = btn.dataset.mode;
     if (m === 'rotate'){ autoRotate = !autoRotate; btn.classList.toggle('active', autoRotate); return; }
     if (m === 'rebalance'){
@@ -1507,12 +1730,13 @@ document.querySelectorAll('.ctrl-btn').forEach(btn=>{
       networkMode = !networkMode;
       btn.classList.toggle('network-active', networkMode);
       document.getElementById('networkLegend').classList.toggle('show', networkMode);
+      document.body.classList.toggle('network-mode', networkMode);
       buildCorrelationLines();
       return;
     }
     if (m === 'reset'){
       rotation = { x:0.2, y:0 }; cameraTarget.z = 4.2; autoRotate=true;
-      document.querySelector('[data-mode=rotate]').classList.add('active');
+      document.querySelector('[data-mode=rotate]')?.classList.add('active');
       selectedTicker = null;
       nodeMeshes.forEach(n=>{ n.mesh.material.opacity=0.85; n.halo.material.opacity=0.18; n.mesh.material.emissiveIntensity=0.6; });
       document.querySelectorAll('.holding').forEach(el=> el.classList.remove('active'));
@@ -1529,7 +1753,7 @@ document.querySelectorAll('.ctrl-btn').forEach(btn=>{
       document.getElementById('viewMode').textContent = m === 'sphere' ? t('sphereView') : t('clusterView');
       animateView(m);
     }
-  });
+  })();
 });
 
 function setActive(name, on){
@@ -1773,63 +1997,168 @@ function fmtMoneyKR(v){
   return CURRENT_LANG === 'ko' ? formatKRWUnit(Math.abs(v)) : '';
 }
 
+// 등급 뱃지 헬퍼
+function gradeBadge(label, level){
+  // level: safe / moderate / caution / high / extreme
+  return `<span class="rm-badge ${level}">${label}</span>`;
+}
+// dot/star 형식 4단계 시각 표시
+function gradeDots(level){
+  const fillCount = { safe:4, moderate:3, caution:2, high:1, extreme:0 }[level] ?? 0;
+  let html = '';
+  for (let i=0;i<4;i++){
+    html += `<span class="rm-dot ${i<fillCount?level:''}"></span>`;
+  }
+  return `<span class="rm-dots">${html}</span>`;
+}
+
 function renderAdvanced(){
   const A = ADVANCED || {};
   const empty = !ITEMS.length;
-  const dash = '--';
+  const isKO = CURRENT_LANG !== 'en';
 
-  const setVal = (id, val, color) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = empty ? dash : val;
-    if (color) el.style.color = color;
-    else el.style.color = '';
+  const setRow = (id, val, hint, gradeId, badge, valIsHTML) => {
+    const valEl = document.getElementById(id);
+    const hintEl = document.getElementById(id + 'Hint');
+    const gradeEl = gradeId ? document.getElementById(gradeId) : null;
+    if (valEl) {
+      if (valIsHTML) valEl.innerHTML = val;
+      else valEl.textContent = val;
+    }
+    if (hintEl) hintEl.textContent = hint || '';
+    if (gradeEl) gradeEl.innerHTML = badge || '';
   };
 
-  // VaR/CVaR — 손실은 항상 음수로 표시
-  const varText  = !empty && A.var95  ? '-' + Math.round(A.var95).toLocaleString()  : dash;
-  const cvarText = !empty && A.cvar95 ? '-' + Math.round(A.cvar95).toLocaleString() : dash;
-  setVal('mVaR',  varText,  empty ? '' : 'var(--high)');
-  setVal('mCVaR', cvarText, empty ? '' : 'var(--high)');
+  if (empty){
+    ['mVaR','mCVaR','mSharpe','mSortino','mDR','mPortVol','mDividend'].forEach(id=>{
+      const el = document.getElementById(id);
+      if (el) el.textContent = '--';
+      const hint = document.getElementById(id+'Hint');
+      if (hint) hint.textContent = isKO ? '종목을 추가하세요' : 'Add holdings';
+    });
+    ['mVaRGrade','mSharpeGrade','mSortinoGrade','mDRGrade','mPortVolGrade'].forEach(id=>{
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = '';
+    });
+    return;
+  }
 
-  // Sharpe — > 1 좋음, 0 ~ 1 보통, < 0 나쁨
+  const totalValue = A.totalValue || 0;
+
+  // KR 보조 단위는 작고 흐리게 분리 표시
+  const krSpan = (amt) => (isKO && amt >= 10000) ? ` <span class="rm-sub">${formatKRWUnit(amt)}</span>` : '';
+
+  // ── 1. VaR — 1일 최대 손실 (95%) ──
+  const var95 = A.var95 || 0;
+  const varPct = totalValue > 0 ? var95 / totalValue : 0;
+  const varAmt = Math.round(var95);
+  const varGrade = varPct < 0.015 ? 'safe' : varPct < 0.025 ? 'moderate' : varPct < 0.04 ? 'caution' : 'high';
+  const varHint = isKO
+    ? `20거래일 중 19일은 손실이 이 금액보다 적거나 오히려 이익. 1일 정도는 이보다 더 잃을 수 있음.`
+    : `On 19 of every 20 trading days, losses stay below this. But ~1 day in 20 will be worse.`;
+  setRow('mVaR', '−' + varAmt.toLocaleString() + krSpan(varAmt), varHint, 'mVaRGrade',
+    gradeBadge(isKO ? ({safe:'안정', moderate:'보통', caution:'주의', high:'위험'}[varGrade]) :
+                       ({safe:'STABLE', moderate:'NORMAL', caution:'CAUTION', high:'RISKY'}[varGrade]), varGrade), true);
+
+  // ── 2. CVaR — 최악 5% 평균 손실 ──
+  const cvar95 = A.cvar95 || 0;
+  const cvarAmt = Math.round(cvar95);
+  const cvarHint = isKO
+    ? `정말 안 좋은 날(20일 중 가장 안 좋은 1일)에는 평균 ${cvarAmt.toLocaleString()}원 정도 잃을 수 있어요.`
+    : `On the very worst day out of 20, you'd lose around ${cvarAmt.toLocaleString()} on average.`;
+  setRow('mCVaR', '−' + cvarAmt.toLocaleString() + krSpan(cvarAmt), cvarHint, null, '', true);
+
+  // ── 3. Sharpe — 위험 대비 수익 효율 (쉬운 언어) ──
+  // 비유: "은행 적금보다 얼마나 더 효율적으로 돈을 버는지"
   const sharpe = A.sharpe || 0;
-  const sharpeColor = empty ? '' : (sharpe > 1 ? 'var(--safe)' : sharpe > 0.5 ? 'var(--moderate)' : sharpe > 0 ? 'var(--caution)' : 'var(--high)');
-  setVal('mSharpe', empty ? dash : fmtSignedNum(sharpe), sharpeColor);
+  const sharpeGrade = sharpe > 1 ? 'safe' : sharpe > 0.5 ? 'moderate' : sharpe > 0 ? 'caution' : 'high';
+  const sharpeHint = isKO
+    ? (sharpe > 1 ? `값이 클수록 좋아요. 1보다 크면 위험을 감수한 보람이 충분히 있는 수준이에요.` :
+       sharpe > 0.5 ? `값이 클수록 좋아요. 0.5~1은 평균적인 수준 — 무난해요.` :
+       sharpe > 0  ? `값이 작아요. 위험을 감수한 만큼 충분히 벌고 있지 못해요.` :
+                     `값이 0보다 작아요. 차라리 적금이 나을 수 있는 상태예요.`)
+    : (sharpe > 1 ? `Higher is better. Above 1 means good payoff for the risk.` :
+       sharpe > 0.5 ? `Higher is better. 0.5–1.0 is average.` :
+       sharpe > 0  ? `Low — return doesn't justify the risk well.` :
+                     `Below 0 — a savings account would do better.`);
+  const sharpeBadge = isKO
+    ? ({safe:'⭐ 우수', moderate:'⭐ 양호', caution:'△ 부족', high:'✕ 비효율'}[sharpeGrade])
+    : ({safe:'⭐ STRONG', moderate:'⭐ OK', caution:'△ WEAK', high:'✕ POOR'}[sharpeGrade]);
+  setRow('mSharpe', sharpe.toFixed(2), sharpeHint, 'mSharpeGrade', gradeBadge(sharpeBadge, sharpeGrade));
 
-  // Sortino — > 1 좋음, > 2 매우 좋음
+  // ── 4. Sortino — 하락 위험만 따진 효율 ──
+  // 비유: "오를 때는 신경쓰지 말고, 떨어질 때만 보자"
   const sortino = A.sortino || 0;
-  const sortinoColor = empty ? '' : (sortino > 2 ? 'var(--safe)' : sortino > 1 ? 'var(--moderate)' : sortino > 0 ? 'var(--caution)' : 'var(--high)');
-  setVal('mSortino', empty ? dash : fmtSignedNum(sortino), sortinoColor);
+  const sortinoGrade = sortino > 2 ? 'safe' : sortino > 1 ? 'moderate' : sortino > 0 ? 'caution' : 'high';
+  const sortinoHint = isKO
+    ? (sortino > 2 ? '값이 클수록 좋아요. 떨어질 위험만 따져도 수익이 매우 좋은 편이에요.' :
+       sortino > 1 ? '값이 클수록 좋아요. 1을 넘으면 하락 위험에 비해 수익이 괜찮은 편.' :
+       sortino > 0 ? '값이 작아요. 떨어질 위험에 비해 버는 게 적어요.' :
+                    '값이 0보다 작아요. 손실 위험에 비해 수익이 부족해요.')
+    : (sortino > 2 ? 'Higher is better. Strong even when only counting drops.' :
+       sortino > 1 ? 'Higher is better. Above 1 = decent for downside risk.' :
+       sortino > 0 ? 'Low for the downside risk taken.' :
+                    'Below 0 — losing more than the downside risk justifies.');
+  const sortinoBadge = isKO
+    ? ({safe:'⭐ 우수', moderate:'⭐ 양호', caution:'△ 부족', high:'✕ 비효율'}[sortinoGrade])
+    : ({safe:'⭐ STRONG', moderate:'⭐ OK', caution:'△ WEAK', high:'✕ POOR'}[sortinoGrade]);
+  setRow('mSortino', sortino.toFixed(2), sortinoHint, 'mSortinoGrade', gradeBadge(sortinoBadge, sortinoGrade));
 
-  // DR — 1.0 = 분산효과 없음, > 1.3 좋음
-  const drVal = A.dr || 1;
+  // ── 5. 분산효과 (Diversification Ratio) ──
+  const dr = A.dr || 1;
   const reduction = (A.riskReduction || 0) * 100;
-  const drText = empty ? dash : `${reduction.toFixed(1)}% ↓ (DR ${drVal.toFixed(2)})`;
-  const drColor = empty ? '' : (reduction > 25 ? 'var(--safe)' : reduction > 12 ? 'var(--moderate)' : 'var(--text-1)');
-  setVal('mDR', drText, drColor);
+  const drGrade = reduction > 25 ? 'safe' : reduction > 12 ? 'moderate' : reduction > 5 ? 'caution' : 'high';
+  const drHint = isKO
+    ? `종목들을 따로 들 때보다 합쳐 들면 위험이 ${reduction.toFixed(1)}% 줄어듦. ${
+        drGrade === 'safe' ? '분산투자 잘 작동 중.' :
+        drGrade === 'moderate' ? '분산은 되고 있음.' :
+        drGrade === 'caution' ? '비슷한 종목들이 많음.' :
+                                 '거의 한 곳에 몰려있음.'}`
+    : `Risk is ${reduction.toFixed(1)}% lower than holding each stock alone. ${
+        drGrade === 'safe' ? 'Excellent diversification.' :
+        drGrade === 'moderate' ? 'OK diversification.' :
+        drGrade === 'caution' ? 'Holdings are too similar.' :
+                                 'Highly concentrated.'}`;
+  const drBadge = isKO
+    ? ({safe:'⭐ 잘 분산됨', moderate:'⭐ 양호', caution:'△ 보통', high:'✕ 편중'}[drGrade])
+    : ({safe:'⭐ DIVERSIFIED', moderate:'⭐ OK', caution:'△ FAIR', high:'✕ CONCENTRATED'}[drGrade]);
+  setRow('mDR', `${reduction.toFixed(1)}%↓`, drHint, 'mDRGrade', gradeBadge(drBadge, drGrade));
 
-  // 포트폴리오 변동성 — 연환산
+  // ── 6. 변동성 — 연 σ ──
   const volPct = (A.portVol || 0) * 100;
-  setVal('mPortVol', empty ? dash : `${volPct.toFixed(1)}% (연)`,
-    empty ? '' : (volPct < 15 ? 'var(--safe)' : volPct < 25 ? 'var(--moderate)' : volPct < 35 ? 'var(--caution)' : 'var(--high)'));
+  const volGrade = volPct < 15 ? 'safe' : volPct < 25 ? 'moderate' : volPct < 35 ? 'caution' : 'high';
+  const volHint = isKO
+    ? (volPct < 15 ? '주가가 잔잔. 채권 같은 안정형.' :
+       volPct < 25 ? '시장 평균 수준의 흔들림.' :
+       volPct < 35 ? '꽤 출렁임. 성장주 비중 큼.' :
+                    '매우 격렬. 단기 손실 클 수 있음.')
+    : (volPct < 15 ? 'Calm — bond-like.' :
+       volPct < 25 ? 'Average market volatility.' :
+       volPct < 35 ? 'Choppy — growth-heavy.' :
+                    'Wild — large short-term swings possible.');
+  const volBadge = isKO
+    ? ({safe:'잔잔', moderate:'보통', caution:'들썩', high:'격렬'}[volGrade])
+    : ({safe:'CALM', moderate:'NORMAL', caution:'CHOPPY', high:'WILD'}[volGrade]);
+  setRow('mPortVol', `${volPct.toFixed(1)}%`, volHint, 'mPortVolGrade', gradeBadge(volBadge, volGrade));
 
-  // 배당 — 0 이면 행 자체 숨김
+  // ── 7. 배당 ──
   const divRow = document.getElementById('dividendRow');
   if (divRow){
-    if (!empty && A.annualDividend > 0){
+    if (A.annualDividend > 0){
       divRow.style.display = '';
       const yieldPct = (A.dividendYieldPort || 0) * 100;
-      const annualText = Math.round(A.annualDividend).toLocaleString();
-      const krSuffix = CURRENT_LANG === 'ko' && A.annualDividend >= 10000 ? ` (${formatKRWUnit(A.annualDividend)})` : '';
-      setVal('mDividend', `${annualText}${krSuffix} · ${yieldPct.toFixed(2)}%`, 'var(--safe)');
+      const annual = Math.round(A.annualDividend);
+      const monthly = Math.round(annual / 12);
+      const divHint = isKO
+        ? `연 ${yieldPct.toFixed(2)}% 배당. 월 평균 약 ${monthly.toLocaleString()}원 입금 추정.`
+        : `${yieldPct.toFixed(2)}% annual yield. About ${monthly.toLocaleString()}/month estimated.`;
+      setRow('mDividend', `+${annual.toLocaleString()}${krSpan(annual)}`, divHint, null, '', true);
     } else {
       divRow.style.display = 'none';
     }
   }
 }
 
-let CURRENT_STRESS = null;
 function applyStressVisuals(){
   if (typeof nodeMeshes === 'undefined' || !nodeMeshes) return;
   if (!CURRENT_STRESS){
@@ -1868,26 +2197,94 @@ function renderStress(){
   const descKey  = CURRENT_LANG === 'en' ? 'desc_en'  : 'desc_ko';
   const yearMap  = { gfc2008:'2008', covid2020:'2020', inflation2022:'2022', dotcom2000:'2000' };
 
-  cont.innerHTML = Object.entries(STRESS_SCENARIOS).map(([k, scn]) => `
+  // 사전 시나리오 4개 + 커스텀 1개
+  const presetButtons = Object.entries(STRESS_SCENARIOS).map(([k, scn]) => `
     <button class="stress-btn ${CURRENT_STRESS===k?'active':''}" data-key="${k}">
       <div class="stress-btn-year">${yearMap[k] || ''}</div>
       <div>${scn[labelKey].replace(/^\d{4}\s*/, '')}</div>
     </button>
   `).join('');
+  const customLabel = CURRENT_LANG==='en' ? 'Custom Scenario' : '커스텀 시나리오';
+  const customCount = SELECTED_MACROS.size;
+  const customBtn = `
+    <button class="stress-btn ${CURRENT_STRESS==='custom'?'active':''}" data-key="custom" style="grid-column: 1 / -1;">
+      <div class="stress-btn-year">${CURRENT_LANG==='en'?'BUILD':'직접 조합'} ${customCount>0?`· ${customCount}`:''}</div>
+      <div>${customLabel}</div>
+    </button>
+  `;
+  cont.innerHTML = presetButtons + customBtn;
+
   cont.querySelectorAll('.stress-btn').forEach(b => {
     b.addEventListener('click', () => {
-      CURRENT_STRESS = (CURRENT_STRESS === b.dataset.key) ? null : b.dataset.key;
+      const key = b.dataset.key;
+      CURRENT_STRESS = (CURRENT_STRESS === key) ? null : key;
+      if (CURRENT_STRESS === 'custom') rebuildCustomScenario();
       renderStress();
       applyStressVisuals();
     });
   });
 
+  // 커스텀 시나리오 모드 — 매크로 인자 (축 단위 그룹)
+  let macroPicker = '';
+  if (CURRENT_STRESS === 'custom'){
+    const isEN = CURRENT_LANG === 'en';
+    const axesHtml = MACRO_AXES.map(axis => {
+      const opts = axis.options.map(key => {
+        const f = MACRO_FACTORS[key];
+        if (!f) return '';
+        const lbl = isEN ? f.label_en : f.label_ko;
+        const isOn = SELECTED_MACROS.has(key);
+        return `
+          <button class="macro-opt ${isOn?'on':''}" data-macro="${key}" type="button" title="${isEN?f.desc_en:f.desc_ko}">
+            <span class="macro-opt-mark">${isOn?'●':'○'}</span>${lbl}
+          </button>
+        `;
+      }).join('');
+      const axisLbl = isEN ? axis.label_en : axis.label_ko;
+      // 활성 옵션의 desc 표시
+      const activeKey = axis.options.find(k => SELECTED_MACROS.has(k));
+      const activeDesc = activeKey ? (isEN ? MACRO_FACTORS[activeKey].desc_en : MACRO_FACTORS[activeKey].desc_ko) : '';
+      return `
+        <div class="macro-axis ${activeKey?'has-active':''}">
+          <div class="macro-axis-label">${axisLbl}</div>
+          <div class="macro-axis-opts">${opts}</div>
+          ${activeDesc ? `<div class="macro-axis-desc">${activeDesc}</div>` : ''}
+        </div>
+      `;
+    }).join('');
+    const titleText = isEN
+      ? `Pick macro views — combine multiple axes`
+      : `매크로 시나리오 — 축별로 한 가지씩 선택`;
+    const helpText = isEN
+      ? `Each row is mutually exclusive. Skip a row to leave it neutral.`
+      : `같은 축의 옵션끼리는 양립 불가. 비워두면 그 축은 "중립".`;
+    const resetBtn = SELECTED_MACROS.size > 0 ? `<button class="macro-reset" type="button">${isEN?'Clear':'전체 해제'}</button>` : '';
+    macroPicker = `
+      <div class="macro-picker">
+        <div class="macro-picker-head">
+          <div>
+            <div class="macro-picker-title">${titleText}</div>
+            <div class="macro-picker-help">${helpText}</div>
+          </div>
+          ${resetBtn}
+        </div>
+        <div class="macro-axes">${axesHtml}</div>
+      </div>
+    `;
+  }
+
   if (!CURRENT_STRESS || !ITEMS.length){
-    result.innerHTML = `<div class="stress-empty">${ITEMS.length ? t('stressTestEmpty') : (CURRENT_LANG==='en'?'Add holdings to run scenarios':'종목을 추가하면 시나리오를 실행할 수 있습니다')}</div>`;
+    result.innerHTML = (macroPicker || '') + `<div class="stress-empty">${ITEMS.length ? t('stressTestEmpty') : (CURRENT_LANG==='en'?'Add holdings to run scenarios':'종목을 추가하면 시나리오를 실행할 수 있습니다')}</div>`;
+    bindMacroChips();
+    return;
+  }
+  if (CURRENT_STRESS === 'custom' && SELECTED_MACROS.size === 0){
+    result.innerHTML = macroPicker + `<div class="stress-empty">${CURRENT_LANG==='en'?'Select one or more macro factors above':'위에서 매크로 인자를 1개 이상 선택하세요'}</div>`;
+    bindMacroChips();
     return;
   }
   const r = computeStressTest(ITEMS, CURRENT_STRESS);
-  if (!r){ result.innerHTML = ''; return; }
+  if (!r){ result.innerHTML = macroPicker || ''; bindMacroChips(); return; }
 
   const isGain = r.portLoss >= 0;
   const sign = isGain ? '+' : '-';
@@ -1897,19 +2294,22 @@ function renderStress(){
   // 종목별 손익 — 손실 큰 순으로 정렬
   const rows = [...r.breakdown].sort((a,b)=>a.loss-b.loss).slice(0,10);
 
-  result.innerHTML = `
+  result.innerHTML = (macroPicker || '') + `
     <div class="stress-headline">
       <div class="stress-headline-loss ${isGain?'gain':''}">${sign}${lossAbs.toLocaleString()}</div>
       <div class="stress-headline-pct">${(r.portLossPct * 100).toFixed(1)}%</div>
       ${krSuffix}
+      <div class="stress-period">📅 ${r.scenario.period} · ${r.scenario.benchmark}</div>
       <div class="stress-headline-desc">${r.scenario[descKey]}</div>
+      <div class="stress-source">${CURRENT_LANG==='en'?'Source':'출처'}: ${r.scenario.source}</div>
     </div>
     <div class="stress-rows">
       ${rows.map(b => {
         const up = b.shock > 0;
+        const betaTag = b.beta ? `<span class="stress-row-beta" title="베타 ${b.beta.toFixed(2)}">β${b.beta.toFixed(1)}</span>` : '';
         return `
           <div class="stress-row">
-            <span class="stress-row-name" title="${b.name}">${b.name}</span>
+            <span class="stress-row-name" title="${b.name} · 섹터 ${(b.sectorShock*100).toFixed(0)}% × β${b.beta?b.beta.toFixed(2):'1.0'}">${b.name} ${betaTag}</span>
             <span class="stress-row-shock ${up?'up':'down'}">${(b.shock*100).toFixed(0)}%</span>
             <span class="stress-row-loss ${up?'up':'down'}">${b.loss>=0?'+':'-'}${Math.round(Math.abs(b.loss)).toLocaleString()}</span>
           </div>
@@ -1917,6 +2317,29 @@ function renderStress(){
       }).join('')}
     </div>
   `;
+  bindMacroChips();
+}
+
+function bindMacroChips(){
+  document.querySelectorAll('.macro-opt').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      toggleMacro(btn.dataset.macro);
+      rebuildCustomScenario();
+      renderStress();
+      applyStressVisuals();
+    });
+  });
+  const reset = document.querySelector('.macro-reset');
+  if (reset){
+    reset.addEventListener('click', e => {
+      e.preventDefault();
+      SELECTED_MACROS.clear();
+      rebuildCustomScenario();
+      renderStress();
+      applyStressVisuals();
+    });
+  }
 }
 
 function renderInsights(){
@@ -3795,52 +4218,211 @@ document.body.addEventListener('click', e => {
 // =========================================================
 // 모바일 바텀 네비 — Smooth scroll quick-jump
 // =========================================================
+// =========================================================
+// 우측 패널 탭 — Balance 항상 표시 + 탭 전환
+// =========================================================
+// =========================================================
+// 좌·우 패널 드래그 리사이즈
+// =========================================================
+(function setupResize(){
+  const STORAGE = 'sphere_panel_widths_v1';
+  const MIN_W = 240, MAX_VW = 0.5;   // min 240px, max 50% viewport
+  const root = document.documentElement;
+
+  // 저장된 너비 복원
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE) || '{}');
+    if (saved.left  && saved.left  >= MIN_W) root.style.setProperty('--left-w',  saved.left  + 'px');
+    if (saved.right && saved.right >= MIN_W) root.style.setProperty('--right-w', saved.right + 'px');
+  } catch(e){}
+
+  function saveWidths(){
+    const left  = parseInt(getComputedStyle(root).getPropertyValue('--left-w'),  10) || 320;
+    const right = parseInt(getComputedStyle(root).getPropertyValue('--right-w'), 10) || 360;
+    try { localStorage.setItem(STORAGE, JSON.stringify({ left, right })); } catch(e){}
+  }
+
+  function bindHandle(el, side){
+    if (!el) return;
+    let dragging = false;
+    let startX = 0;
+    let startW = 0;
+
+    function start(clientX){
+      if (window.innerWidth <= 768) return;   // 모바일 비활성
+      dragging = true;
+      startX = clientX;
+      const cur = getComputedStyle(root).getPropertyValue(side === 'left' ? '--left-w' : '--right-w');
+      startW = parseInt(cur, 10) || (side === 'left' ? 320 : 360);
+      document.body.classList.add('is-resizing');
+      el.classList.add('active');
+    }
+    function move(clientX){
+      if (!dragging) return;
+      const dx = clientX - startX;
+      const maxW = window.innerWidth * MAX_VW;
+      const newW = side === 'left'
+        ? Math.max(MIN_W, Math.min(maxW, startW + dx))
+        : Math.max(MIN_W, Math.min(maxW, startW - dx));
+      root.style.setProperty(side === 'left' ? '--left-w' : '--right-w', newW + 'px');
+    }
+    function end(){
+      if (!dragging) return;
+      dragging = false;
+      document.body.classList.remove('is-resizing');
+      el.classList.remove('active');
+      saveWidths();
+      // canvas 재계산
+      if (typeof onResize === 'function') onResize();
+    }
+
+    el.addEventListener('mousedown', e => { e.preventDefault(); start(e.clientX); });
+    window.addEventListener('mousemove', e => move(e.clientX));
+    window.addEventListener('mouseup', end);
+
+    // 더블클릭으로 기본 너비 복원
+    el.addEventListener('dblclick', () => {
+      root.style.setProperty(side === 'left' ? '--left-w' : '--right-w', side === 'left' ? '320px' : '360px');
+      saveWidths();
+      if (typeof onResize === 'function') onResize();
+    });
+
+    // 터치 (태블릿용 — 모바일에선 어차피 숨김)
+    el.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      start(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchmove', e => {
+      if (!dragging || e.touches.length !== 1) return;
+      e.preventDefault();
+      move(e.touches[0].clientX);
+    }, { passive: false });
+    window.addEventListener('touchend', end, { passive: true });
+  }
+
+  bindHandle(document.getElementById('resizeLeft'),  'left');
+  bindHandle(document.getElementById('resizeRight'), 'right');
+})();
+
+(function setupRightTabs(){
+  const tabs = document.querySelectorAll('#rpTabs .rp-tab');
+  const panes = document.querySelectorAll('.rp-pane');
+  if (!tabs.length || !panes.length) return;
+
+  function activate(name){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    panes.forEach(p => p.classList.toggle('active', p.dataset.pane === name));
+  }
+  tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.tab)));
+
+  // 종목 클릭 시 자동으로 종목상세 탭 열기
+  window.openDetailTab = () => activate('detail');
+  // Insights에 새 알림 발생 시 인사이트 탭 강조 (선택적 향후)
+})();
+
+// =========================================================
+// 테마 토글 — Light / Dark
+// =========================================================
+(function setupTheme(){
+  const btn = document.getElementById('themeToggle');
+  const STORAGE = 'sphere_theme_v1';
+  const root = document.documentElement;
+  function apply(theme){
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    if (btn) btn.textContent = theme === 'light' ? '☀' : '🌙';
+    try { localStorage.setItem(STORAGE, theme); } catch(e){}
+  }
+  // 초기 — localStorage > prefers-color-scheme
+  let saved = null;
+  try { saved = localStorage.getItem(STORAGE); } catch(e){}
+  const sysLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  apply(saved || (sysLight ? 'light' : 'dark'));
+  if (btn){
+    btn.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      apply(cur === 'light' ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 모바일 검색 드롭다운 — 바텀 네비 위에서 멈추도록 max-height 동적 계산
+(function setupMobileSearchDropdown(){
+  const input = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+  if (!input || !results) return;
+
+  function recalc(){
+    if (window.innerWidth > 768) return;
+    const rect = input.getBoundingClientRect();
+    const navH = (document.querySelector('.bottom-nav')?.offsetHeight || 60);
+    const buffer = 16;
+    // 입력창 하단부터 바텀 네비 위까지의 공간
+    const space = window.innerHeight - rect.bottom - navH - buffer;
+    document.documentElement.style.setProperty('--mobile-dd-max', Math.max(180, space) + 'px');
+  }
+  input.addEventListener('focus', () => setTimeout(recalc, 100));
+  input.addEventListener('input', recalc);
+  window.addEventListener('resize', recalc);
+  window.addEventListener('scroll', recalc, { passive: true });
+  recalc();
+})();
+
+// 검색 칩 클릭 후 포커스 흔적 제거 (sticky outline 방지)
+document.addEventListener('click', e => {
+  const tag = e.target.closest('.search-tag, .sr-hashtag-suggestion');
+  if (tag) setTimeout(() => tag.blur(), 50);
+});
+
+// 모바일 FAB — 검색 섹션으로 전환 + input focus
+(function setupFabSearch(){
+  const fab = document.getElementById('fabSearch');
+  const input = document.getElementById('searchInput');
+  if (!fab || !input) return;
+  fab.addEventListener('click', () => {
+    if (typeof setMobileSection === 'function') setMobileSection('search');
+    setTimeout(() => input.focus(), 360);
+  });
+})();
+
+// 모바일 섹션 시스템 — 바텀 네비가 활성 섹션 토글
+const M_SECTIONS = ['search','holdings','metrics','insights'];
+function setMobileSection(name){
+  if (!M_SECTIONS.includes(name)) return;
+  M_SECTIONS.forEach(s => document.body.classList.remove('m-section-' + s));
+  document.body.classList.add('m-section-' + name);
+  document.querySelectorAll('#bottomNav .bottom-nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.section === name);
+  });
+  // 스크롤 맨 위로 (sphere 보이게)
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.setMobileSection = setMobileSection;
+
 (function setupBottomNav(){
   const nav = document.getElementById('bottomNav');
   if (!nav) return;
-  // 데스크탑이면 비활성 (CSS에서 display:none 처리됨)
-  const items = nav.querySelectorAll('.bottom-nav-item');
-
-  function targetEl(key){
-    if (key === 'top') return document.querySelector('header');
-    if (key === 'rightTop'){
-      // 우측 사이드의 첫 패널(밸런스/메트릭)
-      const right = document.querySelector('aside.right .panel');
-      return right;
-    }
-    return document.getElementById(key);
-  }
-
-  items.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const key = btn.dataset.target;
-      const el = targetEl(key);
-      if (!el) return;
-      // 헤더 sticky 높이 보정
-      const headerH = (document.querySelector('header')?.offsetHeight || 56);
-      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 6;
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      items.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
+  // 이벤트 위임 — 더 견고함
+  nav.addEventListener('click', e => {
+    const btn = e.target.closest('.bottom-nav-item');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const sec = btn.dataset.section;
+    console.log('[SPHERE] bottom-nav click →', sec);
+    if (sec) setMobileSection(sec);
   });
-
-  // 스크롤에 따라 active 갱신 — IntersectionObserver
-  const obsMap = new Map();
-  items.forEach(btn => obsMap.set(btn.dataset.target, btn));
-  const allTargets = ['searchPanel', 'holdingsList', 'insights'];
-  allTargets.forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.isIntersecting && en.intersectionRatio > 0.3){
-          items.forEach(b => b.classList.remove('active'));
-          obsMap.get(id)?.classList.add('active');
-        }
-      });
-    }, { threshold: [0.3] });
-    io.observe(el);
+  // 초기 섹션 — metrics
+  if (window.innerWidth <= 768){
+    setMobileSection('metrics');
+  }
+  // 화면 리사이즈 — 데스크탑으로 넘어가면 모든 m-section 클래스 제거
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768){
+      M_SECTIONS.forEach(s => document.body.classList.remove('m-section-' + s));
+    } else if (!M_SECTIONS.some(s => document.body.classList.contains('m-section-' + s))){
+      setMobileSection('metrics');
+    }
   });
 })();
 

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPHERE — 포트폴리오 리스크 구체 분석기</title>
-<link rel="stylesheet" href="css/styles.css?v=1.3.0"></head>
+<link rel="stylesheet" href="css/styles.css?v=1.9.0"></head>
 <body>
 <button class="panel-toggle left" id="leftPanelToggle" data-i18n-title="leftToggleTitle" title="좌측 패널 접기/펼치기" aria-label="좌측 패널 토글"></button>
 <button class="panel-toggle right" id="rightPanelToggle" data-i18n-title="rightToggleTitle" title="우측 패널 접기/펼치기" aria-label="우측 패널 토글"></button>
+<div class="resize-handle left" id="resizeLeft" data-side="left" aria-label="좌측 패널 너비 조절" title="드래그해서 너비 조절"></div>
+<div class="resize-handle right" id="resizeRight" data-side="right" aria-label="우측 패널 너비 조절" title="드래그해서 너비 조절"></div>
 
 <div id="app">
   <header>
@@ -13,6 +15,7 @@
       <span>SPHERE</span>
       <span class="logo-sub" data-i18n="logoSub" style="color:var(--text-2); font-weight:300; letter-spacing:1px; font-size: 12px; margin-left:6px;">PORTFOLIO RISK SPHERE</span>
       <span class="about-icon" id="aboutIcon" data-i18n-title="aboutTitle" title="이용 약관 / 면책 고지">ⓘ</span>
+      <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" title="라이트/다크 모드 전환">🌙</button>
       <div class="lang-switch" id="langSwitch">
         <button data-lang="ko">한국어</button>
         <button data-lang="en">English</button>
@@ -42,7 +45,7 @@
   </header>
 
   <aside class="left">
-    <div class="panel" id="searchPanel">
+    <div class="panel" id="searchPanel" data-m-section="search">
       <div class="panel-title">
         <span data-i18n="addAsset">Add Asset</span>
         <span class="badge" data-i18n="searchBadge">SEARCH</span>
@@ -55,7 +58,7 @@
       <div class="search-tags" id="searchTags"></div>
     </div>
 
-    <div class="panel">
+    <div class="panel" data-m-section="holdings">
       <div class="panel-title">
         <span data-i18n="holdings">Holdings</span>
         <span class="badge" id="holdingCount">0</span>
@@ -71,12 +74,12 @@
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel" data-m-section="holdings">
       <div class="panel-title"><span data-i18n="sectorAllocation">Sector Allocation</span></div>
       <div class="sector-bars" id="sectorBars"></div>
     </div>
 
-    <div class="panel">
+    <div class="panel" data-m-section="holdings">
       <div class="panel-title"><span data-i18n="riskDistribution">Risk Distribution</span></div>
       <div id="riskDist"></div>
     </div>
@@ -120,6 +123,12 @@
         <div style="font-size: 11px; color:var(--text-2); margin-top:4px;" data-i18n="perfectSphere">100 = perfect sphere</div>
       </div>
 
+      <!-- 캔버스 우측 하단 — 상관관계 네트워크 토글 (구체 위 오버레이) -->
+      <button class="canvas-toggle network-toggle" id="btnNetwork" data-mode="network" aria-label="상관관계 네트워크" data-i18n-title="netLegendTitle" title="상관관계 네트워크">
+        <span class="ct-icon">⌬</span>
+        <span class="ct-label" data-i18n="btnNetwork">NETWORK</span>
+      </button>
+
       <div class="alert-banner" id="alertBanner">
         <span style="font-size:14px;">⚠</span>
         <span id="alertText">집중 위험 감지</span>
@@ -138,20 +147,19 @@
     </div>
     <div class="tooltip" id="tooltip"></div>
     </div>
+    <!-- 시각화 조작 — sphere/cluster 뷰 + reset (구체 자체를 조작하는 것만) -->
     <div class="controls-bar">
-      <div class="controls">
+      <div class="view-segment" role="group" aria-label="View mode">
         <button class="ctrl-btn active" data-mode="sphere" data-i18n="btnSphere">SPHERE</button>
         <button class="ctrl-btn" data-mode="cluster" data-i18n="btnCluster">CLUSTER</button>
-        <button class="ctrl-btn" data-mode="rebalance" id="btnRebalance" data-i18n="btnRebalance">REBALANCE</button>
-        <button class="ctrl-btn" data-mode="network" id="btnNetwork" data-i18n="btnNetwork">NETWORK</button>
-        <button class="ctrl-btn" data-mode="reset" data-i18n="btnReset">RESET</button>
       </div>
+      <button class="ctrl-btn ctrl-reset" data-mode="reset" data-i18n="btnReset">RESET</button>
     </div>
   </main>
 
   <aside class="right">
     <div id="normalPanel">
-    <div class="balance-card">
+    <div class="balance-card" data-m-section="metrics">
       <div class="balance-label">
         <span data-i18n="balanceIndex">Balance Index</span>
         <span class="info-icon" data-info="balance" data-i18n-title="balanceFormulaTitle" title="산출 공식 보기">i</span>
@@ -177,43 +185,113 @@
           <span class="val" id="mHHI">--</span>
         </div>
       </div>
+      <!-- Rebalance CTA — Balance card 안에 통합 (별도 모드 진입) -->
+      <button class="balance-cta" data-mode="rebalance" id="btnRebalance" data-i18n="btnRebalance">⟳ 리밸런싱 시뮬레이터</button>
     </div>
 
+    <!-- 우측 패널 탭 네비게이션 (데스크탑 전용 — 모바일은 바텀 네비 사용) -->
+    <div class="rp-tabs" id="rpTabs">
+      <button class="rp-tab active" data-tab="insights"><span data-i18n="tabInsights">인사이트</span></button>
+      <button class="rp-tab" data-tab="risk"><span data-i18n="tabRisk">위험분석</span></button>
+      <button class="rp-tab" data-tab="stress"><span data-i18n="tabStress">스트레스</span></button>
+      <button class="rp-tab" data-tab="detail"><span data-i18n="tabDetail">종목상세</span></button>
+    </div>
+
+    <div class="rp-panes">
+    <!-- TAB: 위험분석 -->
+    <div class="rp-pane" data-pane="risk" data-m-section="metrics">
     <div class="panel">
       <div class="panel-title">
         <span data-i18n="riskMetrics">Risk Metrics</span>
         <span class="badge" data-i18n="riskMetricsBadge">QUANT</span>
       </div>
-      <div class="metric-row">
-        <span class="lbl"><span data-i18n="metricVaR">VaR 95% (1일)</span><span class="info-icon" data-info="var">i</span></span>
-        <span class="val" id="mVaR">--</span>
+
+      <div class="rm-card">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricVaR">최대 일일 손실</span>
+            <span class="rm-tech">VaR 95%<span class="info-icon" data-info="var">i</span></span>
+          </span>
+          <span class="rm-value high" id="mVaR">--</span>
+        </div>
+        <div class="rm-hint" id="mVaRHint">--</div>
+        <div class="rm-grade" id="mVaRGrade"></div>
       </div>
-      <div class="metric-row">
-        <span class="lbl"><span data-i18n="metricCVaR">CVaR 95%</span><span class="info-icon" data-info="cvar">i</span></span>
-        <span class="val" id="mCVaR">--</span>
+
+      <div class="rm-card">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricCVaR">최악의 날 평균 손실</span>
+            <span class="rm-tech">CVaR 95%<span class="info-icon" data-info="cvar">i</span></span>
+          </span>
+          <span class="rm-value high" id="mCVaR">--</span>
+        </div>
+        <div class="rm-hint" id="mCVaRHint">--</div>
       </div>
-      <div class="metric-row">
-        <span class="lbl"><span data-i18n="metricSharpe">Sharpe</span><span class="info-icon" data-info="sharpe">i</span></span>
-        <span class="val" id="mSharpe">--</span>
+
+      <div class="rm-card">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricSharpe">위험 대비 수익 효율</span>
+            <span class="rm-tech">Sharpe<span class="info-icon" data-info="sharpe">i</span></span>
+          </span>
+          <span class="rm-value" id="mSharpe">--</span>
+        </div>
+        <div class="rm-hint" id="mSharpeHint">--</div>
+        <div class="rm-grade" id="mSharpeGrade"></div>
       </div>
-      <div class="metric-row">
-        <span class="lbl"><span data-i18n="metricSortino">Sortino</span><span class="info-icon" data-info="sortino">i</span></span>
-        <span class="val" id="mSortino">--</span>
+
+      <div class="rm-card">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricSortino">하락 위험 대비 효율</span>
+            <span class="rm-tech">Sortino<span class="info-icon" data-info="sortino">i</span></span>
+          </span>
+          <span class="rm-value" id="mSortino">--</span>
+        </div>
+        <div class="rm-hint" id="mSortinoHint">--</div>
+        <div class="rm-grade" id="mSortinoGrade"></div>
       </div>
-      <div class="metric-row">
-        <span class="lbl"><span data-i18n="metricDR">분산효과</span><span class="info-icon" data-info="dr">i</span></span>
-        <span class="val" id="mDR">--</span>
+
+      <div class="rm-card">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricDR">분산투자 효과</span>
+            <span class="rm-tech">DR<span class="info-icon" data-info="dr">i</span></span>
+          </span>
+          <span class="rm-value" id="mDR">--</span>
+        </div>
+        <div class="rm-hint" id="mDRHint">--</div>
+        <div class="rm-grade" id="mDRGrade"></div>
       </div>
-      <div class="metric-row">
-        <span class="lbl"><span data-i18n="metricPortVol">포트폴리오 변동성</span><span class="info-icon" data-info="portVol">i</span></span>
-        <span class="val" id="mPortVol">--</span>
+
+      <div class="rm-card">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricPortVol">주가 흔들림 (연)</span>
+            <span class="rm-tech">σ<span class="info-icon" data-info="portVol">i</span></span>
+          </span>
+          <span class="rm-value" id="mPortVol">--</span>
+        </div>
+        <div class="rm-hint" id="mPortVolHint">--</div>
+        <div class="rm-grade" id="mPortVolGrade"></div>
       </div>
-      <div class="metric-row" id="dividendRow" style="display:none;">
-        <span class="lbl"><span data-i18n="metricDividend">예상 연배당</span><span class="info-icon" data-info="dividend">i</span></span>
-        <span class="val" id="mDividend">--</span>
+
+      <div class="rm-card" id="dividendRow" style="display:none;">
+        <div class="rm-head">
+          <span class="rm-label">
+            <span data-i18n="metricDividend">예상 연배당</span>
+            <span class="rm-tech">Yield<span class="info-icon" data-info="dividend">i</span></span>
+          </span>
+          <span class="rm-value" id="mDividend" style="color:var(--safe);">--</span>
+        </div>
+        <div class="rm-hint" id="mDividendHint">--</div>
       </div>
     </div>
+    </div><!-- /pane:risk -->
 
+    <!-- TAB: 스트레스 -->
+    <div class="rp-pane" data-pane="stress" data-m-section="metrics">
     <div class="panel">
       <div class="panel-title">
         <span data-i18n="stressTest">Stress Test</span>
@@ -222,12 +300,18 @@
       <div class="stress-scenarios" id="stressScenarios"></div>
       <div class="stress-result" id="stressResult"></div>
     </div>
+    </div><!-- /pane:stress -->
 
+    <!-- TAB: 인사이트 (default) -->
+    <div class="rp-pane active" data-pane="insights" data-m-section="insights">
     <div class="panel">
       <div class="panel-title"><span data-i18n="insights">Insights</span><span class="badge" data-i18n="auto">AUTO</span></div>
       <div id="insights"></div>
     </div>
+    </div><!-- /pane:insights -->
 
+    <!-- TAB: 종목상세 -->
+    <div class="rp-pane" data-pane="detail" data-m-section="insights">
     <div class="panel">
       <div class="panel-title"><span data-i18n="selectedAsset">Selected Asset</span></div>
       <div class="stock-detail" id="stockDetail">
@@ -255,6 +339,8 @@
         구체의 노드를 클릭하면<br>상세 정보가 표시됩니다
       </div>
     </div>
+    </div><!-- /pane:detail -->
+    </div><!-- /rp-panes -->
     </div><!-- /normalPanel -->
 
     <div id="rebalancePanel">
@@ -297,29 +383,30 @@
   </div>
 </div>
 
-<!-- 모바일 전용 바텀 네비 — @media (max-width:768px)에서만 표시 -->
-<nav class="bottom-nav" id="bottomNav" role="navigation" aria-label="Quick navigation">
-  <button class="bottom-nav-item" data-target="top" aria-label="Sphere">
-    <span class="bottom-nav-icon">◉</span>
-    <span data-i18n="navSphere">SPHERE</span>
-  </button>
-  <button class="bottom-nav-item" data-target="searchPanel" aria-label="Search">
-    <span class="bottom-nav-icon">⌕</span>
-    <span data-i18n="navSearch">SEARCH</span>
-  </button>
-  <button class="bottom-nav-item" data-target="holdingsList" aria-label="Holdings">
-    <span class="bottom-nav-icon">≡</span>
-    <span data-i18n="navHoldings">HOLDINGS</span>
-  </button>
-  <button class="bottom-nav-item" data-target="rightTop" aria-label="Metrics">
+<!-- 모바일 전용 바텀 네비 — 4개 섹션 (탭 기능 통합) -->
+<nav class="bottom-nav" id="bottomNav" role="navigation" aria-label="Section navigation">
+  <button class="bottom-nav-item active" data-section="metrics" aria-label="Metrics">
     <span class="bottom-nav-icon">▣</span>
     <span data-i18n="navMetrics">METRICS</span>
   </button>
-  <button class="bottom-nav-item" data-target="insights" aria-label="Insights">
+  <button class="bottom-nav-item" data-section="holdings" aria-label="Holdings">
+    <span class="bottom-nav-icon">≡</span>
+    <span data-i18n="navHoldings">HOLDINGS</span>
+  </button>
+  <button class="bottom-nav-item" data-section="insights" aria-label="Insights">
     <span class="bottom-nav-icon">★</span>
     <span data-i18n="navInsights">INSIGHTS</span>
   </button>
+  <button class="bottom-nav-item" data-section="search" aria-label="Search">
+    <span class="bottom-nav-icon">⌕</span>
+    <span data-i18n="navSearch">SEARCH</span>
+  </button>
 </nav>
+
+<!-- 모바일 전용 FAB — 검색 빠른 접근 -->
+<button class="fab-search" id="fabSearch" aria-label="검색" title="종목 검색">
+  <span class="fab-search-icon">+</span>
+</button>
 
 <div class="modal-overlay" id="modal">
   <div class="modal">
@@ -413,5 +500,5 @@
 </div>
 
 <script src="lib/three.min.js"></script>
-<script src="js/app.js?v=1.3.0"></script>
+<script src="js/app.js?v=1.9.0"></script>
 </body></html>
