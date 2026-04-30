@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ko" data-i18n-title-key="appTitle"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPHERE — 포트폴리오 리스크 구체 분석기</title>
-<link rel="stylesheet" href="css/styles.css?v=1.9.0"></head>
+<link rel="stylesheet" href="css/styles.css?v=1.10.2"></head>
 <body>
 <button class="panel-toggle left" id="leftPanelToggle" data-i18n-title="leftToggleTitle" title="좌측 패널 접기/펼치기" aria-label="좌측 패널 토글"></button>
 <button class="panel-toggle right" id="rightPanelToggle" data-i18n-title="rightToggleTitle" title="우측 패널 접기/펼치기" aria-label="우측 패널 토글"></button>
-<div class="resize-handle left" id="resizeLeft" data-side="left" aria-label="좌측 패널 너비 조절" title="드래그해서 너비 조절"></div>
-<div class="resize-handle right" id="resizeRight" data-side="right" aria-label="우측 패널 너비 조절" title="드래그해서 너비 조절"></div>
+<div class="resize-handle left" id="resizeLeft" data-side="left" data-i18n-aria="resizeLeftAria" data-i18n-title="resizeLeftTitle" aria-label="좌측 패널 너비 조절" title="드래그해서 너비 조절"></div>
+<div class="resize-handle right" id="resizeRight" data-side="right" data-i18n-aria="resizeRightAria" data-i18n-title="resizeRightTitle" aria-label="우측 패널 너비 조절" title="드래그해서 너비 조절"></div>
 
 <div id="app">
   <header>
@@ -15,7 +15,7 @@
       <span>SPHERE</span>
       <span class="logo-sub" data-i18n="logoSub" style="color:var(--text-2); font-weight:300; letter-spacing:1px; font-size: 12px; margin-left:6px;">PORTFOLIO RISK SPHERE</span>
       <span class="about-icon" id="aboutIcon" data-i18n-title="aboutTitle" title="이용 약관 / 면책 고지">ⓘ</span>
-      <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" title="라이트/다크 모드 전환">🌙</button>
+      <button class="theme-toggle" id="themeToggle" data-i18n-aria="themeToggleAria" data-i18n-title="themeToggleTitle" aria-label="테마 전환" title="라이트/다크 모드 전환">🌙</button>
       <div class="lang-switch" id="langSwitch">
         <button data-lang="ko">한국어</button>
         <button data-lang="en">English</button>
@@ -124,14 +124,14 @@
       </div>
 
       <!-- 캔버스 우측 하단 — 상관관계 네트워크 토글 (구체 위 오버레이) -->
-      <button class="canvas-toggle network-toggle" id="btnNetwork" data-mode="network" aria-label="상관관계 네트워크" data-i18n-title="netLegendTitle" title="상관관계 네트워크">
+      <button class="canvas-toggle network-toggle" id="btnNetwork" data-mode="network" data-i18n-aria="netToggleAria" data-i18n-title="netLegendTitle" aria-label="상관관계 네트워크" title="상관관계 네트워크">
         <span class="ct-icon">⌬</span>
         <span class="ct-label" data-i18n="btnNetwork">NETWORK</span>
       </button>
 
       <div class="alert-banner" id="alertBanner">
         <span style="font-size:14px;">⚠</span>
-        <span id="alertText">집중 위험 감지</span>
+        <span id="alertText" data-i18n="alertConcentration">집중 위험 감지</span>
       </div>
 
       <div class="rebalance-mode-indicator" id="rbIndicator" data-i18n="rbIndicator">REBALANCE SIMULATION</div>
@@ -404,18 +404,18 @@
 </nav>
 
 <!-- 모바일 전용 FAB — 검색 빠른 접근 -->
-<button class="fab-search" id="fabSearch" aria-label="검색" title="종목 검색">
+<button class="fab-search" id="fabSearch" data-i18n-aria="fabSearchAria" data-i18n-title="fabSearchTitle" aria-label="검색" title="종목 검색">
   <span class="fab-search-icon">+</span>
 </button>
 
 <div class="modal-overlay" id="modal">
   <div class="modal">
-    <h3 id="modalTitle">새 포트폴리오</h3>
-    <p id="modalDesc">포트폴리오 이름을 입력하세요. (1인당 최대 20개)</p>
-    <input type="text" class="modal-input" id="modalInput" placeholder="예: 안정형 포트폴리오" maxlength="30">
+    <h3 id="modalTitle" data-i18n="modalNewPfTitle">새 포트폴리오</h3>
+    <p id="modalDesc" data-i18n="modalNewPfDescDefault">포트폴리오 이름을 입력하세요. (1인당 최대 20개)</p>
+    <input type="text" class="modal-input" id="modalInput" data-i18n-placeholder="modalNewPfPh" placeholder="예: 안정형 포트폴리오" maxlength="30">
     <div class="modal-actions">
-      <button class="pf-btn" id="modalCancel">취소</button>
-      <button class="pf-btn" id="modalOK" style="background:rgba(0,212,255,0.2);">확인</button>
+      <button class="pf-btn" id="modalCancel" data-i18n="modalCancel">취소</button>
+      <button class="pf-btn" id="modalOK" data-i18n="modalOK" style="background:rgba(0,212,255,0.2);">확인</button>
     </div>
   </div>
 </div>
@@ -432,11 +432,11 @@
     <div class="tour-body" id="tourBody"></div>
     <div class="tour-actions">
       <div class="left-actions">
-        <button class="tour-btn" id="tourSkip">건너뛰기</button>
+        <button class="tour-btn" id="tourSkip" data-i18n="tourSkip">건너뛰기</button>
       </div>
       <div class="right-actions">
-        <button class="tour-btn" id="tourPrev">이전</button>
-        <button class="tour-btn primary" id="tourNext">다음</button>
+        <button class="tour-btn" id="tourPrev" data-i18n="tourPrev">이전</button>
+        <button class="tour-btn primary" id="tourNext" data-i18n="tourNext">다음</button>
       </div>
     </div>
   </div>
@@ -445,11 +445,11 @@
 <!-- 커스텀 알림/확인 다이얼로그 (alert·confirm 대체) -->
 <div class="modal-overlay" id="dialogModal">
   <div class="modal">
-    <h3 id="dialogTitle">알림</h3>
+    <h3 id="dialogTitle" data-i18n="dialogAlert">알림</h3>
     <p id="dialogMessage" style="white-space:pre-line; line-height:1.65;"></p>
     <div class="modal-actions">
-      <button class="pf-btn" id="dialogCancel">취소</button>
-      <button class="pf-btn" id="dialogOK" style="background:rgba(0,212,255,0.2);">확인</button>
+      <button class="pf-btn" id="dialogCancel" data-i18n="modalCancel">취소</button>
+      <button class="pf-btn" id="dialogOK" data-i18n="modalOK" style="background:rgba(0,212,255,0.2);">확인</button>
     </div>
   </div>
 </div>
@@ -457,48 +457,48 @@
 <!-- 면책고지 모달 -->
 <div class="modal-overlay" id="aboutModal">
   <div class="modal modal-wide">
-    <h3>SPHERE — 이용 약관 및 면책 고지</h3>
+    <h3 data-i18n="aboutTitleHeader">SPHERE — 이용 약관 및 면책 고지</h3>
     <div class="legal-content">
-      <div class="legal-warning">
+      <div class="legal-warning" data-i18n="aboutLegalWarn">
         ⚠ <strong>본 서비스는 자본시장법상 투자 자문업이 아니며, 어떠한 종목의 매수·매도·보유도 권유하지 않습니다.</strong>
       </div>
 
-      <h4>1. 서비스 목적</h4>
-      <p>SPHERE는 투자 포트폴리오의 리스크 구조를 시각적으로 학습하고 분석하는 <strong>교육·시연 목적의 도구</strong>입니다. 실제 투자 의사결정의 근거로 사용해서는 안 됩니다.</p>
+      <h4 data-i18n="aboutH1">1. 서비스 목적</h4>
+      <p data-i18n="aboutP1">SPHERE는 투자 포트폴리오의 리스크 구조를 시각적으로 학습하고 분석하는 <strong>교육·시연 목적의 도구</strong>입니다. 실제 투자 의사결정의 근거로 사용해서는 안 됩니다.</p>
 
-      <h4>2. 데이터 정확성 및 제한</h4>
-      <p>본 서비스에 표시되는 종목 정보(현재가, 변동성, 베타값, 부채비율, 거래량 등)는 <strong>정적 스냅샷</strong>이며, 실시간 시세가 아닙니다. 실제 시장 가격과 상당한 차이가 있을 수 있습니다. 사용자는 실제 거래 시 반드시 본인의 증권사 시스템 등 공식 출처를 통해 최신 정보를 확인해야 합니다.</p>
+      <h4 data-i18n="aboutH2">2. 데이터 정확성 및 제한</h4>
+      <p data-i18n="aboutP2">본 서비스에 표시되는 종목 정보(현재가, 변동성, 베타값, 부채비율, 거래량 등)는 <strong>정적 스냅샷</strong>이며, 실시간 시세가 아닙니다. 실제 시장 가격과 상당한 차이가 있을 수 있습니다. 사용자는 실제 거래 시 반드시 본인의 증권사 시스템 등 공식 출처를 통해 최신 정보를 확인해야 합니다.</p>
 
-      <h4>3. 분석 결과의 한계</h4>
-      <p>리스크 스코어, 밸런스 지수, 자동 인사이트 등 본 서비스의 모든 분석 결과는 알고리즘이 도출한 <strong>참고용 지표</strong>이며, 미래 수익을 보장하지 않습니다. 분석에 사용되는 변동성·베타·부채비율 등은 과거 데이터 기반이며, 향후 시장 변화를 반영하지 못할 수 있습니다.</p>
+      <h4 data-i18n="aboutH3">3. 분석 결과의 한계</h4>
+      <p data-i18n="aboutP3">리스크 스코어, 밸런스 지수, 자동 인사이트 등 본 서비스의 모든 분석 결과는 알고리즘이 도출한 <strong>참고용 지표</strong>이며, 미래 수익을 보장하지 않습니다. 분석에 사용되는 변동성·베타·부채비율 등은 과거 데이터 기반이며, 향후 시장 변화를 반영하지 못할 수 있습니다.</p>
 
-      <h4>4. 사용자 책임</h4>
-      <p>모든 투자 결정 및 그에 따른 <strong>손익은 전적으로 사용자 본인의 책임</strong>입니다. SPHERE 운영자는 본 서비스의 사용 또는 사용 불가로 인해 발생한 어떠한 직접적·간접적 손실, 일실 이익, 데이터 손상, 명예 훼손에 대해서도 책임지지 않습니다.</p>
+      <h4 data-i18n="aboutH4">4. 사용자 책임</h4>
+      <p data-i18n="aboutP4">모든 투자 결정 및 그에 따른 <strong>손익은 전적으로 사용자 본인의 책임</strong>입니다. SPHERE 운영자는 본 서비스의 사용 또는 사용 불가로 인해 발생한 어떠한 직접적·간접적 손실, 일실 이익, 데이터 손상, 명예 훼손에 대해서도 책임지지 않습니다.</p>
 
-      <h4>5. 개인정보 처리</h4>
-      <p>본 서비스는 사용자 개인정보를 수집·저장·전송하지 않습니다. 사용자가 입력한 포트폴리오 정보(보유 종목·수량 등)는 사용자 브라우저의 localStorage에만 저장되며, 외부 서버로 전송되지 않습니다.</p>
+      <h4 data-i18n="aboutH5">5. 개인정보 처리</h4>
+      <p data-i18n="aboutP5">본 서비스는 사용자 개인정보를 수집·저장·전송하지 않습니다. 사용자가 입력한 포트폴리오 정보(보유 종목·수량 등)는 사용자 브라우저의 localStorage에만 저장되며, 외부 서버로 전송되지 않습니다.</p>
 
-      <h4>6. 저작권 및 상표</h4>
-      <p>본 서비스에 표시되는 종목명·티커·ETF명은 각 발행회사 및 운용사의 등록상표이며, 분석 목적의 <strong>명목적 사용(nominative use)</strong>입니다. 본 서비스는 해당 회사·기관과 어떠한 제휴·후원·인증 관계가 없습니다.</p>
+      <h4 data-i18n="aboutH6">6. 저작권 및 상표</h4>
+      <p data-i18n="aboutP6">본 서비스에 표시되는 종목명·티커·ETF명은 각 발행회사 및 운용사의 등록상표이며, 분석 목적의 <strong>명목적 사용(nominative use)</strong>입니다. 본 서비스는 해당 회사·기관과 어떠한 제휴·후원·인증 관계가 없습니다.</p>
 
-      <h4>7. 외부 라이브러리</h4>
-      <p>본 서비스는 Three.js (MIT License) 그래픽 라이브러리를 사용하여 3D 시각화를 구현합니다. Three.js의 저작권은 Three.js Authors에 있습니다.</p>
+      <h4 data-i18n="aboutH7">7. 외부 라이브러리</h4>
+      <p data-i18n="aboutP7">본 서비스는 Three.js (MIT License) 그래픽 라이브러리를 사용하여 3D 시각화를 구현합니다. Three.js의 저작권은 Three.js Authors에 있습니다.</p>
 
-      <h4>8. 약관 변경</h4>
-      <p>본 약관은 사전 통지 없이 변경될 수 있으며, 변경 사항은 본 페이지에 즉시 반영됩니다. 사용자는 본 서비스를 계속 이용함으로써 변경된 약관에 동의한 것으로 간주됩니다.</p>
+      <h4 data-i18n="aboutH8">8. 약관 변경</h4>
+      <p data-i18n="aboutP8">본 약관은 사전 통지 없이 변경될 수 있으며, 변경 사항은 본 페이지에 즉시 반영됩니다. 사용자는 본 서비스를 계속 이용함으로써 변경된 약관에 동의한 것으로 간주됩니다.</p>
 
-      <div class="legal-meta">
+      <div class="legal-meta" data-i18n="aboutMeta">
         본 서비스를 사용함으로써 위 사항에 모두 동의한 것으로 간주됩니다.<br>
         SPHERE Project · DACON 월간 해커톤 출품작 · 마지막 갱신 2026-04-29
       </div>
     </div>
     <div class="modal-actions">
       <button class="pf-btn" id="aboutReplayTour" data-i18n="tourReplay">사용법 다시보기</button>
-      <button class="pf-btn" id="aboutClose" style="background:rgba(0,212,255,0.2);">확인했습니다</button>
+      <button class="pf-btn" id="aboutClose" data-i18n="aboutAck" style="background:rgba(0,212,255,0.2);">확인했습니다</button>
     </div>
   </div>
 </div>
 
 <script src="lib/three.min.js"></script>
-<script src="js/app.js?v=1.9.0"></script>
+<script src="js/app.js?v=1.10.0"></script>
 </body></html>

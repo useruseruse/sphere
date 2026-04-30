@@ -242,7 +242,44 @@ const I18N = {
     netStrong:'강 ≥ 0.85', netMed:'중 0.70–0.85', netWeak:'약 0.50–0.70',
     netMeta:'섹터 + 베타 + 변동성 기반 추정',
     collapseTitle:'검색창 접기', searchExpand:'종목 검색 열기',
-    leftToggleTitle:'좌측 패널 접기/펼치기', rightToggleTitle:'우측 패널 접기/펼치기'
+    leftToggleTitle:'좌측 패널 접기/펼치기', rightToggleTitle:'우측 패널 접기/펼치기',
+    // 추가 — 정적 HTML 라벨/aria
+    appTitle:'SPHERE — 포트폴리오 리스크 구체 분석기',
+    resizeLeftAria:'좌측 패널 너비 조절', resizeLeftTitle:'드래그해서 너비 조절',
+    resizeRightAria:'우측 패널 너비 조절', resizeRightTitle:'드래그해서 너비 조절',
+    themeToggleAria:'테마 전환', themeToggleTitle:'라이트/다크 모드 전환',
+    fabSearchAria:'검색', fabSearchTitle:'종목 검색',
+    netToggleAria:'상관관계 네트워크',
+    alertConcentration:'집중 위험 감지',
+    selectHint:'구체의 노드를 클릭하면<br>상세 정보가 표시됩니다',
+    modalNewPfDescDefault:'포트폴리오 이름을 입력하세요. (1인당 최대 20개)',
+    aboutTitleHeader:'SPHERE — 이용 약관 및 면책 고지',
+    aboutLegalWarn:'⚠ <strong>본 서비스는 자본시장법상 투자 자문업이 아니며, 어떠한 종목의 매수·매도·보유도 권유하지 않습니다.</strong>',
+    aboutH1:'1. 서비스 목적',
+    aboutP1:'SPHERE는 투자 포트폴리오의 리스크 구조를 시각적으로 학습하고 분석하는 <strong>교육·시연 목적의 도구</strong>입니다. 실제 투자 의사결정의 근거로 사용해서는 안 됩니다.',
+    aboutH2:'2. 데이터 정확성 및 제한',
+    aboutP2:'본 서비스에 표시되는 종목 정보(현재가, 변동성, 베타값, 부채비율, 거래량 등)는 <strong>정적 스냅샷</strong>이며, 실시간 시세가 아닙니다. 실제 시장 가격과 상당한 차이가 있을 수 있습니다. 사용자는 실제 거래 시 반드시 본인의 증권사 시스템 등 공식 출처를 통해 최신 정보를 확인해야 합니다.',
+    aboutH3:'3. 분석 결과의 한계',
+    aboutP3:'리스크 스코어, 밸런스 지수, 자동 인사이트 등 본 서비스의 모든 분석 결과는 알고리즘이 도출한 <strong>참고용 지표</strong>이며, 미래 수익을 보장하지 않습니다. 분석에 사용되는 변동성·베타·부채비율 등은 과거 데이터 기반이며, 향후 시장 변화를 반영하지 못할 수 있습니다.',
+    aboutH4:'4. 사용자 책임',
+    aboutP4:'모든 투자 결정 및 그에 따른 <strong>손익은 전적으로 사용자 본인의 책임</strong>입니다. SPHERE 운영자는 본 서비스의 사용 또는 사용 불가로 인해 발생한 어떠한 직접적·간접적 손실, 일실 이익, 데이터 손상, 명예 훼손에 대해서도 책임지지 않습니다.',
+    aboutH5:'5. 개인정보 처리',
+    aboutP5:'본 서비스는 사용자 개인정보를 수집·저장·전송하지 않습니다. 사용자가 입력한 포트폴리오 정보(보유 종목·수량 등)는 사용자 브라우저의 localStorage에만 저장되며, 외부 서버로 전송되지 않습니다.',
+    aboutH6:'6. 저작권 및 상표',
+    aboutP6:'본 서비스에 표시되는 종목명·티커·ETF명은 각 발행회사 및 운용사의 등록상표이며, 분석 목적의 <strong>명목적 사용(nominative use)</strong>입니다. 본 서비스는 해당 회사·기관과 어떠한 제휴·후원·인증 관계가 없습니다.',
+    aboutH7:'7. 외부 라이브러리',
+    aboutP7:'본 서비스는 Three.js (MIT License) 그래픽 라이브러리를 사용하여 3D 시각화를 구현합니다. Three.js의 저작권은 Three.js Authors에 있습니다.',
+    aboutH8:'8. 약관 변경',
+    aboutP8:'본 약관은 사전 통지 없이 변경될 수 있으며, 변경 사항은 본 페이지에 즉시 반영됩니다. 사용자는 본 서비스를 계속 이용함으로써 변경된 약관에 동의한 것으로 간주됩니다.',
+    aboutMeta:'본 서비스를 사용함으로써 위 사항에 모두 동의한 것으로 간주됩니다.<br>SPHERE Project · DACON 월간 해커톤 출품작 · 마지막 갱신 2026-04-29',
+    aboutAck:'확인했습니다',
+    insightEmptyTitleNoPf:'포트폴리오가 비어있음',
+    insightEmptyBodyNoPf:'좌측 검색창에서 종목을 추가해주세요.',
+    holdingCurrentHint:(q,sign,diff,colorVar)=>`<div class="holding-current-hint">현재 ${q}주 <span style="color:${colorVar}">(${sign}${diff})</span></div>`,
+    addHoldingsShort:'종목을 추가하세요',
+    customScenarioName:'커스텀 시나리오',
+    customScenarioFactors:(n)=>`${n}개 인자 조합`,
+    customScenarioSource:'매크로 영향 행렬 (휴리스틱)'
   },
   en: {
     logoSub:'PORTFOLIO RISK SPHERE', aboutTitle:'Terms / Disclaimer',
@@ -374,7 +411,43 @@ const I18N = {
     netStrong:'High ≥ 0.85', netMed:'Med 0.70–0.85', netWeak:'Low 0.50–0.70',
     netMeta:'Estimated from sector + beta + volatility',
     collapseTitle:'Collapse search', searchExpand:'Open asset search',
-    leftToggleTitle:'Toggle left panel', rightToggleTitle:'Toggle right panel'
+    leftToggleTitle:'Toggle left panel', rightToggleTitle:'Toggle right panel',
+    appTitle:'SPHERE — Portfolio Risk Sphere Analyzer',
+    resizeLeftAria:'Resize left panel', resizeLeftTitle:'Drag to resize',
+    resizeRightAria:'Resize right panel', resizeRightTitle:'Drag to resize',
+    themeToggleAria:'Toggle theme', themeToggleTitle:'Toggle light/dark mode',
+    fabSearchAria:'Search', fabSearchTitle:'Search assets',
+    netToggleAria:'Correlation network',
+    alertConcentration:'Concentration risk detected',
+    selectHint:'Tap a node on the sphere<br>to see asset details',
+    modalNewPfDescDefault:'Enter portfolio name. (Up to 20 per user)',
+    aboutTitleHeader:'SPHERE — Terms & Disclaimer',
+    aboutLegalWarn:'⚠ <strong>This service is not investment advisory under capital markets law and does not solicit the buying, selling, or holding of any specific asset.</strong>',
+    aboutH1:'1. Purpose',
+    aboutP1:'SPHERE is an <strong>educational and demonstration tool</strong> that visualizes and analyzes the risk structure of investment portfolios. It must not be used as the basis for actual investment decisions.',
+    aboutH2:'2. Data accuracy and limitations',
+    aboutP2:'Asset information shown (current price, volatility, beta, debt ratio, volume, etc.) is a <strong>static snapshot</strong>, not real-time market data. Actual market prices may differ significantly. For real trades, always verify the latest information through official sources such as your brokerage system.',
+    aboutH3:'3. Limitations of analysis results',
+    aboutP3:'All analysis output (risk scores, balance index, automated insights) is an <strong>algorithmic reference indicator</strong> and does not guarantee future returns. Inputs (volatility, beta, debt ratio, etc.) are historical and may not reflect future market changes.',
+    aboutH4:'4. User responsibility',
+    aboutP4:'All investment decisions and resulting <strong>gains and losses are solely the user\'s responsibility</strong>. SPHERE operators are not liable for any direct or indirect losses, lost profits, data corruption, or reputational damage arising from use or inability to use this service.',
+    aboutH5:'5. Privacy',
+    aboutP5:'This service does not collect, store, or transmit personal user data. Portfolio information you enter (holdings, quantities) is stored only in your browser\'s localStorage and is never sent to external servers.',
+    aboutH6:'6. Copyright and trademarks',
+    aboutP6:'Asset names, tickers, and ETF names shown are registered trademarks of their respective issuers and operators, used here in <strong>nominative use</strong> for analysis. This service has no affiliation, sponsorship, or endorsement relationship with those companies or institutions.',
+    aboutH7:'7. External libraries',
+    aboutP7:'This service uses the Three.js (MIT License) graphics library for 3D visualization. Three.js copyright belongs to the Three.js Authors.',
+    aboutH8:'8. Changes to terms',
+    aboutP8:'These terms may change without prior notice; changes are reflected on this page immediately. Continued use of this service constitutes agreement to the revised terms.',
+    aboutMeta:'By using this service you are deemed to have agreed to all of the above.<br>SPHERE Project · DACON Monthly Hackathon entry · last updated 2026-04-29',
+    aboutAck:'Acknowledged',
+    insightEmptyTitleNoPf:'Portfolio is empty',
+    insightEmptyBodyNoPf:'Add assets via the search panel on the left.',
+    holdingCurrentHint:(q,sign,diff,colorVar)=>`<div class="holding-current-hint">Currently ${q} sh <span style="color:${colorVar}">(${sign}${diff})</span></div>`,
+    addHoldingsShort:'Add holdings',
+    customScenarioName:'Custom scenario',
+    customScenarioFactors:(n)=>`${n} factors`,
+    customScenarioSource:'Macro factor matrix (heuristic)'
   }
 };
 
@@ -388,7 +461,11 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-title]').forEach(el=>{ el.title = t(el.dataset.i18nTitle); });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{ el.placeholder = t(el.dataset.i18nPlaceholder); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{ el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
   document.querySelectorAll('#langSwitch button').forEach(b=> b.classList.toggle('active', b.dataset.lang===CURRENT_LANG));
+  // <title> 태그 갱신 (i18n 키 'appTitle' 정의 시)
+  const appTitleKey = document.documentElement.dataset.i18nTitleKey;
+  if (appTitleKey) document.title = t(appTitleKey);
 }
 function setLang(lang){
   CURRENT_LANG = lang;
@@ -402,10 +479,24 @@ function getName(asset){
   return asset.name;
 }
 
-// 한국어 단위 변환 — 30,427,000 → "약 3,042만원" / 350,000,000 → "약 3.5억원"
+// 통화 단위 변환 — 한국어: "약 3,042만원" / 영문: "≈ 30.4M KRW"
 function formatKRWUnit(amount){
   amount = Math.round(amount);
   if (amount === 0) return '';
+  if (CURRENT_LANG === 'en'){
+    if (amount >= 1_000_000_000){
+      const b = amount / 1_000_000_000;
+      return `≈ ${b % 1 === 0 ? b : b.toFixed(2)}B KRW`;
+    }
+    if (amount >= 1_000_000){
+      const m = amount / 1_000_000;
+      return `≈ ${m % 1 === 0 ? m : m.toFixed(1)}M KRW`;
+    }
+    if (amount >= 1_000){
+      return `≈ ${(amount/1000).toFixed(0)}K KRW`;
+    }
+    return `≈ ${amount.toLocaleString()} KRW`;
+  }
   if (amount >= 100_000_000){
     const eok = amount / 100_000_000;
     return `약 ${eok % 1 === 0 ? eok : eok.toFixed(1)}억원`;
@@ -1399,7 +1490,7 @@ function runPipeline(){
   if (raw.length === 0){
     ITEMS = [];
     BALANCE = { balance:0, diverse:0, deviation:0, sphericity:0, hhi:'0.000', avgRisk:0, sectorWeights:{} };
-    INSIGHTS = [{ level:'ok', title:'포트폴리오가 비어있음', body:'좌측 검색창에서 종목을 추가해주세요.' }];
+    INSIGHTS = [{ level:'ok', title:t('insightEmptyTitle'), body:t('insightEmptyBody') }];
     ADVANCED = computeAdvancedMetrics([], BALANCE);
     return;
   }
@@ -1849,7 +1940,7 @@ function renderHoldings(){
       total = TARGET_ITEMS.reduce((s,it)=> s + (it.market_value || 0), 0);
     }
     totalEl.textContent = Math.round(total).toLocaleString();
-    if (totalKrEl) totalKrEl.textContent = CURRENT_LANG === 'ko' ? formatKRWUnit(total) : '';
+    if (totalKrEl) totalKrEl.textContent = formatKRWUnit(total);
   }
 
   sorted.forEach(it=>{
@@ -1864,7 +1955,7 @@ function renderHoldings(){
         const diff = it.quantity - original.quantity;
         const sign = diff > 0 ? '+' : '';
         const color = diff > 0 ? 'var(--safe)' : 'var(--high)';
-        currentHint = `<div class="holding-current-hint">현재 ${original.quantity}주 <span style="color:${color}">(${sign}${diff})</span></div>`;
+        currentHint = t('holdingCurrentHint', original.quantity, sign, diff, color);
       }
     }
     d.innerHTML = `
@@ -1994,7 +2085,7 @@ function fmtMoneySigned(v){
   return sign + Math.round(Math.abs(v)).toLocaleString();
 }
 function fmtMoneyKR(v){
-  return CURRENT_LANG === 'ko' ? formatKRWUnit(Math.abs(v)) : '';
+  return formatKRWUnit(Math.abs(v));
 }
 
 // 등급 뱃지 헬퍼
@@ -2034,7 +2125,7 @@ function renderAdvanced(){
       const el = document.getElementById(id);
       if (el) el.textContent = '--';
       const hint = document.getElementById(id+'Hint');
-      if (hint) hint.textContent = isKO ? '종목을 추가하세요' : 'Add holdings';
+      if (hint) hint.textContent = t('addHoldingsShort');
     });
     ['mVaRGrade','mSharpeGrade','mSortinoGrade','mDRGrade','mPortVolGrade'].forEach(id=>{
       const el = document.getElementById(id);
