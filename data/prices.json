@@ -1,7 +1,4115 @@
 {
-  "updated_at": null,
-  "count": 0,
-  "failed": [],
-  "prices": {},
-  "_note": "Run tools/update_prices.py to populate this file. GitHub Actions will update daily at 08:00 KST."
+  "updated_at": "2026-04-30T04:46:28+00:00",
+  "count": 681,
+  "failed": [
+    "010620.KS",
+    "066970.KQ",
+    "086010.KQ",
+    "091990.KQ",
+    "139310.KS",
+    "357950.KQ",
+    "403890.KQ",
+    "449940.KS",
+    "CYBR",
+    "DFS",
+    "FFIE",
+    "GPS",
+    "HES",
+    "JWN",
+    "K",
+    "MMC",
+    "MRO",
+    "PARA",
+    "PXD",
+    "SPLK",
+    "SQ"
+  ],
+  "prices": {
+    "000080.KS": {
+      "price": 17160.0,
+      "volatility_30d": 0.1775,
+      "beta": 1.0,
+      "volume": 139239
+    },
+    "000100.KS": {
+      "price": 92000.0,
+      "volatility_30d": 0.4047,
+      "beta": 1.0,
+      "volume": 192436
+    },
+    "000150.KS": {
+      "price": 1585000.0,
+      "volatility_30d": 0.8874,
+      "beta": 1.0,
+      "volume": 81205
+    },
+    "000210.KS": {
+      "price": 71100.0,
+      "volatility_30d": 1.0455,
+      "beta": 1.0,
+      "volume": 219031
+    },
+    "000270.KS": {
+      "price": 153100.0,
+      "volatility_30d": 0.4371,
+      "beta": 1.0,
+      "volume": 1093615
+    },
+    "000660.KS": {
+      "price": 1296000.0,
+      "volatility_30d": 0.7964,
+      "beta": 1.0,
+      "volume": 4109328
+    },
+    "000720.KS": {
+      "price": 161300.0,
+      "volatility_30d": 0.8612,
+      "beta": 1.0,
+      "volume": 1421502
+    },
+    "000810.KS": {
+      "price": 465000.0,
+      "volatility_30d": 0.392,
+      "beta": 1.0,
+      "volume": 133939
+    },
+    "000880.KS": {
+      "price": 132600.0,
+      "volatility_30d": 0.5505,
+      "beta": 1.0,
+      "volume": 236060
+    },
+    "000990.KS": {
+      "price": 158700.0,
+      "volatility_30d": 0.8568,
+      "beta": 1.0,
+      "volume": 524378
+    },
+    "001040.KS": {
+      "price": 224000.0,
+      "volatility_30d": 0.5307,
+      "beta": 1.0,
+      "volume": 113110
+    },
+    "001120.KS": {
+      "price": 53600.0,
+      "volatility_30d": 0.6131,
+      "beta": 1.0,
+      "volume": 244366
+    },
+    "001230.KS": {
+      "price": 39229.18,
+      "volatility_30d": 0.5625,
+      "beta": 1.0,
+      "volume": 46899
+    },
+    "002790.KS": {
+      "price": 28050.0,
+      "volatility_30d": 0.4766,
+      "beta": 1.0,
+      "volume": 120478
+    },
+    "003090.KS": {
+      "price": 22400.0,
+      "volatility_30d": 0.485,
+      "beta": 1.0,
+      "volume": 76694
+    },
+    "003490.KS": {
+      "price": 24500.0,
+      "volatility_30d": 0.526,
+      "beta": 1.0,
+      "volume": 1690206
+    },
+    "003550.KS": {
+      "price": 99300.0,
+      "volatility_30d": 0.4515,
+      "beta": 1.0,
+      "volume": 249428
+    },
+    "003620.KS": {
+      "price": 4360.0,
+      "volatility_30d": 0.4565,
+      "beta": 1.0,
+      "volume": 1255946
+    },
+    "003670.KS": {
+      "price": 253500.0,
+      "volatility_30d": 0.5323,
+      "beta": 1.0,
+      "volume": 376372
+    },
+    "004020.KS": {
+      "price": 42700.0,
+      "volatility_30d": 0.6023,
+      "beta": 1.0,
+      "volume": 1056849
+    },
+    "004370.KS": {
+      "price": 378500.0,
+      "volatility_30d": 0.2282,
+      "beta": 1.0,
+      "volume": 17241
+    },
+    "004990.KS": {
+      "price": 30750.0,
+      "volatility_30d": 0.4741,
+      "beta": 1.0,
+      "volume": 235577
+    },
+    "005380.KS": {
+      "price": 532500.0,
+      "volatility_30d": 0.6068,
+      "beta": 1.0,
+      "volume": 1039226
+    },
+    "005440.KS": {
+      "price": 14410.0,
+      "volatility_30d": 0.6031,
+      "beta": 1.0,
+      "volume": 345670
+    },
+    "005490.KS": {
+      "price": 459000.0,
+      "volatility_30d": 0.5282,
+      "beta": 1.0,
+      "volume": 443194
+    },
+    "005830.KS": {
+      "price": 169200.0,
+      "volatility_30d": 0.482,
+      "beta": 1.0,
+      "volume": 220483
+    },
+    "005850.KS": {
+      "price": 63000.0,
+      "volatility_30d": 0.629,
+      "beta": 1.0,
+      "volume": 171929
+    },
+    "005930.KS": {
+      "price": 222250.0,
+      "volatility_30d": 0.6382,
+      "beta": 1.0,
+      "volume": 25371676
+    },
+    "006040.KS": {
+      "price": 38600.0,
+      "volatility_30d": 0.296,
+      "beta": 1.0,
+      "volume": 51564
+    },
+    "006360.KS": {
+      "price": 38000.0,
+      "volatility_30d": 1.3781,
+      "beta": 1.0,
+      "volume": 4325706
+    },
+    "006400.KS": {
+      "price": 701000.0,
+      "volatility_30d": 0.7357,
+      "beta": 1.0,
+      "volume": 892109
+    },
+    "006800.KS": {
+      "price": 65100.0,
+      "volatility_30d": 0.7362,
+      "beta": 1.0,
+      "volume": 2909771
+    },
+    "007070.KS": {
+      "price": 23400.0,
+      "volatility_30d": 0.3272,
+      "beta": 1.0,
+      "volume": 137196
+    },
+    "007310.KS": {
+      "price": 366500.0,
+      "volatility_30d": 0.1951,
+      "beta": 1.0,
+      "volume": 5854
+    },
+    "008060.KS": {
+      "price": 16700.0,
+      "volatility_30d": 0.4629,
+      "beta": 1.0,
+      "volume": 117822
+    },
+    "008770.KS": {
+      "price": 65600.0,
+      "volatility_30d": 0.6819,
+      "beta": 1.0,
+      "volume": 490880
+    },
+    "009540.KS": {
+      "price": 468000.0,
+      "volatility_30d": 0.6136,
+      "beta": 1.0,
+      "volume": 222510
+    },
+    "009830.KS": {
+      "price": 50700.0,
+      "volatility_30d": 0.8805,
+      "beta": 1.0,
+      "volume": 5196277
+    },
+    "010060.KS": {
+      "price": 364500.0,
+      "volatility_30d": 1.4093,
+      "beta": 1.0,
+      "volume": 434671
+    },
+    "010120.KS": {
+      "price": 275000.0,
+      "volatility_30d": 0.8319,
+      "beta": 1.0,
+      "volume": 1062946
+    },
+    "010130.KS": {
+      "price": 1552000.0,
+      "volatility_30d": 0.5133,
+      "beta": 1.0,
+      "volume": 41144
+    },
+    "010140.KS": {
+      "price": 32350.0,
+      "volatility_30d": 0.6174,
+      "beta": 1.0,
+      "volume": 5770804
+    },
+    "011070.KS": {
+      "price": 572000.0,
+      "volatility_30d": 0.93,
+      "beta": 1.0,
+      "volume": 299055
+    },
+    "011170.KS": {
+      "price": 113400.0,
+      "volatility_30d": 0.8425,
+      "beta": 1.0,
+      "volume": 272004
+    },
+    "011200.KS": {
+      "price": 20425.0,
+      "volatility_30d": 0.3028,
+      "beta": 1.0,
+      "volume": 1297505
+    },
+    "011780.KS": {
+      "price": 144100.0,
+      "volatility_30d": 0.4889,
+      "beta": 1.0,
+      "volume": 107670
+    },
+    "011790.KS": {
+      "price": 117900.0,
+      "volatility_30d": 0.9326,
+      "beta": 1.0,
+      "volume": 382716
+    },
+    "012330.KS": {
+      "price": 426500.0,
+      "volatility_30d": 0.5231,
+      "beta": 1.0,
+      "volume": 260821
+    },
+    "012450.KS": {
+      "price": 1429000.0,
+      "volatility_30d": 0.5532,
+      "beta": 1.0,
+      "volume": 206820
+    },
+    "015760.KS": {
+      "price": 43600.0,
+      "volatility_30d": 0.5256,
+      "beta": 1.0,
+      "volume": 2439292
+    },
+    "017670.KS": {
+      "price": 95300.0,
+      "volatility_30d": 0.4727,
+      "beta": 1.0,
+      "volume": 937570
+    },
+    "023530.KS": {
+      "price": 138400.0,
+      "volatility_30d": 0.715,
+      "beta": 1.0,
+      "volume": 143324
+    },
+    "023590.KS": {
+      "price": 46700.0,
+      "volatility_30d": 0.4649,
+      "beta": 1.0,
+      "volume": 48201
+    },
+    "024110.KS": {
+      "price": 22650.0,
+      "volatility_30d": 0.2591,
+      "beta": 1.0,
+      "volume": 1186106
+    },
+    "028050.KS": {
+      "price": 53000.0,
+      "volatility_30d": 0.8157,
+      "beta": 1.0,
+      "volume": 4399073
+    },
+    "028260.KS": {
+      "price": 298000.0,
+      "volatility_30d": 0.6454,
+      "beta": 1.0,
+      "volume": 401493
+    },
+    "028300.KQ": {
+      "price": 61200.0,
+      "volatility_30d": 0.5982,
+      "beta": 1.0,
+      "volume": 739482
+    },
+    "028670.KS": {
+      "price": 5530.0,
+      "volatility_30d": 0.5037,
+      "beta": 1.0,
+      "volume": 3691667
+    },
+    "029780.KS": {
+      "price": 53200.0,
+      "volatility_30d": 0.231,
+      "beta": 1.0,
+      "volume": 112486
+    },
+    "030200.KS": {
+      "price": 60800.0,
+      "volatility_30d": 0.2755,
+      "beta": 1.0,
+      "volume": 423068
+    },
+    "032640.KS": {
+      "price": 15940.0,
+      "volatility_30d": 0.3509,
+      "beta": 1.0,
+      "volume": 1022010
+    },
+    "033780.KS": {
+      "price": 178600.0,
+      "volatility_30d": 0.2609,
+      "beta": 1.0,
+      "volume": 266050
+    },
+    "034020.KS": {
+      "price": 127000.0,
+      "volatility_30d": 0.6118,
+      "beta": 1.0,
+      "volume": 4050345
+    },
+    "034220.KS": {
+      "price": 12160.0,
+      "volatility_30d": 0.7103,
+      "beta": 1.0,
+      "volume": 5793657
+    },
+    "034730.KS": {
+      "price": 423000.0,
+      "volatility_30d": 0.5808,
+      "beta": 1.0,
+      "volume": 169899
+    },
+    "035420.KS": {
+      "price": 211000.0,
+      "volatility_30d": 0.4152,
+      "beta": 1.0,
+      "volume": 684239
+    },
+    "035600.KQ": {
+      "price": 11490.0,
+      "volatility_30d": 0.2793,
+      "beta": 1.0,
+      "volume": 84279
+    },
+    "035720.KS": {
+      "price": 47300.0,
+      "volatility_30d": 0.4037,
+      "beta": 1.0,
+      "volume": 1271649
+    },
+    "035900.KQ": {
+      "price": 63300.0,
+      "volatility_30d": 0.3758,
+      "beta": 1.0,
+      "volume": 164401
+    },
+    "036460.KS": {
+      "price": 38950.0,
+      "volatility_30d": 0.3246,
+      "beta": 1.0,
+      "volume": 242524
+    },
+    "036570.KS": {
+      "price": 274000.0,
+      "volatility_30d": 0.5584,
+      "beta": 1.0,
+      "volume": 120384
+    },
+    "036930.KQ": {
+      "price": 125800.0,
+      "volatility_30d": 1.5182,
+      "beta": 1.0,
+      "volume": 2521975
+    },
+    "039030.KQ": {
+      "price": 472000.0,
+      "volatility_30d": 0.798,
+      "beta": 1.0,
+      "volume": 91457
+    },
+    "039200.KQ": {
+      "price": 52500.0,
+      "volatility_30d": 0.6136,
+      "beta": 1.0,
+      "volume": 251039
+    },
+    "041510.KQ": {
+      "price": 97300.0,
+      "volatility_30d": 0.4834,
+      "beta": 1.0,
+      "volume": 82997
+    },
+    "042000.KQ": {
+      "price": 25350.0,
+      "volatility_30d": 0.3947,
+      "beta": 1.0,
+      "volume": 69334
+    },
+    "042660.KS": {
+      "price": 131200.0,
+      "volatility_30d": 0.5578,
+      "beta": 1.0,
+      "volume": 1698999
+    },
+    "042700.KS": {
+      "price": 372500.0,
+      "volatility_30d": 0.9894,
+      "beta": 1.0,
+      "volume": 931908
+    },
+    "043150.KQ": {
+      "price": 23150.0,
+      "volatility_30d": 0.381,
+      "beta": 1.0,
+      "volume": 32948
+    },
+    "047040.KS": {
+      "price": 35150.0,
+      "volatility_30d": 1.6328,
+      "beta": 1.0,
+      "volume": 45884620
+    },
+    "048410.KQ": {
+      "price": 13560.0,
+      "volatility_30d": 0.6872,
+      "beta": 1.0,
+      "volume": 1855829
+    },
+    "051600.KS": {
+      "price": 62200.0,
+      "volatility_30d": 0.4942,
+      "beta": 1.0,
+      "volume": 249433
+    },
+    "051900.KS": {
+      "price": 256000.0,
+      "volatility_30d": 0.3347,
+      "beta": 1.0,
+      "volume": 49067
+    },
+    "051910.KS": {
+      "price": 395500.0,
+      "volatility_30d": 0.5813,
+      "beta": 1.0,
+      "volume": 314234
+    },
+    "053610.KQ": {
+      "price": 83500.0,
+      "volatility_30d": 0.8509,
+      "beta": 1.0,
+      "volume": 70157
+    },
+    "053800.KQ": {
+      "price": 63500.0,
+      "volatility_30d": 0.3446,
+      "beta": 1.0,
+      "volume": 45161
+    },
+    "055550.KS": {
+      "price": 100000.0,
+      "volatility_30d": 0.3952,
+      "beta": 1.0,
+      "volume": 1162108
+    },
+    "058470.KQ": {
+      "price": 121300.0,
+      "volatility_30d": 0.7874,
+      "beta": 1.0,
+      "volume": 885925
+    },
+    "060590.KQ": {
+      "price": 3930.0,
+      "volatility_30d": 0.356,
+      "beta": 1.0,
+      "volume": 57542
+    },
+    "064240.KS": {
+      "price": 2325.0,
+      "volatility_30d": 0.8084,
+      "beta": 1.0,
+      "volume": 236297
+    },
+    "064350.KS": {
+      "price": 269000.0,
+      "volatility_30d": 0.6652,
+      "beta": 1.0,
+      "volume": 893150
+    },
+    "064550.KQ": {
+      "price": 10570.0,
+      "volatility_30d": 0.5929,
+      "beta": 1.0,
+      "volume": 116763
+    },
+    "064760.KQ": {
+      "price": 295000.0,
+      "volatility_30d": 0.7593,
+      "beta": 1.0,
+      "volume": 82343
+    },
+    "066570.KS": {
+      "price": 139600.0,
+      "volatility_30d": 0.5638,
+      "beta": 1.0,
+      "volume": 983064
+    },
+    "067310.KQ": {
+      "price": 39750.0,
+      "volatility_30d": 0.8118,
+      "beta": 1.0,
+      "volume": 1977061
+    },
+    "068240.KQ": {
+      "price": 2530.0,
+      "volatility_30d": 0.0,
+      "beta": 1.0,
+      "volume": 0
+    },
+    "068270.KS": {
+      "price": 200500.0,
+      "volatility_30d": 0.4179,
+      "beta": 1.0,
+      "volume": 458164
+    },
+    "068760.KQ": {
+      "price": 56500.0,
+      "volatility_30d": 0.3888,
+      "beta": 1.0,
+      "volume": 69346
+    },
+    "069500.KS": {
+      "price": 100125.0,
+      "volatility_30d": 0.5092,
+      "beta": 1.0,
+      "volume": 18495707
+    },
+    "078340.KS": {
+      "price": 33450.0,
+      "volatility_30d": 0.3791,
+      "beta": 1.0,
+      "volume": 46708
+    },
+    "078930.KS": {
+      "price": 82300.0,
+      "volatility_30d": 0.5536,
+      "beta": 1.0,
+      "volume": 257926
+    },
+    "079960.KQ": {
+      "price": 34100.0,
+      "volatility_30d": 0.5252,
+      "beta": 1.0,
+      "volume": 49240
+    },
+    "086450.KQ": {
+      "price": 24100.0,
+      "volatility_30d": 0.9795,
+      "beta": 1.0,
+      "volume": 922247
+    },
+    "086520.KS": {
+      "price": 159900.0,
+      "volatility_30d": 0.5431,
+      "beta": 1.0,
+      "volume": 1245895
+    },
+    "086790.KS": {
+      "price": 127600.0,
+      "volatility_30d": 0.363,
+      "beta": 1.0,
+      "volume": 843849
+    },
+    "086900.KQ": {
+      "price": 107000.0,
+      "volatility_30d": 0.4019,
+      "beta": 1.0,
+      "volume": 33854
+    },
+    "088350.KS": {
+      "price": 4930.0,
+      "volatility_30d": 0.5999,
+      "beta": 1.0,
+      "volume": 4782249
+    },
+    "095340.KQ": {
+      "price": 245000.0,
+      "volatility_30d": 0.8523,
+      "beta": 1.0,
+      "volume": 357730
+    },
+    "095660.KQ": {
+      "price": 22200.0,
+      "volatility_30d": 0.3166,
+      "beta": 1.0,
+      "volume": 48920
+    },
+    "095700.KQ": {
+      "price": 5460.0,
+      "volatility_30d": 1.0385,
+      "beta": 1.0,
+      "volume": 785624
+    },
+    "096530.KQ": {
+      "price": 24550.0,
+      "volatility_30d": 0.4995,
+      "beta": 1.0,
+      "volume": 269556
+    },
+    "096760.KS": {
+      "price": 4310.0,
+      "volatility_30d": 0.3759,
+      "beta": 1.0,
+      "volume": 115141
+    },
+    "096770.KS": {
+      "price": 144900.0,
+      "volatility_30d": 0.5691,
+      "beta": 1.0,
+      "volume": 622945
+    },
+    "097950.KS": {
+      "price": 248500.0,
+      "volatility_30d": 0.3585,
+      "beta": 1.0,
+      "volume": 81940
+    },
+    "102110.KS": {
+      "price": 100155.0,
+      "volatility_30d": 0.506,
+      "beta": 1.0,
+      "volume": 4250372
+    },
+    "105560.KS": {
+      "price": 160600.0,
+      "volatility_30d": 0.3772,
+      "beta": 1.0,
+      "volume": 1075740
+    },
+    "108860.KQ": {
+      "price": 13310.0,
+      "volatility_30d": 1.2137,
+      "beta": 1.0,
+      "volume": 2003043
+    },
+    "112040.KS": {
+      "price": 25050.0,
+      "volatility_30d": 0.8043,
+      "beta": 1.0,
+      "volume": 196673
+    },
+    "114800.KS": {
+      "price": 1347.0,
+      "volatility_30d": 0.5221,
+      "beta": 1.0,
+      "volume": 305704565
+    },
+    "122870.KQ": {
+      "price": 54300.0,
+      "volatility_30d": 0.4337,
+      "beta": 1.0,
+      "volume": 130799
+    },
+    "128940.KS": {
+      "price": 458000.0,
+      "volatility_30d": 0.632,
+      "beta": 1.0,
+      "volume": 83085
+    },
+    "132030.KS": {
+      "price": 25805.0,
+      "volatility_30d": 0.3983,
+      "beta": 1.0,
+      "volume": 262596
+    },
+    "138040.KS": {
+      "price": 112900.0,
+      "volatility_30d": 0.3747,
+      "beta": 1.0,
+      "volume": 236691
+    },
+    "138930.KS": {
+      "price": 18590.0,
+      "volatility_30d": 0.3278,
+      "beta": 1.0,
+      "volume": 1021079
+    },
+    "139130.KS": {
+      "price": 19090.0,
+      "volatility_30d": 0.376,
+      "beta": 1.0,
+      "volume": 770141
+    },
+    "139480.KS": {
+      "price": 107000.0,
+      "volatility_30d": 0.4406,
+      "beta": 1.0,
+      "volume": 206676
+    },
+    "139660.KS": {
+      "price": 7820.0,
+      "volatility_30d": 0.5552,
+      "beta": 1.0,
+      "volume": 5077
+    },
+    "140860.KQ": {
+      "price": 289000.0,
+      "volatility_30d": 0.6343,
+      "beta": 1.0,
+      "volume": 37840
+    },
+    "145020.KQ": {
+      "price": 256500.0,
+      "volatility_30d": 0.4642,
+      "beta": 1.0,
+      "volume": 38061
+    },
+    "148020.KS": {
+      "price": 100945.0,
+      "volatility_30d": 0.5124,
+      "beta": 1.0,
+      "volume": 1735255
+    },
+    "148070.KS": {
+      "price": 106345.0,
+      "volatility_30d": 0.0843,
+      "beta": 1.0,
+      "volume": 39863
+    },
+    "152100.KS": {
+      "price": 101815.0,
+      "volatility_30d": 0.5108,
+      "beta": 1.0,
+      "volume": 430646
+    },
+    "166090.KQ": {
+      "price": 75600.0,
+      "volatility_30d": 0.7198,
+      "beta": 1.0,
+      "volume": 226842
+    },
+    "175330.KS": {
+      "price": 27250.0,
+      "volatility_30d": 0.4766,
+      "beta": 1.0,
+      "volume": 396749
+    },
+    "178920.KQ": {
+      "price": 26650.0,
+      "volatility_30d": 0.6573,
+      "beta": 1.0,
+      "volume": 307868
+    },
+    "182360.KQ": {
+      "price": 10470.0,
+      "volatility_30d": 0.3812,
+      "beta": 1.0,
+      "volume": 25358
+    },
+    "185750.KS": {
+      "price": 85400.0,
+      "volatility_30d": 0.2869,
+      "beta": 1.0,
+      "volume": 27303
+    },
+    "191420.KQ": {
+      "price": 12480.0,
+      "volatility_30d": 0.354,
+      "beta": 1.0,
+      "volume": 6590
+    },
+    "194370.KS": {
+      "price": 15430.0,
+      "volatility_30d": 0.571,
+      "beta": 1.0,
+      "volume": 131452
+    },
+    "196170.KS": {
+      "price": 380000.0,
+      "volatility_30d": 0.5645,
+      "beta": 1.0,
+      "volume": 306767
+    },
+    "207940.KS": {
+      "price": 1473000.0,
+      "volatility_30d": 0.3393,
+      "beta": 1.0,
+      "volume": 46680
+    },
+    "210780.KS": {
+      "price": 25940.0,
+      "volatility_30d": 0.3056,
+      "beta": 1.0,
+      "volume": 30511
+    },
+    "214150.KQ": {
+      "price": 56000.0,
+      "volatility_30d": 0.4849,
+      "beta": 1.0,
+      "volume": 208423
+    },
+    "217270.KQ": {
+      "price": 4040.0,
+      "volatility_30d": 0.4438,
+      "beta": 1.0,
+      "volume": 123049
+    },
+    "226980.KS": {
+      "price": 29130.0,
+      "volatility_30d": 0.4287,
+      "beta": 1.0,
+      "volume": 11659
+    },
+    "229200.KS": {
+      "price": 19945.0,
+      "volatility_30d": 0.4525,
+      "beta": 1.0,
+      "volume": 24834424
+    },
+    "232140.KQ": {
+      "price": 22050.0,
+      "volatility_30d": 0.8112,
+      "beta": 1.0,
+      "volume": 989097
+    },
+    "238720.KS": {
+      "price": 42685.0,
+      "volatility_30d": 0.3389,
+      "beta": 1.0,
+      "volume": 5587
+    },
+    "240810.KQ": {
+      "price": 117700.0,
+      "volatility_30d": 0.796,
+      "beta": 1.0,
+      "volume": 542035
+    },
+    "241560.KS": {
+      "price": 72000.0,
+      "volatility_30d": 0.4897,
+      "beta": 1.0,
+      "volume": 319076
+    },
+    "247540.KS": {
+      "price": 212500.0,
+      "volatility_30d": 0.5405,
+      "beta": 1.0,
+      "volume": 502241
+    },
+    "251270.KS": {
+      "price": 50200.0,
+      "volatility_30d": 0.3684,
+      "beta": 1.0,
+      "volume": 204082
+    },
+    "251340.KS": {
+      "price": 1992.0,
+      "volatility_30d": 0.4693,
+      "beta": 1.0,
+      "volume": 48537176
+    },
+    "252670.KS": {
+      "price": 169.0,
+      "volatility_30d": 1.0672,
+      "beta": 1.0,
+      "volume": 3910033369
+    },
+    "253450.KQ": {
+      "price": 35350.0,
+      "volatility_30d": 0.3532,
+      "beta": 1.0,
+      "volume": 61617
+    },
+    "256940.KS": {
+      "price": 8510.0,
+      "volatility_30d": 0.684,
+      "beta": 1.0,
+      "volume": 273122
+    },
+    "259960.KS": {
+      "price": 280500.0,
+      "volatility_30d": 0.409,
+      "beta": 1.0,
+      "volume": 130035
+    },
+    "263750.KQ": {
+      "price": 59400.0,
+      "volatility_30d": 1.0897,
+      "beta": 1.0,
+      "volume": 2280322
+    },
+    "266360.KS": {
+      "price": 12240.0,
+      "volatility_30d": 0.3548,
+      "beta": 1.0,
+      "volume": 62881
+    },
+    "267250.KS": {
+      "price": 315500.0,
+      "volatility_30d": 0.5798,
+      "beta": 1.0,
+      "volume": 152592
+    },
+    "267260.KS": {
+      "price": 1260000.0,
+      "volatility_30d": 0.6768,
+      "beta": 1.0,
+      "volume": 153559
+    },
+    "267290.KS": {
+      "price": 23000.0,
+      "volatility_30d": 0.2237,
+      "beta": 1.0,
+      "volume": 10233
+    },
+    "271560.KS": {
+      "price": 145800.0,
+      "volatility_30d": 0.3969,
+      "beta": 1.0,
+      "volume": 108990
+    },
+    "271940.KS": {
+      "price": 18650.0,
+      "volatility_30d": 0.3978,
+      "beta": 1.0,
+      "volume": 77730
+    },
+    "272210.KS": {
+      "price": 117300.0,
+      "volatility_30d": 0.6899,
+      "beta": 1.0,
+      "volume": 1164032
+    },
+    "282330.KS": {
+      "price": 131700.0,
+      "volatility_30d": 0.5995,
+      "beta": 1.0,
+      "volume": 55388
+    },
+    "293490.KQ": {
+      "price": 12120.0,
+      "volatility_30d": 0.4187,
+      "beta": 1.0,
+      "volume": 391642
+    },
+    "294140.KQ": {
+      "price": 3410.0,
+      "volatility_30d": 0.788,
+      "beta": 1.0,
+      "volume": 184267
+    },
+    "298020.KS": {
+      "price": 516000.0,
+      "volatility_30d": 0.7041,
+      "beta": 1.0,
+      "volume": 44999
+    },
+    "298050.KS": {
+      "price": 272500.0,
+      "volatility_30d": 0.4852,
+      "beta": 1.0,
+      "volume": 17388
+    },
+    "298380.KQ": {
+      "price": 135100.0,
+      "volatility_30d": 0.902,
+      "beta": 1.0,
+      "volume": 548926
+    },
+    "298540.KS": {
+      "price": 8070.0,
+      "volatility_30d": 0.3311,
+      "beta": 1.0,
+      "volume": 19838
+    },
+    "305540.KS": {
+      "price": 26610.0,
+      "volatility_30d": 0.4517,
+      "beta": 1.0,
+      "volume": 1118838
+    },
+    "305720.KS": {
+      "price": 21475.0,
+      "volatility_30d": 0.4769,
+      "beta": 1.0,
+      "volume": 7963983
+    },
+    "316140.KS": {
+      "price": 33600.0,
+      "volatility_30d": 0.3726,
+      "beta": 1.0,
+      "volume": 1908896
+    },
+    "336370.KS": {
+      "price": 13290.0,
+      "volatility_30d": 1.113,
+      "beta": 1.0,
+      "volume": 1103601
+    },
+    "348370.KQ": {
+      "price": 44650.0,
+      "volatility_30d": 1.6677,
+      "beta": 1.0,
+      "volume": 697944
+    },
+    "352820.KS": {
+      "price": 261500.0,
+      "volatility_30d": 0.6139,
+      "beta": 1.0,
+      "volume": 352375
+    },
+    "357250.KS": {
+      "price": 2390.0,
+      "volatility_30d": 0.1196,
+      "beta": 1.0,
+      "volume": 43720
+    },
+    "357780.KQ": {
+      "price": 464000.0,
+      "volatility_30d": 0.6526,
+      "beta": 1.0,
+      "volume": 41449
+    },
+    "360750.KS": {
+      "price": 26240.0,
+      "volatility_30d": 0.0999,
+      "beta": 1.0,
+      "volume": 11904512
+    },
+    "361610.KS": {
+      "price": 26550.0,
+      "volatility_30d": 0.5464,
+      "beta": 1.0,
+      "volume": 216316
+    },
+    "365340.KS": {
+      "price": 84500.0,
+      "volatility_30d": 0.7247,
+      "beta": 1.0,
+      "volume": 100833
+    },
+    "367380.KS": {
+      "price": 30705.0,
+      "volatility_30d": 0.1344,
+      "beta": 1.0,
+      "volume": 713127
+    },
+    "371160.KS": {
+      "price": 7920.0,
+      "volatility_30d": 0.2379,
+      "beta": 1.0,
+      "volume": 949153
+    },
+    "371460.KS": {
+      "price": 14540.0,
+      "volatility_30d": 0.2713,
+      "beta": 1.0,
+      "volume": 680352
+    },
+    "375500.KS": {
+      "price": 97100.0,
+      "volatility_30d": 1.3462,
+      "beta": 1.0,
+      "volume": 2010560
+    },
+    "377190.KS": {
+      "price": 3175.0,
+      "volatility_30d": 0.2676,
+      "beta": 1.0,
+      "volume": 156030
+    },
+    "377300.KS": {
+      "price": 55500.0,
+      "volatility_30d": 0.6161,
+      "beta": 1.0,
+      "volume": 373157
+    },
+    "379800.KS": {
+      "price": 23920.0,
+      "volatility_30d": 0.0988,
+      "beta": 1.0,
+      "volume": 14763521
+    },
+    "381170.KS": {
+      "price": 32560.0,
+      "volatility_30d": 0.1984,
+      "beta": 1.0,
+      "volume": 1318318
+    },
+    "381180.KS": {
+      "price": 39960.0,
+      "volatility_30d": 0.3428,
+      "beta": 1.0,
+      "volume": 2062940
+    },
+    "383220.KS": {
+      "price": 66800.0,
+      "volatility_30d": 0.3982,
+      "beta": 1.0,
+      "volume": 73097
+    },
+    "385520.KS": {
+      "price": 17735.0,
+      "volatility_30d": 0.481,
+      "beta": 1.0,
+      "volume": 28996
+    },
+    "394670.KS": {
+      "price": 14020.0,
+      "volatility_30d": 0.2,
+      "beta": 1.0,
+      "volume": 98962
+    },
+    "402340.KS": {
+      "price": 847000.0,
+      "volatility_30d": 0.8729,
+      "beta": 1.0,
+      "volume": 585853
+    },
+    "403870.KQ": {
+      "price": 52600.0,
+      "volatility_30d": 0.7257,
+      "beta": 1.0,
+      "volume": 2826807
+    },
+    "411420.KS": {
+      "price": 27225.0,
+      "volatility_30d": 0.3807,
+      "beta": 1.0,
+      "volume": 140493
+    },
+    "429760.KS": {
+      "price": 19510.0,
+      "volatility_30d": 0.0969,
+      "beta": 1.0,
+      "volume": 10264
+    },
+    "465580.KS": {
+      "price": 24605.0,
+      "volatility_30d": 0.2012,
+      "beta": 1.0,
+      "volume": 1163592
+    },
+    "950140.KQ": {
+      "price": 12080.0,
+      "volatility_30d": 0.4673,
+      "beta": 1.0,
+      "volume": 68455
+    },
+    "AA": {
+      "price": 62.46,
+      "volatility_30d": 0.6062,
+      "beta": 1.515,
+      "volume": 5573436
+    },
+    "AAPL": {
+      "price": 270.17,
+      "volatility_30d": 0.2318,
+      "beta": 0.817,
+      "volume": 42244736
+    },
+    "ABBV": {
+      "price": 203.89,
+      "volatility_30d": 0.2756,
+      "beta": 0.173,
+      "volume": 7446350
+    },
+    "ABNB": {
+      "price": 140.28,
+      "volatility_30d": 0.3395,
+      "beta": 1.368,
+      "volume": 3412066
+    },
+    "ABT": {
+      "price": 91.33,
+      "volatility_30d": 0.266,
+      "beta": 0.283,
+      "volume": 13610390
+    },
+    "ACN": {
+      "price": 180.26,
+      "volatility_30d": 0.4014,
+      "beta": 0.622,
+      "volume": 6685553
+    },
+    "ADBE": {
+      "price": 243.57,
+      "volatility_30d": 0.4219,
+      "beta": 0.58,
+      "volume": 5383910
+    },
+    "ADP": {
+      "price": 215.06,
+      "volatility_30d": 0.3349,
+      "beta": 0.261,
+      "volume": 3617703
+    },
+    "AEE": {
+      "price": 111.29,
+      "volatility_30d": 0.1825,
+      "beta": 0.024,
+      "volume": 1586356
+    },
+    "AEO": {
+      "price": 17.12,
+      "volatility_30d": 0.4679,
+      "beta": 1.325,
+      "volume": 5149016
+    },
+    "AEP": {
+      "price": 134.44,
+      "volatility_30d": 0.1798,
+      "beta": 0.047,
+      "volume": 2996153
+    },
+    "AFRM": {
+      "price": 63.48,
+      "volatility_30d": 0.6284,
+      "beta": 2.615,
+      "volume": 5129300
+    },
+    "AGG": {
+      "price": 98.96,
+      "volatility_30d": 0.0491,
+      "beta": 0.102,
+      "volume": 11070666
+    },
+    "AIG": {
+      "price": 73.79,
+      "volatility_30d": 0.2017,
+      "beta": 0.157,
+      "volume": 4152566
+    },
+    "AJG": {
+      "price": 211.81,
+      "volatility_30d": 0.2499,
+      "beta": 0.013,
+      "volume": 1890203
+    },
+    "ALB": {
+      "price": 190.88,
+      "volatility_30d": 0.7412,
+      "beta": 1.486,
+      "volume": 2042453
+    },
+    "ALGN": {
+      "price": 178.4,
+      "volatility_30d": 0.4177,
+      "beta": 1.728,
+      "volume": 1121743
+    },
+    "ALL": {
+      "price": 212.33,
+      "volatility_30d": 0.2057,
+      "beta": -0.147,
+      "volume": 1335650
+    },
+    "ALLY": {
+      "price": 43.81,
+      "volatility_30d": 0.3312,
+      "beta": 1.26,
+      "volume": 3625576
+    },
+    "ALNY": {
+      "price": 301.19,
+      "volatility_30d": 0.4027,
+      "beta": 0.719,
+      "volume": 1111883
+    },
+    "AMAT": {
+      "price": 382.59,
+      "volatility_30d": 0.5184,
+      "beta": 2.396,
+      "volume": 6244176
+    },
+    "AMD": {
+      "price": 337.11,
+      "volatility_30d": 0.6428,
+      "beta": 2.524,
+      "volume": 38813060
+    },
+    "AME": {
+      "price": 227.87,
+      "volatility_30d": 0.2699,
+      "beta": 0.981,
+      "volume": 1121426
+    },
+    "AMGN": {
+      "price": 338.02,
+      "volatility_30d": 0.1905,
+      "beta": 0.624,
+      "volume": 2649363
+    },
+    "AMH": {
+      "price": 31.31,
+      "volatility_30d": 0.2243,
+      "beta": 0.103,
+      "volume": 2826473
+    },
+    "AMT": {
+      "price": 178.19,
+      "volatility_30d": 0.2651,
+      "beta": 0.195,
+      "volume": 3373336
+    },
+    "ANET": {
+      "price": 168.68,
+      "volatility_30d": 0.5774,
+      "beta": 2.324,
+      "volume": 6987750
+    },
+    "ANF": {
+      "price": 84.09,
+      "volatility_30d": 0.4324,
+      "beta": 1.09,
+      "volume": 1189786
+    },
+    "AON": {
+      "price": 322.49,
+      "volatility_30d": 0.2859,
+      "beta": -0.008,
+      "volume": 1266343
+    },
+    "APD": {
+      "price": 302.5,
+      "volatility_30d": 0.1695,
+      "beta": 0.021,
+      "volume": 1172473
+    },
+    "APO": {
+      "price": 122.28,
+      "volatility_30d": 0.3402,
+      "beta": 1.126,
+      "volume": 4869096
+    },
+    "ARKF": {
+      "price": 40.9,
+      "volatility_30d": 0.3923,
+      "beta": 2.161,
+      "volume": 174050
+    },
+    "ARKG": {
+      "price": 28.53,
+      "volatility_30d": 0.4328,
+      "beta": 1.951,
+      "volume": 2524096
+    },
+    "ARKK": {
+      "price": 73.53,
+      "volatility_30d": 0.4123,
+      "beta": 2.245,
+      "volume": 10687080
+    },
+    "ARKQ": {
+      "price": 123.26,
+      "volatility_30d": 0.3746,
+      "beta": 2.051,
+      "volume": 172610
+    },
+    "ARKW": {
+      "price": 135.47,
+      "volatility_30d": 0.3773,
+      "beta": 2.135,
+      "volume": 113446
+    },
+    "ASML": {
+      "price": 1394.08,
+      "volatility_30d": 0.4982,
+      "beta": 2.133,
+      "volume": 1850343
+    },
+    "AVB": {
+      "price": 184.37,
+      "volatility_30d": 0.2446,
+      "beta": 0.501,
+      "volume": 1012006
+    },
+    "AVGO": {
+      "price": 405.45,
+      "volatility_30d": 0.4486,
+      "beta": 2.152,
+      "volume": 23218460
+    },
+    "AWK": {
+      "price": 131.97,
+      "volatility_30d": 0.2158,
+      "beta": -0.437,
+      "volume": 1876653
+    },
+    "AXP": {
+      "price": 315.65,
+      "volatility_30d": 0.2569,
+      "beta": 1.09,
+      "volume": 3263930
+    },
+    "BA": {
+      "price": 224.11,
+      "volatility_30d": 0.3779,
+      "beta": 1.029,
+      "volume": 6679426
+    },
+    "BABA": {
+      "price": 130.43,
+      "volatility_30d": 0.4236,
+      "beta": 1.202,
+      "volume": 11042340
+    },
+    "BAC": {
+      "price": 52.88,
+      "volatility_30d": 0.2056,
+      "beta": 0.92,
+      "volume": 36417323
+    },
+    "BAX": {
+      "price": 16.9,
+      "volatility_30d": 0.4165,
+      "beta": 1.345,
+      "volume": 7787246
+    },
+    "BBY": {
+      "price": 58.73,
+      "volatility_30d": 0.3244,
+      "beta": 0.464,
+      "volume": 3996113
+    },
+    "BDX": {
+      "price": 145.31,
+      "volatility_30d": 0.1918,
+      "beta": 0.585,
+      "volume": 2597740
+    },
+    "BEAM": {
+      "price": 29.38,
+      "volatility_30d": 0.7017,
+      "beta": 1.863,
+      "volume": 2250220
+    },
+    "BEN": {
+      "price": 29.45,
+      "volatility_30d": 0.3745,
+      "beta": 1.315,
+      "volume": 5492470
+    },
+    "BIDU": {
+      "price": 121.01,
+      "volatility_30d": 0.4555,
+      "beta": 1.484,
+      "volume": 1892366
+    },
+    "BIIB": {
+      "price": 194.38,
+      "volatility_30d": 0.3657,
+      "beta": 0.555,
+      "volume": 1285966
+    },
+    "BK": {
+      "price": 132.27,
+      "volatility_30d": 0.1966,
+      "beta": 0.903,
+      "volume": 3925110
+    },
+    "BKNG": {
+      "price": 173.98,
+      "volatility_30d": 0.391,
+      "beta": 1.236,
+      "volume": 7628346
+    },
+    "BKR": {
+      "price": 68.81,
+      "volatility_30d": 0.3736,
+      "beta": 0.745,
+      "volume": 9303613
+    },
+    "BLK": {
+      "price": 1039.38,
+      "volatility_30d": 0.27,
+      "beta": 1.358,
+      "volume": 765893
+    },
+    "BMRN": {
+      "price": 54.21,
+      "volatility_30d": 0.2574,
+      "beta": 0.723,
+      "volume": 1695753
+    },
+    "BMY": {
+      "price": 57.59,
+      "volatility_30d": 0.2431,
+      "beta": 0.496,
+      "volume": 11521933
+    },
+    "BND": {
+      "price": 73.39,
+      "volatility_30d": 0.0482,
+      "beta": 0.092,
+      "volume": 8194516
+    },
+    "BNDX": {
+      "price": 47.86,
+      "volatility_30d": 0.057,
+      "beta": 0.136,
+      "volume": 4359093
+    },
+    "BNTX": {
+      "price": 101.57,
+      "volatility_30d": 0.3842,
+      "beta": 1.279,
+      "volume": 920070
+    },
+    "BOX": {
+      "price": 24.66,
+      "volatility_30d": 0.4138,
+      "beta": 0.635,
+      "volume": 2338273
+    },
+    "BRK-B": {
+      "price": 475.38,
+      "volatility_30d": 0.1194,
+      "beta": 0.019,
+      "volume": 4589050
+    },
+    "BSX": {
+      "price": 57.15,
+      "volatility_30d": 0.488,
+      "beta": 0.322,
+      "volume": 17642410
+    },
+    "BTI": {
+      "price": 57.45,
+      "volatility_30d": 0.2635,
+      "beta": 0.516,
+      "volume": 4212113
+    },
+    "BUD": {
+      "price": 72.81,
+      "volatility_30d": 0.2635,
+      "beta": 0.354,
+      "volume": 2006166
+    },
+    "BX": {
+      "price": 119.83,
+      "volatility_30d": 0.3719,
+      "beta": 1.363,
+      "volume": 8561863
+    },
+    "BXP": {
+      "price": 57.6,
+      "volatility_30d": 0.2546,
+      "beta": 0.893,
+      "volume": 2058460
+    },
+    "C": {
+      "price": 127.61,
+      "volatility_30d": 0.3213,
+      "beta": 1.595,
+      "volume": 13300330
+    },
+    "CAG": {
+      "price": 14.23,
+      "volatility_30d": 0.2835,
+      "beta": -0.119,
+      "volume": 15960136
+    },
+    "CARR": {
+      "price": 61.74,
+      "volatility_30d": 0.479,
+      "beta": 1.058,
+      "volume": 6980326
+    },
+    "CAT": {
+      "price": 810.05,
+      "volatility_30d": 0.3752,
+      "beta": 1.706,
+      "volume": 2285113
+    },
+    "CAVA": {
+      "price": 91.11,
+      "volatility_30d": 0.4536,
+      "beta": 2.053,
+      "volume": 2722480
+    },
+    "CB": {
+      "price": 325.75,
+      "volatility_30d": 0.1757,
+      "beta": -0.145,
+      "volume": 1643640
+    },
+    "CBOE": {
+      "price": 305.6,
+      "volatility_30d": 0.2582,
+      "beta": -0.126,
+      "volume": 800323
+    },
+    "CCI": {
+      "price": 85.87,
+      "volatility_30d": 0.3365,
+      "beta": 0.542,
+      "volume": 3129703
+    },
+    "CF": {
+      "price": 126.78,
+      "volatility_30d": 0.5617,
+      "beta": -1.135,
+      "volume": 4834380
+    },
+    "CFG": {
+      "price": 64.4,
+      "volatility_30d": 0.2291,
+      "beta": 1.14,
+      "volume": 4782916
+    },
+    "CFLT": {
+      "price": 30.99,
+      "volatility_30d": 0.0443,
+      "beta": 0.492,
+      "volume": 14076985
+    },
+    "CG": {
+      "price": 47.81,
+      "volatility_30d": 0.3223,
+      "beta": 1.615,
+      "volume": 3115186
+    },
+    "CHD": {
+      "price": 96.2,
+      "volatility_30d": 0.2003,
+      "beta": 0.008,
+      "volume": 2006156
+    },
+    "CHRW": {
+      "price": 186.43,
+      "volatility_30d": 0.3723,
+      "beta": 1.247,
+      "volume": 1741796
+    },
+    "CHTR": {
+      "price": 158.65,
+      "volatility_30d": 0.8669,
+      "beta": 0.136,
+      "volume": 2610596
+    },
+    "CHWY": {
+      "price": 25.96,
+      "volatility_30d": 0.5726,
+      "beta": 1.069,
+      "volume": 8309053
+    },
+    "CI": {
+      "price": 292.32,
+      "volatility_30d": 0.263,
+      "beta": 0.298,
+      "volume": 1598143
+    },
+    "CL": {
+      "price": 84.49,
+      "volatility_30d": 0.2313,
+      "beta": 0.03,
+      "volume": 5887260
+    },
+    "CLF": {
+      "price": 10.25,
+      "volatility_30d": 0.5538,
+      "beta": 2.1,
+      "volume": 18462860
+    },
+    "CLX": {
+      "price": 94.77,
+      "volatility_30d": 0.2909,
+      "beta": 0.38,
+      "volume": 2433963
+    },
+    "CMCSA": {
+      "price": 26.76,
+      "volatility_30d": 0.5097,
+      "beta": -0.046,
+      "volume": 35915520
+    },
+    "CME": {
+      "price": 287.27,
+      "volatility_30d": 0.2145,
+      "beta": -0.24,
+      "volume": 2292403
+    },
+    "CMG": {
+      "price": 32.99,
+      "volatility_30d": 0.3109,
+      "beta": 1.097,
+      "volume": 15095303
+    },
+    "CMI": {
+      "price": 638.95,
+      "volatility_30d": 0.3614,
+      "beta": 1.71,
+      "volume": 775013
+    },
+    "CMS": {
+      "price": 74.73,
+      "volatility_30d": 0.1906,
+      "beta": 0.04,
+      "volume": 2902720
+    },
+    "CNI": {
+      "price": 108.08,
+      "volatility_30d": 0.2712,
+      "beta": 0.546,
+      "volume": 1467980
+    },
+    "CNP": {
+      "price": 42.82,
+      "volatility_30d": 0.1783,
+      "beta": -0.099,
+      "volume": 4652906
+    },
+    "COF": {
+      "price": 190.84,
+      "volatility_30d": 0.3115,
+      "beta": 1.474,
+      "volume": 4467480
+    },
+    "COIN": {
+      "price": 181.73,
+      "volatility_30d": 0.6765,
+      "beta": 3.327,
+      "volume": 10719093
+    },
+    "COP": {
+      "price": 128.25,
+      "volatility_30d": 0.3423,
+      "beta": -0.379,
+      "volume": 9930476
+    },
+    "COST": {
+      "price": 998.67,
+      "volatility_30d": 0.1713,
+      "beta": 0.02,
+      "volume": 1747653
+    },
+    "CP": {
+      "price": 84.28,
+      "volatility_30d": 0.2295,
+      "beta": 0.625,
+      "volume": 2786283
+    },
+    "CPB": {
+      "price": 20.45,
+      "volatility_30d": 0.27,
+      "beta": -0.263,
+      "volume": 8901516
+    },
+    "CPRI": {
+      "price": 19.3,
+      "volatility_30d": 0.398,
+      "beta": 1.515,
+      "volume": 2567720
+    },
+    "CPT": {
+      "price": 105.32,
+      "volatility_30d": 0.2358,
+      "beta": 0.311,
+      "volume": 1227013
+    },
+    "CRM": {
+      "price": 181.22,
+      "volatility_30d": 0.4519,
+      "beta": 0.717,
+      "volume": 13384220
+    },
+    "CROX": {
+      "price": 100.14,
+      "volatility_30d": 0.4425,
+      "beta": 0.652,
+      "volume": 1269486
+    },
+    "CRSP": {
+      "price": 50.71,
+      "volatility_30d": 0.5965,
+      "beta": 1.783,
+      "volume": 1720810
+    },
+    "CRWD": {
+      "price": 452.38,
+      "volatility_30d": 0.5333,
+      "beta": 1.291,
+      "volume": 3576293
+    },
+    "CSCO": {
+      "price": 89.57,
+      "volatility_30d": 0.2796,
+      "beta": 0.962,
+      "volume": 21169220
+    },
+    "CSX": {
+      "price": 44.68,
+      "volatility_30d": 0.2815,
+      "beta": 0.699,
+      "volume": 13162016
+    },
+    "CVNA": {
+      "price": 396.59,
+      "volatility_30d": 0.6,
+      "beta": 2.577,
+      "volume": 2820903
+    },
+    "CVS": {
+      "price": 83.9,
+      "volatility_30d": 0.341,
+      "beta": 0.153,
+      "volume": 7748203
+    },
+    "CVX": {
+      "price": 192.22,
+      "volatility_30d": 0.2783,
+      "beta": -0.392,
+      "volume": 12862173
+    },
+    "D": {
+      "price": 62.5,
+      "volatility_30d": 0.1929,
+      "beta": -0.115,
+      "volume": 4249406
+    },
+    "DASH": {
+      "price": 169.33,
+      "volatility_30d": 0.4861,
+      "beta": 1.586,
+      "volume": 4155220
+    },
+    "DBA": {
+      "price": 28.11,
+      "volatility_30d": 0.0882,
+      "beta": 0.05,
+      "volume": 1901010
+    },
+    "DBC": {
+      "price": 31.08,
+      "volatility_30d": 0.251,
+      "beta": -0.286,
+      "volume": 1787830
+    },
+    "DBX": {
+      "price": 24.31,
+      "volatility_30d": 0.3279,
+      "beta": 0.352,
+      "volume": 3331300
+    },
+    "DD": {
+      "price": 44.62,
+      "volatility_30d": 0.3238,
+      "beta": 1.044,
+      "volume": 3476396
+    },
+    "DDOG": {
+      "price": 133.98,
+      "volatility_30d": 0.5457,
+      "beta": 1.327,
+      "volume": 4586773
+    },
+    "DE": {
+      "price": 560.02,
+      "volatility_30d": 0.3185,
+      "beta": 0.434,
+      "volume": 1217680
+    },
+    "DECK": {
+      "price": 101.34,
+      "volatility_30d": 0.4316,
+      "beta": 1.097,
+      "volume": 1856403
+    },
+    "DEO": {
+      "price": 77.4,
+      "volatility_30d": 0.2618,
+      "beta": 0.497,
+      "volume": 1642810
+    },
+    "DG": {
+      "price": 114.13,
+      "volatility_30d": 0.3544,
+      "beta": 0.73,
+      "volume": 3111403
+    },
+    "DGX": {
+      "price": 189.32,
+      "volatility_30d": 0.2369,
+      "beta": 0.042,
+      "volume": 1022873
+    },
+    "DHR": {
+      "price": 178.8,
+      "volatility_30d": 0.2983,
+      "beta": 0.778,
+      "volume": 4533300
+    },
+    "DIA": {
+      "price": 488.67,
+      "volatility_30d": 0.1623,
+      "beta": 0.865,
+      "volume": 5693100
+    },
+    "DIS": {
+      "price": 101.3,
+      "volatility_30d": 0.2199,
+      "beta": 0.847,
+      "volume": 9189700
+    },
+    "DIVO": {
+      "price": 45.13,
+      "volatility_30d": 0.1202,
+      "beta": 0.573,
+      "volume": 974136
+    },
+    "DLR": {
+      "price": 194.56,
+      "volatility_30d": 0.2154,
+      "beta": 0.824,
+      "volume": 2036536
+    },
+    "DLTR": {
+      "price": 95.7,
+      "volatility_30d": 0.3929,
+      "beta": 0.89,
+      "volume": 3341766
+    },
+    "DOCU": {
+      "price": 46.92,
+      "volatility_30d": 0.4737,
+      "beta": 0.753,
+      "volume": 4392470
+    },
+    "DOV": {
+      "price": 222.25,
+      "volatility_30d": 0.2909,
+      "beta": 0.942,
+      "volume": 1061906
+    },
+    "DOW": {
+      "price": 39.55,
+      "volatility_30d": 0.5341,
+      "beta": 0.001,
+      "volume": 14824466
+    },
+    "DPZ": {
+      "price": 332.31,
+      "volatility_30d": 0.3779,
+      "beta": 0.349,
+      "volume": 1058686
+    },
+    "DRI": {
+      "price": 196.29,
+      "volatility_30d": 0.2828,
+      "beta": 0.426,
+      "volume": 1495160
+    },
+    "DTE": {
+      "price": 147.03,
+      "volatility_30d": 0.1853,
+      "beta": 0.045,
+      "volume": 1095886
+    },
+    "DUK": {
+      "price": 126.51,
+      "volatility_30d": 0.1571,
+      "beta": -0.243,
+      "volume": 3502993
+    },
+    "DUOL": {
+      "price": 106.82,
+      "volatility_30d": 0.5143,
+      "beta": 1.327,
+      "volume": 1632270
+    },
+    "DVN": {
+      "price": 51.08,
+      "volatility_30d": 0.3376,
+      "beta": -0.449,
+      "volume": 15633096
+    },
+    "DXCM": {
+      "price": 57.56,
+      "volatility_30d": 0.3319,
+      "beta": 0.912,
+      "volume": 4148923
+    },
+    "EA": {
+      "price": 202.67,
+      "volatility_30d": 0.0432,
+      "beta": 0.16,
+      "volume": 1884286
+    },
+    "EBAY": {
+      "price": 103.79,
+      "volatility_30d": 0.3359,
+      "beta": 0.935,
+      "volume": 5011486
+    },
+    "ECL": {
+      "price": 256.61,
+      "volatility_30d": 0.2722,
+      "beta": 0.664,
+      "volume": 1511743
+    },
+    "ED": {
+      "price": 108.88,
+      "volatility_30d": 0.1624,
+      "beta": -0.478,
+      "volume": 1796266
+    },
+    "EDIT": {
+      "price": 2.82,
+      "volatility_30d": 0.7549,
+      "beta": 2.412,
+      "volume": 1535016
+    },
+    "EEM": {
+      "price": 62.69,
+      "volatility_30d": 0.3092,
+      "beta": 1.314,
+      "volume": 35122673
+    },
+    "EFA": {
+      "price": 99.93,
+      "volatility_30d": 0.2367,
+      "beta": 1.015,
+      "volume": 19627913
+    },
+    "EIX": {
+      "price": 67.94,
+      "volatility_30d": 0.2334,
+      "beta": 0.156,
+      "volume": 2984143
+    },
+    "EL": {
+      "price": 75.69,
+      "volatility_30d": 0.5166,
+      "beta": 1.556,
+      "volume": 5030956
+    },
+    "ELV": {
+      "price": 376.63,
+      "volatility_30d": 0.2979,
+      "beta": 0.447,
+      "volume": 1718353
+    },
+    "EMB": {
+      "price": 95.5,
+      "volatility_30d": 0.0985,
+      "beta": 0.304,
+      "volume": 9799746
+    },
+    "EMR": {
+      "price": 136.56,
+      "volatility_30d": 0.3506,
+      "beta": 1.611,
+      "volume": 2864340
+    },
+    "ENB": {
+      "price": 53.42,
+      "volatility_30d": 0.1491,
+      "beta": -0.098,
+      "volume": 4567700
+    },
+    "EOG": {
+      "price": 139.12,
+      "volatility_30d": 0.3017,
+      "beta": -0.493,
+      "volume": 4672850
+    },
+    "EPD": {
+      "price": 38.79,
+      "volatility_30d": 0.1728,
+      "beta": -0.189,
+      "volume": 4782890
+    },
+    "EQIX": {
+      "price": 1089.07,
+      "volatility_30d": 0.1731,
+      "beta": 0.461,
+      "volume": 550503
+    },
+    "EQR": {
+      "price": 65.43,
+      "volatility_30d": 0.2407,
+      "beta": 0.328,
+      "volume": 2647766
+    },
+    "ES": {
+      "price": 68.72,
+      "volatility_30d": 0.236,
+      "beta": 0.103,
+      "volume": 2347193
+    },
+    "ESS": {
+      "price": 264.92,
+      "volatility_30d": 0.2277,
+      "beta": 0.357,
+      "volume": 488146
+    },
+    "ESTC": {
+      "price": 47.4,
+      "volatility_30d": 0.5048,
+      "beta": 1.143,
+      "volume": 1894780
+    },
+    "ET": {
+      "price": 19.76,
+      "volatility_30d": 0.1462,
+      "beta": -0.109,
+      "volume": 15949403
+    },
+    "ETN": {
+      "price": 410.77,
+      "volatility_30d": 0.3481,
+      "beta": 1.456,
+      "volume": 2310923
+    },
+    "ETR": {
+      "price": 114.67,
+      "volatility_30d": 0.2939,
+      "beta": 0.269,
+      "volume": 3111313
+    },
+    "ETSY": {
+      "price": 69.6,
+      "volatility_30d": 0.5372,
+      "beta": 1.481,
+      "volume": 2983850
+    },
+    "EW": {
+      "price": 81.22,
+      "volatility_30d": 0.2818,
+      "beta": 0.791,
+      "volume": 5162623
+    },
+    "EWA": {
+      "price": 28.62,
+      "volatility_30d": 0.2414,
+      "beta": 1.031,
+      "volume": 3924560
+    },
+    "EWC": {
+      "price": 56.98,
+      "volatility_30d": 0.1703,
+      "beta": 0.887,
+      "volume": 2095243
+    },
+    "EWG": {
+      "price": 41.34,
+      "volatility_30d": 0.2697,
+      "beta": 1.11,
+      "volume": 2699696
+    },
+    "EWJ": {
+      "price": 86.81,
+      "volatility_30d": 0.2756,
+      "beta": 1.131,
+      "volume": 8579600
+    },
+    "EWT": {
+      "price": 87.19,
+      "volatility_30d": 0.3536,
+      "beta": 1.54,
+      "volume": 6238746
+    },
+    "EWU": {
+      "price": 45.99,
+      "volatility_30d": 0.213,
+      "beta": 0.867,
+      "volume": 2058810
+    },
+    "EWY": {
+      "price": 153.96,
+      "volatility_30d": 0.5965,
+      "beta": 2.301,
+      "volume": 19481010
+    },
+    "EWZ": {
+      "price": 38.65,
+      "volatility_30d": 0.2985,
+      "beta": 1.137,
+      "volume": 30376913
+    },
+    "EXAS": {
+      "price": 104.91,
+      "volatility_30d": 0.0356,
+      "beta": -0.235,
+      "volume": 2463000
+    },
+    "EXC": {
+      "price": 47.02,
+      "volatility_30d": 0.1995,
+      "beta": -0.163,
+      "volume": 7716633
+    },
+    "EXR": {
+      "price": 140.53,
+      "volatility_30d": 0.2482,
+      "beta": 0.532,
+      "volume": 1257340
+    },
+    "F": {
+      "price": 12.24,
+      "volatility_30d": 0.3036,
+      "beta": 1.145,
+      "volume": 41275733
+    },
+    "FANG": {
+      "price": 205.32,
+      "volatility_30d": 0.3025,
+      "beta": -0.368,
+      "volume": 3197746
+    },
+    "FAST": {
+      "price": 43.71,
+      "volatility_30d": 0.3402,
+      "beta": 0.703,
+      "volume": 7880490
+    },
+    "FCX": {
+      "price": 56.93,
+      "volatility_30d": 0.6231,
+      "beta": 2.125,
+      "volume": 17209003
+    },
+    "FDS": {
+      "price": 232.32,
+      "volatility_30d": 0.4482,
+      "beta": 0.456,
+      "volume": 1005616
+    },
+    "FDX": {
+      "price": 388.59,
+      "volatility_30d": 0.2897,
+      "beta": 0.682,
+      "volume": 1852753
+    },
+    "FIS": {
+      "price": 46.22,
+      "volatility_30d": 0.3709,
+      "beta": 0.683,
+      "volume": 6131786
+    },
+    "FISV": {
+      "price": 62.02,
+      "volatility_30d": 0.2943,
+      "beta": 1.098,
+      "volume": 5864380
+    },
+    "FITB": {
+      "price": 49.79,
+      "volatility_30d": 0.2464,
+      "beta": 0.9,
+      "volume": 8295336
+    },
+    "FMC": {
+      "price": 14.65,
+      "volatility_30d": 0.646,
+      "beta": 1.43,
+      "volume": 3464060
+    },
+    "FOX": {
+      "price": 56.62,
+      "volatility_30d": 0.2095,
+      "beta": 0.255,
+      "volume": 1609763
+    },
+    "FOXA": {
+      "price": 62.94,
+      "volatility_30d": 0.2387,
+      "beta": 0.285,
+      "volume": 3355216
+    },
+    "FTNT": {
+      "price": 86.11,
+      "volatility_30d": 0.3804,
+      "beta": 0.94,
+      "volume": 5960516
+    },
+    "FTV": {
+      "price": 61.75,
+      "volatility_30d": 0.2306,
+      "beta": 0.699,
+      "volume": 2874726
+    },
+    "FXI": {
+      "price": 36.34,
+      "volatility_30d": 0.205,
+      "beta": 0.85,
+      "volume": 29504403
+    },
+    "GD": {
+      "price": 338.73,
+      "volatility_30d": 0.3076,
+      "beta": 0.49,
+      "volume": 1502643
+    },
+    "GE": {
+      "price": 283.57,
+      "volatility_30d": 0.4514,
+      "beta": 1.373,
+      "volume": 6643983
+    },
+    "GILD": {
+      "price": 128.84,
+      "volatility_30d": 0.2097,
+      "beta": 0.467,
+      "volume": 5930503
+    },
+    "GIS": {
+      "price": 34.47,
+      "volatility_30d": 0.2022,
+      "beta": -0.281,
+      "volume": 9634356
+    },
+    "GLD": {
+      "price": 417.41,
+      "volatility_30d": 0.3262,
+      "beta": 0.713,
+      "volume": 11873286
+    },
+    "GM": {
+      "price": 76.62,
+      "volatility_30d": 0.3389,
+      "beta": 1.249,
+      "volume": 7058053
+    },
+    "GOLD": {
+      "price": 45.17,
+      "volatility_30d": 0.5424,
+      "beta": 2.055,
+      "volume": 606733
+    },
+    "GOOG": {
+      "price": 347.31,
+      "volatility_30d": 0.3126,
+      "beta": 1.324,
+      "volume": 18919736
+    },
+    "GOOGL": {
+      "price": 349.94,
+      "volatility_30d": 0.3291,
+      "beta": 1.353,
+      "volume": 27706516
+    },
+    "GS": {
+      "price": 905.6,
+      "volatility_30d": 0.2856,
+      "beta": 1.512,
+      "volume": 2013736
+    },
+    "GTLB": {
+      "price": 21.91,
+      "volatility_30d": 0.6178,
+      "beta": 1.017,
+      "volume": 5868193
+    },
+    "HAL": {
+      "price": 41.81,
+      "volatility_30d": 0.3214,
+      "beta": 0.274,
+      "volume": 16325680
+    },
+    "HCA": {
+      "price": 434.78,
+      "volatility_30d": 0.3476,
+      "beta": 0.225,
+      "volume": 1082143
+    },
+    "HD": {
+      "price": 322.81,
+      "volatility_30d": 0.3068,
+      "beta": 0.814,
+      "volume": 3960716
+    },
+    "HIG": {
+      "price": 136.64,
+      "volatility_30d": 0.2243,
+      "beta": 0.145,
+      "volume": 1389696
+    },
+    "HIW": {
+      "price": 23.73,
+      "volatility_30d": 0.3191,
+      "beta": 0.732,
+      "volume": 1274730
+    },
+    "HMC": {
+      "price": 24.0,
+      "volatility_30d": 0.2559,
+      "beta": 1.07,
+      "volume": 1795280
+    },
+    "HON": {
+      "price": 210.3,
+      "volatility_30d": 0.2404,
+      "beta": 0.703,
+      "volume": 3891626
+    },
+    "HOOD": {
+      "price": 71.2,
+      "volatility_30d": 0.7747,
+      "beta": 3.563,
+      "volume": 32609920
+    },
+    "HSY": {
+      "price": 189.16,
+      "volatility_30d": 0.2651,
+      "beta": -0.101,
+      "volume": 2004910
+    },
+    "HUM": {
+      "price": 243.12,
+      "volatility_30d": 0.3909,
+      "beta": 0.517,
+      "volume": 1898770
+    },
+    "HYG": {
+      "price": 80.13,
+      "volatility_30d": 0.063,
+      "beta": 0.236,
+      "volume": 54860086
+    },
+    "IAU": {
+      "price": 85.55,
+      "volatility_30d": 0.3248,
+      "beta": 0.708,
+      "volume": 9994566
+    },
+    "IBM": {
+      "price": 227.1,
+      "volatility_30d": 0.3762,
+      "beta": 1.128,
+      "volume": 5946510
+    },
+    "ICE": {
+      "price": 156.19,
+      "volatility_30d": 0.2385,
+      "beta": 0.382,
+      "volume": 3028703
+    },
+    "IDXX": {
+      "price": 553.66,
+      "volatility_30d": 0.2834,
+      "beta": 1.188,
+      "volume": 523766
+    },
+    "IEF": {
+      "price": 94.8,
+      "volatility_30d": 0.0591,
+      "beta": 0.079,
+      "volume": 10393346
+    },
+    "IEMG": {
+      "price": 76.97,
+      "volatility_30d": 0.306,
+      "beta": 1.279,
+      "volume": 13257363
+    },
+    "IJH": {
+      "price": 71.57,
+      "volatility_30d": 0.189,
+      "beta": 1.011,
+      "volume": 11771720
+    },
+    "IJR": {
+      "price": 134.73,
+      "volatility_30d": 0.1816,
+      "beta": 1.055,
+      "volume": 5979393
+    },
+    "ILMN": {
+      "price": 120.37,
+      "volatility_30d": 0.389,
+      "beta": 0.703,
+      "volume": 1371326
+    },
+    "INCY": {
+      "price": 99.1,
+      "volatility_30d": 0.257,
+      "beta": 0.996,
+      "volume": 1513206
+    },
+    "INDA": {
+      "price": 49.03,
+      "volatility_30d": 0.2498,
+      "beta": 0.793,
+      "volume": 8994710
+    },
+    "INTC": {
+      "price": 94.75,
+      "volatility_30d": 0.9543,
+      "beta": 2.592,
+      "volume": 120043156
+    },
+    "INTU": {
+      "price": 395.08,
+      "volatility_30d": 0.5024,
+      "beta": 0.652,
+      "volume": 3173553
+    },
+    "INVH": {
+      "price": 28.07,
+      "volatility_30d": 0.2269,
+      "beta": 0.249,
+      "volume": 5959023
+    },
+    "IQV": {
+      "price": 156.66,
+      "volatility_30d": 0.3608,
+      "beta": 1.262,
+      "volume": 1449200
+    },
+    "IR": {
+      "price": 77.46,
+      "volatility_30d": 0.412,
+      "beta": 1.274,
+      "volume": 3474970
+    },
+    "ISRG": {
+      "price": 453.83,
+      "volatility_30d": 0.3317,
+      "beta": 1.129,
+      "volume": 2021780
+    },
+    "ITOT": {
+      "price": 155.62,
+      "volatility_30d": 0.1729,
+      "beta": 1.016,
+      "volume": 4368783
+    },
+    "ITW": {
+      "price": 265.67,
+      "volatility_30d": 0.2507,
+      "beta": 0.579,
+      "volume": 1250213
+    },
+    "IVV": {
+      "price": 714.89,
+      "volatility_30d": 0.1702,
+      "beta": 0.989,
+      "volume": 7901383
+    },
+    "IVZ": {
+      "price": 25.64,
+      "volatility_30d": 0.3713,
+      "beta": 1.644,
+      "volume": 6088070
+    },
+    "IWB": {
+      "price": 388.87,
+      "volatility_30d": 0.1715,
+      "beta": 1.0,
+      "volume": 1837240
+    },
+    "IWM": {
+      "price": 272.08,
+      "volatility_30d": 0.2192,
+      "beta": 1.26,
+      "volume": 38067276
+    },
+    "JBHT": {
+      "price": 246.31,
+      "volatility_30d": 0.2986,
+      "beta": 0.899,
+      "volume": 947806
+    },
+    "JCI": {
+      "price": 141.35,
+      "volatility_30d": 0.3242,
+      "beta": 0.98,
+      "volume": 3241086
+    },
+    "JD": {
+      "price": 29.7,
+      "volatility_30d": 0.4031,
+      "beta": 0.892,
+      "volume": 9761463
+    },
+    "JEPI": {
+      "price": 57.12,
+      "volatility_30d": 0.1189,
+      "beta": 0.541,
+      "volume": 5221783
+    },
+    "JEPQ": {
+      "price": 59.0,
+      "volatility_30d": 0.1678,
+      "beta": 1.027,
+      "volume": 6771623
+    },
+    "JNJ": {
+      "price": 227.35,
+      "volatility_30d": 0.1594,
+      "beta": 0.029,
+      "volume": 7798783
+    },
+    "JNK": {
+      "price": 96.5,
+      "volatility_30d": 0.0615,
+      "beta": 0.241,
+      "volume": 5641813
+    },
+    "JPM": {
+      "price": 309.25,
+      "volatility_30d": 0.2207,
+      "beta": 0.998,
+      "volume": 9479556
+    },
+    "KDP": {
+      "price": 28.93,
+      "volatility_30d": 0.3193,
+      "beta": 0.079,
+      "volume": 12109126
+    },
+    "KHC": {
+      "price": 22.42,
+      "volatility_30d": 0.259,
+      "beta": -0.102,
+      "volume": 14651316
+    },
+    "KKR": {
+      "price": 99.32,
+      "volatility_30d": 0.3521,
+      "beta": 1.539,
+      "volume": 5633370
+    },
+    "KLAC": {
+      "price": 1816.21,
+      "volatility_30d": 0.4988,
+      "beta": 2.439,
+      "volume": 931833
+    },
+    "KMI": {
+      "price": 31.84,
+      "volatility_30d": 0.2077,
+      "beta": 0.018,
+      "volume": 13646833
+    },
+    "KO": {
+      "price": 78.87,
+      "volatility_30d": 0.2018,
+      "beta": -0.055,
+      "volume": 14919966
+    },
+    "KSS": {
+      "price": 13.98,
+      "volatility_30d": 0.6189,
+      "beta": 1.915,
+      "volume": 4635470
+    },
+    "KWEB": {
+      "price": 28.01,
+      "volatility_30d": 0.2848,
+      "beta": 1.185,
+      "volume": 24327123
+    },
+    "LCID": {
+      "price": 5.76,
+      "volatility_30d": 0.6863,
+      "beta": 2.308,
+      "volume": 15280893
+    },
+    "LI": {
+      "price": 17.75,
+      "volatility_30d": 0.3479,
+      "beta": 0.978,
+      "volume": 3022653
+    },
+    "LII": {
+      "price": 517.62,
+      "volatility_30d": 0.4788,
+      "beta": 1.181,
+      "volume": 485196
+    },
+    "LIN": {
+      "price": 504.71,
+      "volatility_30d": 0.1879,
+      "beta": 0.061,
+      "volume": 2251703
+    },
+    "LLY": {
+      "price": 851.21,
+      "volatility_30d": 0.2935,
+      "beta": 0.577,
+      "volume": 2951826
+    },
+    "LMT": {
+      "price": 509.81,
+      "volatility_30d": 0.267,
+      "beta": 0.118,
+      "volume": 1583946
+    },
+    "LOW": {
+      "price": 233.5,
+      "volatility_30d": 0.3279,
+      "beta": 0.819,
+      "volume": 2610550
+    },
+    "LQD": {
+      "price": 108.73,
+      "volatility_30d": 0.0719,
+      "beta": 0.188,
+      "volume": 37155620
+    },
+    "LRCX": {
+      "price": 248.75,
+      "volatility_30d": 0.6054,
+      "beta": 2.883,
+      "volume": 10003760
+    },
+    "LULU": {
+      "price": 138.16,
+      "volatility_30d": 0.5553,
+      "beta": 1.438,
+      "volume": 2973350
+    },
+    "LYB": {
+      "price": 73.29,
+      "volatility_30d": 0.6102,
+      "beta": -0.483,
+      "volume": 7852893
+    },
+    "LYFT": {
+      "price": 14.34,
+      "volatility_30d": 0.3842,
+      "beta": 1.53,
+      "volume": 15376010
+    },
+    "M": {
+      "price": 19.3,
+      "volatility_30d": 0.2966,
+      "beta": 1.053,
+      "volume": 6480470
+    },
+    "MA": {
+      "price": 525.23,
+      "volatility_30d": 0.2378,
+      "beta": 0.605,
+      "volume": 3367710
+    },
+    "MAA": {
+      "price": 129.71,
+      "volatility_30d": 0.2347,
+      "beta": 0.313,
+      "volume": 988750
+    },
+    "MCD": {
+      "price": 290.08,
+      "volatility_30d": 0.1926,
+      "beta": 0.17,
+      "volume": 3232550
+    },
+    "MCHI": {
+      "price": 56.83,
+      "volatility_30d": 0.2138,
+      "beta": 0.876,
+      "volume": 3256316
+    },
+    "MCK": {
+      "price": 822.63,
+      "volatility_30d": 0.1859,
+      "beta": 0.138,
+      "volume": 793643
+    },
+    "MCO": {
+      "price": 460.11,
+      "volatility_30d": 0.2397,
+      "beta": 0.769,
+      "volume": 1113376
+    },
+    "MDB": {
+      "price": 258.29,
+      "volatility_30d": 0.5351,
+      "beta": 1.89,
+      "volume": 1530263
+    },
+    "MDLZ": {
+      "price": 61.04,
+      "volatility_30d": 0.2395,
+      "beta": 0.067,
+      "volume": 9219773
+    },
+    "MDT": {
+      "price": 79.37,
+      "volatility_30d": 0.2097,
+      "beta": 0.339,
+      "volume": 8335116
+    },
+    "MDY": {
+      "price": 653.32,
+      "volatility_30d": 0.1887,
+      "beta": 1.008,
+      "volume": 958083
+    },
+    "MET": {
+      "price": 78.96,
+      "volatility_30d": 0.2301,
+      "beta": 1.028,
+      "volume": 3498640
+    },
+    "META": {
+      "price": 669.12,
+      "volatility_30d": 0.4539,
+      "beta": 1.647,
+      "volume": 16349576
+    },
+    "MKC": {
+      "price": 50.54,
+      "volatility_30d": 0.3645,
+      "beta": -0.324,
+      "volume": 5048810
+    },
+    "MMM": {
+      "price": 143.87,
+      "volatility_30d": 0.2554,
+      "beta": 0.914,
+      "volume": 3617540
+    },
+    "MO": {
+      "price": 68.2,
+      "volatility_30d": 0.2187,
+      "beta": -0.297,
+      "volume": 9635680
+    },
+    "MOS": {
+      "price": 23.03,
+      "volatility_30d": 0.5037,
+      "beta": 0.487,
+      "volume": 9886483
+    },
+    "MPC": {
+      "price": 241.81,
+      "volatility_30d": 0.3841,
+      "beta": -0.115,
+      "volume": 2511056
+    },
+    "MRK": {
+      "price": 110.95,
+      "volatility_30d": 0.2569,
+      "beta": 0.321,
+      "volume": 9790460
+    },
+    "MRNA": {
+      "price": 45.72,
+      "volatility_30d": 0.476,
+      "beta": 1.956,
+      "volume": 5892920
+    },
+    "MRVI": {
+      "price": 3.48,
+      "volatility_30d": 0.571,
+      "beta": 1.795,
+      "volume": 1944893
+    },
+    "MS": {
+      "price": 187.08,
+      "volatility_30d": 0.2766,
+      "beta": 1.436,
+      "volume": 6533013
+    },
+    "MSCI": {
+      "price": 598.13,
+      "volatility_30d": 0.2708,
+      "beta": 0.475,
+      "volume": 556803
+    },
+    "MSFT": {
+      "price": 424.46,
+      "volatility_30d": 0.3078,
+      "beta": 0.95,
+      "volume": 33811860
+    },
+    "MU": {
+      "price": 518.46,
+      "volatility_30d": 0.7391,
+      "beta": 2.94,
+      "volume": 47835456
+    },
+    "MUB": {
+      "price": 107.04,
+      "volatility_30d": 0.047,
+      "beta": 0.08,
+      "volume": 3944336
+    },
+    "NDAQ": {
+      "price": 91.27,
+      "volatility_30d": 0.2809,
+      "beta": 0.804,
+      "volume": 3168823
+    },
+    "NEE": {
+      "price": 94.17,
+      "volatility_30d": 0.2769,
+      "beta": 0.17,
+      "volume": 9039543
+    },
+    "NEM": {
+      "price": 107.61,
+      "volatility_30d": 0.5723,
+      "beta": 1.672,
+      "volume": 10450713
+    },
+    "NET": {
+      "price": 211.97,
+      "volatility_30d": 0.7354,
+      "beta": 1.583,
+      "volume": 4206036
+    },
+    "NFLX": {
+      "price": 92.12,
+      "volatility_30d": 0.3904,
+      "beta": 0.323,
+      "volume": 41586923
+    },
+    "NIO": {
+      "price": 6.39,
+      "volatility_30d": 0.6257,
+      "beta": 1.467,
+      "volume": 36737050
+    },
+    "NKE": {
+      "price": 44.39,
+      "volatility_30d": 0.5207,
+      "beta": 0.628,
+      "volume": 25130910
+    },
+    "NOC": {
+      "price": 572.41,
+      "volatility_30d": 0.2861,
+      "beta": 0.085,
+      "volume": 825446
+    },
+    "NOW": {
+      "price": 88.89,
+      "volatility_30d": 0.7833,
+      "beta": 0.646,
+      "volume": 23969100
+    },
+    "NSANY": {
+      "price": 4.5,
+      "volatility_30d": 0.4577,
+      "beta": 1.277,
+      "volume": 229883
+    },
+    "NSC": {
+      "price": 312.12,
+      "volatility_30d": 0.2769,
+      "beta": 0.415,
+      "volume": 1342710
+    },
+    "NTES": {
+      "price": 113.49,
+      "volatility_30d": 0.2235,
+      "beta": 0.519,
+      "volume": 653800
+    },
+    "NTLA": {
+      "price": 12.44,
+      "volatility_30d": 0.7721,
+      "beta": 2.657,
+      "volume": 5476706
+    },
+    "NUE": {
+      "price": 222.39,
+      "volatility_30d": 0.2849,
+      "beta": 0.871,
+      "volume": 1577590
+    },
+    "NVAX": {
+      "price": 7.97,
+      "volatility_30d": 0.4719,
+      "beta": 1.896,
+      "volume": 3398096
+    },
+    "NVDA": {
+      "price": 209.25,
+      "volatility_30d": 0.3562,
+      "beta": 1.851,
+      "volume": 158619656
+    },
+    "O": {
+      "price": 63.29,
+      "volatility_30d": 0.1567,
+      "beta": 0.019,
+      "volume": 5449440
+    },
+    "ODFL": {
+      "price": 209.35,
+      "volatility_30d": 0.3273,
+      "beta": 1.099,
+      "volume": 2112246
+    },
+    "OKTA": {
+      "price": 76.16,
+      "volatility_30d": 0.6458,
+      "beta": 0.998,
+      "volume": 3985446
+    },
+    "ORCL": {
+      "price": 163.83,
+      "volatility_30d": 0.6029,
+      "beta": 1.817,
+      "volume": 28473230
+    },
+    "OTIS": {
+      "price": 76.6,
+      "volatility_30d": 0.2871,
+      "beta": 0.328,
+      "volume": 3844413
+    },
+    "OXY": {
+      "price": 60.76,
+      "volatility_30d": 0.3933,
+      "beta": -0.629,
+      "volume": 17024370
+    },
+    "PANW": {
+      "price": 181.54,
+      "volatility_30d": 0.5071,
+      "beta": 1.005,
+      "volume": 7883473
+    },
+    "PAYX": {
+      "price": 94.05,
+      "volatility_30d": 0.2964,
+      "beta": 0.28,
+      "volume": 4139880
+    },
+    "PCAR": {
+      "price": 118.14,
+      "volatility_30d": 0.3155,
+      "beta": 0.999,
+      "volume": 2829473
+    },
+    "PCG": {
+      "price": 16.37,
+      "volatility_30d": 0.2626,
+      "beta": 0.173,
+      "volume": 23671450
+    },
+    "PDD": {
+      "price": 97.67,
+      "volatility_30d": 0.3476,
+      "beta": 1.291,
+      "volume": 7794246
+    },
+    "PEG": {
+      "price": 79.59,
+      "volatility_30d": 0.2172,
+      "beta": 0.153,
+      "volume": 2591963
+    },
+    "PEP": {
+      "price": 155.29,
+      "volatility_30d": 0.1926,
+      "beta": -0.065,
+      "volume": 6293036
+    },
+    "PFE": {
+      "price": 26.26,
+      "volatility_30d": 0.2057,
+      "beta": 0.468,
+      "volume": 36931056
+    },
+    "PG": {
+      "price": 146.46,
+      "volatility_30d": 0.2164,
+      "beta": 0.035,
+      "volume": 10693776
+    },
+    "PGR": {
+      "price": 200.66,
+      "volatility_30d": 0.2421,
+      "beta": -0.275,
+      "volume": 2876400
+    },
+    "PH": {
+      "price": 947.5,
+      "volatility_30d": 0.3288,
+      "beta": 0.892,
+      "volume": 653966
+    },
+    "PINS": {
+      "price": 19.73,
+      "volatility_30d": 0.375,
+      "beta": 0.903,
+      "volume": 14813400
+    },
+    "PLD": {
+      "price": 138.82,
+      "volatility_30d": 0.2127,
+      "beta": 0.524,
+      "volume": 3674953
+    },
+    "PLTR": {
+      "price": 137.97,
+      "volatility_30d": 0.5803,
+      "beta": 2.035,
+      "volume": 46503023
+    },
+    "PM": {
+      "price": 162.71,
+      "volatility_30d": 0.3688,
+      "beta": 0.195,
+      "volume": 4810540
+    },
+    "PNC": {
+      "price": 218.71,
+      "volatility_30d": 0.1996,
+      "beta": 0.751,
+      "volume": 2375243
+    },
+    "PRU": {
+      "price": 96.42,
+      "volatility_30d": 0.2558,
+      "beta": 0.791,
+      "volume": 2342110
+    },
+    "PSA": {
+      "price": 294.09,
+      "volatility_30d": 0.2847,
+      "beta": 0.617,
+      "volume": 1144856
+    },
+    "PSX": {
+      "price": 173.49,
+      "volatility_30d": 0.3688,
+      "beta": -0.233,
+      "volume": 3295096
+    },
+    "PYPL": {
+      "price": 50.94,
+      "volatility_30d": 0.3342,
+      "beta": 1.321,
+      "volume": 14870710
+    },
+    "QCOM": {
+      "price": 156.0,
+      "volatility_30d": 0.3865,
+      "beta": 1.356,
+      "volume": 14978653
+    },
+    "QQQ": {
+      "price": 661.57,
+      "volatility_30d": 0.2167,
+      "beta": 1.281,
+      "volume": 54649163
+    },
+    "QQQM": {
+      "price": 272.39,
+      "volatility_30d": 0.2161,
+      "beta": 1.275,
+      "volume": 3673223
+    },
+    "QSR": {
+      "price": 78.7,
+      "volatility_30d": 0.2247,
+      "beta": 0.303,
+      "volume": 3460190
+    },
+    "QYLD": {
+      "price": 17.9,
+      "volatility_30d": 0.1363,
+      "beta": 0.704,
+      "volume": 9057376
+    },
+    "RBLX": {
+      "price": 56.28,
+      "volatility_30d": 0.507,
+      "beta": 1.736,
+      "volume": 8435326
+    },
+    "RDDT": {
+      "price": 147.75,
+      "volatility_30d": 0.6536,
+      "beta": 2.195,
+      "volume": 4146836
+    },
+    "REGN": {
+      "price": 686.36,
+      "volatility_30d": 0.2868,
+      "beta": 0.537,
+      "volume": 699000
+    },
+    "RIVN": {
+      "price": 16.06,
+      "volatility_30d": 0.4911,
+      "beta": 1.958,
+      "volume": 25860683
+    },
+    "RL": {
+      "price": 359.45,
+      "volatility_30d": 0.4117,
+      "beta": 1.442,
+      "volume": 583713
+    },
+    "RMD": {
+      "price": 211.93,
+      "volatility_30d": 0.1968,
+      "beta": 0.666,
+      "volume": 1033486
+    },
+    "ROK": {
+      "price": 400.2,
+      "volatility_30d": 0.2756,
+      "beta": 1.435,
+      "volume": 747896
+    },
+    "ROKU": {
+      "price": 112.62,
+      "volatility_30d": 0.4486,
+      "beta": 1.922,
+      "volume": 2414930
+    },
+    "ROP": {
+      "price": 355.97,
+      "volatility_30d": 0.2134,
+      "beta": 0.397,
+      "volume": 1280213
+    },
+    "ROST": {
+      "price": 225.08,
+      "volatility_30d": 0.2239,
+      "beta": 0.758,
+      "volume": 2285423
+    },
+    "RPRX": {
+      "price": 49.49,
+      "volatility_30d": 0.2149,
+      "beta": 0.517,
+      "volume": 3136013
+    },
+    "RTX": {
+      "price": 172.79,
+      "volatility_30d": 0.2603,
+      "beta": 0.526,
+      "volume": 4996583
+    },
+    "RYLD": {
+      "price": 15.26,
+      "volatility_30d": 0.1217,
+      "beta": 0.719,
+      "volume": 1124230
+    },
+    "S": {
+      "price": 14.7,
+      "volatility_30d": 0.5659,
+      "beta": 1.308,
+      "volume": 7586806
+    },
+    "SAM": {
+      "price": 236.49,
+      "volatility_30d": 0.3663,
+      "beta": 0.026,
+      "volume": 202126
+    },
+    "SBUX": {
+      "price": 105.5,
+      "volatility_30d": 0.4193,
+      "beta": 0.989,
+      "volume": 7797583
+    },
+    "SCHD": {
+      "price": 31.45,
+      "volatility_30d": 0.0945,
+      "beta": 0.275,
+      "volume": 22923673
+    },
+    "SCHG": {
+      "price": 32.7,
+      "volatility_30d": 0.2218,
+      "beta": 1.256,
+      "volume": 17138453
+    },
+    "SCHW": {
+      "price": 91.16,
+      "volatility_30d": 0.3271,
+      "beta": 0.779,
+      "volume": 10782620
+    },
+    "SHAK": {
+      "price": 100.61,
+      "volatility_30d": 0.4621,
+      "beta": 1.647,
+      "volume": 1096870
+    },
+    "SHOP": {
+      "price": 121.26,
+      "volatility_30d": 0.5365,
+      "beta": 2.43,
+      "volume": 7802886
+    },
+    "SHW": {
+      "price": 317.85,
+      "volatility_30d": 0.3421,
+      "beta": 0.907,
+      "volume": 1757843
+    },
+    "SHY": {
+      "price": 82.39,
+      "volatility_30d": 0.0184,
+      "beta": 0.02,
+      "volume": 5449836
+    },
+    "SJM": {
+      "price": 96.8,
+      "volatility_30d": 0.2014,
+      "beta": -0.033,
+      "volume": 1953843
+    },
+    "SLB": {
+      "price": 55.7,
+      "volatility_30d": 0.3545,
+      "beta": 0.849,
+      "volume": 18649796
+    },
+    "SLG": {
+      "price": 42.41,
+      "volatility_30d": 0.4401,
+      "beta": 1.272,
+      "volume": 1398200
+    },
+    "SLV": {
+      "price": 64.84,
+      "volatility_30d": 0.5378,
+      "beta": 1.985,
+      "volume": 34690343
+    },
+    "SMH": {
+      "price": 499.58,
+      "volatility_30d": 0.3747,
+      "beta": 2.081,
+      "volume": 9165850
+    },
+    "SNAP": {
+      "price": 5.98,
+      "volatility_30d": 0.8089,
+      "beta": 2.351,
+      "volume": 57803553
+    },
+    "SNOW": {
+      "price": 141.22,
+      "volatility_30d": 0.7151,
+      "beta": 1.443,
+      "volume": 6950716
+    },
+    "SO": {
+      "price": 93.51,
+      "volatility_30d": 0.1626,
+      "beta": -0.135,
+      "volume": 4549446
+    },
+    "SOFI": {
+      "price": 15.52,
+      "volatility_30d": 0.6208,
+      "beta": 2.61,
+      "volume": 62113673
+    },
+    "SOXL": {
+      "price": 117.97,
+      "volatility_30d": 1.2318,
+      "beta": 6.514,
+      "volume": 87581316
+    },
+    "SOXX": {
+      "price": 449.99,
+      "volatility_30d": 0.413,
+      "beta": 2.182,
+      "volume": 7239543
+    },
+    "SPG": {
+      "price": 200.09,
+      "volatility_30d": 0.2242,
+      "beta": 0.393,
+      "volume": 1595530
+    },
+    "SPGI": {
+      "price": 433.19,
+      "volatility_30d": 0.264,
+      "beta": 0.632,
+      "volume": 1918150
+    },
+    "SPOT": {
+      "price": 443.57,
+      "volatility_30d": 0.5454,
+      "beta": 0.84,
+      "volume": 1935286
+    },
+    "SPY": {
+      "price": 711.58,
+      "volatility_30d": 0.1709,
+      "beta": 0.992,
+      "volume": 75310003
+    },
+    "SQQQ": {
+      "price": 53.08,
+      "volatility_30d": 0.6496,
+      "beta": -3.832,
+      "volume": 57499793
+    },
+    "SRE": {
+      "price": 92.64,
+      "volatility_30d": 0.2,
+      "beta": 0.213,
+      "volume": 3373420
+    },
+    "STLA": {
+      "price": 7.7,
+      "volatility_30d": 0.4062,
+      "beta": 0.897,
+      "volume": 22027840
+    },
+    "STLD": {
+      "price": 224.37,
+      "volatility_30d": 0.3577,
+      "beta": 1.219,
+      "volume": 1246020
+    },
+    "STT": {
+      "price": 150.7,
+      "volatility_30d": 0.2336,
+      "beta": 1.111,
+      "volume": 2166686
+    },
+    "STZ": {
+      "price": 150.4,
+      "volatility_30d": 0.3228,
+      "beta": 0.001,
+      "volume": 2166686
+    },
+    "SYF": {
+      "price": 75.12,
+      "volatility_30d": 0.2597,
+      "beta": 1.306,
+      "volume": 3882176
+    },
+    "SYK": {
+      "price": 315.13,
+      "volatility_30d": 0.2095,
+      "beta": 0.43,
+      "volume": 1999530
+    },
+    "T": {
+      "price": 25.75,
+      "volatility_30d": 0.2576,
+      "beta": -0.411,
+      "volume": 41535676
+    },
+    "TAP": {
+      "price": 42.41,
+      "volatility_30d": 0.2416,
+      "beta": -0.24,
+      "volume": 2927993
+    },
+    "TCEHY": {
+      "price": 60.27,
+      "volatility_30d": 0.3037,
+      "beta": 1.062,
+      "volume": 4189550
+    },
+    "TEAM": {
+      "price": 70.49,
+      "volatility_30d": 0.7179,
+      "beta": 0.813,
+      "volume": 6964336
+    },
+    "TFC": {
+      "price": 50.65,
+      "volatility_30d": 0.2016,
+      "beta": 0.857,
+      "volume": 9516143
+    },
+    "TGT": {
+      "price": 127.87,
+      "volatility_30d": 0.2601,
+      "beta": 0.52,
+      "volume": 5330206
+    },
+    "TIP": {
+      "price": 111.39,
+      "volatility_30d": 0.0422,
+      "beta": 0.055,
+      "volume": 2572663
+    },
+    "TJX": {
+      "price": 156.07,
+      "volatility_30d": 0.2164,
+      "beta": 0.277,
+      "volume": 4095480
+    },
+    "TLT": {
+      "price": 85.7,
+      "volatility_30d": 0.1032,
+      "beta": 0.165,
+      "volume": 30128373
+    },
+    "TM": {
+      "price": 191.26,
+      "volatility_30d": 0.3033,
+      "beta": 1.044,
+      "volume": 354983
+    },
+    "TMF": {
+      "price": 34.93,
+      "volatility_30d": 0.2962,
+      "beta": 0.473,
+      "volume": 4775523
+    },
+    "TMO": {
+      "price": 466.26,
+      "volatility_30d": 0.3777,
+      "beta": 0.943,
+      "volume": 1974860
+    },
+    "TMUS": {
+      "price": 198.17,
+      "volatility_30d": 0.3377,
+      "beta": -0.475,
+      "volume": 6689903
+    },
+    "TPR": {
+      "price": 141.6,
+      "volatility_30d": 0.3655,
+      "beta": 1.339,
+      "volume": 1754123
+    },
+    "TQQQ": {
+      "price": 61.86,
+      "volatility_30d": 0.6466,
+      "beta": 3.818,
+      "volume": 97143083
+    },
+    "TROW": {
+      "price": 100.47,
+      "volatility_30d": 0.1947,
+      "beta": 0.94,
+      "volume": 2499343
+    },
+    "TRP": {
+      "price": 63.96,
+      "volatility_30d": 0.1689,
+      "beta": 0.11,
+      "volume": 2913806
+    },
+    "TRV": {
+      "price": 302.25,
+      "volatility_30d": 0.202,
+      "beta": 0.047,
+      "volume": 1482203
+    },
+    "TSLA": {
+      "price": 372.8,
+      "volatility_30d": 0.445,
+      "beta": 1.808,
+      "volume": 67078576
+    },
+    "TSM": {
+      "price": 393.83,
+      "volatility_30d": 0.4591,
+      "beta": 2.002,
+      "volume": 13907273
+    },
+    "TT": {
+      "price": 479.37,
+      "volatility_30d": 0.3299,
+      "beta": 1.124,
+      "volume": 1287053
+    },
+    "TTD": {
+      "price": 24.37,
+      "volatility_30d": 0.6044,
+      "beta": 1.01,
+      "volume": 18619956
+    },
+    "TTWO": {
+      "price": 215.34,
+      "volatility_30d": 0.3024,
+      "beta": 0.905,
+      "volume": 1662413
+    },
+    "TWLO": {
+      "price": 140.91,
+      "volatility_30d": 0.5145,
+      "beta": 1.394,
+      "volume": 2119943
+    },
+    "TXN": {
+      "price": 269.22,
+      "volatility_30d": 0.6332,
+      "beta": 1.025,
+      "volume": 7461956
+    },
+    "TXRH": {
+      "price": 159.82,
+      "volatility_30d": 0.274,
+      "beta": 0.446,
+      "volume": 1078110
+    },
+    "TXT": {
+      "price": 89.78,
+      "volatility_30d": 0.2499,
+      "beta": 0.65,
+      "volume": 1362193
+    },
+    "U": {
+      "price": 26.11,
+      "volatility_30d": 0.691,
+      "beta": 2.423,
+      "volume": 14204326
+    },
+    "UBER": {
+      "price": 74.47,
+      "volatility_30d": 0.3247,
+      "beta": 1.008,
+      "volume": 14208630
+    },
+    "UDR": {
+      "price": 36.16,
+      "volatility_30d": 0.2445,
+      "beta": 0.362,
+      "volume": 3524673
+    },
+    "ULTA": {
+      "price": 530.23,
+      "volatility_30d": 0.2736,
+      "beta": 0.66,
+      "volume": 693060
+    },
+    "UNG": {
+      "price": 10.15,
+      "volatility_30d": 0.3486,
+      "beta": -1.159,
+      "volume": 9160573
+    },
+    "UNH": {
+      "price": 370.74,
+      "volatility_30d": 0.406,
+      "beta": 0.562,
+      "volume": 9738990
+    },
+    "UNP": {
+      "price": 264.78,
+      "volatility_30d": 0.2899,
+      "beta": 0.422,
+      "volume": 3113793
+    },
+    "UPRO": {
+      "price": 125.62,
+      "volatility_30d": 0.5116,
+      "beta": 2.964,
+      "volume": 3998676
+    },
+    "UPS": {
+      "price": 106.61,
+      "volatility_30d": 0.2516,
+      "beta": 0.623,
+      "volume": 6168820
+    },
+    "UPST": {
+      "price": 30.48,
+      "volatility_30d": 0.7249,
+      "beta": 3.123,
+      "volume": 4461083
+    },
+    "USB": {
+      "price": 56.17,
+      "volatility_30d": 0.2006,
+      "beta": 0.85,
+      "volume": 9844283
+    },
+    "USO": {
+      "price": 150.63,
+      "volatility_30d": 0.75,
+      "beta": -1.432,
+      "volume": 36492456
+    },
+    "V": {
+      "price": 334.86,
+      "volatility_30d": 0.3067,
+      "beta": 0.604,
+      "volume": 7252370
+    },
+    "VAW": {
+      "price": 229.57,
+      "volatility_30d": 0.2138,
+      "beta": 0.884,
+      "volume": 70693
+    },
+    "VBK": {
+      "price": 327.52,
+      "volatility_30d": 0.2532,
+      "beta": 1.406,
+      "volume": 232130
+    },
+    "VBR": {
+      "price": 228.98,
+      "volatility_30d": 0.1626,
+      "beta": 0.87,
+      "volume": 288686
+    },
+    "VCR": {
+      "price": 388.56,
+      "volatility_30d": 0.2452,
+      "beta": 1.232,
+      "volume": 64636
+    },
+    "VDC": {
+      "price": 228.07,
+      "volatility_30d": 0.1509,
+      "beta": 0.096,
+      "volume": 148490
+    },
+    "VDE": {
+      "price": 168.13,
+      "volatility_30d": 0.2508,
+      "beta": -0.176,
+      "volume": 1192350
+    },
+    "VEA": {
+      "price": 67.08,
+      "volatility_30d": 0.2502,
+      "beta": 1.08,
+      "volume": 15155256
+    },
+    "VFH": {
+      "price": 127.54,
+      "volatility_30d": 0.1619,
+      "beta": 0.808,
+      "volume": 771166
+    },
+    "VGK": {
+      "price": 85.14,
+      "volatility_30d": 0.2385,
+      "beta": 1.002,
+      "volume": 4587366
+    },
+    "VGT": {
+      "price": 103.13,
+      "volatility_30d": 0.2623,
+      "beta": 1.56,
+      "volume": 4555266
+    },
+    "VHT": {
+      "price": 266.8,
+      "volatility_30d": 0.1592,
+      "beta": 0.564,
+      "volume": 188643
+    },
+    "VICI": {
+      "price": 28.6,
+      "volatility_30d": 0.2007,
+      "beta": 0.156,
+      "volume": 8007743
+    },
+    "VIS": {
+      "price": 330.82,
+      "volatility_30d": 0.2309,
+      "beta": 1.091,
+      "volume": 95320
+    },
+    "VLO": {
+      "price": 251.3,
+      "volatility_30d": 0.4262,
+      "beta": -0.315,
+      "volume": 3956766
+    },
+    "VNO": {
+      "price": 29.35,
+      "volatility_30d": 0.3219,
+      "beta": 1.212,
+      "volume": 2134696
+    },
+    "VNQ": {
+      "price": 94.9,
+      "volatility_30d": 0.1696,
+      "beta": 0.462,
+      "volume": 3604190
+    },
+    "VOO": {
+      "price": 654.24,
+      "volatility_30d": 0.1705,
+      "beta": 0.99,
+      "volume": 9518900
+    },
+    "VOX": {
+      "price": 194.6,
+      "volatility_30d": 0.2119,
+      "beta": 0.968,
+      "volume": 263503
+    },
+    "VPU": {
+      "price": 197.6,
+      "volatility_30d": 0.1817,
+      "beta": 0.223,
+      "volume": 260343
+    },
+    "VRTX": {
+      "price": 423.24,
+      "volatility_30d": 0.2403,
+      "beta": 0.721,
+      "volume": 1213740
+    },
+    "VTI": {
+      "price": 350.21,
+      "volatility_30d": 0.1729,
+      "beta": 1.014,
+      "volume": 4327243
+    },
+    "VTR": {
+      "price": 87.37,
+      "volatility_30d": 0.2455,
+      "beta": 0.068,
+      "volume": 3831773
+    },
+    "VTV": {
+      "price": 203.59,
+      "volatility_30d": 0.1172,
+      "beta": 0.6,
+      "volume": 3904993
+    },
+    "VUG": {
+      "price": 82.68,
+      "volatility_30d": 0.2364,
+      "beta": 1.282,
+      "volume": 9453396
+    },
+    "VWO": {
+      "price": 58.08,
+      "volatility_30d": 0.2523,
+      "beta": 1.06,
+      "volume": 9873970
+    },
+    "VXUS": {
+      "price": 81.23,
+      "volatility_30d": 0.2449,
+      "beta": 1.072,
+      "volume": 6971936
+    },
+    "VZ": {
+      "price": 46.61,
+      "volatility_30d": 0.2114,
+      "beta": -0.396,
+      "volume": 27613033
+    },
+    "WAB": {
+      "price": 261.37,
+      "volatility_30d": 0.3328,
+      "beta": 1.106,
+      "volume": 1047116
+    },
+    "WBD": {
+      "price": 27.05,
+      "volatility_30d": 0.0994,
+      "beta": 0.394,
+      "volume": 23605943
+    },
+    "WDAY": {
+      "price": 122.43,
+      "volatility_30d": 0.5598,
+      "beta": 0.493,
+      "volume": 4943070
+    },
+    "WEC": {
+      "price": 114.51,
+      "volatility_30d": 0.1673,
+      "beta": -0.083,
+      "volume": 1803430
+    },
+    "WELL": {
+      "price": 212.09,
+      "volatility_30d": 0.2741,
+      "beta": 0.192,
+      "volume": 2876860
+    },
+    "WEN": {
+      "price": 6.76,
+      "volatility_30d": 0.3009,
+      "beta": 0.445,
+      "volume": 7844116
+    },
+    "WFC": {
+      "price": 81.51,
+      "volatility_30d": 0.2838,
+      "beta": 0.947,
+      "volume": 17130740
+    },
+    "WMB": {
+      "price": 73.32,
+      "volatility_30d": 0.179,
+      "beta": 0.189,
+      "volume": 6027556
+    },
+    "WMT": {
+      "price": 128.01,
+      "volatility_30d": 0.2392,
+      "beta": 0.034,
+      "volume": 18529143
+    },
+    "WTW": {
+      "price": 290.11,
+      "volatility_30d": 0.2132,
+      "beta": 0.12,
+      "volume": 582846
+    },
+    "XEL": {
+      "price": 78.82,
+      "volatility_30d": 0.2118,
+      "beta": 0.011,
+      "volume": 4402560
+    },
+    "XLB": {
+      "price": 50.96,
+      "volatility_30d": 0.188,
+      "beta": 0.739,
+      "volume": 12875983
+    },
+    "XLC": {
+      "price": 115.29,
+      "volatility_30d": 0.1759,
+      "beta": 0.702,
+      "volume": 5954696
+    },
+    "XLE": {
+      "price": 59.03,
+      "volatility_30d": 0.2496,
+      "beta": -0.225,
+      "volume": 52691223
+    },
+    "XLF": {
+      "price": 51.92,
+      "volatility_30d": 0.1594,
+      "beta": 0.775,
+      "volume": 43119060
+    },
+    "XLI": {
+      "price": 169.93,
+      "volatility_30d": 0.2228,
+      "beta": 0.968,
+      "volume": 11464370
+    },
+    "XLK": {
+      "price": 159.11,
+      "volatility_30d": 0.2676,
+      "beta": 1.576,
+      "volume": 13205833
+    },
+    "XLP": {
+      "price": 82.92,
+      "volatility_30d": 0.1538,
+      "beta": 0.077,
+      "volume": 14655376
+    },
+    "XLRE": {
+      "price": 43.64,
+      "volatility_30d": 0.1748,
+      "beta": 0.446,
+      "volume": 7340770
+    },
+    "XLU": {
+      "price": 45.68,
+      "volatility_30d": 0.1825,
+      "beta": 0.207,
+      "volume": 23057563
+    },
+    "XLV": {
+      "price": 142.84,
+      "volatility_30d": 0.1538,
+      "beta": 0.498,
+      "volume": 11401986
+    },
+    "XLY": {
+      "price": 116.84,
+      "volatility_30d": 0.2464,
+      "beta": 1.203,
+      "volume": 9144773
+    },
+    "XOM": {
+      "price": 154.67,
+      "volatility_30d": 0.318,
+      "beta": -0.464,
+      "volume": 22575543
+    },
+    "XPEV": {
+      "price": 15.86,
+      "volatility_30d": 0.5337,
+      "beta": 1.628,
+      "volume": 6308826
+    },
+    "XPO": {
+      "price": 216.71,
+      "volatility_30d": 0.3596,
+      "beta": 1.556,
+      "volume": 1304793
+    },
+    "XYL": {
+      "price": 115.4,
+      "volatility_30d": 0.2877,
+      "beta": 0.894,
+      "volume": 2419146
+    },
+    "YUM": {
+      "price": 159.84,
+      "volatility_30d": 0.2168,
+      "beta": 0.139,
+      "volume": 1656780
+    },
+    "ZBH": {
+      "price": 80.07,
+      "volatility_30d": 0.3963,
+      "beta": 0.407,
+      "volume": 2315246
+    },
+    "ZM": {
+      "price": 95.76,
+      "volatility_30d": 0.4102,
+      "beta": 1.055,
+      "volume": 4047310
+    },
+    "ZS": {
+      "price": 134.73,
+      "volatility_30d": 0.6039,
+      "beta": 0.948,
+      "volume": 2826523
+    },
+    "ZTS": {
+      "price": 113.83,
+      "volatility_30d": 0.2668,
+      "beta": 1.017,
+      "volume": 3692720
+    }
+  }
 }
