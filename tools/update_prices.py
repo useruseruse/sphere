@@ -24,8 +24,23 @@ except ImportError:
     print("Missing dependency. Run: pip install yfinance pandas numpy")
     sys.exit(1)
 
-# SPHERE ASSET_DB 에 등록된 모든 종목
-TICKERS = [
+# =========================================================
+# 티커 소스 — data/tickers.json 우선 로드, 미존재 시 폴백 사용
+# =========================================================
+def load_catalog_tickers() -> list:
+    catalog = Path(__file__).parent.parent / "data" / "tickers.json"
+    if not catalog.exists():
+        return []
+    try:
+        data = json.loads(catalog.read_text())
+        return sorted({t["ticker"] for t in data.get("tickers", []) if t.get("ticker")})
+    except Exception as exc:
+        print(f"⚠ Failed to parse tickers.json: {exc}")
+        return []
+
+
+# 폴백 — ASSET_DB 핵심 종목 (catalog 미존재 시)
+FALLBACK_TICKERS = [
     # ---- Korean Stocks ----
     "005930.KS", "000660.KS", "035420.KS", "035720.KS", "377300.KS", "251270.KS",
     "207940.KS", "068270.KS", "196170.KS", "128940.KS",
@@ -43,22 +58,19 @@ TICKERS = [
     "010140.KS", "161390.KS", "035250.KS",
     # ---- US Stocks ----
     "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "NFLX", "AMD", "CRM", "ORCL",
-    "TSLA", "F", "GM",
-    "JPM", "BAC", "V", "MA", "GS",
-    "JNJ", "PFE", "LLY", "MRNA",
-    "XOM", "CVX",
-    "WMT", "KO", "PG", "HD", "DIS", "MCD", "SBUX",
-    "O", "AMT",
+    "TSLA", "F", "GM", "JPM", "BAC", "V", "MA", "GS",
+    "JNJ", "PFE", "LLY", "MRNA", "XOM", "CVX",
+    "WMT", "KO", "PG", "HD", "DIS", "MCD", "SBUX", "O", "AMT",
     # ---- US ETFs ----
     "SPY", "VOO", "VTI", "QQQ", "DIA", "IWM",
-    "ARKK", "XLK", "XLF", "XLE", "XLV",
-    "VEA", "VWO",
-    "BND", "TLT", "IEF", "LQD", "HYG",
-    "GLD", "SLV", "USO", "DBC", "DBA",
+    "ARKK", "XLK", "XLF", "XLE", "XLV", "VEA", "VWO",
+    "BND", "TLT", "IEF", "LQD", "HYG", "GLD", "SLV", "USO", "DBC", "DBA",
     # ---- Korean ETFs ----
     "069500.KS", "102110.KS", "305720.KS",
     "360750.KS", "379800.KS", "381180.KS",
 ]
+
+TICKERS = load_catalog_tickers() or FALLBACK_TICKERS
 
 # 시장 벤치마크 — 베타 계산용
 MARKET_BENCHMARK = "^GSPC"  # S&P 500

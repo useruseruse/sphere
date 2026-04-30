@@ -8,7 +8,7 @@
 - Skills.md 5개 레이어 분석 파이프라인 (표준화 → 리스크 → 좌표 → 밸런스 → 인사이트)
 - AI 추천 엔진 — 약점 진단(W1~W7) 후 종목 추가/축소 액션 자동 제안
 - 상관관계 네트워크 — 섹터·베타·변동성 기반 종목 간 동조성 시각화
-- 종목/ETF 검색 (KR/US 100여 종목, 한글·영문 별칭 지원, 130+ 해시태그)
+- 종목/ETF 검색 (S&P500·NASDAQ·KOSPI·KOSDAQ 700+ 종목 카탈로그, 한글·영문 별칭, 130+ 해시태그)
 - 포트폴리오 다중 관리 (최대 20개, localStorage 자동 저장)
 - 한국어/English 양국어 지원
 - 인포 툴팁 — 모든 지표의 산출 공식·임계값·학술 근거(Markowitz, Sharpe, HHI)
@@ -27,12 +27,15 @@ sphere/
 ├── lib/
 │   └── three.min.js        # Three.js r128 (MIT)
 ├── data/
+│   ├── tickers.json        # 종목 카탈로그 700+ (메타데이터)
 │   └── prices.json         # 일별 시세 (자동 갱신)
 ├── tools/
-│   └── update_prices.py    # yfinance 갱신 스크립트
+│   ├── generate_tickers.py # tickers.json 재생성 (yfinance, 주1회)
+│   └── update_prices.py    # prices.json 갱신 (yfinance, 매일)
 ├── .github/
 │   └── workflows/
-│       └── update-prices.yml  # 매일 자동 실행
+│       ├── update-prices.yml      # 매일 시세 갱신
+│       └── regenerate-tickers.yml # 매주 카탈로그 재생성
 ├── README.md
 └── LICENSE
 ```

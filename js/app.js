@@ -4,6 +4,54 @@ function bootWhenReady(fn){
   else fn();
 }
 
+// 티커 카탈로그 — data/tickers.json 에서 ASSET_DB 확장 (KOSPI/KOSDAQ + S&P500 + ETF 700+)
+window.SPHERE_CATALOG_META = null;
+async function applyTickerCatalog(){
+  try {
+    const candidates = ['./data/tickers.json', '../data/tickers.json'];
+    let res = null;
+    for (const url of candidates){
+      try {
+        res = await fetch(url + '?t=' + Date.now(), { cache:'no-cache' });
+        if (res && res.ok) break;
+      } catch(e){ /* 다음 후보 시도 */ }
+    }
+    if (!res || !res.ok) return null;
+    const data = await res.json();
+    if (!data.tickers || !Array.isArray(data.tickers)) return null;
+    const DB = window.ASSET_DB, BY = window.ASSET_BY_TICKER;
+    if (!DB || !BY) return null;
+    let added = 0;
+    data.tickers.forEach(item => {
+      if (!item.ticker || BY[item.ticker]) return; // 핵심 ASSET_DB 우선
+      // 기본값으로 안전 채움
+      const entry = {
+        ticker: item.ticker,
+        name: item.name || item.ticker,
+        name_en: item.name_en || item.name || item.ticker,
+        sector: item.sector || 'ETC',
+        current_price: item.current_price || 0,
+        market_cap: item.market_cap || 0,
+        volatility_30d: item.volatility_30d != null ? item.volatility_30d : 0.25,
+        beta: item.beta != null ? item.beta : 1.0,
+        debt_ratio: item.debt_ratio != null ? item.debt_ratio : 0.30,
+        liquidity_volume: item.liquidity_volume || 0,
+        is_etf: !!item.is_etf,
+        alias: (item.alias || item.name_en || item.name || '').toLowerCase(),
+        _fromCatalog: true
+      };
+      DB.push(entry);
+      BY[entry.ticker] = entry;
+      added++;
+    });
+    window.SPHERE_CATALOG_META = { added, total: DB.length, generatedAt: data.generated_at };
+    return window.SPHERE_CATALOG_META;
+  } catch (e){
+    console.warn('[SPHERE] Ticker catalog load failed:', e);
+    return null;
+  }
+}
+
 // 일별 시세 로딩 — data/prices.json 에서 ASSET_DB 덮어쓰기
 window.SPHERE_PRICE_META = null;
 async function applyDailyPrices(){
@@ -20,8 +68,10 @@ async function applyDailyPrices(){
     const data = await res.json();
     if (!data.prices || !data.updated_at) return null;
     let updated = 0;
+    const BY = window.ASSET_BY_TICKER;
+    if (!BY) return null;
     Object.entries(data.prices).forEach(([ticker, info]) => {
-      const a = (typeof ASSET_BY_TICKER !== 'undefined') && ASSET_BY_TICKER[ticker];
+      const a = BY[ticker];
       if (a && info.price){
         a.current_price = info.price;
         if (info.volatility_30d != null) a.volatility_30d = info.volatility_30d;
@@ -427,6 +477,104 @@ const ASSET_DB = [
   { ticker:'COST', name:'Costco',           sector:'CONSUMER',   current_price:912, market_cap:404e9, volatility_30d:0.16, beta:0.78, debt_ratio:0.42, liquidity_volume:2100000, is_etf:false, alias:'costco 코스트코' },
   { ticker:'NKE',  name:'Nike',             sector:'CONSUMER',   current_price:78,  market_cap:118e9, volatility_30d:0.26, beta:1.08, debt_ratio:0.48, liquidity_volume:8200000, is_etf:false, alias:'nike 나이키' },
 
+  // === 한국 추가 종목 (인프라·중공업·반도체장비) ===
+  { ticker:'010950.KS', name:'S-Oil',          name_en:'S-Oil',                    sector:'ENERGY',     current_price:62800,  market_cap:7.1e12, volatility_30d:0.30, beta:1.18, debt_ratio:0.55, liquidity_volume:380000, is_etf:false, alias:'s oil sk-1 정유' },
+  { ticker:'011170.KS', name:'롯데케미칼',     name_en:'Lotte Chemical',           sector:'INDUSTRIAL', current_price:88500,  market_cap:3.8e12, volatility_30d:0.34, beta:1.32, debt_ratio:0.62, liquidity_volume:280000, is_etf:false, alias:'lotte chemical 롯데케미칼 화학' },
+  { ticker:'042700.KS', name:'한미반도체',     name_en:'Hanmi Semiconductor',      sector:'IT',         current_price:138000, market_cap:13e12,  volatility_30d:0.52, beta:1.78, debt_ratio:0.28, liquidity_volume:680000, is_etf:false, alias:'hanmi semi 한미반도체 hbm 반도체장비' },
+  { ticker:'009150.KS', name:'삼성전기',       name_en:'Samsung Electro-Mechanics',sector:'IT',         current_price:148000, market_cap:11e12,  volatility_30d:0.28, beta:1.22, debt_ratio:0.42, liquidity_volume:480000, is_etf:false, alias:'samsung electro 전자부품 mlcc' },
+  { ticker:'011070.KS', name:'LG이노텍',       name_en:'LG Innotek',                sector:'IT',         current_price:198000, market_cap:4.7e12, volatility_30d:0.34, beta:1.28, debt_ratio:0.45, liquidity_volume:240000, is_etf:false, alias:'lg innotek 카메라모듈 부품' },
+  { ticker:'034020.KS', name:'두산에너빌리티', name_en:'Doosan Enerbility',         sector:'ENERGY',     current_price:24800,  market_cap:15.8e12,volatility_30d:0.42, beta:1.55, debt_ratio:0.65, liquidity_volume:5200000,is_etf:false, alias:'doosan enerbility 두산 원전 풍력' },
+  { ticker:'021240.KS', name:'코웨이',         name_en:'Coway',                     sector:'CONSUMER',   current_price:62500,  market_cap:4.6e12, volatility_30d:0.20, beta:0.78, debt_ratio:0.42, liquidity_volume:180000, is_etf:false, alias:'coway 코웨이 정수기 렌탈' },
+  { ticker:'029780.KS', name:'삼성카드',       name_en:'Samsung Card',              sector:'FIN',        current_price:42500,  market_cap:4.9e12, volatility_30d:0.18, beta:0.85, debt_ratio:0.82, liquidity_volume:120000, is_etf:false, alias:'samsung card 삼성카드 카드' },
+  { ticker:'000720.KS', name:'현대건설',       name_en:'Hyundai E&C',               sector:'INDUSTRIAL', current_price:38200,  market_cap:4.3e12, volatility_30d:0.32, beta:1.18, debt_ratio:0.62, liquidity_volume:580000, is_etf:false, alias:'hyundai engineering 현대건설 건설' },
+  { ticker:'051600.KS', name:'한전KPS',        name_en:'KEPCO KPS',                 sector:'ENERGY',     current_price:48500,  market_cap:2.2e12, volatility_30d:0.22, beta:0.72, debt_ratio:0.32, liquidity_volume:120000, is_etf:false, alias:'kepco kps 한전 원전 정비' },
+
+  // === 미국 추가 종목 ===
+  { ticker:'INTC', name:'Intel',                 sector:'IT',         current_price:24.5,  market_cap:106e9, volatility_30d:0.38, beta:1.15, debt_ratio:0.42, liquidity_volume:62000000, is_etf:false, alias:'intel 인텔 반도체' },
+  { ticker:'IBM',  name:'IBM',                   sector:'IT',         current_price:218,   market_cap:202e9, volatility_30d:0.18, beta:0.82, debt_ratio:0.72, liquidity_volume:5800000,  is_etf:false, alias:'ibm 클라우드' },
+  { ticker:'BA',   name:'Boeing',                sector:'INDUSTRIAL', current_price:178,   market_cap:108e9, volatility_30d:0.34, beta:1.42, debt_ratio:0.85, liquidity_volume:8200000,  is_etf:false, alias:'boeing 보잉 항공 방산' },
+  { ticker:'CAT',  name:'Caterpillar',           sector:'INDUSTRIAL', current_price:392,   market_cap:194e9, volatility_30d:0.24, beta:1.05, debt_ratio:0.62, liquidity_volume:2800000,  is_etf:false, alias:'caterpillar 캐터필러 건설장비' },
+  { ticker:'UNH',  name:'UnitedHealth',          sector:'BIO',        current_price:582,   market_cap:548e9, volatility_30d:0.18, beta:0.62, debt_ratio:0.48, liquidity_volume:3200000,  is_etf:false, alias:'unitedhealth unh 헬스케어 의료보험' },
+  { ticker:'COIN', name:'Coinbase',              sector:'FIN',        current_price:218,   market_cap:55e9,  volatility_30d:0.78, beta:2.45, debt_ratio:0.32, liquidity_volume:8200000,  is_etf:false, alias:'coinbase 코인베이스 crypto 암호화폐' },
+  { ticker:'PYPL', name:'PayPal',                sector:'FIN',        current_price:78,    market_cap:78e9,  volatility_30d:0.32, beta:1.42, debt_ratio:0.45, liquidity_volume:14000000, is_etf:false, alias:'paypal 페이팔 결제' },
+  { ticker:'UBER', name:'Uber',                  sector:'IT',         current_price:74,    market_cap:154e9, volatility_30d:0.36, beta:1.32, debt_ratio:0.52, liquidity_volume:18000000, is_etf:false, alias:'uber 우버 모빌리티' },
+  { ticker:'ABNB', name:'Airbnb',                sector:'CONSUMER',   current_price:142,   market_cap:88e9,  volatility_30d:0.32, beta:1.18, debt_ratio:0.28, liquidity_volume:5800000,  is_etf:false, alias:'airbnb 에어비앤비' },
+
+  // === 미국 섹터 ETF 추가 ===
+  { ticker:'XLP',  name:'Consumer Staples Select', sector:'CONSUMER',  current_price:82,   market_cap:18e9,  volatility_30d:0.12, beta:0.55, debt_ratio:0.00, liquidity_volume:7200000,  is_etf:true, alias:'xlp consumer staples 필수소비재' },
+  { ticker:'XLY',  name:'Consumer Discretionary',  sector:'CONSUMER',  current_price:208,  market_cap:22e9,  volatility_30d:0.20, beta:1.18, debt_ratio:0.00, liquidity_volume:4200000,  is_etf:true, alias:'xly consumer discretionary 임의소비재' },
+  { ticker:'XLU',  name:'Utilities Select',        sector:'ENERGY',    current_price:78,   market_cap:16e9,  volatility_30d:0.16, beta:0.55, debt_ratio:0.00, liquidity_volume:11000000, is_etf:true, alias:'xlu utilities 유틸리티' },
+  { ticker:'XLI',  name:'Industrial Select',       sector:'INDUSTRIAL',current_price:138,  market_cap:18e9,  volatility_30d:0.18, beta:1.10, debt_ratio:0.00, liquidity_volume:11000000, is_etf:true, alias:'xli industrials 산업' },
+  { ticker:'VNQ',  name:'Vanguard Real Estate',    sector:'REALESTATE',current_price:94,   market_cap:32e9,  volatility_30d:0.22, beta:0.85, debt_ratio:0.00, liquidity_volume:3800000,  is_etf:true, alias:'vnq real estate 부동산 reit' },
+  { ticker:'EWJ',  name:'iShares MSCI Japan',      sector:'GLOBAL_ETF',current_price:74,   market_cap:14e9,  volatility_30d:0.16, beta:0.78, debt_ratio:0.00, liquidity_volume:11000000, is_etf:true, alias:'ewj japan 일본' },
+  { ticker:'INDA', name:'iShares MSCI India',      sector:'GLOBAL_ETF',current_price:54,   market_cap:9e9,   volatility_30d:0.20, beta:0.92, debt_ratio:0.00, liquidity_volume:5800000,  is_etf:true, alias:'inda india 인도' },
+
+  // === 한국 추가 — 금융·식품·엔터·바이오 ===
+  { ticker:'032830.KS', name:'삼성생명',        name_en:'Samsung Life',         sector:'FIN',        current_price:118500, market_cap:23e12,  volatility_30d:0.20, beta:0.88, debt_ratio:0.78, liquidity_volume:280000, is_etf:false, alias:'samsung life 삼성생명 보험' },
+  { ticker:'000810.KS', name:'삼성화재',        name_en:'Samsung Fire',         sector:'FIN',        current_price:332000, market_cap:16e12,  volatility_30d:0.18, beta:0.72, debt_ratio:0.65, liquidity_volume:38000,  is_etf:false, alias:'samsung fire 삼성화재 보험' },
+  { ticker:'088350.KS', name:'한화생명',        name_en:'Hanwha Life',          sector:'FIN',        current_price:3420,   market_cap:2.9e12, volatility_30d:0.22, beta:0.95, debt_ratio:0.82, liquidity_volume:780000, is_etf:false, alias:'hanwha life 한화생명 보험' },
+  { ticker:'138040.KS', name:'메리츠금융지주',  name_en:'Meritz Financial',     sector:'FIN',        current_price:78900,  market_cap:14e12,  volatility_30d:0.22, beta:0.92, debt_ratio:0.78, liquidity_volume:380000, is_etf:false, alias:'meritz 메리츠 금융' },
+  { ticker:'323410.KS', name:'카카오뱅크',      name_en:'Kakao Bank',           sector:'FIN',        current_price:24800,  market_cap:11e12,  volatility_30d:0.30, beta:1.18, debt_ratio:0.85, liquidity_volume:2200000,is_etf:false, alias:'kakao bank 카카오뱅크 인터넷은행' },
+  { ticker:'293490.KS', name:'카카오게임즈',    name_en:'Kakao Games',          sector:'IT',         current_price:18500,  market_cap:1.6e12, volatility_30d:0.42, beta:1.42, debt_ratio:0.32, liquidity_volume:680000, is_etf:false, alias:'kakao games 카카오게임즈 게임' },
+  { ticker:'263750.KS', name:'펄어비스',        name_en:'Pearl Abyss',          sector:'IT',         current_price:38200,  market_cap:2.5e12, volatility_30d:0.45, beta:1.38, debt_ratio:0.18, liquidity_volume:480000, is_etf:false, alias:'pearl abyss 펄어비스 검은사막 게임' },
+  { ticker:'352820.KS', name:'HYBE',            name_en:'HYBE',                  sector:'CONSUMER',   current_price:218000, market_cap:9.2e12, volatility_30d:0.36, beta:1.25, debt_ratio:0.32, liquidity_volume:240000, is_etf:false, alias:'hybe bts 하이브 엔터' },
+  { ticker:'041510.KS', name:'SM',              name_en:'SM Entertainment',     sector:'CONSUMER',   current_price:78500,  market_cap:1.9e12, volatility_30d:0.40, beta:1.25, debt_ratio:0.35, liquidity_volume:280000, is_etf:false, alias:'sm entertainment 에스엠 sm 엔터' },
+  { ticker:'035900.KS', name:'JYP',             name_en:'JYP Entertainment',    sector:'CONSUMER',   current_price:62800,  market_cap:2.2e12, volatility_30d:0.38, beta:1.22, debt_ratio:0.18, liquidity_volume:380000, is_etf:false, alias:'jyp entertainment jyp 엔터' },
+  { ticker:'051900.KS', name:'LG생활건강',      name_en:'LG H&H',               sector:'CONSUMER',   current_price:325000, market_cap:5.1e12, volatility_30d:0.24, beta:0.78, debt_ratio:0.38, liquidity_volume:62000,  is_etf:false, alias:'lg h&h 생활건강 화장품' },
+  { ticker:'003230.KS', name:'삼양식품',        name_en:'Samyang Foods',         sector:'CONSUMER',   current_price:625000, market_cap:4.7e12, volatility_30d:0.42, beta:0.95, debt_ratio:0.32, liquidity_volume:62000,  is_etf:false, alias:'samyang foods 삼양 불닭 식품' },
+  { ticker:'004370.KS', name:'농심',            name_en:'Nongshim',             sector:'CONSUMER',   current_price:418000, market_cap:2.5e12, volatility_30d:0.20, beta:0.62, debt_ratio:0.25, liquidity_volume:14000,  is_etf:false, alias:'nongshim 농심 라면 식품' },
+  { ticker:'008770.KS', name:'호텔신라',        name_en:'Hotel Shilla',         sector:'CONSUMER',   current_price:48500,  market_cap:1.9e12, volatility_30d:0.30, beta:1.12, debt_ratio:0.62, liquidity_volume:280000, is_etf:false, alias:'shilla hotel 호텔신라 면세' },
+  { ticker:'302440.KS', name:'SK바이오사이언스',name_en:'SK Bioscience',        sector:'BIO',        current_price:62800,  market_cap:4.8e12, volatility_30d:0.42, beta:1.18, debt_ratio:0.18, liquidity_volume:380000, is_etf:false, alias:'sk bioscience 백신 바이오' },
+  { ticker:'091990.KS', name:'셀트리온헬스케어',name_en:'Celltrion Healthcare', sector:'BIO',        current_price:78500,  market_cap:11e12,  volatility_30d:0.40, beta:1.18, debt_ratio:0.32, liquidity_volume:580000, is_etf:false, alias:'celltrion healthcare 셀트리온헬스' },
+  { ticker:'006400.KS', name:'삼성SDI',         name_en:'Samsung SDI',          sector:'INDUSTRIAL', current_price:325000, market_cap:22e12,  volatility_30d:0.36, beta:1.40, debt_ratio:0.48, liquidity_volume:380000, is_etf:false, alias:'samsung sdi 삼성에스디아이 배터리' },
+  { ticker:'018260.KS', name:'삼성에스디에스',  name_en:'Samsung SDS',          sector:'IT',         current_price:148000, market_cap:11e12,  volatility_30d:0.22, beta:0.88, debt_ratio:0.32, liquidity_volume:78000,  is_etf:false, alias:'samsung sds 삼성에스디에스 it서비스' },
+  { ticker:'180640.KS', name:'한진칼',          name_en:'Hanjin KAL',           sector:'INDUSTRIAL', current_price:65800,  market_cap:4.4e12, volatility_30d:0.34, beta:1.22, debt_ratio:0.55, liquidity_volume:120000, is_etf:false, alias:'hanjin kal 한진칼 한진' },
+  { ticker:'028670.KS', name:'팬오션',          name_en:'Pan Ocean',            sector:'INDUSTRIAL', current_price:3850,   market_cap:2.1e12, volatility_30d:0.34, beta:1.18, debt_ratio:0.52, liquidity_volume:6800000,is_etf:false, alias:'pan ocean 팬오션 해운 벌크' },
+
+  // === 미국 추가 — 빅캡·중국 ADR·반도체·소프트웨어·EV ===
+  { ticker:'BABA', name:'Alibaba',                  sector:'IT',       current_price:118,  market_cap:298e9, volatility_30d:0.34, beta:1.18, debt_ratio:0.32, liquidity_volume:14000000, is_etf:false, alias:'alibaba 알리바바 baba 중국' },
+  { ticker:'JD',   name:'JD.com',                   sector:'CONSUMER', current_price:38,   market_cap:58e9,  volatility_30d:0.36, beta:1.25, debt_ratio:0.42, liquidity_volume:18000000, is_etf:false, alias:'jd 징둥 중국' },
+  { ticker:'BIDU', name:'Baidu',                    sector:'IT',       current_price:88,   market_cap:31e9,  volatility_30d:0.38, beta:1.32, debt_ratio:0.28, liquidity_volume:2200000,  is_etf:false, alias:'baidu 바이두 중국 검색' },
+  { ticker:'TSM',  name:'Taiwan Semiconductor',     sector:'IT',       current_price:198,  market_cap:1020e9,volatility_30d:0.30, beta:1.18, debt_ratio:0.18, liquidity_volume:18000000, is_etf:false, alias:'tsmc taiwan semi 대만 반도체 파운드리' },
+  { ticker:'ASML', name:'ASML',                     sector:'IT',       current_price:728,  market_cap:298e9, volatility_30d:0.32, beta:1.32, debt_ratio:0.22, liquidity_volume:1200000,  is_etf:false, alias:'asml 노광장비 반도체' },
+  { ticker:'AVGO', name:'Broadcom',                 sector:'IT',       current_price:1782, market_cap:825e9, volatility_30d:0.32, beta:1.18, debt_ratio:0.55, liquidity_volume:2200000,  is_etf:false, alias:'broadcom avgo 반도체' },
+  { ticker:'MU',   name:'Micron',                   sector:'IT',       current_price:108,  market_cap:118e9, volatility_30d:0.45, beta:1.62, debt_ratio:0.32, liquidity_volume:18000000, is_etf:false, alias:'micron 마이크론 메모리 반도체' },
+  { ticker:'ADBE', name:'Adobe',                    sector:'IT',       current_price:548,  market_cap:248e9, volatility_30d:0.28, beta:1.18, debt_ratio:0.28, liquidity_volume:2400000,  is_etf:false, alias:'adobe 어도비 소프트웨어' },
+  { ticker:'INTU', name:'Intuit',                   sector:'IT',       current_price:642,  market_cap:178e9, volatility_30d:0.24, beta:1.25, debt_ratio:0.32, liquidity_volume:1100000,  is_etf:false, alias:'intuit 인튜이트 quickbooks' },
+  { ticker:'CRWD', name:'CrowdStrike',              sector:'IT',       current_price:328,  market_cap:78e9,  volatility_30d:0.42, beta:1.45, debt_ratio:0.18, liquidity_volume:3200000,  is_etf:false, alias:'crowdstrike crwd 사이버보안' },
+  { ticker:'NET',  name:'Cloudflare',               sector:'IT',       current_price:88,   market_cap:30e9,  volatility_30d:0.48, beta:1.52, debt_ratio:0.22, liquidity_volume:5200000,  is_etf:false, alias:'cloudflare 클라우드플레어 cdn' },
+  { ticker:'DDOG', name:'Datadog',                  sector:'IT',       current_price:128,  market_cap:42e9,  volatility_30d:0.42, beta:1.55, debt_ratio:0.18, liquidity_volume:3800000,  is_etf:false, alias:'datadog 데이터독 모니터링' },
+  { ticker:'SNOW', name:'Snowflake',                sector:'IT',       current_price:172,  market_cap:55e9,  volatility_30d:0.45, beta:1.65, debt_ratio:0.22, liquidity_volume:6500000,  is_etf:false, alias:'snowflake 스노우플레이크 데이터' },
+  { ticker:'PLTR', name:'Palantir',                 sector:'IT',       current_price:78,   market_cap:175e9, volatility_30d:0.55, beta:1.85, debt_ratio:0.12, liquidity_volume:78000000, is_etf:false, alias:'palantir 팔란티어' },
+  { ticker:'NIO',  name:'NIO',                      sector:'AUTO',     current_price:6.2,  market_cap:13e9,  volatility_30d:0.65, beta:2.15, debt_ratio:0.62, liquidity_volume:48000000, is_etf:false, alias:'nio 니오 중국 전기차' },
+  { ticker:'RIVN', name:'Rivian',                   sector:'AUTO',     current_price:12.8, market_cap:13e9,  volatility_30d:0.72, beta:2.25, debt_ratio:0.45, liquidity_volume:38000000, is_etf:false, alias:'rivian 리비안 전기차' },
+  { ticker:'BLK',  name:'BlackRock',                sector:'FIN',      current_price:932,  market_cap:138e9, volatility_30d:0.20, beta:1.18, debt_ratio:0.55, liquidity_volume:680000,   is_etf:false, alias:'blackrock 블랙록 자산운용' },
+  { ticker:'C',    name:'Citigroup',                sector:'FIN',      current_price:62,   market_cap:118e9, volatility_30d:0.24, beta:1.42, debt_ratio:0.88, liquidity_volume:14000000, is_etf:false, alias:'citi citigroup 시티 은행' },
+  { ticker:'WFC',  name:'Wells Fargo',              sector:'FIN',      current_price:62,   market_cap:215e9, volatility_30d:0.22, beta:1.18, debt_ratio:0.85, liquidity_volume:18000000, is_etf:false, alias:'wells fargo 웰스파고 은행' },
+  { ticker:'AXP',  name:'American Express',         sector:'FIN',      current_price:268,  market_cap:195e9, volatility_30d:0.20, beta:1.18, debt_ratio:0.72, liquidity_volume:2800000,  is_etf:false, alias:'amex american express 아멕스 카드' },
+  { ticker:'ABBV', name:'AbbVie',                   sector:'BIO',      current_price:178,  market_cap:315e9, volatility_30d:0.18, beta:0.62, debt_ratio:0.78, liquidity_volume:5800000,  is_etf:false, alias:'abbvie 애브비 제약' },
+  { ticker:'TMO',  name:'Thermo Fisher',            sector:'BIO',      current_price:582,  market_cap:222e9, volatility_30d:0.20, beta:0.88, debt_ratio:0.42, liquidity_volume:1400000,  is_etf:false, alias:'thermo fisher 써모피셔' },
+  { ticker:'AMGN', name:'Amgen',                    sector:'BIO',      current_price:282,  market_cap:152e9, volatility_30d:0.18, beta:0.62, debt_ratio:0.85, liquidity_volume:2400000,  is_etf:false, alias:'amgen 암젠 제약' },
+  { ticker:'UPS',  name:'United Parcel Service',    sector:'INDUSTRIAL',current_price:128, market_cap:108e9, volatility_30d:0.22, beta:0.92, debt_ratio:0.75, liquidity_volume:4200000,  is_etf:false, alias:'ups 유피에스 물류' },
+  { ticker:'FDX',  name:'FedEx',                    sector:'INDUSTRIAL',current_price:268, market_cap:65e9,  volatility_30d:0.24, beta:1.05, debt_ratio:0.72, liquidity_volume:1200000,  is_etf:false, alias:'fedex 페덱스 물류' },
+
+  // === ETF 추가 — 인컴·총시장·반도체·바이오·테마 ===
+  { ticker:'AGG',  name:'iShares Core US Bond',     sector:'GLOBAL_ETF',current_price:98,   market_cap:118e9, volatility_30d:0.06, beta:0.10, debt_ratio:0.00, liquidity_volume:7500000,  is_etf:true, alias:'agg us bond 채권 종합' },
+  { ticker:'SCHD', name:'Schwab US Dividend',       sector:'GLOBAL_ETF',current_price:78,   market_cap:62e9,  volatility_30d:0.13, beta:0.85, debt_ratio:0.00, liquidity_volume:5200000,  is_etf:true, alias:'schd schwab dividend 배당' },
+  { ticker:'VYM',  name:'Vanguard High Dividend',   sector:'GLOBAL_ETF',current_price:122,  market_cap:55e9,  volatility_30d:0.13, beta:0.85, debt_ratio:0.00, liquidity_volume:1100000,  is_etf:true, alias:'vym high dividend 고배당 vanguard' },
+  { ticker:'VIG',  name:'Vanguard Dividend Apprec', sector:'GLOBAL_ETF',current_price:188,  market_cap:88e9,  volatility_30d:0.14, beta:0.92, debt_ratio:0.00, liquidity_volume:780000,   is_etf:true, alias:'vig dividend appreciation 배당성장' },
+  { ticker:'IEFA', name:'iShares Core MSCI EAFE',   sector:'GLOBAL_ETF',current_price:78,   market_cap:118e9, volatility_30d:0.14, beta:0.78, debt_ratio:0.00, liquidity_volume:11000000, is_etf:true, alias:'iefa eafe international' },
+  { ticker:'IEMG', name:'iShares Core Emerging',    sector:'GLOBAL_ETF',current_price:54,   market_cap:78e9,  volatility_30d:0.18, beta:0.92, debt_ratio:0.00, liquidity_volume:18000000, is_etf:true, alias:'iemg emerging markets 신흥국' },
+  { ticker:'FXI',  name:'iShares China Large-Cap',  sector:'GLOBAL_ETF',current_price:32,   market_cap:5.5e9, volatility_30d:0.32, beta:1.12, debt_ratio:0.00, liquidity_volume:55000000, is_etf:true, alias:'fxi china 중국' },
+  { ticker:'KWEB', name:'KraneShares China Internet',sector:'IT',       current_price:30,   market_cap:5.2e9, volatility_30d:0.42, beta:1.42, debt_ratio:0.00, liquidity_volume:18000000, is_etf:true, alias:'kweb china internet 중국 인터넷' },
+  { ticker:'SOXX', name:'iShares Semiconductor',    sector:'IT',        current_price:218,  market_cap:11e9,  volatility_30d:0.32, beta:1.55, debt_ratio:0.00, liquidity_volume:1800000,  is_etf:true, alias:'soxx semiconductor 반도체' },
+  { ticker:'SMH',  name:'VanEck Semiconductor',     sector:'IT',        current_price:248,  market_cap:25e9,  volatility_30d:0.32, beta:1.55, debt_ratio:0.00, liquidity_volume:5800000,  is_etf:true, alias:'smh semiconductor 반도체' },
+  { ticker:'IBB',  name:'iShares Biotech',          sector:'BIO',       current_price:138,  market_cap:7.2e9, volatility_30d:0.22, beta:0.92, debt_ratio:0.00, liquidity_volume:2200000,  is_etf:true, alias:'ibb biotech 바이오' },
+  { ticker:'KRE',  name:'SPDR Regional Banking',    sector:'FIN',       current_price:58,   market_cap:3.8e9, volatility_30d:0.32, beta:1.42, debt_ratio:0.00, liquidity_volume:18000000, is_etf:true, alias:'kre regional bank 지역은행' },
+  { ticker:'IYR',  name:'iShares US Real Estate',   sector:'REALESTATE',current_price:92,   market_cap:4.2e9, volatility_30d:0.22, beta:0.85, debt_ratio:0.00, liquidity_volume:6800000,  is_etf:true, alias:'iyr real estate reit 부동산' },
+  { ticker:'JEPI', name:'JPMorgan Equity Premium',  sector:'GLOBAL_ETF',current_price:58,   market_cap:38e9,  volatility_30d:0.10, beta:0.65, debt_ratio:0.00, liquidity_volume:5200000,  is_etf:true, alias:'jepi income premium 인컴' },
+  { ticker:'EFA',  name:'iShares MSCI EAFE',        sector:'GLOBAL_ETF',current_price:82,   market_cap:48e9,  volatility_30d:0.14, beta:0.78, debt_ratio:0.00, liquidity_volume:11000000, is_etf:true, alias:'efa eafe developed 선진국' },
+
   // === 미국 IT (BIG TECH) ===
   { ticker:'AAPL',  name:'Apple',           sector:'IT',         current_price:228,    market_cap:3500e9, volatility_30d:0.22, beta:1.18, debt_ratio:0.40, liquidity_volume:55000000, is_etf:false, alias:'apple aapl' },
   { ticker:'MSFT',  name:'Microsoft',       sector:'IT',         current_price:432,    market_cap:3200e9, volatility_30d:0.20, beta:0.95, debt_ratio:0.32, liquidity_volume:24000000, is_etf:false, alias:'microsoft msft' },
@@ -505,6 +653,9 @@ const ASSET_DB = [
 
 const ASSET_BY_TICKER = {};
 ASSET_DB.forEach(a => ASSET_BY_TICKER[a.ticker] = a);
+// 외부 비동기 로더(applyTickerCatalog/applyDailyPrices)에서 접근하기 위해 window에 노출
+window.ASSET_DB = ASSET_DB;
+window.ASSET_BY_TICKER = ASSET_BY_TICKER;
 
 // ---------- 기본 샘플 포트폴리오 (수량 기반) ----------
 const SAMPLE_HOLDINGS = [
@@ -1266,11 +1417,7 @@ function renderHoldings(){
       <div class="holding-dot" style="background:${riskColor(it.risk_score)};color:${riskColor(it.risk_score)}"></div>
       <div class="holding-info">
         <div class="holding-name">${getName(it)}</div>
-        <div class="holding-sub">
-          <span>${it.ticker}</span>
-          <span style="color:var(--text-2);">·</span>
-          <span>${sectorLabel(it.sector)}</span>
-        </div>
+        <div class="holding-sub" title="${it.ticker} · ${sectorLabel(it.sector)}">${it.ticker}<span class="sub-sep">·</span>${sectorLabel(it.sector)}</div>
         ${currentHint}
       </div>
       <div class="holding-right">
@@ -1745,10 +1892,10 @@ function generateRecommendations(items, balance){
   Object.values(groups).forEach(arr =>
     arr.sort((a,b) => b.impact.deltaBalance - a.impact.deltaBalance)
   );
-  // 약점 우선순위 순서로 그룹 정렬
-  const sortedGroups = Object.values(groups).sort((a,b) =>
-    (a[0]?.weakness_priority || 99) - (b[0]?.weakness_priority || 99)
-  );
+  // 약점 우선순위 순서로 그룹 정렬 + 그룹당 최대 4개로 제한 (특정 약점 도배 방지)
+  const sortedGroups = Object.values(groups)
+    .sort((a,b) => (a[0]?.weakness_priority || 99) - (b[0]?.weakness_priority || 99))
+    .map(g => g.slice(0, 4));
   // 라운드로빈 인터리브 — 같은 약점 타입이 연속되지 않도록
   const interleaved = [];
   let added = true;
@@ -2016,6 +2163,27 @@ function renderRebalancePanel(){
 
   // 추천 카드 렌더
   renderRecommendations();
+
+  // 변경사항 없으면 [적용하기] 비활성화
+  const applyBtn = document.getElementById('rbApply');
+  if (applyBtn){
+    const changed = hasTargetChanged();
+    applyBtn.disabled = !changed;
+    applyBtn.title = changed ? '' : (CURRENT_LANG==='en' ? 'No changes to apply' : '변경사항이 없습니다');
+  }
+}
+
+// TARGET이 실제 STATE와 다른지 비교
+function hasTargetChanged(){
+  if (!TARGET_HOLDINGS) return false;
+  const current = activePortfolio().holdings;
+  if (current.length !== TARGET_HOLDINGS.length) return true;
+  // ticker → quantity 매핑 비교
+  const cMap = new Map(current.map(h => [h.ticker, h.quantity]));
+  for (const t of TARGET_HOLDINGS){
+    if (cMap.get(t.ticker) !== t.quantity) return true;
+  }
+  return false;
 }
 
 function renderRecommendations(){
@@ -2571,7 +2739,12 @@ function renderSearchResults(q){
     searchResults.classList.add('show');
     return;
   }
-  searchResults.innerHTML = results.map(a => `
+  searchResults.innerHTML = results.map(a => {
+    const noPrice = !a.current_price || a.current_price === 0;
+    const priceLabel = noPrice
+      ? (CURRENT_LANG==='en' ? 'no price' : '시세 미적용')
+      : a.current_price.toLocaleString();
+    return `
     <div class="search-result ${a._owned?'added':''}" data-ticker="${a.ticker}">
       <div class="sr-info">
         <div class="sr-name">${getName(a)}</div>
@@ -2582,11 +2755,11 @@ function renderSearchResults(q){
           ${a._owned ? `<span style="color:var(--safe)">${t('addedTag')}</span>` : ''}
         </div>
       </div>
-      <div style="font-size: 12px; color:var(--text-2); font-variant-numeric:tabular-nums;">
-        ${a.current_price.toLocaleString()}
+      <div style="font-size: 12px; color:${noPrice?'var(--text-3)':'var(--text-2)'}; font-variant-numeric:tabular-nums;">
+        ${priceLabel}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
   searchResults.classList.add('show');
   searchResults.querySelectorAll('.search-result').forEach(el=>{
     if (el.classList.contains('added')) return;
@@ -3001,8 +3174,13 @@ document.querySelectorAll('#langSwitch button').forEach(b => {
 });
 applyI18n();
 
-// 일별 시세 적용 (비동기, 폴백) — 성공 시 ASSET_DB 갱신 후 전체 재계산
-applyDailyPrices().then(meta => {
+// 1) 티커 카탈로그 로드 → 2) 일별 시세 적용 (양쪽 모두 비동기, 실패 시 폴백)
+applyTickerCatalog().then(catMeta => {
+  if (catMeta && catMeta.added > 0){
+    console.log(`[SPHERE] Loaded ${catMeta.added} catalog tickers · total ${catMeta.total}`);
+  }
+  return applyDailyPrices();
+}).then(meta => {
   if (!meta || meta.updated === 0) return;
   console.log(`[SPHERE] Loaded ${meta.updated} daily prices · ${meta.updatedAt}`);
   // 헤더 STATUS — "● UPDATED YYYY-MM-DD" 로 갱신
