@@ -1,0 +1,7 @@
+{
+  "updated_at": null,
+  "count": 0,
+  "failed": [],
+  "prices": {},
+  "_note": "Run tools/update_prices.py to populate this file. GitHub Actions will update daily at 08:00 KST."
+}
