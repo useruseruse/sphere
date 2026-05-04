@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" data-i18n-title-key="appTitleSimple">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPHERE 쉬운 버전 — 내 포트폴리오 한눈에</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="simple">
+
+<header class="s-header">
+  <a href="./index.html" class="s-logo" title="고급 버전으로 가기">
+    <div class="logo-mark"></div>
+    <span>SPHERE</span>
+    <span class="s-logo-tag">쉬운 버전</span>
+  </a>
+  <div class="s-header-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" title="라이트/다크 모드 전환">🌙</button>
+    <div class="lang-switch" id="langSwitch">
+      <button data-lang="ko">한국어</button>
+      <button data-lang="en">English</button>
+    </div>
+    <a href="./index.html" class="s-pro-link" title="고급 분석 도구로 이동">고급 모드 →</a>
+  </div>
+</header>
+
+<main class="s-main">
+
+  <!-- 1. 인사 + 점수 카드 -->
+  <section class="s-hero">
+    <div class="s-greeting" id="sGreeting">안녕하세요 👋</div>
+    <div class="s-score-card">
+      <div class="s-score-label" data-i18n="balanceIndex">내 포트폴리오 점수</div>
+      <div class="s-score-row">
+        <div class="s-score-number" id="balanceScore">--</div>
+        <div class="s-score-meta">
+          <div class="s-score-grade" id="balanceGrade">계산 중…</div>
+          <div class="s-score-bar"><div class="s-score-fill" id="balanceFill" style="width:0%"></div></div>
+          <div class="s-score-hint">100점 = 완벽한 분산</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Sphere (작게, 보조적으로) -->
+  <section class="s-stage">
+    <div class="stage" id="stageSimple">
+      <canvas id="canvas"></canvas>
+      <div class="s-stage-hint">🌐 점 하나하나가 보유 종목이에요</div>
+    </div>
+  </section>
+
+  <!-- 3. 가장 먼저 할 일 -->
+  <section class="s-tip-card">
+    <div class="s-tip-emoji" id="sTipEmoji">💡</div>
+    <div class="s-tip-body">
+      <div class="s-tip-title" id="sTipTitle">잠깐만요…</div>
+      <div class="s-tip-text" id="sTipText">계산이 끝나면 가장 먼저 살펴볼 만한 점을 알려드릴게요.</div>
+    </div>
+  </section>
+
+  <!-- 4. 종목 검색 -->
+  <section class="s-card">
+    <div class="s-card-title">
+      <span>🔍 종목 추가하기</span>
+    </div>
+    <div class="search-wrap s-search-wrap">
+      <input type="text" class="search-input s-search-input" id="searchInput"
+             placeholder="이름이나 티커를 입력하세요 (예: 삼성전자, AAPL)" autocomplete="off">
+      <div class="search-results s-search-results" id="searchResults"></div>
+    </div>
+    <div class="s-search-hint">
+      자주 찾는 카테고리:
+      <button class="s-quick-tag" data-q="#삼성">삼성</button>
+      <button class="s-quick-tag" data-q="#반도체">반도체</button>
+      <button class="s-quick-tag" data-q="#배당">배당주</button>
+      <button class="s-quick-tag" data-q="#ETF">ETF</button>
+      <button class="s-quick-tag" data-q="#채권">채권</button>
+    </div>
+  </section>
+
+  <!-- 5. 보유 종목 (컴팩트) -->
+  <section class="s-card">
+    <div class="s-card-title">
+      <span>📊 내 보유 종목</span>
+      <span class="s-count" id="holdingCount">0</span>
+    </div>
+    <div id="holdingsList" class="s-holdings"></div>
+    <div id="holdingsEmpty" class="s-empty" style="display:none;">
+      <div class="s-empty-emoji">🌱</div>
+      <div>아직 보유한 종목이 없어요.<br>위에서 첫 종목을 추가해보세요!</div>
+    </div>
+  </section>
+
+  <!-- 6. 도움말 / 면책 -->
+  <footer class="s-footer">
+    <button class="s-footer-link" id="sHelpBtn">❓ 도움말</button>
+    <button class="s-footer-link" id="aboutIcon">📜 이용 약관</button>
+    <a href="./index.html" class="s-footer-link">🔬 고급 모드로 가기</a>
+  </footer>
+</main>
+
+<!-- 토스트 / 모달 컨테이너 (재사용) -->
+<div id="tooltip" class="tooltip" style="display:none"></div>
+<div class="modal" id="dialogModal">
+  <div class="modal-content">
+    <h3 id="dialogTitle">알림</h3>
+    <p id="dialogMessage"></p>
+    <div class="modal-actions">
+      <button id="dialogCancel">취소</button>
+      <button id="dialogOK" class="primary">확인</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="aboutModal">
+  <div class="modal-content about-modal">
+    <h2 data-i18n="aboutTitleHeader">SPHERE — 이용 약관</h2>
+    <div class="legal-content">
+      <p data-i18n="aboutLegalWarn"></p>
+      <p data-i18n="aboutP1"></p>
+      <p data-i18n="aboutP4"></p>
+      <p data-i18n="aboutP5"></p>
+    </div>
+    <div class="modal-actions">
+      <button id="aboutClose" class="primary" data-i18n="aboutAck">확인했습니다</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/main-simple.ts"></script>
+</body>
+</html>
