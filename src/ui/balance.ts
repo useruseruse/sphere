@@ -3,7 +3,7 @@
    SPHERE — Balance / Sector / Risk distribution 렌더링
    ========================================================= */
 
-import { sectorLabel } from '../i18n.js';
+import { sectorLabel, t } from '../i18n.js';
 import { SECTOR_DEF, balanceGrade } from '../core/pipeline.js';
 import { RUNTIME } from '../runtime.js';
 
@@ -29,11 +29,11 @@ export function renderSectorBars(){
 export function renderRiskDist(){
   const items = RUNTIME.ITEMS;
   const buckets = [
-    { lbl:'SAFE',     min: 0,  max: 30,  c:'var(--safe)' },
-    { lbl:'MODERATE', min: 30, max: 55,  c:'var(--moderate)' },
-    { lbl:'CAUTION',  min: 55, max: 75,  c:'var(--caution)' },
-    { lbl:'HIGH',     min: 75, max: 90,  c:'var(--high)' },
-    { lbl:'EXTREME',  min: 90, max: 101, c:'var(--extreme)' }
+    { lbl: t('riskSafe'),     min: 0,  max: 30,  c:'var(--safe)' },
+    { lbl: t('riskModerate'), min: 30, max: 55,  c:'var(--moderate)' },
+    { lbl: t('riskCaution'),  min: 55, max: 75,  c:'var(--caution)' },
+    { lbl: t('riskHigh'),     min: 75, max: 90,  c:'var(--high)' },
+    { lbl: t('riskExtreme'),  min: 90, max: 101, c:'var(--extreme)' }
   ];
   const total = items.length;
   const el = document.getElementById('riskDist');

@@ -625,6 +625,7 @@
     gap: 10px;
     box-shadow: 0 4px 30px rgba(255,69,96,0.2);
     animation: pulse-alert 2s ease-in-out infinite;
+    z-index: 5;  /* 드롭다운들 (pf-list / search-results) 보다 항상 아래 */
   }
   @keyframes pulse-alert {
     0%, 100% { box-shadow: 0 4px 30px rgba(255,69,96,0.2); }
@@ -906,7 +907,7 @@
     border-radius: 0 0 9px 9px;
     max-height: 360px;
     overflow-y: auto;
-    z-index: 100;
+    z-index: 2000;  /* alert-banner / legal-banner / 모든 패널 위 */
     backdrop-filter: blur(16px);
     box-shadow: 0 12px 40px rgba(0,0,0,0.6);
     display: none;
@@ -1064,7 +1065,7 @@
     border-radius: 8px;
     max-height: 320px;
     overflow-y: auto;
-    z-index: 50;
+    z-index: 2000;  /* alert-banner / legal-banner / 모든 패널 위 */
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     display: none;

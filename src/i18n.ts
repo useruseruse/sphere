@@ -92,7 +92,7 @@ export const I18N: Record<Lang, Dict> = {
     balanceGradeWarn:'🟡 편중 주의 — 리밸런싱 권장',
     balanceGradeRisk:'🔴 편중 위험 — 리밸런싱 필요',
     balanceGradeSevere:'🟣 심각한 쏠림 — 즉각 리밸런싱',
-    riskSafe:'SAFE', riskModerate:'MODERATE', riskCaution:'CAUTION', riskHigh:'HIGH', riskExtreme:'EXTREME',
+    riskSafe:'안전', riskModerate:'보통', riskCaution:'주의', riskHigh:'위험', riskExtreme:'극단',
     tooltipQtyWeight:(q,w)=>`${q.toLocaleString()}주 · ${w}%`,
     tooltipValue:'평가금액', tooltipRisk:'리스크', tooltipReturn:'수익률', tooltipSector:'섹터',
     qtyEditTitle:'보유 수량 (클릭하여 수정 · Enter로 저장)',
