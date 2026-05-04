@@ -270,7 +270,8 @@
     border-bottom: 1px solid var(--line);
     background: var(--header-bg);
     backdrop-filter: blur(20px);
-    z-index: 10;
+    z-index: 1500;  /* 안의 pf-list 드롭다운이 stage corner / 패널 위로 노출 */
+    position: relative;  /* z-index 적용을 위해 */
   }
   header > .header-meta { justify-self: end; }
   .logo {
