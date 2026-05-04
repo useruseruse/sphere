@@ -2351,7 +2351,9 @@
     }
     /* .logo는 줄여도 되도록 (flex-shrink: 1), 그러나 최소 SPHERE 텍스트는 유지 */
     header > .logo { flex-shrink: 1; min-width: 0; gap: 4px; overflow: hidden; }
-    header > .portfolio-bar { flex: 1 1 auto; min-width: 0; justify-content: flex-end; flex-wrap: nowrap; overflow: hidden; }
+    /* overflow:hidden 은 드롭다운 세로 펼침을 클리핑하므로 사용하지 않음.
+       대신 자식(.pf-current-name, .logo > span) 의 text-overflow: ellipsis 로 가로 truncation 처리. */
+    header > .portfolio-bar { flex: 1 1 auto; min-width: 0; justify-content: flex-end; flex-wrap: nowrap; }
     /* 모바일에서 .pf-dropdown 의 데스크탑 220px 최소 너비 해제 */
     .pf-dropdown { min-width: 0 !important; flex-shrink: 1; max-width: 100%; }
     header > .header-meta { display: none !important; }
