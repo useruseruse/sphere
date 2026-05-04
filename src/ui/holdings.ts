@@ -7,7 +7,16 @@
    ========================================================= */
 
 import { t, getName, sectorLabel, formatKRWUnit } from '../i18n.js';
-import { riskColor } from '../core/pipeline.js';
+import { riskColor, riskLabel } from '../core/pipeline.js';
+
+/** 위험도 1글자 (색맹 대응 — dot 안에 표시) */
+function riskLetter(score: number): string {
+  if (score < 30) return 'S';
+  if (score < 55) return 'M';
+  if (score < 75) return 'C';
+  if (score < 90) return 'H';
+  return 'E';
+}
 import { ASSET_BY_TICKER } from '../data/assetDb.js';
 import { activePortfolio, saveState, TOTAL_PORTFOLIO_VALUE } from '../state/portfolio.js';
 import { RUNTIME } from '../runtime.js';
@@ -65,7 +74,7 @@ export function renderHoldings(){
       }
     }
     d.innerHTML = `
-      <div class="holding-dot" style="background:${riskColor(it.risk_score)};color:${riskColor(it.risk_score)}"></div>
+      <div class="holding-dot" title="${riskLabel(it.risk_score)}" style="background:${riskColor(it.risk_score)};color:${riskColor(it.risk_score)}"><span class="risk-letter">${riskLetter(it.risk_score)}</span></div>
       <div class="holding-info">
         <div class="holding-name">${getName(it)}</div>
         <div class="holding-sub" title="${it.ticker} · ${sectorLabel(it.sector)}">${it.ticker}<span class="sub-sep">·</span>${sectorLabel(it.sector)}</div>

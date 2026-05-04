@@ -155,6 +155,14 @@ function makeLatLine(lat, color, opacity){
   return new THREE.Line(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
 }
 
+/** 위험도에 따라 다른 geometry — 색맹 대응 (형태로도 위험 인지 가능) */
+function riskGeometry(score: number, radius: number){
+  if (score < 55) return new THREE.SphereGeometry(radius, 24, 18);   // SAFE / MOD
+  if (score < 75) return new THREE.OctahedronGeometry(radius * 1.15, 0); // CAUTION
+  if (score < 90) return new THREE.TetrahedronGeometry(radius * 1.35, 0); // HIGH
+  return new THREE.TetrahedronGeometry(radius * 1.55, 0);             // EXTREME
+}
+
 // ─────── 노드 (자산 마커) ───────
 function disposeDynamic(){
   while (dynamicGroup.children.length){
@@ -177,9 +185,14 @@ export function rebuildNodes(items){
     const lineMat = new THREE.LineBasicMaterial({ color: riskColor(it.risk_score), transparent: true, opacity: 0.4 });
     dynamicGroup.add(new THREE.Line(lineGeo, lineMat));
 
-    // 노드 본체
+    // 노드 본체 — 색맹 대응: 위험도 따라 형태도 변화
+    //   SAFE/MOD: 매끈한 구
+    //   CAUTION : 8면체 (다이아몬드)
+    //   HIGH    : 4면체 (피라미드)
+    //   EXTREME : 4면체 + 살짝 큼 (가시 느낌)
+    // 색만 의존하지 않아 적록색약자도 위험도 인지 가능.
     const radius = it.weight * 0.5 + 0.02;
-    const sphereGeo = new THREE.SphereGeometry(radius, 24, 18);
+    const sphereGeo = riskGeometry(it.risk_score, radius);
     const color = new THREE.Color(riskColor(it.risk_score));
     const mat = new THREE.MeshPhongMaterial({
       color, emissive: color, emissiveIntensity: 0.6, shininess: 120, transparent: true, opacity: 0.85

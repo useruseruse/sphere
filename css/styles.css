@@ -3496,3 +3496,40 @@
     font-size: 12.5px;
   }
   .auth-menu button:hover { background: var(--overlay-hover); }
+
+  /* =========================================================
+     색맹 대응 — dot 안 위험도 글자 (S/M/C/H/E)
+     ========================================================= */
+  .holding-dot { position: relative; }
+  .risk-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.85);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0;
+    pointer-events: none;
+    text-shadow: 0 0 2px rgba(0,0,0,0.4);
+  }
+  :root[data-theme="light"] .risk-letter {
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 0 2px rgba(0,0,0,0.55);
+  }
+
+  /* High contrast 시스템 모드 — 색약/약시 보조 */
+  @media (prefers-contrast: more) {
+    :root {
+      --line: rgba(255,255,255,0.30);
+      --text-1: #c0c8dc;
+      --text-2: #8a93b0;
+    }
+    :root[data-theme="light"] {
+      --line: rgba(0,0,0,0.45);
+      --text-1: #1f273d;
+      --text-2: #4a5470;
+    }
+    .holding-dot, .risk-letter { font-weight: 800; }
+  }
