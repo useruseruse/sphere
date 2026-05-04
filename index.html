@@ -242,52 +242,56 @@
         <div class="rm-grade" id="mSharpeGrade"></div>
       </div>
 
-      <div class="rm-card">
-        <div class="rm-head">
-          <span class="rm-label">
-            <span data-i18n="metricSortino">하락 위험 대비 효율</span>
-            <span class="rm-tech">Sortino<span class="info-icon" data-info="sortino">i</span></span>
-          </span>
-          <span class="rm-value" id="mSortino">--</span>
-        </div>
-        <div class="rm-hint" id="mSortinoHint">--</div>
-        <div class="rm-grade" id="mSortinoGrade"></div>
-      </div>
+      <details class="rm-advanced">
+        <summary data-i18n="riskAdvancedToggle">고급 지표 (Sortino · 분산효과 · 변동성 · 배당)</summary>
 
-      <div class="rm-card">
-        <div class="rm-head">
-          <span class="rm-label">
-            <span data-i18n="metricDR">분산투자 효과</span>
-            <span class="rm-tech">DR<span class="info-icon" data-info="dr">i</span></span>
-          </span>
-          <span class="rm-value" id="mDR">--</span>
+        <div class="rm-card">
+          <div class="rm-head">
+            <span class="rm-label">
+              <span data-i18n="metricSortino">하락 위험 대비 효율</span>
+              <span class="rm-tech">Sortino<span class="info-icon" data-info="sortino">i</span></span>
+            </span>
+            <span class="rm-value" id="mSortino">--</span>
+          </div>
+          <div class="rm-hint" id="mSortinoHint">--</div>
+          <div class="rm-grade" id="mSortinoGrade"></div>
         </div>
-        <div class="rm-hint" id="mDRHint">--</div>
-        <div class="rm-grade" id="mDRGrade"></div>
-      </div>
 
-      <div class="rm-card">
-        <div class="rm-head">
-          <span class="rm-label">
-            <span data-i18n="metricPortVol">주가 흔들림 (연)</span>
-            <span class="rm-tech">σ<span class="info-icon" data-info="portVol">i</span></span>
-          </span>
-          <span class="rm-value" id="mPortVol">--</span>
+        <div class="rm-card">
+          <div class="rm-head">
+            <span class="rm-label">
+              <span data-i18n="metricDR">분산투자 효과</span>
+              <span class="rm-tech">DR<span class="info-icon" data-info="dr">i</span></span>
+            </span>
+            <span class="rm-value" id="mDR">--</span>
+          </div>
+          <div class="rm-hint" id="mDRHint">--</div>
+          <div class="rm-grade" id="mDRGrade"></div>
         </div>
-        <div class="rm-hint" id="mPortVolHint">--</div>
-        <div class="rm-grade" id="mPortVolGrade"></div>
-      </div>
 
-      <div class="rm-card" id="dividendRow" style="display:none;">
-        <div class="rm-head">
-          <span class="rm-label">
-            <span data-i18n="metricDividend">예상 연배당</span>
-            <span class="rm-tech">Yield<span class="info-icon" data-info="dividend">i</span></span>
-          </span>
-          <span class="rm-value" id="mDividend" style="color:var(--safe);">--</span>
+        <div class="rm-card">
+          <div class="rm-head">
+            <span class="rm-label">
+              <span data-i18n="metricPortVol">주가 흔들림 (연)</span>
+              <span class="rm-tech">σ<span class="info-icon" data-info="portVol">i</span></span>
+            </span>
+            <span class="rm-value" id="mPortVol">--</span>
+          </div>
+          <div class="rm-hint" id="mPortVolHint">--</div>
+          <div class="rm-grade" id="mPortVolGrade"></div>
         </div>
-        <div class="rm-hint" id="mDividendHint">--</div>
-      </div>
+
+        <div class="rm-card" id="dividendRow" style="display:none;">
+          <div class="rm-head">
+            <span class="rm-label">
+              <span data-i18n="metricDividend">예상 연배당</span>
+              <span class="rm-tech">Yield<span class="info-icon" data-info="dividend">i</span></span>
+            </span>
+            <span class="rm-value" id="mDividend" style="color:var(--safe);">--</span>
+          </div>
+          <div class="rm-hint" id="mDividendHint">--</div>
+        </div>
+      </details>
     </div>
     </div><!-- /pane:risk -->
 

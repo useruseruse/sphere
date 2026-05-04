@@ -3533,3 +3533,35 @@
     }
     .holding-dot, .risk-letter { font-weight: 800; }
   }
+
+  /* =========================================================
+     Risk 탭 — 고급 지표 collapsible (정보 밀도 단계적 공개)
+     ========================================================= */
+  .rm-advanced {
+    margin-top: 10px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 10px;
+  }
+  .rm-advanced > summary {
+    cursor: pointer;
+    color: var(--text-1);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    list-style: none;
+    user-select: none;
+    transition: background 0.12s;
+  }
+  .rm-advanced > summary:hover { background: var(--overlay-hover); }
+  .rm-advanced > summary::-webkit-details-marker { display: none; }
+  .rm-advanced > summary::before {
+    content: '▸ ';
+    color: var(--text-2);
+    transition: transform 0.18s;
+    display: inline-block;
+  }
+  .rm-advanced[open] > summary::before { content: '▾ '; }
+  .rm-advanced[open] > summary { color: var(--text-0); }
+  .rm-advanced > .rm-card { margin-top: 8px; }
