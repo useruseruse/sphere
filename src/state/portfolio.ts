@@ -7,6 +7,7 @@
 import { ASSET_BY_TICKER, SAMPLE_HOLDINGS } from '../data/assetDb.js';
 import { t } from '../i18n.js';
 import { showToast } from '../ui/toast.js';
+import { schedulePush } from '../cloud/sync.js';
 import type { Holding, Portfolio, SphereState } from '../types.js';
 
 export const STORAGE_KEY = 'sphere_portfolios_v1';
@@ -64,6 +65,8 @@ export function saveState(showFeedback = false): void {
     console.warn('localStorage write failed', e);
     if (showFeedback) showToast(t('saveFailToast'), 'high');
   }
+  // 로그인된 상태면 클라우드로 debounce push (비활성/비로그인이면 no-op)
+  schedulePush();
 }
 
 export function activePortfolio(): Portfolio {

@@ -50,6 +50,7 @@ import {
   installRebalance, recomputeTarget, enterRebalance, exitRebalance,
   updateTargetQuantity, rebuildNodesForCurrentMode, renderRebalancePanel
 } from './ui/rebalance.js';
+import { installAuthButton } from './ui/auth-button.js';
 
 // 디버깅 편의: 콘솔에서 접근 가능하게 window 노출 (기능적 의존성 없음)
 window.ASSET_DB = ASSET_DB;
@@ -371,6 +372,7 @@ installHoldings({
 installSearch();
 installTooltip();
 installRebalance({ onRebuildAll: rebuildAll });
+installAuthButton({ onSessionChange: rebuildAll });
 renderPortfolioSelect();
 renderAllUI();
 updateClock();

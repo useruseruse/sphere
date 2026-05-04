@@ -7,3 +7,8 @@ dist
 .vite
 .idea
 .vscode/launch.json
+
+# 환경변수 (.env.example 만 커밋)
+.env
+.env.local
+.env.*.local
