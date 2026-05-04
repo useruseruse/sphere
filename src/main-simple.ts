@@ -24,6 +24,7 @@ import { RUNTIME } from './runtime.js';
 
 import { renderScoreCard } from './ui-simple/score-card.js';
 import { renderTopTip } from './ui-simple/top-tip.js';
+import { renderBreakdown } from './ui-simple/breakdown.js';
 import { renderSimpleHoldings, installSimpleHoldings } from './ui-simple/holdings-simple.js';
 import { installSimpleSearch } from './ui-simple/search-simple.js';
 import { installSimpleHeader } from './ui-simple/header-simple.js';
@@ -115,6 +116,7 @@ function rebuildAll(){
 
 function renderAll(){
   renderScoreCard();
+  renderBreakdown();
   renderTopTip();
   renderSimpleHoldings();
 }

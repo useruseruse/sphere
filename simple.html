@@ -12,7 +12,7 @@
   <a href="./index.html" class="s-logo" title="고급 버전으로 가기">
     <div class="logo-mark"></div>
     <span>SPHERE</span>
-    <span class="s-logo-tag">쉬운 버전</span>
+    <span class="s-logo-tag">EASY</span>
   </a>
   <div class="s-header-actions">
     <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" title="라이트/다크 모드 전환">🌙</button>
@@ -30,19 +30,20 @@
   <section class="s-hero">
     <div class="s-greeting" id="sGreeting">안녕하세요 👋</div>
     <div class="s-score-card">
+      <div class="s-score-shine"></div>
       <div class="s-score-label" data-i18n="balanceIndex">내 포트폴리오 점수</div>
       <div class="s-score-row">
         <div class="s-score-number" id="balanceScore">--</div>
         <div class="s-score-meta">
           <div class="s-score-grade" id="balanceGrade">계산 중…</div>
           <div class="s-score-bar"><div class="s-score-fill" id="balanceFill" style="width:0%"></div></div>
-          <div class="s-score-hint">100점 = 완벽한 분산</div>
+          <div class="s-score-hint">100점 = 완벽한 분산 ✨</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. Sphere (작게, 보조적으로) -->
+  <!-- 2. Sphere -->
   <section class="s-stage">
     <div class="stage" id="stageSimple">
       <canvas id="canvas"></canvas>
@@ -50,7 +51,13 @@
     </div>
   </section>
 
-  <!-- 3. 가장 먼저 할 일 -->
+  <!-- 3. 점수 풀이 — 친근한 한두 줄 -->
+  <section class="s-breakdown-card" id="sBreakdownCard" style="display:none;">
+    <div class="s-breakdown-title">📖 이 점수, 왜 이렇게 나왔어요?</div>
+    <ul class="s-breakdown-list" id="sBreakdownList"></ul>
+  </section>
+
+  <!-- 4. 가장 먼저 할 일 -->
   <section class="s-tip-card">
     <div class="s-tip-emoji" id="sTipEmoji">💡</div>
     <div class="s-tip-body">
@@ -59,27 +66,27 @@
     </div>
   </section>
 
-  <!-- 4. 종목 검색 -->
+  <!-- 5. 종목 검색 -->
   <section class="s-card">
     <div class="s-card-title">
       <span>🔍 종목 추가하기</span>
     </div>
     <div class="search-wrap s-search-wrap">
       <input type="text" class="search-input s-search-input" id="searchInput"
-             placeholder="이름이나 티커를 입력하세요 (예: 삼성전자, AAPL)" autocomplete="off">
+             placeholder="이름이나 티커를 적어보세요 (예: 삼성전자, AAPL)" autocomplete="off">
       <div class="search-results s-search-results" id="searchResults"></div>
     </div>
     <div class="s-search-hint">
-      자주 찾는 카테고리:
-      <button class="s-quick-tag" data-q="#삼성">삼성</button>
-      <button class="s-quick-tag" data-q="#반도체">반도체</button>
-      <button class="s-quick-tag" data-q="#배당">배당주</button>
-      <button class="s-quick-tag" data-q="#ETF">ETF</button>
-      <button class="s-quick-tag" data-q="#채권">채권</button>
+      <span class="s-search-hint-label">자주 찾는 카테고리</span>
+      <button class="s-quick-tag" data-q="#삼성">🇰🇷 삼성</button>
+      <button class="s-quick-tag" data-q="#반도체">💾 반도체</button>
+      <button class="s-quick-tag" data-q="#배당">💵 배당주</button>
+      <button class="s-quick-tag" data-q="#ETF">📦 ETF</button>
+      <button class="s-quick-tag" data-q="#채권">🛡 채권</button>
     </div>
   </section>
 
-  <!-- 5. 보유 종목 (컴팩트) -->
+  <!-- 6. 보유 종목 -->
   <section class="s-card">
     <div class="s-card-title">
       <span>📊 내 보유 종목</span>
@@ -88,11 +95,12 @@
     <div id="holdingsList" class="s-holdings"></div>
     <div id="holdingsEmpty" class="s-empty" style="display:none;">
       <div class="s-empty-emoji">🌱</div>
-      <div>아직 보유한 종목이 없어요.<br>위에서 첫 종목을 추가해보세요!</div>
+      <div class="s-empty-text">아직 보유한 종목이 없어요</div>
+      <div class="s-empty-sub">위 검색창에서 첫 종목을 추가해보세요!</div>
     </div>
   </section>
 
-  <!-- 6. 도움말 / 면책 -->
+  <!-- 7. 푸터 -->
   <footer class="s-footer">
     <button class="s-footer-link" id="sHelpBtn">❓ 도움말</button>
     <button class="s-footer-link" id="aboutIcon">📜 이용 약관</button>
@@ -100,30 +108,20 @@
   </footer>
 </main>
 
-<!-- 토스트 / 모달 컨테이너 (재사용) -->
-<div id="tooltip" class="tooltip" style="display:none"></div>
-<div class="modal" id="dialogModal">
-  <div class="modal-content">
-    <h3 id="dialogTitle">알림</h3>
-    <p id="dialogMessage"></p>
-    <div class="modal-actions">
-      <button id="dialogCancel">취소</button>
-      <button id="dialogOK" class="primary">확인</button>
-    </div>
-  </div>
-</div>
-<div class="modal" id="aboutModal">
-  <div class="modal-content about-modal">
-    <h2 data-i18n="aboutTitleHeader">SPHERE — 이용 약관</h2>
-    <div class="legal-content">
-      <p data-i18n="aboutLegalWarn"></p>
-      <p data-i18n="aboutP1"></p>
-      <p data-i18n="aboutP4"></p>
-      <p data-i18n="aboutP5"></p>
-    </div>
-    <div class="modal-actions">
-      <button id="aboutClose" class="primary" data-i18n="aboutAck">확인했습니다</button>
-    </div>
+<!-- 친근한 about 모달 -->
+<div class="modal s-modal" id="aboutModal">
+  <div class="s-modal-content">
+    <div class="s-modal-emoji">🛡️</div>
+    <h2 class="s-modal-title">잠깐, 알아두실 점이 있어요</h2>
+    <ul class="s-modal-list">
+      <li><b>학습용 도구입니다.</b> 투자 자문이 아니에요.</li>
+      <li>종목 데이터는 <b>전일 종가</b> 기준이고, 실시간 시세가 아니에요.</li>
+      <li>모든 정보는 <b>여러분 브라우저에만</b> 저장됩니다. 외부로 안 보내요.</li>
+      <li>실제 매매는 본인 증권사 앱에서 직접 하셔야 해요.</li>
+      <li>모든 손익은 본인 책임입니다.</li>
+    </ul>
+    <p class="s-modal-foot">자세한 약관은 <a href="./index.html#legal" class="s-link">고급 모드 → 이용 약관</a> 에서 보실 수 있어요.</p>
+    <button id="aboutClose" class="s-modal-ok">알겠어요!</button>
   </div>
 </div>
 
