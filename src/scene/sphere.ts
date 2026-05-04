@@ -65,9 +65,11 @@ export function initScene({ onSelect } = {}){
   raycaster = new THREE.Raycaster();
   mouseV = new THREE.Vector2();
 
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(mainEl.clientWidth, mainEl.clientHeight);
+  // 캔버스 자체 배경색을 테마에 맞춰 — body 그라디언트 비침으로 인한 시각 노이즈 차단
+  applyThemeBg();
 
   setupLighting();
   scene.add(makeStarfield());
@@ -472,6 +474,18 @@ export function onResize(){
   renderer.setSize(w, h, true);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+}
+
+// ─────── 테마별 배경색 ───────
+/** data-theme 속성 / prefers-color-scheme 기준으로 캔버스 + fog 색 갱신 */
+export function applyThemeBg(){
+  if (!renderer) return;
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const bgHex = isLight ? 0xeef2f8 : 0x05070d;
+  renderer.setClearColor(bgHex, 1);
+  if (scene && scene.fog && (scene.fog as any).color){
+    (scene.fog as any).color.setHex(bgHex);
+  }
 }
 
 // ─────── 상관관계 네트워크 라인 ───────

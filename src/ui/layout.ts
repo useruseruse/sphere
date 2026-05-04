@@ -112,6 +112,8 @@ export function installTheme(){
     else root.removeAttribute('data-theme');
     if (btn) btn.textContent = theme === 'light' ? '☀' : '🌙';
     try { localStorage.setItem(STORAGE, theme); } catch(e){}
+    // 캔버스 배경색을 테마에 맞춰 갱신
+    scene.applyThemeBg();
   }
 
   // 초기 — localStorage > prefers-color-scheme
