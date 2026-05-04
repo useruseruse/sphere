@@ -902,17 +902,21 @@
     top: calc(100% - 1px);
     left: 0;
     right: 0;
-    background: var(--surface-4);
+    background: var(--bg-1);  /* 완전 불투명 — 캔버스/배경 비침 차단 */
     border: 1px solid rgba(0,212,255,0.5);
     border-top: 1px solid rgba(0,212,255,0.18);
     border-radius: 0 0 9px 9px;
     max-height: 360px;
     overflow-y: auto;
-    z-index: 2000;  /* alert-banner / legal-banner / 모든 패널 위 */
-    backdrop-filter: blur(16px);
+    z-index: 2000;
     box-shadow: 0 12px 40px rgba(0,0,0,0.6);
     display: none;
     padding: 4px;
+  }
+  :root[data-theme="light"] .pf-list {
+    background: #ffffff;
+    border-color: rgba(0,153,212,0.4);
+    box-shadow: 0 12px 40px rgba(15,23,42,0.18);
   }
   .pf-list.show { display: block; }
   .pf-item {
