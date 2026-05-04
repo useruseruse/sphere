@@ -37,7 +37,7 @@ export function installMobileNav(): void {
 
   // 초기 섹션 — metrics
   if (window.innerWidth <= 768){
-    setMobileSection('metrics');
+    setMobileSection('insights');
   }
 
   // 화면 리사이즈 — 데스크탑으로 넘어가면 모든 m-section 클래스 제거
@@ -45,7 +45,7 @@ export function installMobileNav(): void {
     if (window.innerWidth > 768){
       M_SECTIONS.forEach(s => document.body.classList.remove('m-section-' + s));
     } else if (!M_SECTIONS.some(s => document.body.classList.contains('m-section-' + s))){
-      setMobileSection('metrics');
+      setMobileSection('insights');
     }
   });
 }

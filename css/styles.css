@@ -3075,11 +3075,11 @@
     /* rp-pane 모두 표시 (mobile section 시스템이 가시성 결정) */
     .rp-pane { display: block !important; }
 
-    /* 활성 섹션 외 숨김 */
-    body.m-section-search   [data-m-section]:not([data-m-section="search"])   { display: none !important; }
-    body.m-section-holdings [data-m-section]:not([data-m-section="holdings"]) { display: none !important; }
-    body.m-section-metrics  [data-m-section]:not([data-m-section="metrics"])  { display: none !important; }
-    body.m-section-insights [data-m-section]:not([data-m-section="insights"]) { display: none !important; }
+    /* 활성 섹션 외 숨김 — `~=` 라서 data-m-section 공백 분리 다중값 지원 ("metrics insights" 등) */
+    body.m-section-search   [data-m-section]:not([data-m-section~="search"])   { display: none !important; }
+    body.m-section-holdings [data-m-section]:not([data-m-section~="holdings"]) { display: none !important; }
+    body.m-section-metrics  [data-m-section]:not([data-m-section~="metrics"])  { display: none !important; }
+    body.m-section-insights [data-m-section]:not([data-m-section~="insights"]) { display: none !important; }
 
     /* 헤더 메타 숨김 (UPDATE/STATUS 등) */
     .header-meta { display: none !important; }
