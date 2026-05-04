@@ -28,7 +28,7 @@ except ImportError:
 # 티커 소스 — data/tickers.json 우선 로드, 미존재 시 폴백 사용
 # =========================================================
 def load_catalog_tickers() -> list:
-    catalog = Path(__file__).parent.parent / "data" / "tickers.json"
+    catalog = Path(__file__).parent.parent / "public" / "data" / "tickers.json"
     if not catalog.exists():
         return []
     try:
@@ -175,8 +175,8 @@ def main():
         "prices": results,
     }
 
-    out_path = Path(__file__).parent.parent / "data" / "prices.json"
-    out_path.parent.mkdir(exist_ok=True)
+    out_path = Path(__file__).parent.parent / "public" / "data" / "prices.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=False)
     )
