@@ -41,11 +41,11 @@ import { renderSectorBars, renderRiskDist, renderBalance } from './ui/balance.js
 import { gradeBadge, gradeDots, fmtSignedNum, fmtMoneySigned, fmtMoneyKR } from './ui/format.js';
 import { renderAdvanced } from './ui/advanced.js';
 import { renderStress } from './ui/stress.js';
-import { renderInsights, clearAlert } from './ui/insights.js';
+import { renderInsights, clearAlert } from './ui/insights-react/index.js';
 import { renderStockDetail } from './ui/detail.js';
 import { buildCorrelationLines, pairCorrelation } from './ui/correlation.js';
 import { installSearch } from './ui/search.js';
-import { installTooltip } from './ui/tooltip.js';
+import { installTooltipReact } from './ui/tooltip-react/index.js';
 import {
   installRebalance, recomputeTarget, enterRebalance, exitRebalance,
   updateTargetQuantity, rebuildNodesForCurrentMode, renderRebalancePanel
@@ -370,7 +370,7 @@ installHoldings({
   onTargetQtyChange: updateTargetQuantity
 });
 installSearch();
-installTooltip();
+installTooltipReact();
 installRebalance({ onRebuildAll: rebuildAll });
 installAuthButton({ onSessionChange: rebuildAll });
 renderPortfolioSelect();

@@ -57,13 +57,23 @@
 - **모바일 최적화** — 드래그 리사이즈 패널, 터치 제스처, 반응형 레이아웃.
 - **클라우드 동기화** (선택) — Supabase Auth + 포트폴리오 동기화 ([`src/cloud/`](./src/cloud/)).
 
-### ⚛ React 컴포넌트 재구현 데모
+### ⚛ Imperative ↔ React 하이브리드 (의도적 패러다임 분리)
 
-도메인 로직(`src/core/pipeline.ts`)과 렌더 레이어를 분리해 설계했기 때문에, 같은 5-Layer 파이프라인 위에 React 컴포넌트로 리포팅 카드를 다시 그려낼 수 있다는 것을 별도 데모로 함께 제공.
+**3D 씬은 imperative, 카드/리포팅 UI는 React** — 컴포넌트 *성격*에 따라 패러다임을 분리. 모드별 분리(legacy/new)가 아니라 *부분별 분리* 라는 점이 포인트.
 
-- **라이브** → [react-demo.html](./react-demo.html) (메인 헤더의 "⚛ React 데모" 링크)
-- **소스** → [`src/react-demo/`](./src/react-demo/) — React 19 + `useMemo` + 컴포넌트 합성
-- **재사용** → 도메인 함수(`standardize → computeRiskScores → mapSphereCoords → computeBalance`)를 그대로 import. **렌더 레이어를 imperative DOM에서 declarative React로 바꿔도 도메인 코드는 한 줄도 안 바뀜** — 관심사 분리의 실제 증거.
+| 영역 | 패러다임 | 이유 |
+|---|---|---|
+| Three.js 3D 씬 ([`src/scene/sphere.ts`](./src/scene/sphere.ts)) | imperative TS | GL 호출은 React 리컨실리에이션이 도와줄 게 0 |
+| 60fps 드래그·실시간 인터랙션 | imperative TS | 렌더 사이클 오버헤드 회피 |
+| **반복 카드 / 데이터-주도 패널** | **React 19** | 데이터 ↔ DOM 매핑이 잦고, 같은 패턴이 반복 |
+
+**현재 React로 마이그된 부분** (모두 동일 코드베이스에서 imperative DOM과 공존):
+
+- **인포 툴팁** ([`src/ui/tooltip-react/`](./src/ui/tooltip-react/)) — 14개 메트릭 × 2 언어 × 동적 RUNTIME 데이터. Generic `<MetricCard>` + 메트릭별 컴포넌트 + Portal. 기존 `.info-icon` 들은 imperative DOM 그대로, **부모 컴포넌트 0줄 수정**. `document.body` 이벤트 위임 + `createPortal` + `useLayoutEffect` 위치 계산 패턴.
+- **인사이트 패널** ([`src/ui/insights-react/`](./src/ui/insights-react/)) — RUNTIME.INSIGHTS 리스트 렌더. 외부 imperative 코드가 호출하는 `renderInsights()` 시그니처 유지하면서 내부만 React로 교체 (드롭인 호환).
+- **별도 React 데모 페이지** ([`src/react-demo/`](./src/react-demo/)) → [react-demo.html](./react-demo.html) — 동일한 `pipeline.ts` 위에 React 컴포넌트로 리포팅 카드를 처음부터 그린 격리 데모.
+
+**핵심 시그널**: 풀 마이그가 아니라 *"어디에 React가 어울리고 어디는 어울리지 않는지"* 판단하고, **두 패러다임을 같은 코드베이스에서 안전하게 공존시키는 브릿지 패턴**(Portal · 이벤트 위임 · 드롭인 호환 시그니처) 을 적용.
 
 ---
 
