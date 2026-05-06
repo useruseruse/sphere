@@ -12,3 +12,7 @@ dist
 .env
 .env.local
 .env.*.local
+
+# 내부 작업 노트 (공개 저장소 미포함)
+skills/
+.claude/
