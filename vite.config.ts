@@ -18,11 +18,10 @@ export default defineConfig({
     sourcemap: true,
     target: 'es2022',
     rollupOptions: {
-      // 멀티 페이지 — Pro / Simple / React-demo
+      // 멀티 페이지 — Pro / Simple
       input: {
         main:   resolve(__dirname, 'index.html'),
         simple: resolve(__dirname, 'simple.html'),
-        react:  resolve(__dirname, 'react-demo.html'),
       },
       output: {
         manualChunks: {
