@@ -57,6 +57,14 @@
 - **모바일 최적화** — 드래그 리사이즈 패널, 터치 제스처, 반응형 레이아웃.
 - **클라우드 동기화** (선택) — Supabase Auth + 포트폴리오 동기화 ([`src/cloud/`](./src/cloud/)).
 
+### ⚛ React 컴포넌트 재구현 데모
+
+도메인 로직(`src/core/pipeline.ts`)과 렌더 레이어를 분리해 설계했기 때문에, 같은 5-Layer 파이프라인 위에 React 컴포넌트로 리포팅 카드를 다시 그려낼 수 있다는 것을 별도 데모로 함께 제공.
+
+- **라이브** → [react-demo.html](./react-demo.html) (메인 헤더의 "⚛ React 데모" 링크)
+- **소스** → [`src/react-demo/`](./src/react-demo/) — React 19 + `useMemo` + 컴포넌트 합성
+- **재사용** → 도메인 함수(`standardize → computeRiskScores → mapSphereCoords → computeBalance`)를 그대로 import. **렌더 레이어를 imperative DOM에서 declarative React로 바꿔도 도메인 코드는 한 줄도 안 바뀜** — 관심사 분리의 실제 증거.
+
 ---
 
 ## 기술적 의사결정
