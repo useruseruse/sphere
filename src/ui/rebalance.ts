@@ -12,7 +12,7 @@ import {
 } from '../core/pipeline.js';
 import { ASSET_DB, ASSET_BY_TICKER } from '../data/assetDb.js';
 import { activePortfolio, saveState, computeWeights } from '../state/portfolio.js';
-import { showToast } from './toast.js';
+import { showToast } from './toast-react/index.js';
 import { customConfirm } from './modal.js';
 import { renderHoldings } from './holdings.js';
 import { renderInsights } from './insights.js';

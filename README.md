@@ -71,6 +71,7 @@
 
 - **인포 툴팁** ([`src/ui/tooltip-react/`](./src/ui/tooltip-react/)) — 14개 메트릭 × 2 언어 × 동적 RUNTIME 데이터. Generic `<MetricCard>` + 메트릭별 컴포넌트 + Portal. 기존 `.info-icon` 들은 imperative DOM 그대로, **부모 컴포넌트 0줄 수정**. `document.body` 이벤트 위임 + `createPortal` + `useLayoutEffect` 위치 계산 패턴.
 - **인사이트 패널** ([`src/ui/insights-react/`](./src/ui/insights-react/)) — RUNTIME.INSIGHTS 리스트 렌더. 외부 imperative 코드가 호출하는 `renderInsights()` 시그니처 유지하면서 내부만 React로 교체 (드롭인 호환).
+- **토스트 알림** ([`src/ui/toast-react/`](./src/ui/toast-react/)) — 모듈-스코프 store + subscriber 패턴 + Portal. `showToast(msg, kind)` 시그니처 유지하면서 내부는 React state 기반 페이드 인/아웃. 호출 측(main.ts · rebalance.ts · state/portfolio.ts) 무수정.
 
 **핵심 시그널**: 풀 마이그가 아니라 *"어디에 React가 어울리고 어디는 어울리지 않는지"* 판단하고, **두 패러다임을 같은 코드베이스에서 안전하게 공존시키는 브릿지 패턴**(Portal · 이벤트 위임 · 드롭인 호환 시그니처) 을 적용.
 

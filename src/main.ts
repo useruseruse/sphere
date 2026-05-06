@@ -14,7 +14,7 @@ import {
   saveState, activePortfolio, portfolioToRaw,
   computeWeights, migrateHoldings, TOTAL_PORTFOLIO_VALUE
 } from './state/portfolio.js';
-import { showToast } from './ui/toast.js';
+import { showToast } from './ui/toast-react/index.js';
 import {
   SECTOR_DEF, standardize, computeRiskScores, riskColor, riskLabel,
   mapSphereCoords, computeBalance, balanceGrade, generateInsights

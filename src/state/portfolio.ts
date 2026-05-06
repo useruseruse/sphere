@@ -6,7 +6,7 @@
 
 import { ASSET_BY_TICKER, SAMPLE_HOLDINGS } from '../data/assetDb.js';
 import { t } from '../i18n.js';
-import { showToast } from '../ui/toast.js';
+import { showToast } from '../ui/toast-react/index.js';
 import { schedulePush } from '../cloud/sync.js';
 import type { Holding, Portfolio, SphereState } from '../types.js';
 
