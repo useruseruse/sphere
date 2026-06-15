@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-06-14T00:01:02+00:00",
-  "count": 837,
+  "updated_at": "2026-06-15T00:03:56+00:00",
+  "count": 822,
   "failed": [
     "099350.KS",
     "139310.KS",
@@ -10,8 +10,21 @@
     "301400.KS",
     "333970.KS",
     "COW",
-    "HOLX",
-    "SEE",
+    "SMH",
+    "SNAP",
+    "SNOW",
+    "SNY",
+    "SO",
+    "SOFI",
+    "SON",
+    "SONY",
+    "SOXL",
+    "SOXX",
+    "SOYB",
+    "SPG",
+    "SPGI",
+    "SPOT",
+    "SPXL",
     "SPY",
     "SPYD",
     "SQQQ",
@@ -5899,111 +5912,6 @@
       "volatility_30d": 0.2666,
       "beta": 1.251,
       "volume": 2064003,
-      "dividend_yield": 0.0226
-    },
-    "SMH": {
-      "price": 619.96,
-      "volatility_30d": 0.5219,
-      "beta": 2.328,
-      "volume": 10993340,
-      "dividend_yield": 0.18
-    },
-    "SNAP": {
-      "price": 5.26,
-      "volatility_30d": 0.4334,
-      "beta": 2.231,
-      "volume": 42867050,
-      "dividend_yield": 0.0
-    },
-    "SNOW": {
-      "price": 232.78,
-      "volatility_30d": 1.2052,
-      "beta": 1.23,
-      "volume": 10110806,
-      "dividend_yield": 0.0
-    },
-    "SNY": {
-      "price": 44.25,
-      "volatility_30d": 0.2522,
-      "beta": 0.406,
-      "volume": 2591140,
-      "dividend_yield": 0.0547
-    },
-    "SO": {
-      "price": 94.0,
-      "volatility_30d": 0.1966,
-      "beta": -0.233,
-      "volume": 5863753,
-      "dividend_yield": 0.0323
-    },
-    "SOFI": {
-      "price": 16.58,
-      "volatility_30d": 0.5399,
-      "beta": 2.191,
-      "volume": 69578340,
-      "dividend_yield": 0.0
-    },
-    "SON": {
-      "price": 50.57,
-      "volatility_30d": 0.3287,
-      "beta": 0.539,
-      "volume": 1239473,
-      "dividend_yield": 0.0421
-    },
-    "SONY": {
-      "price": 20.53,
-      "volatility_30d": 0.3943,
-      "beta": 0.887,
-      "volume": 7745026,
-      "dividend_yield": 0.77
-    },
-    "SOXL": {
-      "price": 234.68,
-      "volatility_30d": 1.8189,
-      "beta": 7.357,
-      "volume": 62275423,
-      "dividend_yield": 0.03
-    },
-    "SOXX": {
-      "price": 596.25,
-      "volatility_30d": 0.6232,
-      "beta": 2.487,
-      "volume": 10059970,
-      "dividend_yield": 0.29
-    },
-    "SOYB": {
-      "price": 24.13,
-      "volatility_30d": 0.1374,
-      "beta": -0.096,
-      "volume": 151356,
-      "dividend_yield": 0.0
-    },
-    "SPG": {
-      "price": 219.04,
-      "volatility_30d": 0.2084,
-      "beta": 0.4,
-      "volume": 1619566,
-      "dividend_yield": 0.0402
-    },
-    "SPGI": {
-      "price": 418.91,
-      "volatility_30d": 0.2647,
-      "beta": 0.49,
-      "volume": 2075293,
-      "dividend_yield": 0.93
-    },
-    "SPOT": {
-      "price": 482.0,
-      "volatility_30d": 0.5209,
-      "beta": 0.553,
-      "volume": 2306773,
-      "dividend_yield": 0.0
-    },
-    "SPXL": {
-      "price": 266.27,
-      "volatility_30d": 0.4094,
-      "beta": 2.962,
-      "volume": 2261490,
       "dividend_yield": 0.0
     }
   }
