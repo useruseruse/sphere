@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-04T23:55:33+00:00",
-  "count": 798,
+  "updated_at": "2026-07-05T23:58:48+00:00",
+  "count": 821,
   "failed": [
     "099350.KS",
     "139310.KS",
@@ -10,29 +10,6 @@
     "301400.KS",
     "333970.KS",
     "COW",
-    "SAN",
-    "SANA",
-    "SBNY",
-    "SBRA",
-    "SBUX",
-    "SCHA",
-    "SCHB",
-    "SCHD",
-    "SCHG",
-    "SCHO",
-    "SCHV",
-    "SCHW",
-    "SCHX",
-    "SCHZ",
-    "SDY",
-    "SHAK",
-    "SHOP",
-    "SHW",
-    "SHY",
-    "SJM",
-    "SLB",
-    "SLG",
-    "SLV",
     "SMFG",
     "SMH",
     "SNAP",
@@ -4330,9 +4307,9 @@
     },
     "HON": {
       "price": 229.86,
-      "volatility_30d": 0.3816,
-      "beta": 0.93,
-      "volume": 5856296,
+      "volatility_30d": 0.4241,
+      "beta": 0.879,
+      "volume": 5623783,
       "dividend_yield": 0.0414
     },
     "HOOD": {
@@ -4547,7 +4524,7 @@
     },
     "ITUB": {
       "price": 8.12,
-      "volatility_30d": 0.2635,
+      "volatility_30d": 0.2634,
       "beta": 1.35,
       "volume": 22127143,
       "dividend_yield": 0.0214
@@ -4666,8 +4643,8 @@
     },
     "KEY": {
       "price": 23.02,
-      "volatility_30d": 0.2059,
-      "beta": 0.706,
+      "volatility_30d": 0.1995,
+      "beta": 0.705,
       "volume": 12166310,
       "dividend_yield": 0.0356
     },
@@ -4918,7 +4895,7 @@
     },
     "MCD": {
       "price": 280.63,
-      "volatility_30d": 0.2474,
+      "volatility_30d": 0.2464,
       "beta": 0.064,
       "volume": 4702910,
       "dividend_yield": 0.0265
@@ -5281,10 +5258,10 @@
       "dividend_yield": 0.0101
     },
     "NUSI": {
-      "price": 54.58,
-      "volatility_30d": 0.1527,
-      "beta": 0.806,
-      "volume": 33153,
+      "price": 54.94,
+      "volatility_30d": 0.1627,
+      "beta": 0.814,
+      "volume": 36675,
       "dividend_yield": 0.0761
     },
     "NVAX": {
@@ -5768,6 +5745,167 @@
       "volatility_30d": 0.4517,
       "beta": -0.264,
       "volume": 306940,
+      "dividend_yield": 0.0
+    },
+    "SAN": {
+      "price": 13.95,
+      "volatility_30d": 0.3261,
+      "beta": 1.866,
+      "volume": 9281366,
+      "dividend_yield": 0.0199
+    },
+    "SANA": {
+      "price": 4.01,
+      "volatility_30d": 0.6847,
+      "beta": 1.96,
+      "volume": 3991610,
+      "dividend_yield": 0.0
+    },
+    "SBNY": {
+      "price": 0.34,
+      "volatility_30d": 2.1362,
+      "beta": -0.579,
+      "volume": 127846,
+      "dividend_yield": 0.0251
+    },
+    "SBRA": {
+      "price": 20.16,
+      "volatility_30d": 0.3211,
+      "beta": -0.271,
+      "volume": 3477116,
+      "dividend_yield": 0.0595
+    },
+    "SBUX": {
+      "price": 104.27,
+      "volatility_30d": 0.2467,
+      "beta": 0.658,
+      "volume": 8122150,
+      "dividend_yield": 0.0238
+    },
+    "SCHA": {
+      "price": 34.92,
+      "volatility_30d": 0.23,
+      "beta": 1.204,
+      "volume": 2134410,
+      "dividend_yield": 1.0
+    },
+    "SCHB": {
+      "price": 28.87,
+      "volatility_30d": 0.1549,
+      "beta": 1.014,
+      "volume": 10590120,
+      "dividend_yield": 0.0101
+    },
+    "SCHD": {
+      "price": 32.39,
+      "volatility_30d": 0.1209,
+      "beta": 0.245,
+      "volume": 21098733,
+      "dividend_yield": 0.0325
+    },
+    "SCHG": {
+      "price": 34.12,
+      "volatility_30d": 0.1919,
+      "beta": 1.206,
+      "volume": 9415366,
+      "dividend_yield": 0.36
+    },
+    "SCHO": {
+      "price": 24.09,
+      "volatility_30d": 0.02,
+      "beta": 0.037,
+      "volume": 4283950,
+      "dividend_yield": 0.0394
+    },
+    "SCHV": {
+      "price": 34.43,
+      "volatility_30d": 0.1418,
+      "beta": 0.727,
+      "volume": 3837283,
+      "dividend_yield": 0.0179
+    },
+    "SCHW": {
+      "price": 97.0,
+      "volatility_30d": 0.2877,
+      "beta": 0.383,
+      "volume": 12408023,
+      "dividend_yield": 0.0132
+    },
+    "SCHX": {
+      "price": 29.4,
+      "volatility_30d": 0.1518,
+      "beta": 1.0,
+      "volume": 14146900,
+      "dividend_yield": 1.0
+    },
+    "SCHZ": {
+      "price": 23.05,
+      "volatility_30d": 0.0431,
+      "beta": 0.13,
+      "volume": 1906250,
+      "dividend_yield": 0.041
+    },
+    "SDY": {
+      "price": 155.67,
+      "volatility_30d": 0.1068,
+      "beta": 0.283,
+      "volume": 247536,
+      "dividend_yield": 0.0247
+    },
+    "SHAK": {
+      "price": 56.47,
+      "volatility_30d": 0.5062,
+      "beta": 1.553,
+      "volume": 2290306,
+      "dividend_yield": 0.0
+    },
+    "SHOP": {
+      "price": 119.46,
+      "volatility_30d": 0.5566,
+      "beta": 1.72,
+      "volume": 9029806,
+      "dividend_yield": 0.0
+    },
+    "SHW": {
+      "price": 352.48,
+      "volatility_30d": 0.2867,
+      "beta": 0.866,
+      "volume": 2677033,
+      "dividend_yield": 0.91
+    },
+    "SHY": {
+      "price": 81.94,
+      "volatility_30d": 0.0193,
+      "beta": 0.039,
+      "volume": 3561510,
+      "dividend_yield": 0.0371
+    },
+    "SJM": {
+      "price": 116.28,
+      "volatility_30d": 0.4224,
+      "beta": -0.334,
+      "volume": 1704506,
+      "dividend_yield": 0.0378
+    },
+    "SLB": {
+      "price": 45.13,
+      "volatility_30d": 0.3565,
+      "beta": 0.756,
+      "volume": 16446040,
+      "dividend_yield": 0.0261
+    },
+    "SLG": {
+      "price": 53.42,
+      "volatility_30d": 0.3374,
+      "beta": 1.136,
+      "volume": 1174650,
+      "dividend_yield": 0.0472
+    },
+    "SLV": {
+      "price": 55.02,
+      "volatility_30d": 0.4884,
+      "beta": 2.324,
+      "volume": 21344396,
       "dividend_yield": 0.0
     }
   }
