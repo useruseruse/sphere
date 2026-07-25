@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-24T23:58:03+00:00",
-  "count": 820,
+  "updated_at": "2026-07-25T23:54:43+00:00",
+  "count": 880,
   "failed": [
     "086520.KS",
     "095610.KS",
@@ -15,67 +15,7 @@
     "301400.KS",
     "333970.KS",
     "BK",
-    "COW",
-    "UNH",
-    "UNP",
-    "UPRO",
-    "UPS",
-    "UPST",
-    "URBN",
-    "USB",
-    "V",
-    "VALE",
-    "VBK",
-    "VBR",
-    "VDC",
-    "VDE",
-    "VEA",
-    "VIS",
-    "VLO",
-    "VRTX",
-    "VTEB",
-    "VTR",
-    "VTV",
-    "VWO",
-    "VXUS",
-    "VZ",
-    "WAB",
-    "WAL",
-    "WAT",
-    "WBD",
-    "WBX",
-    "WDAY",
-    "WEAT",
-    "WEC",
-    "WELL",
-    "WERN",
-    "WFC",
-    "WMB",
-    "WMT",
-    "WOOD",
-    "WTFC",
-    "WTRG",
-    "WTW",
-    "XEL",
-    "XLB",
-    "XLC",
-    "XLE",
-    "XLF",
-    "XLI",
-    "XLP",
-    "XLRE",
-    "XLU",
-    "XOM",
-    "XPEV",
-    "XPO",
-    "XYL",
-    "XYLD",
-    "YUM",
-    "ZBH",
-    "ZION",
-    "ZM",
-    "ZS",
-    "ZTS"
+    "COW"
   ],
   "prices": {
     "000080.KS": {
@@ -104,7 +44,7 @@
       "volatility_30d": 0.7302,
       "beta": 1.0,
       "volume": 1134203,
-      "dividend_yield": 0.0454
+      "dividend_yield": 0.0521
     },
     "000660.KS": {
       "price": 1759000.0,
@@ -181,7 +121,7 @@
       "volatility_30d": 0.5528,
       "beta": 1.0,
       "volume": 64978,
-      "dividend_yield": 0.0121
+      "dividend_yield": 0.0118
     },
     "003490.KS": {
       "price": 25450.0,
@@ -195,7 +135,7 @@
       "volatility_30d": 0.5828,
       "beta": 1.0,
       "volume": 454063,
-      "dividend_yield": 0.0305
+      "dividend_yield": 0.0317
     },
     "003620.KS": {
       "price": 2800.0,
@@ -216,7 +156,7 @@
       "volatility_30d": 0.6737,
       "beta": 1.0,
       "volume": 639018,
-      "dividend_yield": 0.0178
+      "dividend_yield": 0.018
     },
     "004170.KS": {
       "price": 504000.0,
@@ -230,7 +170,7 @@
       "volatility_30d": 0.3777,
       "beta": 1.0,
       "volume": 24640,
-      "dividend_yield": 0.0165
+      "dividend_yield": 0.0163
     },
     "004990.KS": {
       "price": 23450.0,
@@ -244,14 +184,14 @@
       "volatility_30d": 0.6296,
       "beta": 1.0,
       "volume": 1072499,
-      "dividend_yield": 0.0231
+      "dividend_yield": 0.0249
     },
     "005440.KS": {
       "price": 12250.0,
       "volatility_30d": 0.7686,
       "beta": 1.0,
       "volume": 308985,
-      "dividend_yield": 0.0184
+      "dividend_yield": 0.0192
     },
     "005490.KS": {
       "price": 313000.0,
@@ -293,7 +233,7 @@
       "volatility_30d": 0.4513,
       "beta": 1.0,
       "volume": 64028,
-      "dividend_yield": 0.0175
+      "dividend_yield": 0.0171
     },
     "006360.KS": {
       "price": 30250.0,
@@ -328,7 +268,7 @@
       "volatility_30d": 0.7631,
       "beta": 1.0,
       "volume": 2717183,
-      "dividend_yield": 0.77
+      "dividend_yield": 0.81
     },
     "006890.KS": {
       "price": 5560.0,
@@ -447,7 +387,7 @@
       "volatility_30d": 0.6327,
       "beta": 1.0,
       "volume": 135950,
-      "dividend_yield": 0.0159
+      "dividend_yield": 0.0164
     },
     "011200.KS": {
       "price": 21650.0,
@@ -489,7 +429,7 @@
       "volatility_30d": 0.7965,
       "beta": 1.0,
       "volume": 241509,
-      "dividend_yield": 0.73
+      "dividend_yield": 0.72
     },
     "012630.KS": {
       "price": 23000.0,
@@ -538,7 +478,7 @@
       "volatility_30d": 0.4075,
       "beta": 1.0,
       "volume": 340590,
-      "dividend_yield": 0.0574
+      "dividend_yield": 0.0581
     },
     "017390.KS": {
       "price": 55500.0,
@@ -552,7 +492,7 @@
       "volatility_30d": 0.5326,
       "beta": 1.0,
       "volume": 1233621,
-      "dividend_yield": 0.025
+      "dividend_yield": 0.0332
     },
     "017800.KS": {
       "price": 69500.0,
@@ -601,14 +541,14 @@
       "volatility_30d": 0.6967,
       "beta": 1.0,
       "volume": 172250,
-      "dividend_yield": 0.032
+      "dividend_yield": 0.0326
     },
     "023590.KS": {
       "price": 39050.0,
       "volatility_30d": 0.5104,
       "beta": 1.0,
       "volume": 62245,
-      "dividend_yield": 0.0464
+      "dividend_yield": 0.0461
     },
     "024110.KS": {
       "price": 21350.0,
@@ -629,7 +569,7 @@
       "volatility_30d": 0.495,
       "beta": 1.0,
       "volume": 21824,
-      "dividend_yield": 0.0493
+      "dividend_yield": 0.0507
     },
     "026960.KS": {
       "price": 26100.0,
@@ -643,14 +583,14 @@
       "volatility_30d": 1.0054,
       "beta": 1.0,
       "volume": 2675432,
-      "dividend_yield": 0.0169
+      "dividend_yield": 0.0166
     },
     "028260.KS": {
       "price": 342000.0,
       "volatility_30d": 0.9838,
       "beta": 1.0,
       "volume": 699796,
-      "dividend_yield": 0.78
+      "dividend_yield": 0.82
     },
     "028300.KQ": {
       "price": 31300.0,
@@ -664,7 +604,7 @@
       "volatility_30d": 0.4628,
       "beta": 1.0,
       "volume": 2083638,
-      "dividend_yield": 0.0283
+      "dividend_yield": 0.0284
     },
     "029530.KS": {
       "price": 40750.0,
@@ -685,7 +625,7 @@
       "volatility_30d": 0.4215,
       "beta": 1.0,
       "volume": 423273,
-      "dividend_yield": 0.0455
+      "dividend_yield": 0.0444
     },
     "033240.KS": {
       "price": 24150.0,
@@ -706,7 +646,7 @@
       "volatility_30d": 0.3751,
       "beta": 1.0,
       "volume": 277720,
-      "dividend_yield": 0.0334
+      "dividend_yield": 0.0329
     },
     "034020.KS": {
       "price": 72100.0,
@@ -727,7 +667,7 @@
       "volatility_30d": 1.0621,
       "beta": 1.0,
       "volume": 323434,
-      "dividend_yield": 0.0122
+      "dividend_yield": 0.0127
     },
     "035420.KS": {
       "price": 207500.0,
@@ -762,7 +702,7 @@
       "volatility_30d": 0.5748,
       "beta": 1.0,
       "volume": 102204,
-      "dividend_yield": 0.51
+      "dividend_yield": 0.5
     },
     "036930.KQ": {
       "price": 141000.0,
@@ -776,7 +716,7 @@
       "volatility_30d": 0.6244,
       "beta": 1.0,
       "volume": 280629,
-      "dividend_yield": 0.92
+      "dividend_yield": 0.94
     },
     "039030.KQ": {
       "price": 298500.0,
@@ -797,7 +737,7 @@
       "volatility_30d": 0.8163,
       "beta": 1.0,
       "volume": 125480,
-      "dividend_yield": 0.0366
+      "dividend_yield": 0.0385
     },
     "042660.KS": {
       "price": 87900.0,
@@ -846,7 +786,7 @@
       "volatility_30d": 1.0779,
       "beta": 1.0,
       "volume": 150769,
-      "dividend_yield": 0.0355
+      "dividend_yield": 0.0351
     },
     "051900.KS": {
       "price": 248500.0,
@@ -874,7 +814,7 @@
       "volatility_30d": 0.9043,
       "beta": 1.0,
       "volume": 42709,
-      "dividend_yield": 0.61
+      "dividend_yield": 0.63
     },
     "053800.KQ": {
       "price": 54000.0,
@@ -930,7 +870,7 @@
       "volatility_30d": 0.5,
       "beta": 1.0,
       "volume": 58829,
-      "dividend_yield": 0.0659
+      "dividend_yield": 0.0683
     },
     "066570.KS": {
       "price": 169200.0,
@@ -965,7 +905,7 @@
       "volatility_30d": 0.408,
       "beta": 1.0,
       "volume": 104009,
-      "dividend_yield": 0.0651
+      "dividend_yield": 0.0657
     },
     "069500.KS": {
       "price": 106365.0,
@@ -979,28 +919,28 @@
       "volatility_30d": 0.6033,
       "beta": 1.0,
       "volume": 42730,
-      "dividend_yield": 0.48
+      "dividend_yield": 0.47
     },
     "069960.KS": {
       "price": 129600.0,
       "volatility_30d": 0.6503,
       "beta": 1.0,
       "volume": 177997,
-      "dividend_yield": 0.0236
+      "dividend_yield": 0.0255
     },
     "071050.KS": {
       "price": 213000.0,
       "volatility_30d": 0.7645,
       "beta": 1.0,
       "volume": 257721,
-      "dividend_yield": 0.0392
+      "dividend_yield": 0.0408
     },
     "071840.KS": {
       "price": 6420.0,
       "volatility_30d": 0.2959,
       "beta": 1.0,
       "volume": 20694,
-      "dividend_yield": 0.0475
+      "dividend_yield": 0.0467
     },
     "072710.KS": {
       "price": 90700.0,
@@ -1063,7 +1003,7 @@
       "volatility_30d": 0.6407,
       "beta": 1.0,
       "volume": 239447,
-      "dividend_yield": 0.0284
+      "dividend_yield": 0.028
     },
     "086450.KQ": {
       "price": 18230.0,
@@ -1084,14 +1024,14 @@
       "volatility_30d": 0.4654,
       "beta": 1.0,
       "volume": 944229,
-      "dividend_yield": 0.0351
+      "dividend_yield": 0.0346
     },
     "086900.KQ": {
       "price": 71000.0,
       "volatility_30d": 0.6561,
       "beta": 1.0,
       "volume": 34740,
-      "dividend_yield": 0.0671
+      "dividend_yield": 0.0676
     },
     "088260.KS": {
       "price": 3090.0,
@@ -1154,14 +1094,14 @@
       "volatility_30d": 0.5962,
       "beta": 1.0,
       "volume": 70006,
-      "dividend_yield": 0.1463
+      "dividend_yield": 0.1483
     },
     "096530.KQ": {
       "price": 27400.0,
       "volatility_30d": 0.5892,
       "beta": 1.0,
       "volume": 252869,
-      "dividend_yield": 0.0436
+      "dividend_yield": 0.0438
     },
     "096760.KS": {
       "price": 3860.0,
@@ -1189,7 +1129,7 @@
       "volatility_30d": 0.5393,
       "beta": 1.0,
       "volume": 53395,
-      "dividend_yield": 0.0539
+      "dividend_yield": 0.0549
     },
     "097950.KS": {
       "price": 194100.0,
@@ -1252,7 +1192,7 @@
       "volatility_30d": 0.5639,
       "beta": 1.0,
       "volume": 82700,
-      "dividend_yield": 0.024
+      "dividend_yield": 0.0239
     },
     "112040.KQ": {
       "price": 15710.0,
@@ -1287,14 +1227,14 @@
       "volatility_30d": 0.6652,
       "beta": 1.0,
       "volume": 222844,
-      "dividend_yield": 0.0231
+      "dividend_yield": 0.0243
     },
     "123890.KS": {
       "price": 2280.0,
       "volatility_30d": 0.3915,
       "beta": 1.0,
       "volume": 219763,
-      "dividend_yield": 0.0665
+      "dividend_yield": 0.0658
     },
     "128820.KS": {
       "price": 4120.0,
@@ -1322,21 +1262,21 @@
       "volatility_30d": 0.4392,
       "beta": 1.0,
       "volume": 1076549,
-      "dividend_yield": 0.0431
+      "dividend_yield": 0.0424
     },
     "139130.KS": {
       "price": 18250.0,
       "volatility_30d": 0.3855,
       "beta": 1.0,
       "volume": 609600,
-      "dividend_yield": 0.039
+      "dividend_yield": 0.0384
     },
     "139480.KS": {
       "price": 82300.0,
       "volatility_30d": 0.4113,
       "beta": 1.0,
       "volume": 132190,
-      "dividend_yield": 0.03
+      "dividend_yield": 0.0304
     },
     "139660.KS": {
       "price": 7900.0,
@@ -1350,7 +1290,7 @@
       "volatility_30d": 1.2495,
       "beta": 1.0,
       "volume": 50812,
-      "dividend_yield": 0.19
+      "dividend_yield": 0.2
     },
     "145020.KQ": {
       "price": 234500.0,
@@ -1413,7 +1353,7 @@
       "volatility_30d": 0.6114,
       "beta": 1.0,
       "volume": 407241,
-      "dividend_yield": 0.03
+      "dividend_yield": 0.0326
     },
     "161510.KS": {
       "price": 25250.0,
@@ -1427,7 +1367,7 @@
       "volatility_30d": 0.7096,
       "beta": 1.0,
       "volume": 380169,
-      "dividend_yield": 0.84
+      "dividend_yield": 0.86
     },
     "163560.KS": {
       "price": 5740.0,
@@ -1560,7 +1500,7 @@
       "volatility_30d": 0.4034,
       "beta": 1.0,
       "volume": 41674,
-      "dividend_yield": 0.98
+      "dividend_yield": 0.96
     },
     "215600.KS": {
       "price": 2040.0,
@@ -1644,7 +1584,7 @@
       "volatility_30d": 0.6146,
       "beta": 1.0,
       "volume": 243496,
-      "dividend_yield": 0.0245
+      "dividend_yield": 0.0256
     },
     "247540.KQ": {
       "price": 108300.0,
@@ -1749,7 +1689,7 @@
       "volatility_30d": 0.7522,
       "beta": 1.0,
       "volume": 183693,
-      "dividend_yield": 0.0225
+      "dividend_yield": 0.0234
     },
     "267260.KS": {
       "price": 810000.0,
@@ -1784,7 +1724,7 @@
       "volatility_30d": 1.0205,
       "beta": 1.0,
       "volume": 795755,
-      "dividend_yield": 0.72
+      "dividend_yield": 0.73
     },
     "272450.KS": {
       "price": 5110.0,
@@ -1826,7 +1766,7 @@
       "volatility_30d": 0.5692,
       "beta": 1.0,
       "volume": 63517,
-      "dividend_yield": 0.0184
+      "dividend_yield": 0.0377
     },
     "285690.KS": {
       "price": 21220.0,
@@ -1889,7 +1829,7 @@
       "volatility_30d": 0.4994,
       "beta": 1.0,
       "volume": 128625,
-      "dividend_yield": 0.0707
+      "dividend_yield": 0.0708
     },
     "302440.KS": {
       "price": 34350.0,
@@ -2057,7 +1997,7 @@
       "volatility_30d": 1.1773,
       "beta": 1.0,
       "volume": 101237,
-      "dividend_yield": 0.79
+      "dividend_yield": 0.87
     },
     "357870.KS": {
       "price": 57810.0,
@@ -2266,1230 +2206,1230 @@
       "price": 44.24,
       "volatility_30d": 0.5105,
       "beta": 1.519,
-      "volume": 6552393,
-      "dividend_yield": 0.88
+      "volume": 6568840,
+      "dividend_yield": 0.9
     },
     "AAPL": {
       "price": 333.02,
       "volatility_30d": 0.3355,
       "beta": 0.806,
-      "volume": 59327700,
-      "dividend_yield": 0.34
+      "volume": 59329090,
+      "dividend_yield": 0.32
     },
     "ABBV": {
       "price": 259.36,
       "volatility_30d": 0.3357,
       "beta": -0.035,
-      "volume": 8006698,
-      "dividend_yield": 0.0269
+      "volume": 8044800,
+      "dividend_yield": 0.0267
     },
     "ABNB": {
       "price": 141.1,
       "volatility_30d": 0.3356,
       "beta": 1.279,
-      "volume": 3645299,
+      "volume": 3646390,
       "dividend_yield": 0.0
     },
     "ACGL": {
       "price": 103.36,
       "volatility_30d": 0.2514,
       "beta": -0.351,
-      "volume": 2009188,
+      "volume": 2011380,
       "dividend_yield": 0.0
     },
     "ACN": {
       "price": 146.99,
       "volatility_30d": 0.7143,
       "beta": 0.004,
-      "volume": 11282138,
-      "dividend_yield": 0.047
+      "volume": 11342006,
+      "dividend_yield": 0.0444
     },
     "ADBE": {
       "price": 225.11,
       "volatility_30d": 0.5123,
       "beta": 0.24,
-      "volume": 7652755,
+      "volume": 7657083,
       "dividend_yield": 0.0
     },
     "ADP": {
       "price": 250.09,
       "volatility_30d": 0.3403,
       "beta": -0.146,
-      "volume": 2721494,
-      "dividend_yield": 0.028
+      "volume": 2723750,
+      "dividend_yield": 0.0272
     },
     "AEE": {
       "price": 113.78,
       "volatility_30d": 0.231,
       "beta": -0.186,
-      "volume": 1753056,
-      "dividend_yield": 0.0265
+      "volume": 1760486,
+      "dividend_yield": 0.0264
     },
     "AEO": {
       "price": 17.0,
       "volatility_30d": 0.4944,
       "beta": 1.311,
-      "volume": 4733520,
-      "dividend_yield": 0.0293
+      "volume": 4754676,
+      "dividend_yield": 0.0294
     },
     "AEP": {
       "price": 135.54,
       "volatility_30d": 0.2019,
       "beta": -0.173,
-      "volume": 5238552,
-      "dividend_yield": 0.0282
+      "volume": 5254090,
+      "dividend_yield": 0.028
     },
     "AFRM": {
       "price": 70.23,
       "volatility_30d": 0.5621,
       "beta": 2.478,
-      "volume": 4258589,
+      "volume": 4260373,
       "dividend_yield": 0.0
     },
     "AIG": {
       "price": 79.06,
       "volatility_30d": 0.2553,
       "beta": 0.083,
-      "volume": 4128613,
-      "dividend_yield": 0.0256
+      "volume": 4145150,
+      "dividend_yield": 0.0253
     },
     "AJG": {
       "price": 247.77,
       "volatility_30d": 0.3513,
       "beta": -0.36,
-      "volume": 1765885,
-      "dividend_yield": 0.0116
+      "volume": 1775173,
+      "dividend_yield": 0.0113
     },
     "ALB": {
       "price": 114.85,
       "volatility_30d": 0.4946,
       "beta": 1.504,
-      "volume": 2383852,
-      "dividend_yield": 0.014
+      "volume": 2391820,
+      "dividend_yield": 0.0143
     },
     "ALGN": {
-      "price": 167.01,
+      "price": 167.02,
       "volatility_30d": 0.4574,
       "beta": 1.655,
-      "volume": 1004066,
+      "volume": 1004483,
       "dividend_yield": 0.0
     },
     "ALL": {
       "price": 259.97,
       "volatility_30d": 0.2889,
       "beta": -0.566,
-      "volume": 1808792,
-      "dividend_yield": 0.017
+      "volume": 1808800,
+      "dividend_yield": 0.0166
     },
     "ALLY": {
       "price": 42.92,
       "volatility_30d": 0.2708,
       "beta": 1.09,
-      "volume": 3278866,
-      "dividend_yield": 0.0273
+      "volume": 3278870,
+      "dividend_yield": 0.028
     },
     "ALNY": {
       "price": 271.77,
       "volatility_30d": 0.3584,
       "beta": 0.571,
-      "volume": 1481293,
+      "volume": 1483173,
       "dividend_yield": 0.0
     },
     "AMAT": {
       "price": 536.25,
       "volatility_30d": 0.9355,
       "beta": 2.792,
-      "volume": 11066532,
-      "dividend_yield": 0.38
+      "volume": 11076273,
+      "dividend_yield": 0.4
     },
     "AMD": {
       "price": 521.95,
       "volatility_30d": 0.7595,
       "beta": 3.515,
-      "volume": 28960633,
+      "volume": 28962280,
       "dividend_yield": 0.0
     },
     "AME": {
       "price": 241.97,
       "volatility_30d": 0.221,
       "beta": 1.0,
-      "volume": 1132573,
+      "volume": 1141283,
       "dividend_yield": 0.56
     },
     "AMGN": {
       "price": 376.04,
       "volatility_30d": 0.2603,
       "beta": 0.456,
-      "volume": 2741166,
-      "dividend_yield": 0.0271
+      "volume": 2742600,
+      "dividend_yield": 0.0268
     },
     "AMT": {
       "price": 166.67,
       "volatility_30d": 0.2978,
       "beta": -0.151,
-      "volume": 3373850,
-      "dividend_yield": 0.0424
+      "volume": 3373853,
+      "dividend_yield": 0.0419
     },
     "AMZN": {
       "price": 232.11,
       "volatility_30d": 0.3352,
       "beta": 1.291,
-      "volume": 53847874,
+      "volume": 53885516,
       "dividend_yield": 0.0
     },
     "ANET": {
       "price": 173.99,
       "volatility_30d": 0.5956,
       "beta": 2.046,
-      "volume": 7829104,
+      "volume": 7864913,
       "dividend_yield": 0.0
     },
     "ANF": {
       "price": 93.81,
       "volatility_30d": 0.479,
       "beta": 0.999,
-      "volume": 1152992,
+      "volume": 1159006,
       "dividend_yield": 0.0
     },
     "AON": {
       "price": 361.7,
       "volatility_30d": 0.3183,
       "beta": -0.344,
-      "volume": 1564349,
-      "dividend_yield": 0.92
+      "volume": 1572506,
+      "dividend_yield": 0.91
     },
     "APA": {
       "price": 36.15,
       "volatility_30d": 0.3946,
       "beta": -1.249,
-      "volume": 5628769,
-      "dividend_yield": 0.0275
+      "volume": 5628776,
+      "dividend_yield": 0.0277
     },
     "APD": {
       "price": 297.87,
       "volatility_30d": 0.3367,
       "beta": -0.02,
-      "volume": 1446222,
-      "dividend_yield": 0.0246
+      "volume": 1452590,
+      "dividend_yield": 0.0243
     },
     "APO": {
       "price": 122.61,
       "volatility_30d": 0.3364,
       "beta": 1.083,
-      "volume": 4627699,
-      "dividend_yield": 0.0189
+      "volume": 4667423,
+      "dividend_yield": 0.0184
     },
     "ARCB": {
       "price": 154.3,
       "volatility_30d": 0.4723,
       "beta": 1.063,
-      "volume": 421246,
+      "volume": 421436,
       "dividend_yield": 0.31
     },
     "ARGT": {
       "price": 93.14,
       "volatility_30d": 0.2931,
       "beta": 1.275,
-      "volume": 199455,
+      "volume": 199456,
       "dividend_yield": 0.0112
     },
     "ARKF": {
       "price": 39.47,
       "volatility_30d": 0.3126,
       "beta": 1.926,
-      "volume": 177769,
+      "volume": 177770,
       "dividend_yield": 0.11
     },
     "ARKG": {
       "price": 37.81,
       "volatility_30d": 0.4373,
       "beta": 2.007,
-      "volume": 3857405,
+      "volume": 3857466,
       "dividend_yield": 0.0
     },
     "ARKK": {
       "price": 71.89,
       "volatility_30d": 0.3667,
       "beta": 2.265,
-      "volume": 6292524,
+      "volume": 6294143,
       "dividend_yield": 0.0
     },
     "ARKQ": {
       "price": 114.01,
       "volatility_30d": 0.3619,
       "beta": 2.179,
-      "volume": 135171,
+      "volume": 135196,
       "dividend_yield": 0.23
     },
     "ARKW": {
       "price": 136.74,
       "volatility_30d": 0.342,
       "beta": 2.101,
-      "volume": 87171,
+      "volume": 87190,
       "dividend_yield": 0.0162
     },
     "ARKX": {
       "price": 30.37,
       "volatility_30d": 0.3481,
       "beta": 1.928,
-      "volume": 1361291,
+      "volume": 1361353,
       "dividend_yield": 0.0
     },
     "ARWR": {
       "price": 85.6,
       "volatility_30d": 0.736,
       "beta": 1.547,
-      "volume": 2797725,
+      "volume": 2798140,
       "dividend_yield": 0.0
     },
     "ASHR": {
       "price": 34.36,
       "volatility_30d": 0.3025,
       "beta": 0.931,
-      "volume": 4513293,
+      "volume": 4516853,
       "dividend_yield": 0.0207
     },
     "ASML": {
       "price": 1757.09,
       "volatility_30d": 0.6225,
       "beta": 2.561,
-      "volume": 2102245,
-      "dividend_yield": 0.5
+      "volume": 2102280,
+      "dividend_yield": 0.52
     },
     "ATO": {
       "price": 179.22,
       "volatility_30d": 0.1803,
       "beta": -0.224,
-      "volume": 1231472,
-      "dividend_yield": 0.0225
+      "volume": 1239373,
+      "dividend_yield": 0.0223
     },
     "ATR": {
       "price": 132.36,
       "volatility_30d": 0.2439,
       "beta": 0.708,
-      "volume": 460000,
-      "dividend_yield": 0.0149
+      "volume": 462856,
+      "dividend_yield": 0.0145
     },
     "AVB": {
       "price": 189.61,
       "volatility_30d": 0.2288,
       "beta": 0.357,
-      "volume": 1029748,
-      "dividend_yield": 0.0373
+      "volume": 1033993,
+      "dividend_yield": 0.0376
     },
     "AVGO": {
       "price": 381.92,
       "volatility_30d": 0.477,
       "beta": 2.042,
-      "volume": 25636905,
-      "dividend_yield": 0.66
+      "volume": 25676290,
+      "dividend_yield": 0.68
     },
     "AVY": {
       "price": 160.9,
       "volatility_30d": 0.279,
       "beta": 0.501,
-      "volume": 734133,
-      "dividend_yield": 0.0258
+      "volume": 738976,
+      "dividend_yield": 0.0249
     },
     "AWK": {
       "price": 134.66,
       "volatility_30d": 0.2632,
       "beta": -0.589,
-      "volume": 2243547,
+      "volume": 2243550,
       "dividend_yield": 0.0266
     },
     "AXP": {
       "price": 326.17,
       "volatility_30d": 0.2841,
       "beta": 0.897,
-      "volume": 3254868,
-      "dividend_yield": 0.0111
+      "volume": 3278406,
+      "dividend_yield": 0.0117
     },
     "AZN": {
       "price": 169.26,
       "volatility_30d": 0.3795,
       "beta": 0.282,
-      "volume": 2437509,
-      "dividend_yield": 0.0188
+      "volume": 2437516,
+      "dividend_yield": 0.0187
     },
     "BA": {
       "price": 209.52,
       "volatility_30d": 0.3421,
       "beta": 1.245,
-      "volume": 5514913,
+      "volume": 5533983,
       "dividend_yield": 0.0
     },
     "BABA": {
       "price": 112.14,
       "volatility_30d": 0.4704,
       "beta": 1.374,
-      "volume": 13517695,
-      "dividend_yield": 0.92
+      "volume": 13529096,
+      "dividend_yield": 0.94
     },
     "BAC": {
       "price": 62.05,
       "volatility_30d": 0.193,
       "beta": 0.675,
-      "volume": 35717812,
-      "dividend_yield": 0.0183
+      "volume": 35903806,
+      "dividend_yield": 0.0206
     },
     "BAH": {
       "price": 72.53,
       "volatility_30d": 0.5121,
       "beta": -0.107,
-      "volume": 2586971,
-      "dividend_yield": 0.0358
+      "volume": 2587056,
+      "dividend_yield": 0.0325
     },
     "BAX": {
       "price": 22.4,
       "volatility_30d": 0.4235,
       "beta": 1.2,
-      "volume": 6087251,
-      "dividend_yield": 0.92
+      "volume": 6156093,
+      "dividend_yield": 0.89
     },
     "BBD": {
       "price": 3.6,
       "volatility_30d": 0.2869,
       "beta": 1.437,
-      "volume": 34480708,
-      "dividend_yield": 0.0474
+      "volume": 34731220,
+      "dividend_yield": 0.0482
     },
     "BBVA": {
       "price": 25.95,
       "volatility_30d": 0.2915,
       "beta": 1.866,
-      "volume": 1448921,
-      "dividend_yield": 0.0426
+      "volume": 1451623,
+      "dividend_yield": 0.0415
     },
     "BBY": {
       "price": 85.43,
       "volatility_30d": 0.3049,
       "beta": 0.419,
-      "volume": 3698142,
-      "dividend_yield": 0.0455
+      "volume": 3698146,
+      "dividend_yield": 0.0449
     },
     "BEAM": {
       "price": 25.1,
       "volatility_30d": 0.6562,
       "beta": 2.122,
-      "volume": 2581535,
+      "volume": 2582673,
       "dividend_yield": 0.0
     },
     "BEN": {
       "price": 32.49,
       "volatility_30d": 0.242,
       "beta": 1.261,
-      "volume": 4442340,
-      "dividend_yield": 0.0409
+      "volume": 4462430,
+      "dividend_yield": 0.0406
     },
     "BIDU": {
       "price": 105.34,
       "volatility_30d": 0.4282,
       "beta": 1.754,
-      "volume": 2223022,
+      "volume": 2223036,
       "dividend_yield": 0.0
     },
     "BIIB": {
       "price": 202.19,
       "volatility_30d": 0.481,
       "beta": 0.218,
-      "volume": 1378395,
+      "volume": 1379420,
       "dividend_yield": 0.0
     },
     "BILI": {
       "price": 17.16,
       "volatility_30d": 0.4134,
       "beta": 1.542,
-      "volume": 2279087,
+      "volume": 2279200,
       "dividend_yield": 0.0
     },
     "BIO": {
       "price": 314.46,
       "volatility_30d": 0.3447,
       "beta": 0.665,
-      "volume": 309180,
+      "volume": 312796,
       "dividend_yield": 0.0
     },
     "BIV": {
       "price": 75.51,
       "volatility_30d": 0.0434,
       "beta": 0.148,
-      "volume": 1664217,
+      "volume": 1664216,
       "dividend_yield": 0.042
     },
     "BKNG": {
       "price": 177.46,
       "volatility_30d": 0.4091,
       "beta": 1.019,
-      "volume": 7543758,
-      "dividend_yield": 0.93
+      "volume": 7546383,
+      "dividend_yield": 0.91
     },
     "BKR": {
       "price": 57.25,
       "volatility_30d": 0.3009,
       "beta": 0.615,
-      "volume": 9356705,
-      "dividend_yield": 0.0164
+      "volume": 9356876,
+      "dividend_yield": 0.0161
     },
     "BLK": {
       "price": 1055.67,
       "volatility_30d": 0.3195,
       "beta": 1.229,
-      "volume": 866737,
-      "dividend_yield": 0.0221
+      "volume": 869220,
+      "dividend_yield": 0.0217
     },
     "BLNK": {
       "price": 0.52,
-      "volatility_30d": 0.467,
+      "volatility_30d": 0.4672,
       "beta": 3.376,
-      "volume": 1777076,
+      "volume": 1777326,
       "dividend_yield": 0.0
     },
     "BLV": {
       "price": 66.44,
       "volatility_30d": 0.0759,
       "beta": 0.24,
-      "volume": 651005,
+      "volume": 659743,
       "dividend_yield": 0.0476
     },
     "BMO": {
       "price": 177.77,
       "volatility_30d": 0.1673,
       "beta": 0.968,
-      "volume": 750700,
-      "dividend_yield": 0.028
+      "volume": 752690,
+      "dividend_yield": 0.0279
     },
     "BMRN": {
       "price": 59.33,
       "volatility_30d": 0.2055,
       "beta": 0.344,
-      "volume": 1757060,
+      "volume": 1776046,
       "dividend_yield": 0.0
     },
     "BMY": {
       "price": 62.09,
       "volatility_30d": 0.322,
       "beta": 0.162,
-      "volume": 12230334,
-      "dividend_yield": 0.041
+      "volume": 12233530,
+      "dividend_yield": 0.0406
     },
     "BNDX": {
       "price": 47.8,
       "volatility_30d": 0.0354,
       "beta": 0.18,
-      "volume": 4451264,
+      "volume": 4454880,
       "dividend_yield": 0.0446
     },
     "BNTX": {
       "price": 89.33,
       "volatility_30d": 0.286,
       "beta": 0.766,
-      "volume": 894107,
+      "volume": 894106,
       "dividend_yield": 0.0
     },
     "BRK-B": {
       "price": 494.93,
       "volatility_30d": 0.1391,
       "beta": 0.024,
-      "volume": 4762173,
+      "volume": 4762196,
       "dividend_yield": 0.0
     },
     "BRO": {
       "price": 67.66,
       "volatility_30d": 0.3647,
       "beta": -0.442,
-      "volume": 2915090,
-      "dividend_yield": 1.0
+      "volume": 2938046,
+      "dividend_yield": 0.98
     },
     "BRX": {
       "price": 32.44,
       "volatility_30d": 0.2054,
       "beta": 0.018,
-      "volume": 2256768,
-      "dividend_yield": 0.0378
+      "volume": 2270713,
+      "dividend_yield": 0.0373
     },
     "BSV": {
       "price": 77.47,
       "volatility_30d": 0.0203,
       "beta": 0.06,
-      "volume": 2432187,
+      "volume": 2432510,
       "dividend_yield": 0.0399
     },
     "BSX": {
       "price": 44.25,
       "volatility_30d": 0.3241,
       "beta": 0.139,
-      "volume": 19039437,
+      "volume": 19152023,
       "dividend_yield": 0.0
     },
     "BTBT": {
       "price": 1.37,
       "volatility_30d": 0.8306,
       "beta": 3.594,
-      "volume": 27373719,
+      "volume": 27384283,
       "dividend_yield": 0.0
     },
     "BTI": {
       "price": 60.96,
       "volatility_30d": 0.3319,
       "beta": 0.177,
-      "volume": 4491327,
-      "dividend_yield": 0.0558
+      "volume": 4496350,
+      "dividend_yield": 0.0548
     },
     "BUD": {
       "price": 81.66,
       "volatility_30d": 0.2367,
       "beta": 0.396,
-      "volume": 2010677,
-      "dividend_yield": 0.0167
+      "volume": 2013396,
+      "dividend_yield": 0.0165
     },
     "BWXT": {
       "price": 174.52,
       "volatility_30d": 0.4065,
       "beta": 1.832,
-      "volume": 981038,
-      "dividend_yield": 0.59
+      "volume": 981043,
+      "dividend_yield": 0.6
     },
     "BX": {
       "price": 130.0,
       "volatility_30d": 0.3473,
       "beta": 1.412,
-      "volume": 5050945,
-      "dividend_yield": 0.0405
+      "volume": 5103503,
+      "dividend_yield": 0.0382
     },
     "BXP": {
       "price": 69.11,
       "volatility_30d": 0.2713,
       "beta": 0.824,
-      "volume": 1392086,
-      "dividend_yield": 0.0413
+      "volume": 1401910,
+      "dividend_yield": 0.0405
     },
     "C": {
       "price": 132.19,
       "volatility_30d": 0.2966,
       "beta": 1.324,
-      "volume": 13943405,
+      "volume": 13979833,
       "dividend_yield": 0.0203
     },
     "CACI": {
       "price": 486.77,
       "volatility_30d": 0.4508,
       "beta": 0.1,
-      "volume": 282186,
+      "volume": 283460,
       "dividend_yield": 0.0
     },
     "CAG": {
       "price": 14.77,
       "volatility_30d": 0.4073,
       "beta": -0.291,
-      "volume": 21315581,
-      "dividend_yield": 0.0852
+      "volume": 21381510,
+      "dividend_yield": 0.0829
     },
     "CAH": {
       "price": 228.03,
       "volatility_30d": 0.2269,
       "beta": -0.045,
-      "volume": 2423649,
-      "dividend_yield": 0.91
+      "volume": 2433123,
+      "dividend_yield": 0.9
     },
     "CARR": {
       "price": 68.88,
       "volatility_30d": 0.3214,
       "beta": 1.217,
-      "volume": 5620245,
+      "volume": 5633756,
       "dividend_yield": 0.0139
     },
     "CAT": {
       "price": 888.73,
       "volatility_30d": 0.4872,
       "beta": 1.807,
-      "volume": 3496659,
+      "volume": 3496786,
       "dividend_yield": 0.73
     },
     "CAVA": {
       "price": 62.01,
       "volatility_30d": 0.6109,
       "beta": 1.396,
-      "volume": 3242457,
+      "volume": 3242466,
       "dividend_yield": 0.0
     },
     "CB": {
       "price": 359.75,
       "volatility_30d": 0.2842,
       "beta": -0.444,
-      "volume": 1923738,
-      "dividend_yield": 0.0115
+      "volume": 1933823,
+      "dividend_yield": 0.0113
     },
     "CBOE": {
       "price": 285.07,
       "volatility_30d": 0.4671,
       "beta": -0.275,
-      "volume": 1566808,
+      "volume": 1567683,
       "dividend_yield": 0.0101
     },
     "CE": {
       "price": 46.43,
       "volatility_30d": 0.4334,
       "beta": 0.073,
-      "volume": 1684954,
-      "dividend_yield": 0.25
+      "volume": 1699923,
+      "dividend_yield": 0.26
     },
     "CF": {
       "price": 125.07,
       "volatility_30d": 0.3037,
       "beta": -1.474,
-      "volume": 2662801,
-      "dividend_yield": 0.0189
+      "volume": 2671236,
+      "dividend_yield": 0.0192
     },
     "CFG": {
       "price": 71.88,
       "volatility_30d": 0.2704,
       "beta": 0.838,
-      "volume": 4985871,
+      "volume": 5009136,
       "dividend_yield": 0.0256
     },
     "CG": {
       "price": 45.4,
       "volatility_30d": 0.3383,
       "beta": 1.378,
-      "volume": 3270899,
-      "dividend_yield": 0.0315
+      "volume": 3284513,
+      "dividend_yield": 0.0308
     },
     "CHD": {
       "price": 97.64,
       "volatility_30d": 0.2418,
       "beta": -0.054,
-      "volume": 1847921,
-      "dividend_yield": 0.0128
+      "volume": 1858966,
+      "dividend_yield": 0.0126
     },
     "CHPT": {
       "price": 5.12,
       "volatility_30d": 1.0065,
       "beta": 3.136,
-      "volume": 763099,
+      "volume": 765086,
       "dividend_yield": 0.0
     },
     "CHRD": {
       "price": 138.36,
       "volatility_30d": 0.4113,
       "beta": -0.963,
-      "volume": 887683,
-      "dividend_yield": 0.0374
+      "volume": 889030,
+      "dividend_yield": 0.0376
     },
     "CHRW": {
       "price": 186.51,
-      "volatility_30d": 0.3994,
+      "volatility_30d": 0.3993,
       "beta": 1.04,
-      "volume": 1610527,
-      "dividend_yield": 0.0123
+      "volume": 1612273,
+      "dividend_yield": 0.0135
     },
     "CHTR": {
       "price": 123.31,
       "volatility_30d": 0.4996,
       "beta": -0.009,
-      "volume": 3726293,
+      "volume": 3726916,
       "dividend_yield": 0.0
     },
     "CHWY": {
       "price": 20.86,
       "volatility_30d": 0.537,
       "beta": 1.265,
-      "volume": 9951684,
+      "volume": 9951946,
       "dividend_yield": 0.0
     },
     "CI": {
       "price": 289.57,
       "volatility_30d": 0.2885,
       "beta": 0.084,
-      "volume": 1607055,
-      "dividend_yield": 0.0218
+      "volume": 1614673,
+      "dividend_yield": 0.0215
     },
     "CLF": {
       "price": 11.93,
       "volatility_30d": 0.7982,
       "beta": 2.074,
-      "volume": 22755059,
+      "volume": 22755190,
       "dividend_yield": 0.0
     },
     "CLSK": {
       "price": 14.52,
       "volatility_30d": 0.8559,
       "beta": 3.628,
-      "volume": 22216843,
+      "volume": 22218653,
       "dividend_yield": 0.0
     },
     "CM": {
       "price": 117.44,
       "volatility_30d": 0.1933,
       "beta": 0.844,
-      "volume": 1658944,
-      "dividend_yield": 0.0259
+      "volume": 1661713,
+      "dividend_yield": 0.0257
     },
     "CMCSA": {
       "price": 22.3,
-      "volatility_30d": 0.3542,
+      "volatility_30d": 0.3543,
       "beta": 0.086,
-      "volume": 40606165,
-      "dividend_yield": 0.0561
+      "volume": 40626683,
+      "dividend_yield": 0.0592
     },
     "CME": {
       "price": 255.31,
       "volatility_30d": 0.3568,
       "beta": -0.387,
-      "volume": 3691137,
+      "volume": 3694396,
       "dividend_yield": 0.0204
     },
     "CMG": {
       "price": 31.79,
       "volatility_30d": 0.4329,
       "beta": 0.704,
-      "volume": 18983948,
+      "volume": 18983956,
       "dividend_yield": 0.0
     },
     "CMI": {
       "price": 664.65,
       "volatility_30d": 0.4085,
       "beta": 1.861,
-      "volume": 1041585,
+      "volume": 1041670,
       "dividend_yield": 0.0132
     },
     "CMS": {
       "price": 74.7,
       "volatility_30d": 0.1973,
       "beta": -0.208,
-      "volume": 3381533,
-      "dividend_yield": 0.0307
+      "volume": 3428250,
+      "dividend_yield": 0.0305
     },
     "CNC": {
       "price": 63.41,
       "volatility_30d": 0.4057,
       "beta": 0.17,
-      "volume": 4875268,
+      "volume": 4904340,
       "dividend_yield": 0.0
     },
     "CNP": {
       "price": 44.56,
       "volatility_30d": 0.1926,
       "beta": -0.234,
-      "volume": 6762227,
-      "dividend_yield": 0.0217
+      "volume": 6794023,
+      "dividend_yield": 0.0215
     },
     "COF": {
       "price": 202.84,
       "volatility_30d": 0.3297,
       "beta": 1.32,
-      "volume": 4777337,
-      "dividend_yield": 0.016
+      "volume": 4806900,
+      "dividend_yield": 0.0158
     },
     "COIN": {
       "price": 158.29,
       "volatility_30d": 0.6358,
       "beta": 3.042,
-      "volume": 7540487,
+      "volume": 7543186,
       "dividend_yield": 0.0
     },
     "COP": {
       "price": 120.26,
       "volatility_30d": 0.3198,
       "beta": -0.927,
-      "volume": 7417405,
-      "dividend_yield": 0.028
+      "volume": 7450830,
+      "dividend_yield": 0.0279
     },
     "COR": {
       "price": 309.89,
       "volatility_30d": 0.2515,
       "beta": -0.227,
-      "volume": 1561845,
-      "dividend_yield": 0.79
+      "volume": 1562480,
+      "dividend_yield": 0.77
     },
     "CORN": {
       "price": 18.3,
       "volatility_30d": 0.2046,
       "beta": -0.249,
-      "volume": 345503,
+      "volume": 345536,
       "dividend_yield": 0.0
     },
     "COST": {
       "price": 935.03,
-      "volatility_30d": 0.2228,
+      "volatility_30d": 0.2236,
       "beta": -0.237,
-      "volume": 2488778,
+      "volume": 2490140,
       "dividend_yield": 0.63
     },
     "CP": {
       "price": 92.36,
       "volatility_30d": 0.2128,
       "beta": 0.441,
-      "volume": 2560380,
+      "volume": 2568396,
       "dividend_yield": 0.74
     },
     "CPER": {
       "price": 38.35,
       "volatility_30d": 0.262,
       "beta": 1.479,
-      "volume": 474997,
+      "volume": 475016,
       "dividend_yield": 0.0
     },
     "CPRI": {
       "price": 15.44,
       "volatility_30d": 0.4801,
       "beta": 1.603,
-      "volume": 3069025,
+      "volume": 3070006,
       "dividend_yield": 0.0
     },
     "CRI": {
       "price": 38.75,
       "volatility_30d": 0.4435,
       "beta": 0.672,
-      "volume": 903293,
-      "dividend_yield": 0.0267
+      "volume": 909900,
+      "dividend_yield": 0.0258
     },
     "CRM": {
       "price": 163.66,
       "volatility_30d": 0.4205,
       "beta": 0.183,
-      "volume": 15221746,
-      "dividend_yield": 0.0112
+      "volume": 15231120,
+      "dividend_yield": 0.0108
     },
     "CROX": {
       "price": 134.72,
       "volatility_30d": 0.3978,
       "beta": 0.856,
-      "volume": 1025483,
+      "volume": 1025740,
       "dividend_yield": 0.0
     },
     "CRSP": {
       "price": 46.54,
       "volatility_30d": 0.4961,
       "beta": 1.888,
-      "volume": 1726418,
+      "volume": 1728610,
       "dividend_yield": 0.0
     },
     "CRWD": {
       "price": 183.28,
       "volatility_30d": 0.5528,
       "beta": 1.28,
-      "volume": 10409753,
+      "volume": 10435480,
       "dividend_yield": 0.0
     },
     "CSCO": {
       "price": 114.17,
       "volatility_30d": 0.3422,
       "beta": 1.154,
-      "volume": 23674801,
-      "dividend_yield": 0.0149
+      "volume": 23699140,
+      "dividend_yield": 0.0147
     },
     "CSX": {
       "price": 53.23,
       "volatility_30d": 0.2502,
       "beta": 0.464,
-      "volume": 13107168,
-      "dividend_yield": 0.0106
+      "volume": 13107313,
+      "dividend_yield": 0.0105
     },
     "CTRE": {
       "price": 43.25,
       "volatility_30d": 0.2761,
       "beta": -0.032,
-      "volume": 3124818,
-      "dividend_yield": 0.0368
+      "volume": 3141953,
+      "dividend_yield": 0.0361
     },
     "CVNA": {
       "price": 60.46,
       "volatility_30d": 0.6665,
       "beta": 2.356,
-      "volume": 10759018,
+      "volume": 10759040,
       "dividend_yield": 0.0
     },
     "CVS": {
       "price": 107.74,
       "volatility_30d": 0.2324,
       "beta": 0.073,
-      "volume": 8187037,
-      "dividend_yield": 0.0249
+      "volume": 8231260,
+      "dividend_yield": 0.0247
     },
     "CVX": {
       "price": 194.79,
       "volatility_30d": 0.2625,
       "beta": -0.788,
-      "volume": 8998921,
+      "volume": 9036720,
       "dividend_yield": 0.0366
     },
     "D": {
       "price": 71.1,
       "volatility_30d": 0.1535,
       "beta": -0.042,
-      "volume": 5733715,
-      "dividend_yield": 0.0374
+      "volume": 5751983,
+      "dividend_yield": 0.0376
     },
     "DASH": {
       "price": 172.91,
       "volatility_30d": 0.5174,
       "beta": 1.526,
-      "volume": 4632689,
+      "volume": 4633560,
       "dividend_yield": 0.0
     },
     "DB": {
       "price": 34.66,
       "volatility_30d": 0.3879,
       "beta": 1.954,
-      "volume": 2399425,
-      "dividend_yield": 0.0341
+      "volume": 2402226,
+      "dividend_yield": 0.0336
     },
     "DBA": {
       "price": 28.24,
       "volatility_30d": 0.1305,
       "beta": -0.053,
-      "volume": 994281,
+      "volume": 994706,
       "dividend_yield": 0.0342
     },
     "DDOG": {
       "price": 246.86,
       "volatility_30d": 0.4374,
       "beta": 1.055,
-      "volume": 4402859,
+      "volume": 4414340,
       "dividend_yield": 0.0
     },
     "DE": {
       "price": 628.16,
       "volatility_30d": 0.3115,
       "beta": 0.594,
-      "volume": 1191055,
-      "dividend_yield": 0.0106
+      "volume": 1198066,
+      "dividend_yield": 0.0103
     },
     "DECK": {
       "price": 96.04,
       "volatility_30d": 0.3933,
       "beta": 1.249,
-      "volume": 2307085,
+      "volume": 2330643,
       "dividend_yield": 0.0
     },
     "DEI": {
       "price": 12.28,
       "volatility_30d": 0.3276,
       "beta": 0.768,
-      "volume": 2111968,
-      "dividend_yield": 0.0627
+      "volume": 2122386,
+      "dividend_yield": 0.0619
     },
     "DEO": {
       "price": 83.08,
       "volatility_30d": 0.3125,
       "beta": 0.272,
-      "volume": 1035750,
-      "dividend_yield": 0.0404
+      "volume": 1037633,
+      "dividend_yield": 0.04
     },
     "DG": {
       "price": 117.23,
       "volatility_30d": 0.4021,
       "beta": 0.641,
-      "volume": 2835395,
-      "dividend_yield": 0.0205
+      "volume": 2835406,
+      "dividend_yield": 0.0201
     },
     "DGRO": {
       "price": 77.84,
       "volatility_30d": 0.0934,
       "beta": 0.445,
-      "volume": 1497162,
+      "volume": 1497163,
       "dividend_yield": 0.0195
     },
     "DGX": {
       "price": 227.86,
       "volatility_30d": 0.331,
       "beta": -0.252,
-      "volume": 1044076,
-      "dividend_yield": 0.0164
+      "volume": 1051140,
+      "dividend_yield": 0.0151
     },
     "DHR": {
       "price": 191.5,
       "volatility_30d": 0.4751,
       "beta": 0.376,
-      "volume": 5499858,
-      "dividend_yield": 0.83
+      "volume": 5529370,
+      "dividend_yield": 0.84
     },
     "DIVO": {
       "price": 46.67,
       "volatility_30d": 0.0859,
       "beta": 0.49,
-      "volume": 807578,
+      "volume": 807610,
       "dividend_yield": 0.0226
     },
     "DLR": {
       "price": 199.08,
       "volatility_30d": 0.4313,
       "beta": 0.684,
-      "volume": 3841149,
-      "dividend_yield": 0.0272
+      "volume": 3841846,
+      "dividend_yield": 0.0245
     },
     "DLTR": {
       "price": 120.45,
       "volatility_30d": 0.4007,
       "beta": 0.76,
-      "volume": 3480389,
+      "volume": 3480403,
       "dividend_yield": 0.0
     },
     "DOCU": {
       "price": 50.44,
       "volatility_30d": 0.4788,
       "beta": 0.518,
-      "volume": 3899113,
+      "volume": 3899886,
       "dividend_yield": 0.0
     },
     "DOV": {
       "price": 202.2,
       "volatility_30d": 0.3445,
       "beta": 0.93,
-      "volume": 1231078,
-      "dividend_yield": 0.0105
+      "volume": 1240406,
+      "dividend_yield": 0.0103
     },
     "DOW": {
       "price": 29.84,
       "volatility_30d": 0.3554,
       "beta": -0.698,
-      "volume": 12101561,
-      "dividend_yield": 0.0453
+      "volume": 12171870,
+      "dividend_yield": 0.0469
     },
     "DPZ": {
       "price": 332.97,
       "volatility_30d": 0.4193,
       "beta": 0.084,
-      "volume": 1060858,
-      "dividend_yield": 0.0246
+      "volume": 1060896,
+      "dividend_yield": 0.0239
     },
     "DRI": {
       "price": 196.31,
       "volatility_30d": 0.2539,
       "beta": 0.24,
-      "volume": 1561090,
-      "dividend_yield": 0.0315
+      "volume": 1566306,
+      "dividend_yield": 0.0312
     },
     "DUK": {
       "price": 130.52,
       "volatility_30d": 0.1987,
       "beta": -0.324,
-      "volume": 3833348,
-      "dividend_yield": 0.0336
+      "volume": 3833616,
+      "dividend_yield": 0.0333
     },
     "DUOL": {
       "price": 122.24,
       "volatility_30d": 0.5748,
       "beta": 0.358,
-      "volume": 1222904,
+      "volume": 1223223,
       "dividend_yield": 0.0
     },
     "DVN": {
       "price": 45.04,
       "volatility_30d": 0.317,
       "beta": -0.888,
-      "volume": 13531822,
-      "dividend_yield": 0.023
+      "volume": 13531863,
+      "dividend_yield": 0.0231
     },
     "DVY": {
       "price": 162.99,
       "volatility_30d": 0.1314,
       "beta": 0.191,
-      "volume": 504861,
+      "volume": 504863,
       "dividend_yield": 0.0337
     },
     "DXCM": {
       "price": 71.54,
       "volatility_30d": 0.4046,
       "beta": 0.713,
-      "volume": 4665382,
+      "volume": 4668176,
       "dividend_yield": 0.0
     },
     "EA": {
       "price": 209.06,
       "volatility_30d": 0.0396,
       "beta": 0.098,
-      "volume": 2196536,
+      "volume": 2209073,
       "dividend_yield": 0.36
     },
     "EBAY": {
       "price": 109.39,
       "volatility_30d": 0.2697,
       "beta": 0.692,
-      "volume": 3455872,
+      "volume": 3459326,
       "dividend_yield": 0.0113
     },
     "ECL": {
       "price": 268.75,
       "volatility_30d": 0.2358,
       "beta": 0.562,
-      "volume": 1464964,
-      "dividend_yield": 0.0111
+      "volume": 1475546,
+      "dividend_yield": 0.0109
     },
     "ED": {
       "price": 113.01,
       "volatility_30d": 0.1905,
       "beta": -0.464,
-      "volume": 2250778,
+      "volume": 2304556,
       "dividend_yield": 0.0311
     },
     "EDIT": {
       "price": 2.6,
       "volatility_30d": 0.7652,
       "beta": 2.452,
-      "volume": 2528474,
+      "volume": 2528506,
       "dividend_yield": 0.0
     },
     "EFA": {
       "price": 103.41,
       "volatility_30d": 0.1621,
       "beta": 1.13,
-      "volume": 12615551,
+      "volume": 12665463,
       "dividend_yield": 0.0324
     },
     "EFX": {
       "price": 172.54,
       "volatility_30d": 0.4909,
       "beta": 0.534,
-      "volume": 1989946,
-      "dividend_yield": 0.0134
+      "volume": 1998646,
+      "dividend_yield": 0.013
     },
     "EIDO": {
       "price": 12.26,
       "volatility_30d": 0.2956,
       "beta": 0.784,
-      "volume": 1657915,
+      "volume": 1657916,
       "dividend_yield": 0.0363
     },
     "EIX": {
       "price": 79.75,
       "volatility_30d": 0.2002,
       "beta": -0.01,
-      "volume": 2363007,
-      "dividend_yield": 0.0441
+      "volume": 2363666,
+      "dividend_yield": 0.044
     },
     "EL": {
       "price": 80.29,
       "volatility_30d": 0.3371,
       "beta": 1.498,
-      "volume": 2931808,
-      "dividend_yield": 0.0175
+      "volume": 2931810,
+      "dividend_yield": 0.0174
     },
     "ELS": {
       "price": 66.05,
       "volatility_30d": 0.2238,
       "beta": -0.213,
-      "volume": 1600901,
+      "volume": 1616483,
       "dividend_yield": 0.0329
     },
     "ELV": {
       "price": 377.68,
       "volatility_30d": 0.4358,
       "beta": 0.209,
-      "volume": 1707327,
-      "dividend_yield": 0.0181
+      "volume": 1715150,
+      "dividend_yield": 0.0182
     },
     "EMR": {
       "price": 147.94,
       "volatility_30d": 0.311,
       "beta": 1.615,
-      "volume": 2743916,
-      "dividend_yield": 0.0153
+      "volume": 2746656,
+      "dividend_yield": 0.015
     },
     "ENZL": {
       "price": 46.57,
-      "volatility_30d": 0.1497,
+      "volatility_30d": 0.1496,
       "beta": 0.776,
       "volume": 87173,
       "dividend_yield": 0.0226
@@ -3498,98 +3438,98 @@
       "price": 146.39,
       "volatility_30d": 0.2915,
       "beta": -0.886,
-      "volume": 3863509,
-      "dividend_yield": 0.028
+      "volume": 3863913,
+      "dividend_yield": 0.0279
     },
     "EPD": {
       "price": 38.73,
       "volatility_30d": 0.214,
       "beta": -0.455,
-      "volume": 2894193,
-      "dividend_yield": 0.0568
+      "volume": 2896803,
+      "dividend_yield": 0.0569
     },
     "EPHE": {
       "price": 25.22,
       "volatility_30d": 0.2885,
       "beta": 0.825,
-      "volume": 155951,
+      "volume": 156016,
       "dividend_yield": 0.0278
     },
     "EQIX": {
       "price": 1084.24,
       "volatility_30d": 0.2765,
       "beta": 0.277,
-      "volume": 616168,
-      "dividend_yield": 0.0191
+      "volume": 617186,
+      "dividend_yield": 0.0182
     },
     "ES": {
       "price": 74.91,
       "volatility_30d": 0.1959,
       "beta": 0.024,
-      "volume": 2459928,
-      "dividend_yield": 0.0422
+      "volume": 2474363,
+      "dividend_yield": 0.0421
     },
     "ESS": {
       "price": 293.46,
       "volatility_30d": 0.195,
       "beta": 0.259,
-      "volume": 473029,
+      "volume": 476350,
       "dividend_yield": 0.0353
     },
     "ET": {
       "price": 20.36,
       "volatility_30d": 0.1744,
       "beta": -0.256,
-      "volume": 8308222,
-      "dividend_yield": 0.0654
+      "volume": 8316836,
+      "dividend_yield": 0.0656
     },
     "ETN": {
       "price": 404.07,
       "volatility_30d": 0.4726,
       "beta": 1.652,
-      "volume": 2267079,
-      "dividend_yield": 0.0106
+      "volume": 2276936,
+      "dividend_yield": 0.0109
     },
     "ETR": {
       "price": 115.95,
       "volatility_30d": 0.1682,
       "beta": -0.064,
-      "volume": 3002751,
+      "volume": 3020603,
       "dividend_yield": 0.0221
     },
     "ETSY": {
       "price": 80.62,
       "volatility_30d": 0.4131,
       "beta": 0.861,
-      "volume": 2831352,
+      "volume": 2839340,
       "dividend_yield": 0.0
     },
     "EVGO": {
       "price": 1.42,
       "volatility_30d": 0.5324,
       "beta": 2.627,
-      "volume": 3439004,
+      "volume": 3441720,
       "dividend_yield": 0.0
     },
     "EVR": {
       "price": 339.63,
       "volatility_30d": 0.3648,
       "beta": 1.746,
-      "volume": 405330,
-      "dividend_yield": 0.0106
+      "volume": 407436,
+      "dividend_yield": 0.0105
     },
     "EVRG": {
       "price": 87.18,
       "volatility_30d": 0.1715,
       "beta": -0.188,
-      "volume": 2116357,
-      "dividend_yield": 0.0321
+      "volume": 2121236,
+      "dividend_yield": 0.0319
     },
     "EW": {
       "price": 82.63,
       "volatility_30d": 0.2517,
       "beta": 0.672,
-      "volume": 5114512,
+      "volume": 5155090,
       "dividend_yield": 0.0
     },
     "EWG": {
@@ -3603,420 +3543,420 @@
       "price": 22.55,
       "volatility_30d": 0.1498,
       "beta": 0.805,
-      "volume": 3077248,
+      "volume": 3077250,
       "dividend_yield": 0.0495
     },
     "EWP": {
       "price": 59.71,
       "volatility_30d": 0.1748,
       "beta": 1.177,
-      "volume": 341110,
+      "volume": 341136,
       "dividend_yield": 0.0281
     },
     "EWW": {
       "price": 75.45,
       "volatility_30d": 0.2106,
       "beta": 1.209,
-      "volume": 1183729,
+      "volume": 1183730,
       "dividend_yield": 0.0328
     },
     "EWZ": {
       "price": 35.73,
       "volatility_30d": 0.2127,
       "beta": 1.144,
-      "volume": 19371460,
+      "volume": 19379433,
       "dividend_yield": 0.0424
     },
     "EXC": {
       "price": 47.53,
       "volatility_30d": 0.2179,
       "beta": -0.363,
-      "volume": 9128935,
-      "dividend_yield": 0.0355
+      "volume": 9136953,
+      "dividend_yield": 0.0353
     },
     "EXR": {
       "price": 147.71,
       "volatility_30d": 0.224,
       "beta": 0.408,
-      "volume": 1183898,
-      "dividend_yield": 0.0446
+      "volume": 1191326,
+      "dividend_yield": 0.0439
     },
     "EZA": {
       "price": 61.07,
       "volatility_30d": 0.2983,
       "beta": 2.06,
-      "volume": 233275,
+      "volume": 233746,
       "dividend_yield": 0.0797
     },
     "FANG": {
       "price": 204.68,
       "volatility_30d": 0.3071,
       "beta": -0.608,
-      "volume": 2297440,
-      "dividend_yield": 0.0214
+      "volume": 2302066,
+      "dividend_yield": 0.0215
     },
     "FAST": {
       "price": 47.02,
       "volatility_30d": 0.2427,
       "beta": 0.501,
-      "volume": 8331365,
-      "dividend_yield": 0.0208
+      "volume": 8336663,
+      "dividend_yield": 0.0204
     },
     "FCX": {
       "price": 62.6,
       "volatility_30d": 0.5106,
       "beta": 2.586,
-      "volume": 15439829,
-      "dividend_yield": 0.92
+      "volume": 15439880,
+      "dividend_yield": 0.96
     },
     "FDS": {
       "price": 254.36,
       "volatility_30d": 0.5825,
       "beta": -0.132,
-      "volume": 990774,
-      "dividend_yield": 0.019
+      "volume": 992820,
+      "dividend_yield": 0.0182
     },
     "FDX": {
       "price": 314.96,
       "volatility_30d": 0.3394,
       "beta": 0.941,
-      "volume": 2064687,
+      "volume": 2072316,
       "dividend_yield": 0.0155
     },
     "FEZ": {
       "price": 67.69,
       "volatility_30d": 0.1846,
       "beta": 1.307,
-      "volume": 1312535,
+      "volume": 1314266,
       "dividend_yield": 0.0259
     },
     "FIS": {
       "price": 41.51,
       "volatility_30d": 0.3508,
       "beta": 0.294,
-      "volume": 5814237,
-      "dividend_yield": 0.042
+      "volume": 5814240,
+      "dividend_yield": 0.0405
     },
     "FISV": {
       "price": 51.02,
       "volatility_30d": 0.478,
       "beta": 0.451,
-      "volume": 8417738,
+      "volume": 8422303,
       "dividend_yield": 0.0
     },
     "FITB": {
       "price": 57.41,
       "volatility_30d": 0.2498,
       "beta": 0.778,
-      "volume": 7147183,
-      "dividend_yield": 0.028
+      "volume": 7181150,
+      "dividend_yield": 0.0279
     },
     "FMC": {
       "price": 11.3,
       "volatility_30d": 0.4758,
       "beta": 1.203,
-      "volume": 4549826,
-      "dividend_yield": 0.0274
+      "volume": 4564590,
+      "dividend_yield": 0.0283
     },
     "FOX": {
       "price": 49.41,
       "volatility_30d": 0.5706,
       "beta": 0.073,
-      "volume": 2483124,
-      "dividend_yield": 0.0114
+      "volume": 2484120,
+      "dividend_yield": 0.0113
     },
     "FOXA": {
       "price": 55.31,
       "volatility_30d": 0.6242,
       "beta": 0.087,
-      "volume": 8982143,
-      "dividend_yield": 0.0102
+      "volume": 8983310,
+      "dividend_yield": 0.0101
     },
     "FTNT": {
       "price": 152.37,
       "volatility_30d": 0.3782,
       "beta": 0.845,
-      "volume": 5751170,
+      "volume": 5752740,
       "dividend_yield": 0.0
     },
     "FTV": {
       "price": 62.31,
       "volatility_30d": 0.2337,
       "beta": 0.508,
-      "volume": 2669106,
-      "dividend_yield": 0.4
+      "volume": 2691980,
+      "dividend_yield": 0.39
     },
     "GD": {
       "price": 386.75,
       "volatility_30d": 0.2664,
       "beta": 0.178,
-      "volume": 1331586,
-      "dividend_yield": 0.0167
+      "volume": 1331593,
+      "dividend_yield": 0.0164
     },
     "GILD": {
       "price": 129.31,
       "volatility_30d": 0.3247,
       "beta": 0.377,
-      "volume": 7695148,
-      "dividend_yield": 0.0251
+      "volume": 7702640,
+      "dividend_yield": 0.0254
     },
     "GIS": {
       "price": 36.03,
       "volatility_30d": 0.4182,
       "beta": -0.225,
-      "volume": 10884204,
-      "dividend_yield": 0.0686
+      "volume": 10934450,
+      "dividend_yield": 0.0677
     },
     "GLD": {
       "price": 371.9,
       "volatility_30d": 0.2479,
       "beta": 1.081,
-      "volume": 7376654,
+      "volume": 7378510,
       "dividend_yield": 0.0
     },
     "GOLD": {
       "price": 39.35,
       "volatility_30d": 0.4314,
       "beta": 1.958,
-      "volume": 405452,
-      "dividend_yield": 0.0202
+      "volume": 406800,
+      "dividend_yield": 0.0203
     },
     "GOOG": {
       "price": 319.09,
       "volatility_30d": 0.3922,
       "beta": 1.382,
-      "volume": 22936033,
+      "volume": 22937740,
       "dividend_yield": 0.28
     },
     "GOOGL": {
       "price": 319.74,
       "volatility_30d": 0.387,
       "beta": 1.394,
-      "volume": 34423392,
+      "volume": 34437853,
       "dividend_yield": 0.28
     },
     "GS": {
       "price": 1061.23,
       "volatility_30d": 0.4156,
       "beta": 1.684,
-      "volume": 2144602,
-      "dividend_yield": 0.0186
+      "volume": 2144933,
+      "dividend_yield": 0.0188
     },
     "HAL": {
       "price": 33.36,
       "volatility_30d": 0.3278,
       "beta": -0.09,
-      "volume": 13068191,
-      "dividend_yield": 0.0208
+      "volume": 13131170,
+      "dividend_yield": 0.0204
     },
     "HBAN": {
       "price": 17.36,
       "volatility_30d": 0.2641,
       "beta": 0.781,
-      "volume": 24009894,
-      "dividend_yield": 0.0356
+      "volume": 24046376,
+      "dividend_yield": 0.0357
     },
     "HCA": {
       "price": 382.19,
       "volatility_30d": 0.3883,
       "beta": 0.146,
-      "volume": 1692313,
-      "dividend_yield": 0.83
+      "volume": 1692416,
+      "dividend_yield": 0.82
     },
     "HD": {
       "price": 332.98,
       "volatility_30d": 0.3108,
       "beta": 0.812,
-      "volume": 4597813,
-      "dividend_yield": 0.0287
+      "volume": 4598153,
+      "dividend_yield": 0.028
     },
     "HEI": {
       "price": 349.61,
       "volatility_30d": 0.2821,
       "beta": 1.257,
-      "volume": 458546,
+      "volume": 461396,
       "dividend_yield": 0.07
     },
     "HIG": {
       "price": 140.53,
       "volatility_30d": 0.2169,
       "beta": -0.089,
-      "volume": 1723038,
-      "dividend_yield": 0.0169
+      "volume": 1739530,
+      "dividend_yield": 0.0171
     },
     "HII": {
       "price": 287.59,
       "volatility_30d": 0.3064,
       "beta": 0.509,
-      "volume": 476714,
+      "volume": 476716,
       "dividend_yield": 0.0192
     },
     "HIVE": {
       "price": 2.96,
       "volatility_30d": 0.9813,
       "beta": 3.93,
-      "volume": 24627576,
+      "volume": 24631890,
       "dividend_yield": 0.0
     },
     "HIW": {
       "price": 33.65,
       "volatility_30d": 0.2618,
       "beta": 0.729,
-      "volume": 2015143,
-      "dividend_yield": 0.061
+      "volume": 2028326,
+      "dividend_yield": 0.0594
     },
     "HLI": {
       "price": 140.23,
       "volatility_30d": 0.316,
       "beta": 0.797,
-      "volume": 835128,
-      "dividend_yield": 0.0203
+      "volume": 840320,
+      "dividend_yield": 0.02
     },
     "HMC": {
       "price": 28.16,
       "volatility_30d": 0.3359,
       "beta": 1.234,
-      "volume": 1594348,
-      "dividend_yield": 0.0476
+      "volume": 1594350,
+      "dividend_yield": 0.0473
     },
     "HON": {
       "price": 243.15,
       "volatility_30d": 0.3974,
       "beta": 0.792,
-      "volume": 5059913,
-      "dividend_yield": 0.0387
+      "volume": 5086279,
+      "dividend_yield": 0.0392
     },
     "HOOD": {
       "price": 94.91,
       "volatility_30d": 0.7287,
       "beta": 3.1,
-      "volume": 28086094,
+      "volume": 28086990,
       "dividend_yield": 0.0
     },
     "HPP": {
       "price": 15.38,
       "volatility_30d": 0.5944,
       "beta": 0.906,
-      "volume": 809034,
+      "volume": 813563,
       "dividend_yield": 0.0
     },
     "HRTX": {
       "price": 0.46,
-      "volatility_30d": 0.574,
+      "volatility_30d": 0.5727,
       "beta": 1.876,
-      "volume": 3237770,
+      "volume": 3238693,
       "dividend_yield": 0.0
     },
     "HSIC": {
       "price": 85.47,
       "volatility_30d": 0.2369,
       "beta": 0.574,
-      "volume": 1303909,
+      "volume": 1317533,
       "dividend_yield": 0.0
     },
     "HSY": {
       "price": 174.3,
       "volatility_30d": 0.3225,
       "beta": -0.151,
-      "volume": 2192702,
-      "dividend_yield": 0.0337
+      "volume": 2192710,
+      "dividend_yield": 0.0333
     },
     "HUBG": {
       "price": 49.28,
       "volatility_30d": 0.3453,
       "beta": 0.738,
-      "volume": 755764,
+      "volume": 756763,
       "dividend_yield": 0.0102
     },
     "HUM": {
       "price": 389.32,
       "volatility_30d": 0.3364,
       "beta": 0.339,
-      "volume": 1433458,
-      "dividend_yield": 0.9
+      "volume": 1433460,
+      "dividend_yield": 0.91
     },
     "HUT": {
       "price": 109.99,
       "volatility_30d": 0.9076,
       "beta": 4.689,
-      "volume": 4298610,
+      "volume": 4299183,
       "dividend_yield": 0.0
     },
     "IAU": {
       "price": 76.23,
       "volatility_30d": 0.2461,
       "beta": 1.073,
-      "volume": 6235077,
+      "volume": 6237130,
       "dividend_yield": 0.0
     },
     "IBM": {
       "price": 214.19,
       "volatility_30d": 0.84,
       "beta": 0.787,
-      "volume": 12072678,
-      "dividend_yield": 0.0327
+      "volume": 12115890,
+      "dividend_yield": 0.0316
     },
     "ICE": {
       "price": 145.79,
       "volatility_30d": 0.3232,
       "beta": 0.186,
-      "volume": 4479004,
-      "dividend_yield": 0.0145
+      "volume": 4520836,
+      "dividend_yield": 0.0143
     },
     "IDA": {
       "price": 148.57,
       "volatility_30d": 0.2037,
       "beta": -0.166,
-      "volume": 605352,
-      "dividend_yield": 0.0236
+      "volume": 611070,
+      "dividend_yield": 0.0237
     },
     "IDXX": {
       "price": 544.32,
       "volatility_30d": 0.3426,
       "beta": 0.905,
-      "volume": 666372,
+      "volume": 666543,
       "dividend_yield": 0.0
     },
     "IEMG": {
       "price": 77.05,
       "volatility_30d": 0.337,
       "beta": 1.769,
-      "volume": 13194684,
+      "volume": 13200443,
       "dividend_yield": 0.0217
     },
     "IJH": {
       "price": 75.77,
       "volatility_30d": 0.1356,
       "beta": 0.969,
-      "volume": 6946761,
+      "volume": 6946763,
       "dividend_yield": 0.0115
     },
     "IJR": {
       "price": 144.86,
       "volatility_30d": 0.1447,
       "beta": 0.93,
-      "volume": 4053340,
+      "volume": 4053343,
       "dividend_yield": 0.0111
     },
     "ILMN": {
       "price": 194.09,
       "volatility_30d": 0.4087,
       "beta": 0.596,
-      "volume": 1850697,
+      "volume": 1850700,
       "dividend_yield": 0.0
     },
     "INCY": {
       "price": 117.67,
       "volatility_30d": 0.3694,
       "beta": 0.451,
-      "volume": 1839736,
+      "volume": 1840510,
       "dividend_yield": 0.0
     },
     "INDA": {
       "price": 48.02,
       "volatility_30d": 0.1443,
       "beta": 0.91,
-      "volume": 6171824,
+      "volume": 6171823,
       "dividend_yield": 0.0
     },
     "ING": {
@@ -4024,489 +3964,489 @@
       "volatility_30d": 0.2587,
       "beta": 1.631,
       "volume": 3669273,
-      "dividend_yield": 0.039
+      "dividend_yield": 0.0386
     },
     "INTC": {
       "price": 92.32,
       "volatility_30d": 0.9007,
       "beta": 3.265,
-      "volume": 121614570,
+      "volume": 121651983,
       "dividend_yield": 0.0
     },
     "INTU": {
       "price": 296.33,
       "volatility_30d": 0.4366,
       "beta": 0.126,
-      "volume": 5020638,
-      "dividend_yield": 0.017
+      "volume": 5028016,
+      "dividend_yield": 0.0162
     },
     "INVH": {
       "price": 29.78,
       "volatility_30d": 0.2029,
       "beta": 0.041,
-      "volume": 5315588,
-      "dividend_yield": 0.0408
+      "volume": 5337763,
+      "dividend_yield": 0.0403
     },
     "IQV": {
       "price": 208.05,
       "volatility_30d": 0.395,
       "beta": 0.966,
-      "volume": 1420619,
+      "volume": 1427343,
       "dividend_yield": 0.0
     },
     "IR": {
       "price": 84.4,
       "volatility_30d": 0.3665,
       "beta": 1.235,
-      "volume": 4393468,
+      "volume": 4395003,
       "dividend_yield": 0.09
     },
     "ISRG": {
       "price": 337.5,
       "volatility_30d": 0.5507,
       "beta": 0.975,
-      "volume": 3431341,
+      "volume": 3431376,
       "dividend_yield": 0.0
     },
     "ITOT": {
       "price": 162.0,
       "volatility_30d": 0.1315,
       "beta": 1.015,
-      "volume": 1830390,
+      "volume": 1832913,
       "dividend_yield": 1.0
     },
     "ITUB": {
       "price": 8.28,
       "volatility_30d": 0.2603,
       "beta": 1.388,
-      "volume": 21724485,
-      "dividend_yield": 0.0208
+      "volume": 22166700,
+      "dividend_yield": 0.021
     },
     "ITW": {
       "price": 283.02,
       "volatility_30d": 0.2375,
       "beta": 0.549,
-      "volume": 1445099,
-      "dividend_yield": 0.0233
+      "volume": 1455380,
+      "dividend_yield": 0.0228
     },
     "IVV": {
       "price": 742.36,
       "volatility_30d": 0.1392,
       "beta": 1.0,
-      "volume": 9032719,
+      "volume": 9032723,
       "dividend_yield": 0.0109
     },
     "IVZ": {
       "price": 29.93,
       "volatility_30d": 0.3957,
       "beta": 1.631,
-      "volume": 5085237,
-      "dividend_yield": 0.0289
+      "volume": 5106903,
+      "dividend_yield": 0.0287
     },
     "IWB": {
       "price": 404.18,
       "volatility_30d": 0.1318,
       "beta": 0.998,
-      "volume": 599521,
+      "volume": 599976,
       "dividend_yield": 0.92
     },
     "IWM": {
       "price": 291.17,
       "volatility_30d": 0.1534,
       "beta": 1.223,
-      "volume": 24642451,
+      "volume": 24645373,
       "dividend_yield": 0.88
     },
     "JBHT": {
       "price": 288.3,
       "volatility_30d": 0.3607,
       "beta": 0.897,
-      "volume": 1063887,
+      "volume": 1064840,
       "dividend_yield": 0.62
     },
     "JCI": {
       "price": 143.37,
       "volatility_30d": 0.3145,
       "beta": 1.168,
-      "volume": 4279218,
+      "volume": 4310360,
       "dividend_yield": 0.0112
     },
     "JD": {
       "price": 30.19,
       "volatility_30d": 0.2806,
       "beta": 0.722,
-      "volume": 8189063,
-      "dividend_yield": 0.0332
+      "volume": 8191360,
+      "dividend_yield": 0.0331
     },
     "JEPI": {
       "price": 56.8,
       "volatility_30d": 0.074,
       "beta": 0.419,
-      "volume": 4505710,
+      "volume": 4505850,
       "dividend_yield": 0.0811
     },
     "JEPQ": {
       "price": 57.96,
       "volatility_30d": 0.2126,
       "beta": 1.049,
-      "volume": 6427913,
+      "volume": 6430166,
       "dividend_yield": 0.0995
     },
     "JNJ": {
       "price": 263.4,
       "volatility_30d": 0.2947,
       "beta": -0.202,
-      "volume": 8808134,
-      "dividend_yield": 0.0207
+      "volume": 8808240,
+      "dividend_yield": 0.0203
     },
     "JPM": {
       "price": 353.21,
       "volatility_30d": 0.2278,
       "beta": 0.676,
-      "volume": 10382886,
-      "dividend_yield": 0.0171
+      "volume": 10382980,
+      "dividend_yield": 0.017
     },
     "KDP": {
       "price": 29.68,
       "volatility_30d": 0.3253,
       "beta": 0.057,
-      "volume": 15959917,
+      "volume": 15960370,
       "dividend_yield": 0.031
     },
     "KEX": {
       "price": 148.65,
       "volatility_30d": 0.2752,
       "beta": 0.413,
-      "volume": 619963,
+      "volume": 621833,
       "dividend_yield": 0.0
     },
     "KEYS": {
       "price": 318.67,
       "volatility_30d": 0.5249,
       "beta": 1.851,
-      "volume": 1501088,
+      "volume": 1508743,
       "dividend_yield": 0.0
     },
     "KHC": {
       "price": 25.67,
       "volatility_30d": 0.3234,
       "beta": -0.048,
-      "volume": 12923446,
-      "dividend_yield": 0.0631
+      "volume": 12952306,
+      "dividend_yield": 0.0623
     },
     "KKR": {
       "price": 99.36,
       "volatility_30d": 0.3238,
       "beta": 1.394,
-      "volume": 4284498,
-      "dividend_yield": 0.78
+      "volume": 4333606,
+      "dividend_yield": 0.75
     },
     "KLAC": {
       "price": 210.52,
       "volatility_30d": 1.0036,
       "beta": 2.915,
-      "volume": 14190701,
-      "dividend_yield": 0.42
+      "volume": 14190953,
+      "dividend_yield": 0.44
     },
     "KMI": {
       "price": 32.86,
       "volatility_30d": 0.1869,
       "beta": -0.271,
-      "volume": 10071778,
-      "dividend_yield": 0.036
+      "volume": 10126860,
+      "dividend_yield": 0.0359
     },
     "KNX": {
       "price": 72.5,
       "volatility_30d": 0.3856,
       "beta": 1.177,
-      "volume": 4106417,
-      "dividend_yield": 0.0111
+      "volume": 4130643,
+      "dividend_yield": 0.011
     },
     "KO": {
       "price": 82.25,
       "volatility_30d": 0.241,
       "beta": -0.225,
-      "volume": 18831785,
-      "dividend_yield": 0.0261
+      "volume": 18832046,
+      "dividend_yield": 0.0258
     },
     "KRC": {
       "price": 39.42,
       "volatility_30d": 0.2716,
       "beta": 0.759,
-      "volume": 1356427,
-      "dividend_yield": 0.0563
+      "volume": 1356733,
+      "dividend_yield": 0.0548
     },
     "KSS": {
       "price": 17.94,
       "volatility_30d": 0.6444,
       "beta": 1.245,
-      "volume": 4341021,
-      "dividend_yield": 0.0275
+      "volume": 4357906,
+      "dividend_yield": 0.0279
     },
     "KTOS": {
       "price": 47.35,
       "volatility_30d": 0.6248,
       "beta": 2.051,
-      "volume": 5073392,
+      "volume": 5075190,
       "dividend_yield": 0.0
     },
     "KWEB": {
       "price": 26.29,
       "volatility_30d": 0.2775,
       "beta": 1.105,
-      "volume": 21209438,
+      "volume": 21234980,
       "dividend_yield": 0.0861
     },
     "LAZ": {
       "price": 44.35,
       "volatility_30d": 0.4335,
       "beta": 2.129,
-      "volume": 2739725,
-      "dividend_yield": 0.0465
+      "volume": 2739726,
+      "dividend_yield": 0.0451
     },
     "LCID": {
       "price": 6.3,
       "volatility_30d": 1.3862,
       "beta": 2.193,
-      "volume": 22146380,
+      "volume": 22146956,
       "dividend_yield": 0.0
     },
     "LDOS": {
       "price": 112.14,
       "volatility_30d": 0.3612,
       "beta": 0.038,
-      "volume": 1842328,
-      "dividend_yield": 0.0156
+      "volume": 1850823,
+      "dividend_yield": 0.0153
     },
     "LH": {
       "price": 296.77,
       "volatility_30d": 0.2427,
       "beta": 0.213,
-      "volume": 684779,
-      "dividend_yield": 0.99
+      "volume": 689423,
+      "dividend_yield": 0.97
     },
     "LI": {
       "price": 12.12,
       "volatility_30d": 0.3455,
       "beta": 0.783,
-      "volume": 3814100,
+      "volume": 3814386,
       "dividend_yield": 0.0
     },
     "LII": {
       "price": 541.13,
       "volatility_30d": 0.3305,
       "beta": 1.244,
-      "volume": 405742,
+      "volume": 408033,
       "dividend_yield": 0.0101
     },
     "LIN": {
       "price": 512.28,
       "volatility_30d": 0.1996,
       "beta": 0.03,
-      "volume": 2252786,
-      "dividend_yield": 0.0126
+      "volume": 2255556,
+      "dividend_yield": 0.0125
     },
     "LMT": {
       "price": 582.6,
       "volatility_30d": 0.4463,
       "beta": -0.141,
-      "volume": 1339322,
-      "dividend_yield": 0.0268
+      "volume": 1345706,
+      "dividend_yield": 0.0237
     },
     "LNT": {
       "price": 74.94,
       "volatility_30d": 0.1995,
       "beta": -0.179,
-      "volume": 2435491,
-      "dividend_yield": 0.0288
+      "volume": 2443593,
+      "dividend_yield": 0.0286
     },
     "LOW": {
       "price": 207.64,
       "volatility_30d": 0.3166,
       "beta": 0.714,
-      "volume": 3108310,
-      "dividend_yield": 0.0248
+      "volume": 3128190,
+      "dividend_yield": 0.0241
     },
     "LRCX": {
       "price": 305.21,
       "volatility_30d": 0.918,
       "beta": 3.318,
-      "volume": 12841790,
-      "dividend_yield": 0.33
+      "volume": 12842296,
+      "dividend_yield": 0.34
     },
     "LSTR": {
       "price": 200.28,
       "volatility_30d": 0.2481,
       "beta": 0.678,
-      "volume": 449207,
-      "dividend_yield": 0.77
+      "volume": 449720,
+      "dividend_yield": 0.8
     },
     "LTC": {
       "price": 42.18,
       "volatility_30d": 0.2053,
       "beta": -0.208,
-      "volume": 627209,
-      "dividend_yield": 0.0546
+      "volume": 631313,
+      "dividend_yield": 0.0541
     },
     "LULU": {
       "price": 114.28,
       "volatility_30d": 0.3972,
       "beta": 1.26,
-      "volume": 3150443,
+      "volume": 3150470,
       "dividend_yield": 0.0
     },
     "LXP": {
       "price": 60.81,
       "volatility_30d": 0.2376,
       "beta": 0.476,
-      "volume": 759994,
+      "volume": 764290,
       "dividend_yield": 0.046
     },
     "LYB": {
       "price": 60.32,
       "volatility_30d": 0.3121,
       "beta": -1.027,
-      "volume": 5384857,
-      "dividend_yield": 0.0668
+      "volume": 5384863,
+      "dividend_yield": 0.0683
     },
     "LYFT": {
       "price": 14.2,
       "volatility_30d": 0.4443,
       "beta": 1.448,
-      "volume": 12812591,
+      "volume": 12813153,
       "dividend_yield": 0.0
     },
     "M": {
       "price": 23.38,
       "volatility_30d": 0.4616,
       "beta": 0.994,
-      "volume": 5651063,
+      "volume": 5651066,
       "dividend_yield": 0.0328
     },
     "MAA": {
       "price": 133.88,
       "volatility_30d": 0.2122,
       "beta": 0.134,
-      "volume": 1036058,
-      "dividend_yield": 0.0461
+      "volume": 1045450,
+      "dividend_yield": 0.0457
     },
     "MARA": {
       "price": 12.12,
       "volatility_30d": 0.7755,
       "beta": 3.448,
-      "volume": 47677376,
+      "volume": 47682896,
       "dividend_yield": 0.0
     },
     "MATX": {
       "price": 210.57,
       "volatility_30d": 0.3689,
       "beta": 0.93,
-      "volume": 334185,
-      "dividend_yield": 0.71
+      "volume": 335360,
+      "dividend_yield": 0.72
     },
     "MCD": {
       "price": 264.76,
       "volatility_30d": 0.2583,
       "beta": -0.003,
-      "volume": 4653194,
-      "dividend_yield": 0.0283
+      "volume": 4685363,
+      "dividend_yield": 0.0281
     },
     "MCHI": {
       "price": 53.33,
       "volatility_30d": 0.195,
       "beta": 0.909,
-      "volume": 3221051,
+      "volume": 3231570,
       "dividend_yield": 0.0214
     },
     "MCK": {
       "price": 840.9,
       "volatility_30d": 0.3001,
       "beta": -0.424,
-      "volume": 1075029,
-      "dividend_yield": 0.46
+      "volume": 1081380,
+      "dividend_yield": 0.45
     },
     "MCO": {
       "price": 471.5,
       "volatility_30d": 0.3324,
       "beta": 0.513,
-      "volume": 1046474,
+      "volume": 1046476,
       "dividend_yield": 0.87
     },
     "MDB": {
       "price": 298.22,
       "volatility_30d": 0.5677,
       "beta": 1.546,
-      "volume": 1492099,
+      "volume": 1492106,
       "dividend_yield": 0.0
     },
     "MDLZ": {
       "price": 60.52,
       "volatility_30d": 0.2956,
       "beta": -0.215,
-      "volume": 9802686,
-      "dividend_yield": 0.0333
+      "volume": 9863763,
+      "dividend_yield": 0.033
     },
     "MDT": {
       "price": 83.21,
       "volatility_30d": 0.3205,
       "beta": 0.224,
-      "volume": 8541708,
-      "dividend_yield": 0.0351
+      "volume": 8571856,
+      "dividend_yield": 0.0346
     },
     "MDY": {
       "price": 690.71,
       "volatility_30d": 0.135,
       "beta": 0.963,
-      "volume": 770865,
+      "volume": 772770,
       "dividend_yield": 1.0
     },
     "MET": {
       "price": 94.83,
       "volatility_30d": 0.2514,
       "beta": 0.7,
-      "volume": 3752703,
-      "dividend_yield": 0.0256
+      "volume": 3779576,
+      "dividend_yield": 0.025
     },
     "META": {
       "price": 595.19,
       "volatility_30d": 0.5131,
       "beta": 1.569,
-      "volume": 18560816,
+      "volume": 18566320,
       "dividend_yield": 0.35
     },
     "MKC": {
       "price": 49.96,
       "volatility_30d": 0.3813,
       "beta": -0.323,
-      "volume": 4658546,
-      "dividend_yield": 0.0383
+      "volume": 4681680,
+      "dividend_yield": 0.0384
     },
     "MMM": {
       "price": 172.62,
       "volatility_30d": 0.292,
       "beta": 0.665,
-      "volume": 3847340,
-      "dividend_yield": 0.0184
+      "volume": 3871346,
+      "dividend_yield": 0.0181
     },
     "MO": {
       "price": 72.99,
       "volatility_30d": 0.2524,
       "beta": -0.585,
-      "volume": 7776347,
-      "dividend_yield": 0.0588
+      "volume": 7776420,
+      "dividend_yield": 0.0581
     },
     "MOAT": {
       "price": 104.63,
       "volatility_30d": 0.1412,
       "beta": 0.7,
-      "volume": 729169,
+      "volume": 729210,
       "dividend_yield": 0.0135
     },
     "MOH": {
       "price": 197.55,
       "volatility_30d": 0.498,
       "beta": -0.357,
-      "volume": 1465566,
+      "volume": 1470890,
       "dividend_yield": 0.0
     },
     "MOS": {
@@ -4520,35 +4460,35 @@
       "price": 309.24,
       "volatility_30d": 0.336,
       "beta": -0.471,
-      "volume": 2327795,
-      "dividend_yield": 0.0125
+      "volume": 2337896,
+      "dividend_yield": 0.0126
     },
     "MPLX": {
       "price": 58.65,
       "volatility_30d": 0.175,
       "beta": -0.089,
-      "volume": 1411798,
-      "dividend_yield": 0.0749
+      "volume": 1411826,
+      "dividend_yield": 0.0734
     },
     "MRK": {
       "price": 131.07,
       "volatility_30d": 0.3202,
       "beta": 0.061,
-      "volume": 10805951,
-      "dividend_yield": 0.0261
+      "volume": 10859736,
+      "dividend_yield": 0.0259
     },
     "MRNA": {
       "price": 54.07,
       "volatility_30d": 0.893,
       "beta": 1.746,
-      "volume": 8492213,
+      "volume": 8495576,
       "dividend_yield": 0.0
     },
     "MS": {
       "price": 214.48,
       "volatility_30d": 0.3177,
       "beta": 1.365,
-      "volume": 6130180,
+      "volume": 6155183,
       "dividend_yield": 0.0214
     },
     "MSCI": {
@@ -4556,210 +4496,210 @@
       "volatility_30d": 0.4411,
       "beta": 0.301,
       "volume": 779816,
-      "dividend_yield": 0.0148
+      "dividend_yield": 0.0149
     },
     "MSFT": {
       "price": 381.7,
       "volatility_30d": 0.3458,
       "beta": 0.831,
-      "volume": 42100453,
+      "volume": 42103120,
       "dividend_yield": 0.95
     },
     "MSTR": {
       "price": 91.67,
       "volatility_30d": 0.8443,
       "beta": 3.433,
-      "volume": 23245139,
+      "volume": 23246023,
       "dividend_yield": 0.0
     },
     "MTB": {
       "price": 249.6,
       "volatility_30d": 0.2207,
       "beta": 0.568,
-      "volume": 1206215,
-      "dividend_yield": 0.0244
+      "volume": 1213250,
+      "dividend_yield": 0.024
     },
     "MTDR": {
       "price": 50.81,
       "volatility_30d": 0.3451,
       "beta": -0.819,
-      "volume": 1775768,
-      "dividend_yield": 0.029
+      "volume": 1775770,
+      "dividend_yield": 0.0295
     },
     "MU": {
       "price": 920.95,
       "volatility_30d": 1.113,
       "beta": 3.373,
-      "volume": 50118524,
-      "dividend_yield": 0.05
+      "volume": 50127570,
+      "dividend_yield": 0.06
     },
     "MUFG": {
       "price": 22.89,
       "volatility_30d": 0.2758,
       "beta": 0.978,
-      "volume": 3339646,
-      "dividend_yield": 0.0238
+      "volume": 3339650,
+      "dividend_yield": 0.0236
     },
     "NBIX": {
       "price": 175.77,
       "volatility_30d": 0.2762,
       "beta": 0.796,
-      "volume": 1159326,
+      "volume": 1164116,
       "dividend_yield": 0.0
     },
     "NDAQ": {
       "price": 92.09,
       "volatility_30d": 0.4154,
       "beta": 0.68,
-      "volume": 4816474,
-      "dividend_yield": 0.0128
+      "volume": 4819813,
+      "dividend_yield": 0.0126
     },
     "NEE": {
       "price": 89.78,
       "volatility_30d": 0.1518,
       "beta": 0.017,
-      "volume": 11102130,
+      "volume": 11181406,
       "dividend_yield": 0.0278
     },
     "NEM": {
       "price": 93.19,
       "volatility_30d": 0.4353,
       "beta": 2.072,
-      "volume": 8571997,
-      "dividend_yield": 0.011
+      "volume": 8632283,
+      "dividend_yield": 0.0112
     },
     "NET": {
       "price": 262.15,
       "volatility_30d": 0.4216,
       "beta": 1.299,
-      "volume": 3111734,
+      "volume": 3111750,
       "dividend_yield": 0.0
     },
     "NFLX": {
       "price": 70.09,
       "volatility_30d": 0.4109,
       "beta": 0.316,
-      "volume": 52081675,
+      "volume": 52171080,
       "dividend_yield": 0.0
     },
     "NHI": {
       "price": 80.54,
       "volatility_30d": 0.2388,
       "beta": -0.396,
-      "volume": 798673,
-      "dividend_yield": 0.046
+      "volume": 801543,
+      "dividend_yield": 0.0457
     },
     "NI": {
       "price": 46.68,
       "volatility_30d": 0.2063,
       "beta": 0.043,
-      "volume": 4767903,
+      "volume": 4802260,
       "dividend_yield": 0.0257
     },
     "NIO": {
       "price": 4.49,
       "volatility_30d": 0.3525,
       "beta": 1.175,
-      "volume": 25794919,
+      "volume": 25799230,
       "dividend_yield": 0.0
     },
     "NKE": {
       "price": 41.7,
       "volatility_30d": 0.3719,
       "beta": 0.826,
-      "volume": 25172090,
-      "dividend_yield": 0.04
+      "volume": 25174296,
+      "dividend_yield": 0.0393
     },
     "NMR": {
       "price": 9.81,
       "volatility_30d": 0.2923,
       "beta": 1.35,
-      "volume": 1212583,
-      "dividend_yield": 0.0332
+      "volume": 1215006,
+      "dividend_yield": 0.033
     },
     "NOBL": {
       "price": 56.91,
       "volatility_30d": 0.1465,
       "beta": 0.289,
-      "volume": 1202989,
+      "volume": 1204856,
       "dividend_yield": 0.0207
     },
     "NOC": {
       "price": 542.24,
       "volatility_30d": 0.3273,
       "beta": -0.109,
-      "volume": 1066654,
-      "dividend_yield": 0.0176
+      "volume": 1066656,
+      "dividend_yield": 0.0173
     },
     "NOG": {
       "price": 21.18,
       "volatility_30d": 0.5298,
       "beta": -0.807,
-      "volume": 3647994,
-      "dividend_yield": 0.0826
+      "volume": 3659516,
+      "dividend_yield": 0.085
     },
     "NOW": {
       "price": 98.78,
       "volatility_30d": 0.6033,
       "beta": 0.586,
-      "volume": 23609768,
+      "volume": 23709833,
       "dividend_yield": 0.0
     },
     "NRG": {
       "price": 141.03,
       "volatility_30d": 0.3868,
       "beta": 1.438,
-      "volume": 2548869,
-      "dividend_yield": 0.0133
+      "volume": 2575113,
+      "dividend_yield": 0.0135
     },
     "NSANY": {
-      "price": 3.98,
-      "volatility_30d": 0.4262,
+      "price": 4.0,
+      "volatility_30d": 0.4252,
       "beta": 1.394,
-      "volume": 295085,
+      "volume": 302780,
       "dividend_yield": 0.0
     },
     "NSC": {
       "price": 350.66,
       "volatility_30d": 0.2444,
       "beta": 0.115,
-      "volume": 1088595,
-      "dividend_yield": 0.0155
+      "volume": 1102003,
+      "dividend_yield": 0.0154
     },
     "NTES": {
       "price": 119.55,
       "volatility_30d": 0.4298,
       "beta": 0.581,
       "volume": 1032800,
-      "dividend_yield": 0.0251
+      "dividend_yield": 0.0253
     },
     "NTLA": {
       "price": 10.73,
       "volatility_30d": 0.9412,
       "beta": 2.589,
-      "volume": 5866107,
+      "volume": 5869716,
       "dividend_yield": 0.0
     },
     "NTRA": {
       "price": 261.99,
       "volatility_30d": 0.4424,
       "beta": 1.344,
-      "volume": 1459831,
+      "volume": 1459833,
       "dividend_yield": 0.0
     },
     "NTRS": {
       "price": 180.52,
       "volatility_30d": 0.2402,
       "beta": 0.87,
-      "volume": 1114860,
-      "dividend_yield": 0.0184
+      "volume": 1116046,
+      "dividend_yield": 0.0182
     },
     "NUE": {
       "price": 247.56,
       "volatility_30d": 0.3616,
       "beta": 0.825,
-      "volume": 1631839,
-      "dividend_yield": 0.93
+      "volume": 1641186,
+      "dividend_yield": 0.9
     },
     "NUSI": {
       "price": 54.42,
@@ -4772,225 +4712,225 @@
       "price": 7.46,
       "volatility_30d": 0.4785,
       "beta": 1.959,
-      "volume": 3886535,
+      "volume": 3887610,
       "dividend_yield": 0.0
     },
     "NVDA": {
       "price": 206.84,
       "volatility_30d": 0.3629,
       "beta": 1.907,
-      "volume": 137697044,
+      "volume": 137824646,
       "dividend_yield": 0.48
     },
     "NVS": {
       "price": 155.01,
       "volatility_30d": 0.2805,
       "beta": 0.366,
-      "volume": 2104335,
-      "dividend_yield": 0.0304
+      "volume": 2107813,
+      "dividend_yield": 0.0306
     },
     "NWE": {
       "price": 72.86,
       "volatility_30d": 0.21,
       "beta": -0.055,
-      "volume": 475542,
-      "dividend_yield": 0.0367
+      "volume": 477640,
+      "dividend_yield": 0.0365
     },
     "O": {
       "price": 65.6,
       "volatility_30d": 0.2137,
       "beta": -0.103,
-      "volume": 5822063,
-      "dividend_yield": 0.0502
+      "volume": 5822236,
+      "dividend_yield": 0.0496
     },
     "ODFL": {
       "price": 232.99,
       "volatility_30d": 0.3526,
       "beta": 1.045,
-      "volume": 1706950,
+      "volume": 1707456,
       "dividend_yield": 0.5
     },
     "OHI": {
       "price": 51.72,
       "volatility_30d": 0.2236,
       "beta": -0.286,
-      "volume": 2028907,
+      "volume": 2039923,
       "dividend_yield": 0.0526
     },
     "ORCL": {
       "price": 114.99,
       "volatility_30d": 0.5266,
       "beta": 2.008,
-      "volume": 36849944,
-      "dividend_yield": 0.0167
+      "volume": 36857086,
+      "dividend_yield": 0.0174
     },
     "OTIS": {
       "price": 71.93,
       "volatility_30d": 0.2519,
       "beta": 0.317,
-      "volume": 4014956,
-      "dividend_yield": 0.024
+      "volume": 4037473,
+      "dividend_yield": 0.0245
     },
     "OXY": {
       "price": 57.3,
       "volatility_30d": 0.3494,
       "beta": -1.041,
-      "volume": 9620775,
-      "dividend_yield": 0.0181
+      "volume": 9683846,
+      "dividend_yield": 0.0182
     },
     "PALL": {
       "price": 22.56,
       "volatility_30d": 0.4253,
       "beta": 2.096,
-      "volume": 815807,
+      "volume": 815806,
       "dividend_yield": 0.0
     },
     "PANW": {
       "price": 323.79,
       "volatility_30d": 0.5479,
       "beta": 1.164,
-      "volume": 7226078,
+      "volume": 7226286,
       "dividend_yield": 0.0
     },
     "PAYX": {
       "price": 113.55,
       "volatility_30d": 0.3272,
       "beta": -0.115,
-      "volume": 3600845,
-      "dividend_yield": 0.043
+      "volume": 3602056,
+      "dividend_yield": 0.0419
     },
     "PBR": {
       "price": 18.77,
       "volatility_30d": 0.3143,
       "beta": -0.346,
-      "volume": 15017761,
-      "dividend_yield": 0.0928
+      "volume": 15017930,
+      "dividend_yield": 0.0939
     },
     "PCAR": {
       "price": 132.24,
       "volatility_30d": 0.3093,
       "beta": 1.041,
-      "volume": 3404220,
-      "dividend_yield": 0.0107
+      "volume": 3412123,
+      "dividend_yield": 0.0106
     },
     "PCG": {
       "price": 17.85,
       "volatility_30d": 0.2467,
       "beta": 0.029,
-      "volume": 18243832,
-      "dividend_yield": 0.0114
+      "volume": 18372070,
+      "dividend_yield": 0.0112
     },
     "PDD": {
       "price": 82.66,
       "volatility_30d": 0.3753,
       "beta": 0.977,
-      "volume": 7680137,
+      "volume": 7702353,
       "dividend_yield": 0.0
     },
     "PDM": {
       "price": 9.79,
       "volatility_30d": 0.31,
       "beta": 0.832,
-      "volume": 1141125,
+      "volume": 1145770,
       "dividend_yield": 0.0627
     },
     "PEG": {
       "price": 79.81,
       "volatility_30d": 0.1751,
       "beta": 0.043,
-      "volume": 2945948,
+      "volume": 2965600,
       "dividend_yield": 0.0336
     },
     "PEP": {
       "price": 136.64,
       "volatility_30d": 0.2744,
       "beta": -0.128,
-      "volume": 9547274,
-      "dividend_yield": 0.0439
+      "volume": 9547653,
+      "dividend_yield": 0.0433
     },
     "PFE": {
       "price": 24.54,
-      "volatility_30d": 0.2337,
+      "volatility_30d": 0.2278,
       "beta": 0.211,
-      "volume": 46789427,
-      "dividend_yield": 0.0688
+      "volume": 46990220,
+      "dividend_yield": 0.0701
     },
     "PGR": {
       "price": 213.83,
       "volatility_30d": 0.4197,
       "beta": -0.649,
-      "volume": 3631875,
-      "dividend_yield": 0.0671
+      "volume": 3631883,
+      "dividend_yield": 0.065
     },
     "PH": {
       "price": 987.54,
       "volatility_30d": 0.2192,
       "beta": 0.796,
-      "volume": 603086,
+      "volume": 606820,
       "dividend_yield": 0.81
     },
     "PINS": {
       "price": 22.13,
       "volatility_30d": 0.4711,
       "beta": 0.841,
-      "volume": 13997967,
+      "volume": 14014460,
       "dividend_yield": 0.0
     },
     "PKG": {
       "price": 254.39,
       "volatility_30d": 0.3459,
       "beta": 0.76,
-      "volume": 688245,
-      "dividend_yield": 0.0257
+      "volume": 694326,
+      "dividend_yield": 0.0236
     },
     "PLD": {
       "price": 147.63,
       "volatility_30d": 0.2878,
       "beta": 0.515,
-      "volume": 4295218,
-      "dividend_yield": 0.0295
+      "volume": 4295220,
+      "dividend_yield": 0.029
     },
     "PM": {
       "price": 193.0,
       "volatility_30d": 0.3273,
       "beta": -0.085,
-      "volume": 5412754,
-      "dividend_yield": 0.0308
+      "volume": 5441043,
+      "dividend_yield": 0.0305
     },
     "PNC": {
       "price": 250.99,
       "volatility_30d": 0.2043,
       "beta": 0.524,
-      "volume": 2385089,
-      "dividend_yield": 0.0321
+      "volume": 2385090,
+      "dividend_yield": 0.0319
     },
     "PNW": {
       "price": 106.06,
       "volatility_30d": 0.1978,
       "beta": -0.239,
-      "volume": 1199440,
-      "dividend_yield": 0.0345
+      "volume": 1210600,
+      "dividend_yield": 0.0343
     },
     "PODD": {
       "price": 163.26,
       "volatility_30d": 0.3974,
       "beta": 0.093,
-      "volume": 1453942,
+      "volume": 1454240,
       "dividend_yield": 0.0
     },
     "POR": {
       "price": 52.05,
       "volatility_30d": 0.1851,
       "beta": -0.183,
-      "volume": 1159745,
-      "dividend_yield": 0.0406
+      "volume": 1171286,
+      "dividend_yield": 0.0409
     },
     "PPG": {
       "price": 116.0,
       "volatility_30d": 0.334,
       "beta": 1.243,
-      "volume": 1932374,
-      "dividend_yield": 0.026
+      "volume": 1943676,
+      "dividend_yield": 0.0255
     },
     "PPLT": {
       "price": 14.43,
@@ -5003,357 +4943,357 @@
       "price": 119.96,
       "volatility_30d": 0.2158,
       "beta": 0.637,
-      "volume": 1798688,
-      "dividend_yield": 0.0475
+      "volume": 1820436,
+      "dividend_yield": 0.0467
     },
     "PSA": {
       "price": 322.48,
       "volatility_30d": 0.2318,
       "beta": 0.461,
-      "volume": 1117300,
-      "dividend_yield": 0.0381
+      "volume": 1125876,
+      "dividend_yield": 0.0372
     },
     "PSN": {
       "price": 58.73,
       "volatility_30d": 0.4914,
       "beta": 0.799,
-      "volume": 1054209,
+      "volume": 1060553,
       "dividend_yield": 0.0
     },
     "PSX": {
       "price": 206.77,
       "volatility_30d": 0.3441,
       "beta": -0.578,
-      "volume": 2864511,
-      "dividend_yield": 0.0245
+      "volume": 2864530,
+      "dividend_yield": 0.0246
     },
     "PYPL": {
       "price": 56.15,
       "volatility_30d": 0.5658,
       "beta": 0.986,
-      "volume": 19074974,
+      "volume": 19111666,
       "dividend_yield": 1.0
     },
     "QCOM": {
       "price": 166.97,
       "volatility_30d": 0.5794,
       "beta": 2.161,
-      "volume": 17725226,
-      "dividend_yield": 0.0215
+      "volume": 17735820,
+      "dividend_yield": 0.022
     },
     "QQQ": {
       "price": 684.23,
       "volatility_30d": 0.2756,
       "beta": 1.455,
-      "volume": 42435567,
+      "volume": 42540486,
       "dividend_yield": 0.41
     },
     "QQQM": {
       "price": 281.68,
       "volatility_30d": 0.2701,
       "beta": 1.44,
-      "volume": 3532296,
+      "volume": 3536080,
       "dividend_yield": 0.43
     },
     "QSR": {
       "price": 72.47,
       "volatility_30d": 0.2739,
       "beta": 0.117,
-      "volume": 3049787,
+      "volume": 3057603,
       "dividend_yield": 0.0359
     },
     "QYLD": {
       "price": 17.56,
       "volatility_30d": 0.1857,
       "beta": 0.837,
-      "volume": 5283664,
+      "volume": 5283953,
       "dividend_yield": 0.0944
     },
     "R": {
       "price": 267.68,
       "volatility_30d": 0.2763,
       "beta": 1.147,
-      "volume": 399802,
-      "dividend_yield": 0.0146
+      "volume": 402126,
+      "dividend_yield": 0.0151
     },
     "RBLX": {
       "price": 47.55,
       "volatility_30d": 0.7679,
       "beta": 1.951,
-      "volume": 9676504,
+      "volume": 9716426,
       "dividend_yield": 0.0
     },
     "REG": {
       "price": 82.15,
       "volatility_30d": 0.1916,
       "beta": -0.026,
-      "volume": 1450961,
-      "dividend_yield": 0.0372
+      "volume": 1452593,
+      "dividend_yield": 0.0368
     },
     "REGN": {
       "price": 656.01,
       "volatility_30d": 0.2553,
       "beta": 0.563,
-      "volume": 911360,
-      "dividend_yield": 0.58
+      "volume": 911363,
+      "dividend_yield": 0.57
     },
     "RF": {
       "price": 30.86,
       "volatility_30d": 0.2309,
       "beta": 0.648,
-      "volume": 11182890,
-      "dividend_yield": 0.0357
+      "volume": 11184396,
+      "dividend_yield": 0.0355
     },
     "RGA": {
       "price": 238.92,
       "volatility_30d": 0.2309,
       "beta": 0.331,
-      "volume": 376051,
-      "dividend_yield": 0.0159
+      "volume": 376053,
+      "dividend_yield": 0.0156
     },
     "RHHBY": {
       "price": 54.7,
       "volatility_30d": 0.3069,
       "beta": 0.365,
-      "volume": 1785865,
-      "dividend_yield": 0.0287
+      "volume": 1888030,
+      "dividend_yield": 0.0283
     },
     "RIOT": {
       "price": 22.53,
       "volatility_30d": 0.8059,
       "beta": 4.101,
-      "volume": 16326359,
+      "volume": 16326960,
       "dividend_yield": 0.0
     },
     "RIVN": {
       "price": 15.84,
       "volatility_30d": 0.8953,
       "beta": 2.325,
-      "volume": 37832514,
+      "volume": 37842016,
       "dividend_yield": 0.0
     },
     "RKLB": {
       "price": 63.91,
       "volatility_30d": 1.0073,
       "beta": 3.74,
-      "volume": 26544528,
+      "volume": 26550800,
       "dividend_yield": 0.0
     },
     "RL": {
       "price": 373.58,
       "volatility_30d": 0.3602,
       "beta": 1.501,
-      "volume": 649989,
-      "dividend_yield": 0.0101
+      "volume": 650276,
+      "dividend_yield": 1.0
     },
     "RMD": {
       "price": 195.27,
       "volatility_30d": 0.381,
       "beta": 0.445,
-      "volume": 1531943,
-      "dividend_yield": 0.0125
+      "volume": 1539096,
+      "dividend_yield": 0.0123
     },
     "RNR": {
       "price": 329.1,
       "volatility_30d": 0.2914,
       "beta": -0.52,
-      "volume": 367282,
-      "dividend_yield": 0.52
+      "volume": 369016,
+      "dividend_yield": 0.5
     },
     "ROK": {
       "price": 462.16,
       "volatility_30d": 0.3333,
       "beta": 1.579,
-      "volume": 830402,
-      "dividend_yield": 0.012
+      "volume": 834453,
+      "dividend_yield": 0.0119
     },
     "ROKU": {
       "price": 141.97,
       "volatility_30d": 0.6059,
       "beta": 1.784,
-      "volume": 6303815,
+      "volume": 6318370,
       "dividend_yield": 0.0
     },
     "ROP": {
       "price": 367.34,
       "volatility_30d": 0.3683,
       "beta": 0.011,
-      "volume": 1157594,
-      "dividend_yield": 0.0103
+      "volume": 1158516,
+      "dividend_yield": 0.99
     },
     "ROST": {
       "price": 238.89,
       "volatility_30d": 0.3125,
       "beta": 0.616,
-      "volume": 2950318,
-      "dividend_yield": 0.77
+      "volume": 2951050,
+      "dividend_yield": 0.75
     },
     "RPRX": {
       "price": 58.83,
       "volatility_30d": 0.2741,
       "beta": 0.251,
       "volume": 3279640,
-      "dividend_yield": 0.0159
+      "dividend_yield": 0.016
     },
     "RRC": {
       "price": 38.97,
       "volatility_30d": 0.3037,
       "beta": -0.459,
-      "volume": 3477245,
+      "volume": 3496570,
       "dividend_yield": 0.0103
     },
     "RTX": {
       "price": 212.79,
       "volatility_30d": 0.3379,
       "beta": 0.218,
-      "volume": 5025419,
-      "dividend_yield": 0.014
+      "volume": 5025460,
+      "dividend_yield": 0.0137
     },
     "RY": {
       "price": 209.09,
       "volatility_30d": 0.1626,
       "beta": 0.726,
-      "volume": 1795673,
-      "dividend_yield": 0.0245
+      "volume": 1797916,
+      "dividend_yield": 0.0244
     },
     "RYLD": {
       "price": 15.92,
       "volatility_30d": 0.0591,
       "beta": 0.62,
-      "volume": 595715,
+      "volume": 595720,
       "dividend_yield": 0.0681
     },
     "SAIA": {
       "price": 423.68,
       "volatility_30d": 0.3686,
       "beta": 1.568,
-      "volume": 401010,
+      "volume": 401696,
       "dividend_yield": 0.0
     },
     "SAIC": {
       "price": 118.99,
       "volatility_30d": 0.3994,
       "beta": -0.069,
-      "volume": 565343,
-      "dividend_yield": 0.0127
+      "volume": 565636,
+      "dividend_yield": 0.0124
     },
     "SAM": {
       "price": 180.15,
       "volatility_30d": 0.4737,
       "beta": -0.242,
-      "volume": 342422,
+      "volume": 342423,
       "dividend_yield": 0.0
     },
     "SANA": {
       "price": 3.18,
       "volatility_30d": 0.6896,
       "beta": 1.964,
-      "volume": 3266901,
+      "volume": 3268110,
       "dividend_yield": 0.0
     },
     "SBNY": {
-      "price": 0.35,
-      "volatility_30d": 2.0643,
-      "beta": -0.164,
-      "volume": 99943,
+      "price": 0.4,
+      "volatility_30d": 2.1078,
+      "beta": -0.165,
+      "volume": 99973,
       "dividend_yield": 0.0251
     },
     "SBRA": {
       "price": 22.36,
       "volatility_30d": 0.3628,
       "beta": -0.248,
-      "volume": 3548126,
-      "dividend_yield": 0.0545
+      "volume": 3552526,
+      "dividend_yield": 0.0537
     },
     "SBUX": {
       "price": 103.25,
       "volatility_30d": 0.2424,
       "beta": 0.621,
-      "volume": 7066844,
+      "volume": 7067096,
       "dividend_yield": 0.024
     },
     "SCHA": {
       "price": 33.93,
       "volatility_30d": 0.2191,
       "beta": 1.236,
-      "volume": 2309464,
+      "volume": 2309503,
       "dividend_yield": 0.99
     },
     "SCHB": {
       "price": 28.56,
       "volatility_30d": 0.1327,
       "beta": 1.016,
-      "volume": 8390939,
+      "volume": 8390976,
       "dividend_yield": 0.0104
     },
     "SCHD": {
       "price": 33.29,
       "volatility_30d": 0.1332,
       "beta": 0.203,
-      "volume": 20541712,
+      "volume": 20546603,
       "dividend_yield": 0.033
     },
     "SCHG": {
       "price": 33.46,
       "volatility_30d": 0.1725,
       "beta": 1.219,
-      "volume": 7991086,
+      "volume": 7991316,
       "dividend_yield": 0.39
     },
     "SCHO": {
       "price": 24.06,
       "volatility_30d": 0.0157,
       "beta": 0.04,
-      "volume": 3145182,
+      "volume": 3145213,
       "dividend_yield": 0.039
     },
     "SCHV": {
       "price": 34.24,
       "volatility_30d": 0.1282,
       "beta": 0.707,
-      "volume": 3510973,
+      "volume": 3510996,
       "dividend_yield": 0.0175
     },
     "SCHW": {
       "price": 101.97,
       "volatility_30d": 0.2697,
       "beta": 0.314,
-      "volume": 10756933,
+      "volume": 10756943,
       "dividend_yield": 0.0126
     },
     "SCHX": {
       "price": 29.12,
       "volatility_30d": 0.1302,
       "beta": 1.0,
-      "volume": 11303957,
+      "volume": 11304046,
       "dividend_yield": 0.0103
     },
     "SCHZ": {
       "price": 22.79,
       "volatility_30d": 0.0398,
       "beta": 0.131,
-      "volume": 1718456,
+      "volume": 1719596,
       "dividend_yield": 0.041
     },
     "SDY": {
       "price": 155.73,
       "volatility_30d": 0.1302,
       "beta": 0.241,
-      "volume": 224524,
+      "volume": 224523,
       "dividend_yield": 0.0245
     },
     "SHAK": {
       "price": 57.1,
       "volatility_30d": 0.47,
       "beta": 1.504,
-      "volume": 1885197,
+      "volume": 1894986,
       "dividend_yield": 0.0
     },
     "SHOP": {
       "price": 113.75,
       "volatility_30d": 0.4518,
       "beta": 1.675,
-      "volume": 8221206,
+      "volume": 8233726,
       "dividend_yield": 0.0
     },
     "SHW": {
@@ -5361,462 +5301,882 @@
       "volatility_30d": 0.3015,
       "beta": 0.817,
       "volume": 2512156,
-      "dividend_yield": 0.0103
+      "dividend_yield": 0.0101
     },
     "SJM": {
       "price": 118.32,
       "volatility_30d": 0.3281,
       "beta": -0.31,
-      "volume": 1513412,
-      "dividend_yield": 0.0387
+      "volume": 1513690,
+      "dividend_yield": 0.0379
     },
     "SLB": {
       "price": 52.42,
       "volatility_30d": 0.4468,
       "beta": 0.717,
-      "volume": 15612983,
-      "dividend_yield": 0.0248
+      "volume": 15699913,
+      "dividend_yield": 0.0225
     },
     "SLG": {
       "price": 54.61,
       "volatility_30d": 0.3777,
       "beta": 0.997,
-      "volume": 1179992,
-      "dividend_yield": 0.0471
+      "volume": 1179993,
+      "dividend_yield": 0.0462
     },
     "SMFG": {
       "price": 26.18,
       "volatility_30d": 0.3116,
       "beta": 1.265,
-      "volume": 1970525,
-      "dividend_yield": 0.0229
+      "volume": 1974026,
+      "dividend_yield": 0.0226
     },
     "SNAP": {
       "price": 4.35,
       "volatility_30d": 0.5514,
       "beta": 2.425,
-      "volume": 41144953,
+      "volume": 41228003,
       "dividend_yield": 0.0
     },
     "SNOW": {
       "price": 268.06,
       "volatility_30d": 0.3907,
       "beta": 1.075,
-      "volume": 5785549,
+      "volume": 5796036,
       "dividend_yield": 0.0
     },
     "SOFI": {
       "price": 16.46,
       "volatility_30d": 0.448,
       "beta": 2.175,
-      "volume": 84615793,
+      "volume": 84626980,
       "dividend_yield": 0.0
     },
     "SON": {
       "price": 58.23,
       "volatility_30d": 0.3341,
       "beta": 0.444,
-      "volume": 1290086,
-      "dividend_yield": 0.0384
+      "volume": 1297713,
+      "dividend_yield": 0.0371
     },
     "SONY": {
       "price": 20.98,
       "volatility_30d": 0.2936,
       "beta": 0.844,
-      "volume": 4996854,
-      "dividend_yield": 0.77
+      "volume": 5007023,
+      "dividend_yield": 0.76
     },
     "SOXL": {
       "price": 136.81,
       "volatility_30d": 2.0128,
       "beta": 8.111,
-      "volume": 57815701,
+      "volume": 57905273,
       "dividend_yield": 0.0
     },
     "SOXX": {
       "price": 527.01,
       "volatility_30d": 0.6994,
       "beta": 2.76,
-      "volume": 9885096,
+      "volume": 9899356,
       "dividend_yield": 0.23
     },
     "SOYB": {
       "price": 26.28,
       "volatility_30d": 0.1437,
       "beta": -0.142,
-      "volume": 73804,
+      "volume": 73810,
       "dividend_yield": 0.0
     },
     "SPG": {
       "price": 229.78,
       "volatility_30d": 0.2233,
       "beta": 0.327,
-      "volume": 2278845,
-      "dividend_yield": 0.0391
+      "volume": 2279090,
+      "dividend_yield": 0.0383
     },
     "SPGI": {
       "price": 426.4,
       "volatility_30d": 0.4107,
       "beta": 0.341,
-      "volume": 2323576,
-      "dividend_yield": 0.92
+      "volume": 2334265,
+      "dividend_yield": 0.91
     },
     "SPOT": {
       "price": 482.66,
       "volatility_30d": 0.3366,
       "beta": 0.651,
-      "volume": 1683958,
+      "volume": 1688910,
       "dividend_yield": 0.0
     },
     "SPXL": {
       "price": 260.4,
       "volatility_30d": 0.4119,
       "beta": 2.994,
-      "volume": 1792411,
+      "volume": 1792583,
       "dividend_yield": 0.53
     },
     "SPY": {
       "price": 738.93,
       "volatility_30d": 0.1371,
       "beta": 0.998,
-      "volume": 53998383,
+      "volume": 54106543,
       "dividend_yield": 0.0101
     },
     "SPYD": {
       "price": 49.75,
       "volatility_30d": 0.1418,
       "beta": 0.176,
-      "volume": 1053373,
+      "volume": 1053413,
       "dividend_yield": 0.0426
     },
     "SQQQ": {
       "price": 44.79,
       "volatility_30d": 0.8202,
       "beta": -4.339,
-      "volume": 59926334,
+      "volume": 59940866,
       "dividend_yield": 0.1103
     },
     "STE": {
       "price": 214.07,
       "volatility_30d": 0.3115,
       "beta": 0.607,
-      "volume": 783415,
-      "dividend_yield": 0.012
+      "volume": 789493,
+      "dividend_yield": 0.0118
     },
     "STLA": {
       "price": 5.69,
       "volatility_30d": 0.4202,
       "beta": 1.101,
-      "volume": 18849427,
+      "volume": 18872936,
       "dividend_yield": 0.1058
     },
     "STLD": {
       "price": 247.11,
       "volatility_30d": 0.4271,
       "beta": 1.036,
-      "volume": 1331857,
-      "dividend_yield": 0.88
+      "volume": 1331943,
+      "dividend_yield": 0.86
     },
     "STT": {
       "price": 185.4,
       "volatility_30d": 0.24,
       "beta": 0.962,
-      "volume": 2739582,
-      "dividend_yield": 0.02
+      "volume": 2739583,
+      "dividend_yield": 0.0198
     },
     "STZ": {
       "price": 130.16,
       "volatility_30d": 0.3336,
       "beta": -0.069,
-      "volume": 2382094,
-      "dividend_yield": 0.0319
+      "volume": 2392660,
+      "dividend_yield": 0.0317
     },
     "SUI": {
       "price": 121.83,
       "volatility_30d": 0.2219,
       "beta": 0.013,
-      "volume": 1381210,
-      "dividend_yield": 0.036
+      "volume": 1387530,
+      "dividend_yield": 0.0355
     },
     "SYF": {
       "price": 72.9,
       "volatility_30d": 0.3964,
       "beta": 1.133,
-      "volume": 3932632,
-      "dividend_yield": 0.0189
+      "volume": 3932983,
+      "dividend_yield": 0.0187
     },
     "SYK": {
       "price": 330.25,
       "volatility_30d": 0.4152,
       "beta": 0.109,
-      "volume": 2596848,
-      "dividend_yield": 0.011
+      "volume": 2600566,
+      "dividend_yield": 0.0107
     },
     "T": {
       "price": 24.13,
       "volatility_30d": 0.3538,
       "beta": -0.536,
-      "volume": 81230640,
-      "dividend_yield": 0.0483
+      "volume": 81231726,
+      "dividend_yield": 0.046
     },
     "TAP": {
       "price": 40.95,
       "volatility_30d": 0.3366,
       "beta": -0.257,
-      "volume": 3182028,
-      "dividend_yield": 0.048
+      "volume": 3182030,
+      "dividend_yield": 0.0469
     },
     "TCEHY": {
-      "price": 55.6,
+      "price": 55.58,
       "volatility_30d": 0.4167,
       "beta": 0.926,
-      "volume": 3883623,
-      "dividend_yield": 0.0122
+      "volume": 3982570,
+      "dividend_yield": 0.0121
     },
     "TD": {
       "price": 119.78,
       "volatility_30d": 0.1865,
       "beta": 0.802,
-      "volume": 2863925,
-      "dividend_yield": 0.0265
+      "volume": 2897136,
+      "dividend_yield": 0.0263
     },
     "TDOC": {
       "price": 8.77,
       "volatility_30d": 0.5679,
       "beta": 1.334,
-      "volume": 4376728,
+      "volume": 4376783,
       "dividend_yield": 0.0
     },
     "TEAM": {
       "price": 86.88,
       "volatility_30d": 0.7286,
       "beta": 0.44,
-      "volume": 4114950,
+      "volume": 4114956,
       "dividend_yield": 0.0
     },
     "TECH": {
       "price": 71.6,
       "volatility_30d": 0.6351,
       "beta": 0.894,
-      "volume": 6475607,
+      "volume": 6475943,
       "dividend_yield": 0.45
     },
     "TEVA": {
       "price": 30.81,
       "volatility_30d": 0.3647,
       "beta": 0.836,
-      "volume": 5376016,
+      "volume": 5389266,
       "dividend_yield": 0.0
     },
     "TFC": {
       "price": 51.76,
       "volatility_30d": 0.3018,
       "beta": 0.648,
-      "volume": 10167228,
-      "dividend_yield": 0.0406
+      "volume": 10197746,
+      "dividend_yield": 0.0402
     },
     "TGT": {
       "price": 136.78,
       "volatility_30d": 0.376,
       "beta": 0.308,
-      "volume": 4456601,
-      "dividend_yield": 0.0345
+      "volume": 4477083,
+      "dividend_yield": 0.0339
     },
     "THD": {
       "price": 72.83,
       "volatility_30d": 0.2048,
       "beta": 1.182,
-      "volume": 48457,
+      "volume": 48456,
       "dividend_yield": 0.0352
     },
     "TJX": {
       "price": 154.22,
       "volatility_30d": 0.2421,
       "beta": 0.124,
-      "volume": 5686703,
-      "dividend_yield": 0.0125
+      "volume": 5728750,
+      "dividend_yield": 0.0124
     },
     "TLT": {
       "price": 83.25,
       "volatility_30d": 0.0889,
       "beta": 0.196,
-      "volume": 23711372,
+      "volume": 23733073,
       "dividend_yield": 0.0453
     },
     "TM": {
       "price": 177.42,
       "volatility_30d": 0.2587,
       "beta": 1.022,
-      "volume": 493399,
-      "dividend_yield": 0.0354
+      "volume": 494220,
+      "dividend_yield": 0.0353
     },
     "TMO": {
       "price": 568.26,
       "volatility_30d": 0.354,
       "beta": 0.697,
-      "volume": 2245097,
+      "volume": 2261636,
       "dividend_yield": 0.33
     },
     "TMUS": {
       "price": 180.09,
       "volatility_30d": 0.4821,
       "beta": -0.503,
-      "volume": 5750892,
-      "dividend_yield": 0.0239
+      "volume": 5753900,
+      "dividend_yield": 0.0227
     },
     "TPL": {
       "price": 419.44,
       "volatility_30d": 0.4078,
       "beta": 0.233,
-      "volume": 386206,
-      "dividend_yield": 0.56
+      "volume": 386210,
+      "dividend_yield": 0.57
     },
     "TPR": {
       "price": 142.6,
       "volatility_30d": 0.331,
       "beta": 1.308,
-      "volume": 2646546,
-      "dividend_yield": 0.0115
+      "volume": 2659873,
+      "dividend_yield": 0.0112
     },
     "TQQQ": {
       "price": 64.0,
       "volatility_30d": 0.8105,
       "beta": 4.316,
-      "volume": 68528031,
+      "volume": 68536156,
       "dividend_yield": 0.46
     },
     "TROW": {
       "price": 116.5,
       "volatility_30d": 0.2707,
       "beta": 0.904,
-      "volume": 2188603,
-      "dividend_yield": 0.0452
+      "volume": 2194200,
+      "dividend_yield": 0.0446
     },
     "TRU": {
       "price": 76.51,
       "volatility_30d": 0.4308,
       "beta": 0.942,
-      "volume": 2711944,
-      "dividend_yield": 0.68
+      "volume": 2728563,
+      "dividend_yield": 0.65
     },
     "TRV": {
       "price": 387.26,
       "volatility_30d": 0.3231,
       "beta": -0.237,
-      "volume": 2237786,
-      "dividend_yield": 0.0133
+      "volume": 2251953,
+      "dividend_yield": 0.0129
     },
     "TSLA": {
       "price": 313.03,
       "volatility_30d": 0.6737,
       "beta": 2.178,
-      "volume": 45061260,
+      "volume": 45074826,
       "dividend_yield": 0.0
     },
     "TSM": {
       "price": 403.41,
       "volatility_30d": 0.5486,
       "beta": 2.354,
-      "volume": 14700814,
-      "dividend_yield": 0.91
+      "volume": 14701380,
+      "dividend_yield": 0.94
     },
     "TT": {
       "price": 480.99,
       "volatility_30d": 0.3084,
       "beta": 1.201,
-      "volume": 1257965,
-      "dividend_yield": 0.88
+      "volume": 1264220,
+      "dividend_yield": 0.87
     },
     "TTD": {
       "price": 17.29,
       "volatility_30d": 0.4399,
       "beta": 0.783,
-      "volume": 17384001,
+      "volume": 17396690,
       "dividend_yield": 0.0
     },
     "TTWO": {
       "price": 231.65,
       "volatility_30d": 0.3451,
       "beta": 0.837,
-      "volume": 2518976,
+      "volume": 2523393,
       "dividend_yield": 0.0
     },
     "TUR": {
       "price": 39.16,
       "volatility_30d": 0.187,
       "beta": 0.971,
-      "volume": 137655,
+      "volume": 137656,
       "dividend_yield": 0.0216
     },
     "TXN": {
       "price": 279.58,
       "volatility_30d": 0.5784,
       "beta": 1.59,
-      "volume": 9387013,
-      "dividend_yield": 0.0199
+      "volume": 9389183,
+      "dividend_yield": 0.0203
     },
     "TXRH": {
       "price": 193.27,
       "volatility_30d": 0.3077,
       "beta": 0.356,
-      "volume": 1063828,
-      "dividend_yield": 0.0157
+      "volume": 1063830,
+      "dividend_yield": 0.0155
     },
     "TXT": {
       "price": 95.53,
       "volatility_30d": 0.2661,
       "beta": 0.638,
-      "volume": 1548326,
-      "dividend_yield": 0.09
+      "volume": 1554590,
+      "dividend_yield": 0.08
     },
     "U": {
       "price": 28.62,
       "volatility_30d": 0.4498,
       "beta": 2.049,
-      "volume": 6825468,
+      "volume": 6842983,
       "dividend_yield": 0.0
     },
     "UBER": {
       "price": 65.94,
       "volatility_30d": 0.429,
       "beta": 0.929,
-      "volume": 20189301,
+      "volume": 20199970,
       "dividend_yield": 0.0
     },
     "UBS": {
       "price": 51.74,
       "volatility_30d": 0.2779,
       "beta": 1.457,
-      "volume": 1885408,
+      "volume": 1889116,
       "dividend_yield": 0.0213
     },
     "UDR": {
       "price": 39.59,
       "volatility_30d": 0.2112,
       "beta": 0.224,
-      "volume": 3373597,
-      "dividend_yield": 0.0438
+      "volume": 3373596,
+      "dividend_yield": 0.0437
     },
     "UHS": {
       "price": 155.75,
       "volatility_30d": 0.3412,
       "beta": 0.105,
-      "volume": 890379,
-      "dividend_yield": 0.53
+      "volume": 901683,
+      "dividend_yield": 0.51
     },
     "UL": {
       "price": 60.94,
       "volatility_30d": 0.2357,
       "beta": 0.073,
-      "volume": 3781681,
-      "dividend_yield": 0.0378
+      "volume": 3786200,
+      "dividend_yield": 0.0374
     },
     "ULTA": {
       "price": 475.36,
       "volatility_30d": 0.309,
       "beta": 0.539,
-      "volume": 700452,
+      "volume": 700513,
       "dividend_yield": 0.0
+    },
+    "UNH": {
+      "price": 420.74,
+      "volatility_30d": 0.2541,
+      "beta": 0.372,
+      "volume": 6234243,
+      "dividend_yield": 0.0221
+    },
+    "UNP": {
+      "price": 307.32,
+      "volatility_30d": 0.2534,
+      "beta": 0.094,
+      "volume": 2943180,
+      "dividend_yield": 0.018
+    },
+    "UPRO": {
+      "price": 136.27,
+      "volatility_30d": 0.4085,
+      "beta": 2.99,
+      "volume": 2213636,
+      "dividend_yield": 0.76
+    },
+    "UPS": {
+      "price": 114.79,
+      "volatility_30d": 0.3196,
+      "beta": 0.894,
+      "volume": 4803650,
+      "dividend_yield": 0.0571
+    },
+    "UPST": {
+      "price": 26.93,
+      "volatility_30d": 0.5344,
+      "beta": 2.87,
+      "volume": 4134556,
+      "dividend_yield": 0.0
+    },
+    "URBN": {
+      "price": 69.97,
+      "volatility_30d": 0.4544,
+      "beta": 1.288,
+      "volume": 1216600,
+      "dividend_yield": 0.0
+    },
+    "USB": {
+      "price": 63.97,
+      "volatility_30d": 0.2231,
+      "beta": 0.641,
+      "volume": 9540150,
+      "dividend_yield": 0.0325
+    },
+    "V": {
+      "price": 355.74,
+      "volatility_30d": 0.2282,
+      "beta": 0.266,
+      "volume": 8640616,
+      "dividend_yield": 0.75
+    },
+    "VALE": {
+      "price": 14.79,
+      "volatility_30d": 0.3253,
+      "beta": 1.481,
+      "volume": 22648936,
+      "dividend_yield": 0.0851
+    },
+    "VBK": {
+      "price": 341.7,
+      "volatility_30d": 0.1953,
+      "beta": 1.399,
+      "volume": 240573,
+      "dividend_yield": 0.42
+    },
+    "VBR": {
+      "price": 244.24,
+      "volatility_30d": 0.1196,
+      "beta": 0.763,
+      "volume": 253130,
+      "dividend_yield": 0.0178
+    },
+    "VDC": {
+      "price": 227.32,
+      "volatility_30d": 0.1773,
+      "beta": -0.034,
+      "volume": 161716,
+      "dividend_yield": 0.0213
+    },
+    "VDE": {
+      "price": 168.23,
+      "volatility_30d": 0.2202,
+      "beta": -0.528,
+      "volume": 718350,
+      "dividend_yield": 0.0268
+    },
+    "VEA": {
+      "price": 69.71,
+      "volatility_30d": 0.2001,
+      "beta": 1.288,
+      "volume": 12164686,
+      "dividend_yield": 0.0254
+    },
+    "VIS": {
+      "price": 350.17,
+      "volatility_30d": 0.1907,
+      "beta": 1.066,
+      "volume": 89763,
+      "dividend_yield": 0.86
+    },
+    "VLO": {
+      "price": 302.5,
+      "volatility_30d": 0.4081,
+      "beta": -0.742,
+      "volume": 3191803,
+      "dividend_yield": 0.0159
+    },
+    "VRTX": {
+      "price": 477.36,
+      "volatility_30d": 0.3041,
+      "beta": 0.535,
+      "volume": 1793656,
+      "dividend_yield": 0.0
+    },
+    "VTEB": {
+      "price": 49.61,
+      "volatility_30d": 0.0292,
+      "beta": 0.104,
+      "volume": 6723583,
+      "dividend_yield": 0.0334
+    },
+    "VTR": {
+      "price": 100.53,
+      "volatility_30d": 0.2224,
+      "beta": -0.106,
+      "volume": 3833256,
+      "dividend_yield": 0.0199
+    },
+    "VTV": {
+      "price": 221.02,
+      "volatility_30d": 0.0995,
+      "beta": 0.548,
+      "volume": 3097746,
+      "dividend_yield": 0.0188
+    },
+    "VWO": {
+      "price": 57.8,
+      "volatility_30d": 0.2066,
+      "beta": 1.317,
+      "volume": 8837920,
+      "dividend_yield": 0.0232
+    },
+    "VXUS": {
+      "price": 83.4,
+      "volatility_30d": 0.197,
+      "beta": 1.299,
+      "volume": 5904963,
+      "dividend_yield": 0.0256
+    },
+    "VZ": {
+      "price": 46.38,
+      "volatility_30d": 0.3353,
+      "beta": -0.5,
+      "volume": 32458096,
+      "dividend_yield": 0.061
+    },
+    "WAB": {
+      "price": 302.5,
+      "volatility_30d": 0.3847,
+      "beta": 0.941,
+      "volume": 972033,
+      "dividend_yield": 0.42
+    },
+    "WAL": {
+      "price": 83.11,
+      "volatility_30d": 0.2911,
+      "beta": 1.213,
+      "volume": 1139223,
+      "dividend_yield": 0.0202
+    },
+    "WAT": {
+      "price": 374.68,
+      "volatility_30d": 0.2592,
+      "beta": 0.913,
+      "volume": 908903,
+      "dividend_yield": 0.0
+    },
+    "WBD": {
+      "price": 25.77,
+      "volatility_30d": 0.2196,
+      "beta": 0.408,
+      "volume": 23186093,
+      "dividend_yield": 0.0
+    },
+    "WBX": {
+      "price": 3.95,
+      "volatility_30d": 1.9627,
+      "beta": 1.215,
+      "volume": 341273,
+      "dividend_yield": 0.0
+    },
+    "WDAY": {
+      "price": 135.34,
+      "volatility_30d": 0.6034,
+      "beta": -0.062,
+      "volume": 4804180,
+      "dividend_yield": 0.0
+    },
+    "WEAT": {
+      "price": 25.22,
+      "volatility_30d": 0.2512,
+      "beta": -0.388,
+      "volume": 473890,
+      "dividend_yield": 0.0
+    },
+    "WEC": {
+      "price": 115.77,
+      "volatility_30d": 0.1835,
+      "beta": -0.189,
+      "volume": 2084966,
+      "dividend_yield": 0.0329
+    },
+    "WELL": {
+      "price": 252.07,
+      "volatility_30d": 0.2364,
+      "beta": -0.075,
+      "volume": 3354553,
+      "dividend_yield": 0.0117
+    },
+    "WERN": {
+      "price": 42.42,
+      "volatility_30d": 0.3826,
+      "beta": 0.875,
+      "volume": 1114663,
+      "dividend_yield": 0.0132
+    },
+    "WFC": {
+      "price": 86.31,
+      "volatility_30d": 0.2463,
+      "beta": 0.598,
+      "volume": 16482813,
+      "dividend_yield": 0.0209
+    },
+    "WMB": {
+      "price": 74.0,
+      "volatility_30d": 0.2519,
+      "beta": -0.114,
+      "volume": 7426663,
+      "dividend_yield": 0.0284
+    },
+    "WMT": {
+      "price": 109.47,
+      "volatility_30d": 0.2335,
+      "beta": -0.02,
+      "volume": 22466886,
+      "dividend_yield": 0.9
+    },
+    "WOOD": {
+      "price": 69.34,
+      "volatility_30d": 0.1874,
+      "beta": 0.829,
+      "volume": 11833,
+      "dividend_yield": 0.0254
+    },
+    "WTFC": {
+      "price": 158.66,
+      "volatility_30d": 0.208,
+      "beta": 0.669,
+      "volume": 657556,
+      "dividend_yield": 0.0139
+    },
+    "WTRG": {
+      "price": 39.61,
+      "volatility_30d": 0.2281,
+      "beta": -0.541,
+      "volume": 2159810,
+      "dividend_yield": 0.0346
+    },
+    "WTW": {
+      "price": 295.11,
+      "volatility_30d": 0.3001,
+      "beta": -0.373,
+      "volume": 608816,
+      "dividend_yield": 0.013
+    },
+    "XEL": {
+      "price": 81.67,
+      "volatility_30d": 0.1993,
+      "beta": -0.06,
+      "volume": 5568100,
+      "dividend_yield": 0.029
+    },
+    "XLB": {
+      "price": 51.26,
+      "volatility_30d": 0.2013,
+      "beta": 0.77,
+      "volume": 11327316,
+      "dividend_yield": 0.0167
+    },
+    "XLC": {
+      "price": 106.3,
+      "volatility_30d": 0.2071,
+      "beta": 0.683,
+      "volume": 7295916,
+      "dividend_yield": 0.0133
+    },
+    "XLE": {
+      "price": 59.62,
+      "volatility_30d": 0.2217,
+      "beta": -0.569,
+      "volume": 32559760,
+      "dividend_yield": 0.0285
+    },
+    "XLF": {
+      "price": 56.31,
+      "volatility_30d": 0.1333,
+      "beta": 0.558,
+      "volume": 35097220,
+      "dividend_yield": 0.0151
+    },
+    "XLI": {
+      "price": 182.66,
+      "volatility_30d": 0.183,
+      "beta": 0.951,
+      "volume": 7250543,
+      "dividend_yield": 0.0111
+    },
+    "XLP": {
+      "price": 84.13,
+      "volatility_30d": 0.1836,
+      "beta": -0.037,
+      "volume": 11323573,
+      "dividend_yield": 0.0264
+    },
+    "XLRE": {
+      "price": 45.95,
+      "volatility_30d": 0.1742,
+      "beta": 0.266,
+      "volume": 5060456,
+      "dividend_yield": 0.0319
+    },
+    "XLU": {
+      "price": 46.29,
+      "volatility_30d": 0.1498,
+      "beta": 0.025,
+      "volume": 19252623,
+      "dividend_yield": 0.0264
+    },
+    "XOM": {
+      "price": 156.94,
+      "volatility_30d": 0.2778,
+      "beta": -0.811,
+      "volume": 16979446,
+      "dividend_yield": 0.0263
+    },
+    "XPEV": {
+      "price": 12.33,
+      "volatility_30d": 0.4421,
+      "beta": 1.431,
+      "volume": 7485713,
+      "dividend_yield": 0.0
+    },
+    "XPO": {
+      "price": 213.01,
+      "volatility_30d": 0.3944,
+      "beta": 1.425,
+      "volume": 1251410,
+      "dividend_yield": 0.0
+    },
+    "XYL": {
+      "price": 119.75,
+      "volatility_30d": 0.2528,
+      "beta": 0.76,
+      "volume": 1941900,
+      "dividend_yield": 0.0144
+    },
+    "XYLD": {
+      "price": 40.76,
+      "volatility_30d": 0.0674,
+      "beta": 0.534,
+      "volume": 920050,
+      "dividend_yield": 0.0929
+    },
+    "YUM": {
+      "price": 148.92,
+      "volatility_30d": 0.2476,
+      "beta": 0.055,
+      "volume": 2689703,
+      "dividend_yield": 0.0201
+    },
+    "ZBH": {
+      "price": 91.35,
+      "volatility_30d": 0.3727,
+      "beta": 0.192,
+      "volume": 2260413,
+      "dividend_yield": 0.0105
+    },
+    "ZION": {
+      "price": 69.29,
+      "volatility_30d": 0.2457,
+      "beta": 0.698,
+      "volume": 1856606,
+      "dividend_yield": 0.026
+    },
+    "ZM": {
+      "price": 87.99,
+      "volatility_30d": 0.4029,
+      "beta": 0.81,
+      "volume": 3648706,
+      "dividend_yield": 0.0
+    },
+    "ZS": {
+      "price": 142.32,
+      "volatility_30d": 0.4751,
+      "beta": 0.752,
+      "volume": 3248573,
+      "dividend_yield": 0.0
+    },
+    "ZTS": {
+      "price": 75.35,
+      "volatility_30d": 0.2795,
+      "beta": 0.567,
+      "volume": 6630486,
+      "dividend_yield": 0.0281
     }
   }
 }
