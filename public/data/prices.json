@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-08-01T23:51:51+00:00",
-  "count": 846,
+  "updated_at": "2026-08-02T23:52:33+00:00",
+  "count": 826,
   "failed": [
     "086520.KS",
     "095610.KS",
@@ -16,6 +16,26 @@
     "333970.KS",
     "COW",
     "NUSI",
+    "SPGI",
+    "SPOT",
+    "SPXL",
+    "SPY",
+    "SPYD",
+    "SQQQ",
+    "SRE",
+    "STE",
+    "STLA",
+    "STLD",
+    "STT",
+    "STZ",
+    "SUI",
+    "SYF",
+    "SYK",
+    "T",
+    "TAP",
+    "TCEHY",
+    "TD",
+    "TDG",
     "TDOC",
     "TEAM",
     "TECH",
@@ -3065,7 +3085,7 @@
       "volatility_30d": 0.4024,
       "beta": -0.339,
       "volume": 1431190,
-      "dividend_yield": 0.97
+      "dividend_yield": 0.93
     },
     "CCI": {
       "price": 76.3,
@@ -3156,7 +3176,7 @@
       "volatility_30d": 0.2493,
       "beta": -0.031,
       "volume": 4951100,
-      "dividend_yield": 0.0231
+      "dividend_yield": 0.0232
     },
     "CLF": {
       "price": 11.52,
@@ -4696,7 +4716,7 @@
       "volatility_30d": 0.2583,
       "beta": -0.014,
       "volume": 2312600,
-      "dividend_yield": 0.0126
+      "dividend_yield": 0.0134
     },
     "LLY": {
       "price": 1148.84,
@@ -5914,146 +5934,6 @@
       "volatility_30d": 0.2165,
       "beta": 0.294,
       "volume": 2064803,
-      "dividend_yield": 0.0384
-    },
-    "SPGI": {
-      "price": 411.93,
-      "volatility_30d": 0.4066,
-      "beta": 0.319,
-      "volume": 2515068,
-      "dividend_yield": 0.94
-    },
-    "SPOT": {
-      "price": 499.94,
-      "volatility_30d": 0.3539,
-      "beta": 0.541,
-      "volume": 1725643,
-      "dividend_yield": 0.0
-    },
-    "SPXL": {
-      "price": 268.2,
-      "volatility_30d": 0.3908,
-      "beta": 2.999,
-      "volume": 1711883,
-      "dividend_yield": 0.53
-    },
-    "SPY": {
-      "price": 747.03,
-      "volatility_30d": 0.1295,
-      "beta": 1.0,
-      "volume": 51841993,
-      "dividend_yield": 0.0101
-    },
-    "SPYD": {
-      "price": 49.5,
-      "volatility_30d": 0.1319,
-      "beta": 0.153,
-      "volume": 1028083,
-      "dividend_yield": 0.0426
-    },
-    "SQQQ": {
-      "price": 43.73,
-      "volatility_30d": 0.7733,
-      "beta": -4.351,
-      "volume": 57434136,
-      "dividend_yield": 0.1103
-    },
-    "SRE": {
-      "price": 88.55,
-      "volatility_30d": 0.1864,
-      "beta": 0.026,
-      "volume": 3476463,
-      "dividend_yield": 0.0297
-    },
-    "STE": {
-      "price": 228.4,
-      "volatility_30d": 0.3414,
-      "beta": 0.522,
-      "volume": 796913,
-      "dividend_yield": 0.0113
-    },
-    "STLA": {
-      "price": 5.76,
-      "volatility_30d": 0.3793,
-      "beta": 0.933,
-      "volume": 20698383,
-      "dividend_yield": 0.1058
-    },
-    "STLD": {
-      "price": 251.26,
-      "volatility_30d": 0.4159,
-      "beta": 1.009,
-      "volume": 1347153,
-      "dividend_yield": 0.84
-    },
-    "STT": {
-      "price": 184.16,
-      "volatility_30d": 0.2776,
-      "beta": 1.031,
-      "volume": 2668006,
-      "dividend_yield": 0.02
-    },
-    "STZ": {
-      "price": 130.23,
-      "volatility_30d": 0.292,
-      "beta": -0.058,
-      "volume": 2436943,
-      "dividend_yield": 0.0316
-    },
-    "SUI": {
-      "price": 123.48,
-      "volatility_30d": 0.2479,
-      "beta": -0.075,
-      "volume": 1740466,
-      "dividend_yield": 0.035
-    },
-    "SYF": {
-      "price": 75.79,
-      "volatility_30d": 0.4103,
-      "beta": 1.169,
-      "volume": 4072380,
-      "dividend_yield": 0.0179
-    },
-    "SYK": {
-      "price": 325.7,
-      "volatility_30d": 0.4546,
-      "beta": 0.046,
-      "volume": 2655243,
-      "dividend_yield": 0.0108
-    },
-    "T": {
-      "price": 23.25,
-      "volatility_30d": 0.3559,
-      "beta": -0.474,
-      "volume": 84145746,
-      "dividend_yield": 0.0477
-    },
-    "TAP": {
-      "price": 41.56,
-      "volatility_30d": 0.3339,
-      "beta": -0.289,
-      "volume": 3312036,
-      "dividend_yield": 0.0462
-    },
-    "TCEHY": {
-      "price": 61.43,
-      "volatility_30d": 0.4228,
-      "beta": 0.868,
-      "volume": 4085426,
-      "dividend_yield": 0.011
-    },
-    "TD": {
-      "price": 119.92,
-      "volatility_30d": 0.2108,
-      "beta": 0.83,
-      "volume": 2902396,
-      "dividend_yield": 0.0263
-    },
-    "TDG": {
-      "price": 1254.38,
-      "volatility_30d": 0.2877,
-      "beta": 0.959,
-      "volume": 375486,
       "dividend_yield": 0.0
     }
   }
