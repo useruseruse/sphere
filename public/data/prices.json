@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24T01:02:01+00:00",
+  "updated_at": "2026-09-25T01:02:59+00:00",
   "count": 322,
   "failed": [
     "086520.KS",
@@ -892,7 +892,7 @@
     },
     "006490.KS": {
       "price": 1355.0,
-      "volatility_30d": 2.4753,
+      "volatility_30d": 1.5524,
       "beta": 1.0,
       "volume": 153223,
       "dividend_yield": 0.0
@@ -2886,32 +2886,32 @@
       "dividend_yield": 0.0
     },
     "NSANY": {
-      "price": 3.98,
-      "volatility_30d": 0.3023,
-      "beta": 1.166,
-      "volume": 168288,
+      "price": 3.85,
+      "volatility_30d": 0.314,
+      "beta": 1.164,
+      "volume": 171341,
       "dividend_yield": 0.0
     },
     "RHHBY": {
-      "price": 55.03,
-      "volatility_30d": 0.2944,
-      "beta": 0.373,
-      "volume": 2007959,
-      "dividend_yield": 0.0278
+      "price": 54.82,
+      "volatility_30d": 0.292,
+      "beta": 0.366,
+      "volume": 1984130,
+      "dividend_yield": 0.0281
     },
     "SBNY": {
       "price": 0.3,
-      "volatility_30d": 3.0054,
-      "beta": -1.21,
-      "volume": 314766,
+      "volatility_30d": 2.8288,
+      "beta": -1.199,
+      "volume": 14756,
       "dividend_yield": 0.0251
     },
     "TCEHY": {
-      "price": 55.91,
-      "volatility_30d": 0.3015,
-      "beta": 0.77,
-      "volume": 3191958,
-      "dividend_yield": 0.0117
+      "price": 55.49,
+      "volatility_30d": 0.2887,
+      "beta": 0.777,
+      "volume": 3228329,
+      "dividend_yield": 0.0121
     }
   }
 }
